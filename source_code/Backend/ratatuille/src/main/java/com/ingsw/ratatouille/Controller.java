@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ingsw.ratatouille.DatabaseConnection;
 import com.ingsw.DAOimplements.UserDAOimp;
+import com.ingsw.DAOimplements.UserDAOimp2;
 import com.ingsw.DAOinterface.UserDAOint;
 
 
 @RestController
 public class Controller {
 	DatabaseConnection db = new DatabaseConnection();
-	UserDAOint userDao = new UserDAOimp(db);
+	UserDAOint userDao = new UserDAOimp2();
 
 	@GetMapping("/user")
 	public ArrayList<User> getUser(){
