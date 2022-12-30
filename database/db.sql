@@ -57,45 +57,45 @@ CREATE TABLE prodotto(
 );
 
 CREATE TABLE avviso (
-    id_avviso SERIAL PRIMARY KEY,
-    testo varchar(300) NOT NULL,
-    autore varchar(30) NOT NULL,
-    data_ora timestamp NOT NULL
+    	id_avviso SERIAL PRIMARY KEY,
+    	testo varchar(300) NOT NULL,
+    	autore varchar(30) NOT NULL,
+    	data_ora timestamp NOT NULL
 );
 
 CREATE TABLE nascosto_visualizzato (
-    id_avviso integer,
-    id_user_who_hidden integer,
-    id_user_who_viewed int,
-    FOREIGN KEY (id_avviso) REFERENCES avviso(id_avviso),
-    FOREIGN KEY (id_user_who_hidden) REFERENCES utente(id_utente),
-    FOREIGN KEY (id_user_who_viewed) REFERENCES utente(id_utente)
+    	id_avviso integer,
+    	id_user_who_hidden integer,
+    	id_user_who_viewed int,
+   	FOREIGN KEY (id_avviso) REFERENCES avviso(id_avviso),
+   	FOREIGN KEY (id_user_who_hidden) REFERENCES utente(id_utente),
+   	FOREIGN KEY (id_user_who_viewed) REFERENCES utente(id_utente)
 );
 
 CREATE TABLE categoria (
-    id_categoria serial PRIMARY KEY,
-    nome varchar(15) NOT NULL
+   	id_categoria serial PRIMARY KEY,
+  	nome varchar(15) NOT NULL
+	name varchar(30),
 );
 
 CREATE TABLE piatto (
 	id_piatto SERIAL PRIMARY KEY,
-    nome varchar(30) NOT NULL,
-    descrizione varchar(100),
-    costo real NOT NULL,
-    allergeni varchar(100),
-    id_categoria integer NOT NULL,
-    name varchar(30),
-    description varchar(100),
-    price real NOT NULL,
-    allergens varchar(100),
-    category varchar(30),
-    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
+	nome varchar(30) NOT NULL,
+	descrizione varchar(100),
+	costo real NOT NULL,
+	allergeni varchar(100),
+	id_categoria integer NOT NULL,
+	name varchar(30),
+ 	description varchar(100),
+    	allergens varchar(100),
+    	
+    	FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 );
 
 CREATE TABLE menu (
-    id_menu integer,
-    id_categoria integer,
-    id_piatto integer,
-    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
-    FOREIGN KEY (id_piatto) REFERENCES piatto(id_piatto)
+    	id_menu integer,
+   	id_categoria integer,
+   	id_piatto integer,
+   	FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
+   	FOREIGN KEY (id_piatto) REFERENCES piatto(id_piatto)
 );
