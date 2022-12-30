@@ -1,4 +1,4 @@
-package com.ingsw.ratatuille;
+package com.ingsw.ratatouille;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
