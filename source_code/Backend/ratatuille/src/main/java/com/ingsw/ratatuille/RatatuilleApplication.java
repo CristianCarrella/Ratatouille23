@@ -10,4 +10,5 @@ public class RatatuilleApplication {
 		SpringApplication.run(RatatuilleApplication.class, args);
 	}
 
+	
 }
