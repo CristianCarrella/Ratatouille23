@@ -18,7 +18,7 @@ CREATE TABLE utente(
 	ruolo varchar(20) NOT NULL,
 	data_nascita varchar(20) NOT NULL,
 	isFirstAccess boolean NOT NULL,
-	aggiuntoda integer NOT NULL,
+	aggiuntoda integer,
 	data_aggiunta varchar(20) NOT NULL,
 	id_attivita integer,
 	FOREIGN KEY (id_attivita) REFERENCES attivita (id_attivita)
@@ -75,7 +75,6 @@ CREATE TABLE nascosto_visualizzato (
 CREATE TABLE categoria (
    	id_categoria serial PRIMARY KEY,
   	nome varchar(15) NOT NULL
-	name varchar(30),
 );
 
 CREATE TABLE piatto (
@@ -88,14 +87,15 @@ CREATE TABLE piatto (
 	name varchar(30),
  	description varchar(100),
     	allergens varchar(100),
-    	
     	FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 );
 
 CREATE TABLE menu (
+	id_attivita integer,
     	id_menu integer,
    	id_categoria integer,
    	id_piatto integer,
    	FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
+	FOREIGN KEY (id_attivita) REFERENCES attivita(id_attivita),
    	FOREIGN KEY (id_piatto) REFERENCES piatto(id_piatto)
 );
