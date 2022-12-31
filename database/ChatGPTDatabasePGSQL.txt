@@ -32,7 +32,6 @@ CREATE TABLE avvisi(
 	id_utente INTEGER NOT NULL,
 	id_ristorante INTEGER NOT NULL,
 	testo VARCHAR(200) NOT NULL,
-	autore VARCHAR(50) NOT NULL,
 	data_ora TIMESTAMP NOT NULL,
 	FOREIGN KEY(id_utente) REFERENCES utente(id),
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id)
