@@ -4,6 +4,7 @@ CREATE TABLE ristorante(
 	telefono VARCHAR(30),
 	indirizzo VARCHAR(30),
 	logo BYTEA,
+	nome_immagine VARCHAR(30),
 	id_proprietario INTEGER NOT NULL,
 	FOREIGN KEY(id_proprietario) REFERENCES utente(id)
 );
@@ -51,16 +52,13 @@ CREATE TABLE cronologia_nascosti_avvisi(
 	FOREIGN KEY(id_utente) REFERENCES utente(id)
 );
 
-CREATE TYPE categoria_p AS ENUM ('frutta', 'verdura', 'carne', 'pesce', 'uova', 'latte_e_derivati', 'cereali_e_derivati', 'legumi', 'condimento', 'altro');
-
 CREATE TABLE dispensa(
 	id SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
-	nome VARCHAR(30) NOT NULL,
-	categoria_prodotti CATEGORIA_P NOT NULL,
-	stato BOOLEAN NOT NULL,
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id)
 );
+
+CREATE TYPE categoria_p AS ENUM ('frutta', 'verdura', 'carne', 'pesce', 'uova', 'latte_e_derivati', 'cereali_e_derivati', 'legumi', 'condimento', 'altro');
 
 CREATE TYPE unita_di_misura AS ENUM ('kg', 'litri');
 
@@ -68,6 +66,7 @@ CREATE TYPE unita_di_misura AS ENUM ('kg', 'litri');
 CREATE TABLE prodotti(
 	id SERIAL PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
+	stato INTEGER NOT NULL,
 	descrizione VARCHAR(200) NOT NULL,
 	prezzo REAL NOT NULL,
 	quantita REAL NOT NULL,
