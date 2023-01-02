@@ -1,4 +1,0 @@
-1. Vogliamo usare AWS(1), Azure(2) o HomeServer? 			(1)
-2. Se usiamo (1) o (2), utilizziamo qualche servizio loro?		
-3. Che design pattern vogliamo usare?					
-4. REST-API? JWT?							

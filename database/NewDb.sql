@@ -1,5 +1,5 @@
 CREATE TABLE ristorante(
-	id SERIAL PRIMARY KEY,
+	id_ristorante SERIAL PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	telefono VARCHAR(30),
 	indirizzo VARCHAR(30),
@@ -12,7 +12,7 @@ CREATE TABLE ristorante(
 CREATE TYPE role AS ENUM ('amministratore', 'supervisore', 'addetto_sala', 'addetto_cucina');
 
 CREATE TABLE utente(
-	id SERIAL PRIMARY KEY,
+	id_utente SERIAL PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	cognome VARCHAR(30) NOT NULL,
 	data_nascita DATE NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE utente(
 
 
 CREATE TABLE avvisi(
-	id SERIAL PRIMARY KEY,
+	id_avvisi SERIAL PRIMARY KEY,
 	id_utente INTEGER NOT NULL,
 	id_ristorante INTEGER NOT NULL,
 	testo VARCHAR(200) NOT NULL,
@@ -51,11 +51,6 @@ CREATE TABLE cronologia_nascosti_avvisi(
 	FOREIGN KEY(id_utente) REFERENCES utente(id)
 );
 
-CREATE TABLE dispensa(
-	id SERIAL PRIMARY KEY,
-	id_ristorante INTEGER NOT NULL,
-	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id)
-);
 
 CREATE TYPE categoria_p AS ENUM ('frutta', 'verdura', 'carne', 'pesce', 'uova', 'latte_e_derivati', 'cereali_e_derivati', 'legumi', 'condimento', 'altro');
 
@@ -63,27 +58,27 @@ CREATE TYPE unita_di_misura AS ENUM ('kg', 'litri');
 
 
 CREATE TABLE prodotti(
-	id SERIAL PRIMARY KEY,
+	id_prodotti SERIAL PRIMARY KEY,
+	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	stato INTEGER NOT NULL,
 	descrizione VARCHAR(200) NOT NULL,
 	prezzo REAL NOT NULL,
 	quantita REAL NOT NULL,
-	unità_misura UNITA_DI_MISURA,
-	caregoria_prodotti CATEGORIA_P NOT NULL,
-	id_dispensa INTEGER NOT NULL,
-	FOREIGN KEY(id_dispensa) REFERENCES dispensa(id),
+	unita_misura UNITA_DI_MISURA,
+	categoria_prodotti CATEGORIA_P NOT NULL,
+	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id),
 );
 
 CREATE TABLE categorie_menu(
-	id SERIAL PRIMARY KEY,
+	id_categorie SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id),
 );
 
 CREATE TABLE elementi_menu(
-	id SERIAL PRIMARY KEY,
+	id_elementi SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
 	id_categoria INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
