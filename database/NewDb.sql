@@ -5,7 +5,7 @@ CREATE TABLE ristorante(
 	indirizzo VARCHAR(50),
 	logo BYTEA,
 	nome_immagine VARCHAR(30),
-	id_proprietario INTEGER NOT NULL
+	id_proprietario INTEGER
 );
 
 CREATE TYPE role AS ENUM ('admin', 'supervisore', 'addetto_sala', 'addetto_cucina');
@@ -38,6 +38,7 @@ CREATE TABLE avviso(
 CREATE TABLE cronologia_lettura_avviso(
 	id_utente INTEGER NOT NULL,
 	id_avviso INTEGER NOT NULL,
+	data_lettura DATE NOT NULL,
 	FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
 	FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
 );
@@ -45,6 +46,7 @@ CREATE TABLE cronologia_lettura_avviso(
 CREATE TABLE cronologia_nascosti_avviso(
 	id_utente INTEGER NOT NULL,
 	id_avviso INTEGER NOT NULL,
+	data_nascosto DATE NOT NULL,
 	FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
 	FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
 );

@@ -40,27 +40,46 @@ public class UserDAOimp implements UserDAOint {
 		String query = "";
 		
 		try {
-			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + dataNascita + "', '" + password + "', '" + email + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");";
+			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + dataNascita + "', '" + email + "', '" + password + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");";
 			System.out.println(query);
 			db.getStatement().executeUpdate(query);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return null;
 		}
 		User newUser = new User(nome, cognome, email, password, dataNascita);
 		return newUser;
 	}
 	
-	public User createEmployee() {
-		return null;
-	}
-
-
-	@Override
-	public void createEmployee(String nome, String cognome, String email, String dataNascita, String ruolo,
-			int idRistorante) {
-		// TODO Auto-generated method stub
+	
+	public User createEmployee(String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, User loggedUser) {
+				
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+		LocalDateTime now = LocalDateTime.now();
+		System.out.println(nome+cognome+passwordTemporanea+email+dataNascita+ruolo+loggedUser);
+		int idUtenteCreato = 0;
+		String query = "";
 		
+		try {
+			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "false, " + loggedUser.getId_utente() + ", '" + now + "', " + loggedUser.getId_ristorante() + ");";
+			db.getStatement().executeUpdate(query);
+			
+			query = "SELECT id_utente FROM utente WHERE email = '" + email + "';";
+			System.out.println(query);
+			db.getStatement().executeQuery(query);
+			ResultSet rs = db.getStatement().executeQuery(query);
+			
+			while(rs.next()) {
+				idUtenteCreato = rs.getInt("id_utente");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		
+		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, loggedUser.getId_utente(), now.toString(), loggedUser.getId_ristorante());
+		return newUser;
 	}
 
 
@@ -95,6 +114,21 @@ public class UserDAOimp implements UserDAOint {
 			u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
 		}
 		return u;
+	}
+
+
+	@Override
+	public User verifyEmployee(String nome, String cognome, String email, String dataNascita) {
+		String query = null;
+		User u = null;
+		try {
+			query = "SELECT * FROM utente WHERE email = '" + email + "' AND nome = '" + nome + "' AND cognome = '" + cognome + "' AND data_nascita = '" + dataNascita + "';";
+			ResultSet rs = db.getStatement().executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 }

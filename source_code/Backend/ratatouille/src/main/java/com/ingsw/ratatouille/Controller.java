@@ -24,6 +24,7 @@ import com.ingsw.DAOinterface.UserDAOint;
 public class Controller {
 	DatabaseConnection db = new DatabaseConnection();
 	UserDAOint userDao = new UserDAOimp(db);
+	User loggedUser = null;
 
 	@GetMapping("/user")
 	public ArrayList<User> getUser(@RequestParam(required = false) Integer id_ristorante){
@@ -40,17 +41,23 @@ public class Controller {
 	}
 	
 	@PostMapping("/signup/admin")
-    public void createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
+    public User createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
 		try {
-			userDao.createAdmin(nome, cognome, email, password, dataNascita, idRistorante);
+			return userDao.createAdmin(nome, cognome, email, password, dataNascita, idRistorante);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	@PostMapping("/signup/newEmployee")
+    public User createUser(@RequestParam (required = true) String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo) {
+		return userDao.createEmployee(nome, cognome, passwordTemporanea, email, dataNascita, ruolo, loggedUser);
 	}
 	
 	@PostMapping("/signup/employee")
-    public void createUser(@RequestParam (required = true) String nome, String cognome, String email, String dataNascita, String ruolo, int idRistorante) {
-		userDao.createEmployee(nome, cognome, email, dataNascita, ruolo, idRistorante);
+    public User verifyUser(@RequestParam (required = true) String nome, String cognome, String email, String dataNascita) {
+		return userDao.verifyEmployee(nome, cognome, email, dataNascita);
 	}
 
 	
@@ -68,7 +75,8 @@ public class Controller {
 	@PostMapping("/login")
 	public User checkLogin(@RequestParam(required = true) String email, String password){
 		try {
-			return userDao.login(email, password);
+			loggedUser = userDao.login(email, password);
+			return loggedUser;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

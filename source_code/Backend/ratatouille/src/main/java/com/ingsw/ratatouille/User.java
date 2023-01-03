@@ -24,16 +24,9 @@ public class User {
 		this.data_aggiunta = dataAggiunta;
 		this.id_ristorante = idRistorante;
 	}	
-	
 
-	public User(String nome, String cognome, String email2, String password2, String dataNascita2) {
-		this.setNome(nome);
-		this.setCognome(cognome);
-		this.setEmail(email2);
-		this.setPassword(password2);
-		this.setData_nascita(dataNascita2);		
-	}
-	
+
+
 	public int getId_utente() {
 		return id_utente;
 	}
