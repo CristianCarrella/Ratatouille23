@@ -9,16 +9,17 @@ CREATE TABLE ristorante(
 );
 
 CREATE TYPE role AS ENUM ('admin', 'supervisore', 'addetto_sala', 'addetto_cucina');
+
 CREATE TABLE utente(
 	id_utente SERIAL PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	cognome VARCHAR(30) NOT NULL,
 	data_nascita DATE NOT NULL,
-	email VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL UNIQUE,
 	password VARCHAR(30) NOT NULL,
 	ruolo ROLE NOT NULL,
 	isFirstAccess BOOLEAN NOT NULL,
-	aggiunto_da VARCHAR(50),
+	aggiunto_da Integer,
 	data_aggiunta DATE,
 	id_ristorante INTEGER NOT NULL,
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)

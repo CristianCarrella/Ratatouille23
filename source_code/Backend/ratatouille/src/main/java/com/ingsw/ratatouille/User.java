@@ -11,6 +11,7 @@ public class User {
 		this.surname = "";
 		this.email = "";
 		this.password = "";
+		this.dataNascita = "";
 		
 	}
 	
@@ -18,6 +19,38 @@ public class User {
 		this.id = id;
 		this.surname = surname;
 		this.name = name;
+	}
+
+	public User(String nome, String cognome, String email2, String password2, String dataNascita2) {
+		this.setName(nome);
+		this.setSurname(cognome);
+		this.setEmail(email2);
+		this.setPassword(password2);
+		this.setDataNascita(dataNascita2);		
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setDataNascita(String dataNascita) {
+		this.dataNascita = dataNascita;
+	}
+	
+	public String getPassword() {
+		return password;
 	}
 
 	public int getId() {
@@ -33,7 +66,11 @@ public class User {
 	}
 	
 	public String getEmail() {
+<<<<<<< Updated upstream
 		return email;
+=======
+		return email;		
+>>>>>>> Stashed changes
 	}
 	
 	public String getMobileNumber() {
