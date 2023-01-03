@@ -1,100 +1,124 @@
 package com.ingsw.ratatouille;
 
 public class User {
-	private String name, surname, email, password, mobileNumber, role, dataNascita, aggiuntoDa, dataAggiunta;
-	private int id;
+	// same order of database columns
+	private int id_utente;
+	private String nome, cognome, data_nascita, email, password, ruolo; 
 	private boolean isFirstAccess;
+	private int aggiunto_da;
+	private String data_aggiunta;
+	private int id_ristorante;
 		
-	public User(){
-		this.id = 0;
-		this.name = "";
-		this.surname = "";
-		this.email = "";
-		this.password = "";
-		this.dataNascita = "";
-		
-	}
+	public User(){}
 	
-	public User(int id, String name, String surname){
-		this.id = id;
-		this.surname = surname;
-		this.name = name;
-	}
+	public User(int id, String nome, String cognome, String dataNascita, String email, String password, String ruolo, boolean isFirstAccess, int aggiuntoDa, String dataAggiunta, int idRistorante){
+		this.id_utente = id;
+		this.cognome = cognome;
+		this.nome = nome;
+		this.data_nascita = dataNascita;
+		this.email = email;
+		this.password = password;
+		this.ruolo = ruolo;
+		this.isFirstAccess = isFirstAccess;
+		this.aggiunto_da = aggiuntoDa;
+		this.data_aggiunta = dataAggiunta;
+		this.id_ristorante = idRistorante;
+	}	
+	
 
 	public User(String nome, String cognome, String email2, String password2, String dataNascita2) {
-		this.setName(nome);
-		this.setSurname(cognome);
+		this.setNome(nome);
+		this.setCognome(cognome);
 		this.setEmail(email2);
 		this.setPassword(password2);
-		this.setDataNascita(dataNascita2);		
+		this.setData_nascita(dataNascita2);		
+	}
+	
+	public int getId_utente() {
+		return id_utente;
+	}
+	
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public String getData_nascita() {
+		return data_nascita;
+	}
+
+	public void setData_nascita(String data_nascita) {
+		this.data_nascita = data_nascita;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setDataNascita(String dataNascita) {
-		this.dataNascita = dataNascita;
-	}
-	
 	public String getPassword() {
 		return password;
 	}
 
-	public int getId() {
-		return id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public String getSurname() {
-		return surname;
-	}
-	
-	public String getEmail() {
-<<<<<<< Updated upstream
-		return email;
-=======
-		return email;		
->>>>>>> Stashed changes
-	}
-	
-	public String getMobileNumber() {
-		return mobileNumber;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	public String getRuolo() {
+		return ruolo;
 	}
 
-	public String getDataNascita() {
-		return dataNascita;
-	}
-
-	public String getAggiuntoDa() {
-		return aggiuntoDa;
-	}
-
-	public String getDataAggiunta() {
-		return dataAggiunta;
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
 	}
 
 	public boolean isFirstAccess() {
 		return isFirstAccess;
 	}
+
+	public void setFirstAccess(boolean isFirstAccess) {
+		this.isFirstAccess = isFirstAccess;
+	}
+
+	public int getAggiunto_da() {
+		return aggiunto_da;
+	}
+
+	public void setAggiunto_da(int aggiunto_da) {
+		this.aggiunto_da = aggiunto_da;
+	}
+
+	public String getData_aggiunta() {
+		return data_aggiunta;
+	}
+
+	public void setData_aggiunta(String data_aggiunta) {
+		this.data_aggiunta = data_aggiunta;
+	}
+
+	public int getId_ristorante() {
+		return id_ristorante;
+	}
+
+	public void setId_ristorante(int id_ristorante) {
+		this.id_ristorante = id_ristorante;
+	}
+
+
+
 }
 

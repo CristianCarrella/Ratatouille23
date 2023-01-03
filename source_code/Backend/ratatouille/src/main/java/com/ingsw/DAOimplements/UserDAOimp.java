@@ -24,11 +24,12 @@ public class UserDAOimp implements UserDAOint {
 		String query = "SELECT * FROM utente";
 		ResultSet rs = db.getStatement().executeQuery(query);
 		while(rs.next()) {
-			User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("data_nascita"));
+			User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
 			users.add(u);
 		}
 		return users;
 	}
+	
 	
 	@Override
 	public User createAdmin(String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
@@ -61,5 +62,40 @@ public class UserDAOimp implements UserDAOint {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	public ArrayList<User> getUserOfResturant(int id_ristorante) throws SQLException {
+		ArrayList<User> users = new ArrayList<User>();
+		String query = "SELECT * FROM utente WHERE id_ristorante = " + id_ristorante;
+		ResultSet rs = db.getStatement().executeQuery(query);
+		while(rs.next()) {
+			User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+			users.add(u);
+		}
+		return users;
+	}
+
+	@Override
+	public User getUserById(Integer id_utente) throws SQLException {
+		User u = null;
+		String query = "SELECT * FROM utente WHERE id_utente = " + id_utente;
+		ResultSet rs = db.getStatement().executeQuery(query);
+		while(rs.next()) {
+			u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+		}
+		return u;
+	}
+
+	@Override
+	public User login(String email, String password) throws SQLException {
+		User u = null;
+		String query = "SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + password + "'";
+		ResultSet rs = db.getStatement().executeQuery(query);
+		while(rs.next()) {
+			u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+		}
+		return u;
+	}
+	
 }
 

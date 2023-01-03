@@ -9,7 +9,7 @@ import java.util.Properties;
 public class DatabaseConnection {
 	Connection connection;
 	Statement statement;
-	//da fare singleton
+	//da fare singleton 
 	DatabaseConnection(){
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -41,8 +41,9 @@ public class DatabaseConnection {
         	e.printStackTrace();
             System.out.print("not connected/n");
         }
-
-
+    
+	}
+	
     public Connection getConnection() {
         return connection;
     }
@@ -50,5 +51,4 @@ public class DatabaseConnection {
     public Statement getStatement() {
         return statement;
     }
-    
 }

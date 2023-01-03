@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ingsw.ratatouille.DatabaseConnection;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.ingsw.DAOimplements.UserDAOimp;
 import com.ingsw.DAOinterface.UserDAOint;
 
@@ -21,9 +26,13 @@ public class Controller {
 	UserDAOint userDao = new UserDAOimp(db);
 
 	@GetMapping("/user")
-	public ArrayList<User> getUser(){
+	public ArrayList<User> getUser(@RequestParam(required = false) Integer id_ristorante){
 		try {
-			return userDao.getUser();
+			if(id_ristorante == null) 
+				return userDao.getUser();
+			else {
+				return userDao.getUserOfResturant(id_ristorante);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,5 +52,30 @@ public class Controller {
     public void createUser(@RequestParam (required = true) String nome, String cognome, String email, String dataNascita, String ruolo, int idRistorante) {
 		userDao.createEmployee(nome, cognome, email, dataNascita, ruolo, idRistorante);
 	}
+
+	
+	@GetMapping("/user/{id}")
+	public User getUserById(@PathVariable Integer id){
+		try {
+			return userDao.getUserById(id);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	@PostMapping("/login")
+	public User checkLogin(@RequestParam(required = true) String email, String password){
+		try {
+			return userDao.login(email, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+
 	
 }
