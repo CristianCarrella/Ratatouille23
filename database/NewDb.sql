@@ -52,7 +52,7 @@ CREATE TABLE cronologia_nascosti_avviso(
 
 CREATE TYPE categoria_p AS ENUM ('frutta', 'verdura', 'carne', 'pesce', 'uova', 'latte_e_derivati', 'cereali_e_derivati', 'legumi', 'altro');
 
-CREATE TYPE unita_di_misura AS ENUM ('kg', 'litri');
+CREATE TYPE unita_di_misura AS ENUM ('kg', 'lt');
 
 
 CREATE TABLE prodotto(
