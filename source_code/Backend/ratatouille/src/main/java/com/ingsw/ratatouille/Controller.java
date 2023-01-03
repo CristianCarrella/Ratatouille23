@@ -16,7 +16,9 @@ import com.ingsw.ratatouille.DatabaseConnection;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import com.ingsw.DAOimplements.AvvisoDAOimp;
 import com.ingsw.DAOimplements.UserDAOimp;
+import com.ingsw.DAOinterface.AvvisoDAOint;
 import com.ingsw.DAOinterface.UserDAOint;
 
 
@@ -25,6 +27,7 @@ public class Controller {
 	DatabaseConnection db = new DatabaseConnection();
 	UserDAOint userDao = new UserDAOimp(db);
 	User loggedUser = null;
+	AvvisoDAOint avvisoDao = new AvvisoDAOimp(db);
 
 	@GetMapping("/user")
 	public ArrayList<User> getUser(@RequestParam(required = false) Integer id_ristorante){
@@ -82,8 +85,53 @@ public class Controller {
 		}
 		return null;
 	}
+	
+	
+	@GetMapping("/avvisi")
+	public ArrayList<Avviso> getAvvisi(@RequestParam(required = false) Integer id_ristorante){
+		try {
+			if(id_ristorante == null) 
+				return avvisoDao.getAvvisi();
+			else {
+				return avvisoDao.getAvvisiOfResturant(id_ristorante);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}		
 
+	@GetMapping("/avvisi-hidden/{id_user}")
+	public ArrayList<AvvisoNascostoVisto> getAvvisiHidden(@PathVariable Integer id_user){
+		try {
+			return avvisoDao.getAvvisiHiddenOf(id_user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	//richiesta post di quando clicco per leggere o nascondere
 
+	@GetMapping("/avvisi-viewed/{id_user}")
+	public ArrayList<AvvisoNascostoVisto> getAvvisiViewed(@PathVariable Integer id_user){
+		try {
+			return avvisoDao.getAvvisiViewedOf(id_user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@PostMapping("/avviso/segna-come-letto/{id_avviso}")
+	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso) {
+		try {
+			return avvisoDao.setAvvisoViewed(id_avviso);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	
 }

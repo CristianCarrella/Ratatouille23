@@ -46,6 +46,7 @@ public class UserDAOimp implements UserDAOint {
 		} catch (SQLException e) {
 			return null;
 		}
+		
 		User newUser = new User(nome, cognome, email, password, dataNascita);
 		return newUser;
 	}
@@ -81,7 +82,6 @@ public class UserDAOimp implements UserDAOint {
 		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, loggedUser.getId_utente(), now.toString(), loggedUser.getId_ristorante());
 		return newUser;
 	}
-
 
 	public ArrayList<User> getUserOfResturant(int id_ristorante) throws SQLException {
 		ArrayList<User> users = new ArrayList<User>();

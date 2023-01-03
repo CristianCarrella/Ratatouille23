@@ -36,6 +36,7 @@ CREATE TABLE avviso(
 );
 
 CREATE TABLE cronologia_lettura_avviso(
+<<<<<<< Updated upstream
 	id_utente INTEGER NOT NULL,
 	id_avviso INTEGER NOT NULL,
 	data_lettura DATE NOT NULL,
@@ -49,6 +50,21 @@ CREATE TABLE cronologia_nascosti_avviso(
 	data_nascosto DATE NOT NULL,
 	FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
 	FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
+=======
+    id_utente INTEGER NOT NULL,
+    id_avviso INTEGER NOT NULL,
+    data_lettura DATE NOT NULL,
+    FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
+    FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
+);
+
+CREATE TABLE cronologia_nascosti_avviso(
+    id_utente INTEGER NOT NULL,
+    id_avviso INTEGER NOT NULL,
+    data_nascosto DATE NOT NULL,
+    FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
+    FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
+>>>>>>> Stashed changes
 );
 
 
