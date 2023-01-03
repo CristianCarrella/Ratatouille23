@@ -2,15 +2,13 @@ CREATE TABLE ristorante(
 	id_ristorante SERIAL PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	telefono VARCHAR(30),
-	indirizzo VARCHAR(30),
+	indirizzo VARCHAR(50),
 	logo BYTEA,
 	nome_immagine VARCHAR(30),
-	id_proprietario INTEGER NOT NULL,
-	FOREIGN KEY(id_proprietario) REFERENCES utente(id)
+	id_proprietario INTEGER NOT NULL
 );
 
-CREATE TYPE role AS ENUM ('amministratore', 'supervisore', 'addetto_sala', 'addetto_cucina');
-
+CREATE TYPE role AS ENUM ('admin', 'supervisore', 'addetto_sala', 'addetto_cucina');
 CREATE TABLE utente(
 	id_utente SERIAL PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
@@ -23,42 +21,41 @@ CREATE TABLE utente(
 	aggiunto_da VARCHAR(50),
 	data_aggiunta DATE,
 	id_ristorante INTEGER NOT NULL,
-	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id)
+	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)
 );
 
-
-CREATE TABLE avvisi(
-	id_avvisi SERIAL PRIMARY KEY,
+CREATE TABLE avviso(
+	id_avviso SERIAL PRIMARY KEY,
 	id_utente INTEGER NOT NULL,
 	id_ristorante INTEGER NOT NULL,
 	testo VARCHAR(200) NOT NULL,
 	data_ora TIMESTAMP NOT NULL,
-	FOREIGN KEY(id_utente) REFERENCES utente(id),
-	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id)
+	FOREIGN KEY(id_utente) REFERENCES utente(id_utente),
+	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)
 );
 
-CREATE TABLE cronologia_lettura_avvisi(
+CREATE TABLE cronologia_lettura_avviso(
 	id_utente INTEGER NOT NULL,
-	id_avvisi INTEGER NOT NULL,
-	FOREIGN KEY(id_avvisi) REFERENCES avvisi(id),
-	FOREIGN KEY(id_utente) REFERENCES utente(id)
+	id_avviso INTEGER NOT NULL,
+	FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
+	FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
 );
 
-CREATE TABLE cronologia_nascosti_avvisi(
+CREATE TABLE cronologia_nascosti_avviso(
 	id_utente INTEGER NOT NULL,
-	id_avvisi INTEGER NOT NULL,
-	FOREIGN KEY(id_avvisi) REFERENCES avvisi(id),
-	FOREIGN KEY(id_utente) REFERENCES utente(id)
+	id_avviso INTEGER NOT NULL,
+	FOREIGN KEY(id_avviso) REFERENCES avviso(id_avviso),
+	FOREIGN KEY(id_utente) REFERENCES utente(id_utente)
 );
 
 
-CREATE TYPE categoria_p AS ENUM ('frutta', 'verdura', 'carne', 'pesce', 'uova', 'latte_e_derivati', 'cereali_e_derivati', 'legumi', 'condimento', 'altro');
+CREATE TYPE categoria_p AS ENUM ('frutta', 'verdura', 'carne', 'pesce', 'uova', 'latte_e_derivati', 'cereali_e_derivati', 'legumi', 'altro');
 
 CREATE TYPE unita_di_misura AS ENUM ('kg', 'litri');
 
 
-CREATE TABLE prodotti(
-	id_prodotti SERIAL PRIMARY KEY,
+CREATE TABLE prodotto(
+	id_prodotto SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	stato INTEGER NOT NULL,
@@ -66,19 +63,19 @@ CREATE TABLE prodotti(
 	prezzo REAL NOT NULL,
 	quantita REAL NOT NULL,
 	unita_misura UNITA_DI_MISURA,
-	categoria_prodotti CATEGORIA_P NOT NULL,
-	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id),
+	categoria_prodotto CATEGORIA_P NOT NULL,
+	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)
 );
 
 CREATE TABLE categorie_menu(
-	id_categorie SERIAL PRIMARY KEY,
+	id_categoria SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
-	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id),
+	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)
 );
 
 CREATE TABLE elementi_menu(
-	id_elementi SERIAL PRIMARY KEY,
+	id_elemento SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
 	id_categoria INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
@@ -87,6 +84,6 @@ CREATE TABLE elementi_menu(
 	allergeni VARCHAR(200) NOT NULL,
 	nome_seconda_lingua VARCHAR(30) NOT NULL,
 	descrizione_seconda_lingua VARCHAR(200) NOT NULL,
-	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id),
-	FOREIGN KEY(id_categoria) REFERENCES categorie_menu(id)
+	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante),
+	FOREIGN KEY(id_categoria) REFERENCES categorie_menu(id_categoria)
 );
