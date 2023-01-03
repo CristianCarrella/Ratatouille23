@@ -16,10 +16,10 @@ public class DatabaseConnection {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}  
-		String dbName = "postgres";
-		String username = "postgres";
-		String password = "postgrespw";
-		String url = "jdbc:postgresql://host.docker.internal:49153/" + dbName;
+		String dbName = "ratatouille";
+		String username = "user";
+		String password = "admin";
+		String url = "jdbc:postgresql://local_pgdb:5432/" + dbName;
 		Properties props = new Properties();
 		props.setProperty("user", username);
 		props.setProperty("password", password);
