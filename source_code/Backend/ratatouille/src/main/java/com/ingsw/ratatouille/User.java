@@ -33,7 +33,8 @@ public class User {
 	}
 	
 	public String getEmail() {
-		return email;
+		System.out.println("GG");
+		return email;		
 	}
 	
 	public String getMobileNumber() {
