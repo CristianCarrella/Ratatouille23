@@ -19,15 +19,21 @@ public class UserDAOimp implements UserDAOint {
 	
  
 	@Override
-	public ArrayList<User> getUser() throws SQLException {
+	public ArrayList<User> getUser() {
 		ArrayList<User> users = new ArrayList<User>();
 		String query = "SELECT * FROM utente";
-		ResultSet rs = db.getStatement().executeQuery(query);
-		while(rs.next()) {
-			User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
-			users.add(u);
+		ResultSet rs;
+		try {
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+				users.add(u);
+			}
+			return users;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return users;
+		return null;
 	}
 	
 	
@@ -47,7 +53,7 @@ public class UserDAOimp implements UserDAOint {
 			return null;
 		}
 		
-		User newUser = new User(nome, cognome, email, password, dataNascita);
+		User newUser = new User();
 		return newUser;
 	}
 	
@@ -83,37 +89,55 @@ public class UserDAOimp implements UserDAOint {
 		return newUser;
 	}
 
-	public ArrayList<User> getUserOfResturant(int id_ristorante) throws SQLException {
+	public ArrayList<User> getUserOfResturant(int id_ristorante) {
 		ArrayList<User> users = new ArrayList<User>();
 		String query = "SELECT * FROM utente WHERE id_ristorante = " + id_ristorante;
-		ResultSet rs = db.getStatement().executeQuery(query);
-		while(rs.next()) {
-			User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
-			users.add(u);
+		ResultSet rs;
+		try {
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				User u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+				users.add(u);
+			}
+			return users;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return users;
+		return null;
 	}
 
 	@Override
-	public User getUserById(Integer id_utente) throws SQLException {
+	public User getUserById(Integer id_utente) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE id_utente = " + id_utente;
-		ResultSet rs = db.getStatement().executeQuery(query);
-		while(rs.next()) {
-			u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+		ResultSet rs;
+		try {
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+			}
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return u;
+		return null;
 	}
 
 	@Override
-	public User login(String email, String password) throws SQLException {
+	public User login(String email, String password) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + password + "'";
-		ResultSet rs = db.getStatement().executeQuery(query);
-		while(rs.next()) {
-			u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+		ResultSet rs;
+		try {
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+			}
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return u;
+		return null;
 	}
 
 

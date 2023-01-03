@@ -31,26 +31,16 @@ public class Controller {
 
 	@GetMapping("/user")
 	public ArrayList<User> getUser(@RequestParam(required = false) Integer id_ristorante){
-		try {
-			if(id_ristorante == null) 
-				return userDao.getUser();
-			else {
-				return userDao.getUserOfResturant(id_ristorante);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(id_ristorante == null) 
+			return userDao.getUser();
+		else {
+			return userDao.getUserOfResturant(id_ristorante);
 		}
-		return null;
 	}
 	
 	@PostMapping("/signup/admin")
     public User createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
-		try {
-			return userDao.createAdmin(nome, cognome, email, password, dataNascita, idRistorante);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return userDao.createAdmin(nome, cognome, email, password, dataNascita, idRistorante);
 	}
 	
 	@PostMapping("/signup/newEmployee")
@@ -66,71 +56,42 @@ public class Controller {
 	
 	@GetMapping("/user/{id}")
 	public User getUserById(@PathVariable Integer id){
-		try {
-			return userDao.getUserById(id);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return userDao.getUserById(id);
 	}
 	
 	
 	@PostMapping("/login")
 	public User checkLogin(@RequestParam(required = true) String email, String password){
-		try {
-			loggedUser = userDao.login(email, password);
-			return loggedUser;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		loggedUser = userDao.login(email, password);
+		return loggedUser;
 	}
 	
 	
 	@GetMapping("/avvisi")
 	public ArrayList<Avviso> getAvvisi(@RequestParam(required = false) Integer id_ristorante){
-		try {
-			if(id_ristorante == null) 
-				return avvisoDao.getAvvisi();
-			else {
-				return avvisoDao.getAvvisiOfResturant(id_ristorante);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(id_ristorante == null) 
+			return avvisoDao.getAvvisi();
+		else {
+			return avvisoDao.getAvvisiOfResturant(id_ristorante);
 		}
-		return null;
 	}		
 
 	@GetMapping("/avvisi-hidden/{id_user}")
 	public ArrayList<AvvisoNascostoVisto> getAvvisiHidden(@PathVariable Integer id_user){
-		try {
-			return avvisoDao.getAvvisiHiddenOf(id_user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return avvisoDao.getAvvisiHiddenOf(id_user);
 	}
 	
-	//richiesta post di quando clicco per leggere o nascondere
-
+	
+	//MANCA richiesta post di quando clicco per leggere o nascondere
 	@GetMapping("/avvisi-viewed/{id_user}")
 	public ArrayList<AvvisoNascostoVisto> getAvvisiViewed(@PathVariable Integer id_user){
-		try {
-			return avvisoDao.getAvvisiViewedOf(id_user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return avvisoDao.getAvvisiViewedOf(id_user);
 	}
 	
+	// senza l'id ristorante è possibile marcare come letti *tramite richieste* avvisi che non appartengono all'utente
 	@PostMapping("/avviso/segna-come-letto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso) {
-		try {
-			return avvisoDao.setAvvisoViewed(id_avviso);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso, @RequestParam(required = true) Integer id_ristorante) {
+		return avvisoDao.setAvvisoViewed(id_avviso, loggedUser, id_ristorante);
 	}
 
 	
