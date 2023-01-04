@@ -62,12 +62,11 @@ public class UserDAOimp implements UserDAOint {
 				
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
-		System.out.println(nome+cognome+passwordTemporanea+email+dataNascita+ruolo+loggedUser);
 		int idUtenteCreato = 0;
 		String query = "";
 		
 		try {
-			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "false, " + loggedUser.getId_utente() + ", '" + now + "', " + loggedUser.getId_ristorante() + ");";
+			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "false, " + loggedUser.getIdUtente() + ", '" + now + "', " + loggedUser.getIdRistorante() + ");";
 			db.getStatement().executeUpdate(query);
 			
 			query = "SELECT id_utente FROM utente WHERE email = '" + email + "';";
@@ -85,7 +84,7 @@ public class UserDAOimp implements UserDAOint {
 		
 		
 		
-		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, loggedUser.getId_utente(), now.toString(), loggedUser.getId_ristorante());
+		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, loggedUser.getIdUtente(), now.toString(), loggedUser.getIdRistorante());
 		return newUser;
 	}
 

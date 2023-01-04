@@ -96,19 +96,77 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 	
-	//Controllare che l'utente sia supervisore o admin
 	@Override
 	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser, Integer id_ristorante) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
-		String query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante + " AND id_avviso = " + id_avviso;
 		ResultSet rs;
+		String query = null;		
+		
 		try {
+			query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante + " AND id_avviso = " + id_avviso;
 			rs = db.getStatement().executeQuery(query);
 			if(rs.isBeforeFirst()) {
-				query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getId_utente() + ", " + id_avviso + ", '" + now + "')";
+				query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
 				db.getStatement().executeUpdate(query);
 			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	@Override
+	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser, Integer id_ristorante) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+		LocalDateTime now = LocalDateTime.now();
+		ResultSet rs;
+		String query = null;		
+		
+		try {
+			query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante + " AND id_avviso = " + id_avviso;
+			rs = db.getStatement().executeQuery(query);
+			if(rs.isBeforeFirst()) {
+				query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
+				db.getStatement().executeUpdate(query);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	@Override
+	public Avviso createNewAvviso(Integer id_ristorante, String testo, User loggedUser) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+		LocalDateTime now = LocalDateTime.now();
+		ResultSet rs;
+		String query = null;
+		boolean isSupervisoreOrAdmin = false;
+		
+		try {
+			query = "SELECT ruolo FROM utente WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante;
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				String ruolo = rs.getString("ruolo");
+				if(ruolo.equals("admin") || ruolo.equals("supervisore"))
+					isSupervisoreOrAdmin = true;
+			}
+			
+			if(isSupervisoreOrAdmin) {
+				query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + loggedUser.getIdUtente() + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
+				db.getStatement().executeUpdate(query);
+				
+				query = "SELECT id_avviso FROM avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
+				rs = db.getStatement().executeQuery(query);
+				while(rs.next()) {
+					return new Avviso(rs.getInt("id_avviso"), loggedUser.getIdUtente(), id_ristorante, testo, now.toString());
+				}
+			}
+			
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

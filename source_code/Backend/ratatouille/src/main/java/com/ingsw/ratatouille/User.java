@@ -25,93 +25,59 @@ public class User {
 		this.id_ristorante = idRistorante;
 	}	
 
-
-
-	public int getId_utente() {
+	public int getIdUtente() {
 		return id_utente;
 	}
+	
 	
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
+	
 	public String getCognome() {
 		return cognome;
 	}
 
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
 
-	public String getData_nascita() {
+	public String getDataNascita() {
 		return data_nascita;
 	}
 
-	public void setData_nascita(String data_nascita) {
-		this.data_nascita = data_nascita;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	
 	public String getRuolo() {
 		return ruolo;
 	}
 
-	public void setRuolo(String ruolo) {
-		this.ruolo = ruolo;
-	}
-
+	
 	public boolean isFirstAccess() {
 		return isFirstAccess;
 	}
 
-	public void setFirstAccess(boolean isFirstAccess) {
-		this.isFirstAccess = isFirstAccess;
-	}
-
-	public int getAggiunto_da() {
+	
+	public int getAggiuntoDa() {
 		return aggiunto_da;
 	}
 
-	public void setAggiunto_da(int aggiunto_da) {
-		this.aggiunto_da = aggiunto_da;
-	}
-
-	public String getData_aggiunta() {
+	
+	public String getDataAggiunta() {
 		return data_aggiunta;
 	}
 
-	public void setData_aggiunta(String data_aggiunta) {
-		this.data_aggiunta = data_aggiunta;
-	}
 
-	public int getId_ristorante() {
+	public int getIdRistorante() {
 		return id_ristorante;
 	}
-
-	public void setId_ristorante(int id_ristorante) {
-		this.id_ristorante = id_ristorante;
-	}
-
-
 
 }
 

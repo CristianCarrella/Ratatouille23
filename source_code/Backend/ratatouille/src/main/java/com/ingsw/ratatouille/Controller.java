@@ -82,7 +82,6 @@ public class Controller {
 	}
 	
 	
-	//MANCA richiesta post di quando clicco per leggere o nascondere
 	@GetMapping("/avvisi-viewed/{id_user}")
 	public ArrayList<AvvisoNascostoVisto> getAvvisiViewed(@PathVariable Integer id_user){
 		return avvisoDao.getAvvisiViewedOf(id_user);
@@ -93,6 +92,18 @@ public class Controller {
 	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso, @RequestParam(required = true) Integer id_ristorante) {
 		return avvisoDao.setAvvisoViewed(id_avviso, loggedUser, id_ristorante);
 	}
-
+	
+	@PostMapping("/avviso/segna-come-nascosto/{id_avviso}")
+	public AvvisoNascostoVisto setAvvisoHidden(@PathVariable Integer id_avviso, @RequestParam(required = true) Integer id_ristorante) {
+		return avvisoDao.setAvvisoHidden(id_avviso, loggedUser, id_ristorante);
+	}
+	
+	@PostMapping("/avviso/crea")
+	public Avviso createNewAvviso(@RequestParam(required = true) Integer id_ristorante, String testo) {
+		return avvisoDao.createNewAvviso(id_ristorante, testo, loggedUser);
+	}
+	
+	
+	
 	
 }
