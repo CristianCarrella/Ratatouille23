@@ -21,7 +21,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 
-	@Override
 	public ArrayList<Avviso> getAvvisi() {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();
 		String query = "SELECT * FROM avviso";
@@ -39,7 +38,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		return null;
 	}
 
-	@Override
 	public ArrayList<Avviso> getAvvisiOfResturant(Integer id_ristorante) {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();
 		String query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante;
@@ -56,8 +54,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		}
 		return null;
 	}
-
-	@Override
+	
 	public ArrayList<AvvisoNascostoVisto> getAvvisiHiddenOf(Integer id_user) {
 		ArrayList<AvvisoNascostoVisto> avvisi = new ArrayList<AvvisoNascostoVisto>();
 		String query = "SELECT * FROM cronologia_nascosti_avviso JOIN avviso ON cronologia_nascosti_avviso.id_avviso = avviso.id_avviso WHERE cronologia_nascosti_avviso.id_utente = " + id_user;
@@ -75,9 +72,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		return null;
 	}
 
-
-
-	@Override
 	public ArrayList<AvvisoNascostoVisto> getAvvisiViewedOf(Integer id_user) {
 		ArrayList<AvvisoNascostoVisto> avvisi = new ArrayList<AvvisoNascostoVisto>();
 		String query = "SELECT * FROM cronologia_lettura_avviso JOIN avviso ON cronologia_lettura_avviso.id_avviso = avviso.id_avviso WHERE cronologia_lettura_avviso.id_utente = " + id_user;
@@ -96,7 +90,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 	
-	@Override
 	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser, Integer id_ristorante) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
@@ -116,8 +109,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		return null;
 	}
 
-
-	@Override
 	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser, Integer id_ristorante) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
@@ -138,7 +129,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 
-	@Override
 	public Avviso createNewAvviso(Integer id_ristorante, String testo, User loggedUser) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();

@@ -18,7 +18,6 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
  
-	@Override
 	public ArrayList<User> getUser() {
 		ArrayList<User> users = new ArrayList<User>();
 		String query = "SELECT * FROM utente";
@@ -37,7 +36,6 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
 	
-	@Override
 	public User createAdmin(String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
@@ -56,7 +54,6 @@ public class UserDAOimp implements UserDAOint {
 		User newUser = new User();
 		return newUser;
 	}
-	
 	
 	public User createEmployee(String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, User loggedUser) {
 				
@@ -105,7 +102,6 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 
-	@Override
 	public User getUserById(Integer id_utente) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE id_utente = " + id_utente;
@@ -122,7 +118,6 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 
-	@Override
 	public User login(String email, String password) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + password + "'";
@@ -140,7 +135,6 @@ public class UserDAOimp implements UserDAOint {
 	}
 
 
-	@Override
 	public User verifyEmployee(String nome, String cognome, String email, String dataNascita) {
 		String query = null;
 		User u = null;
