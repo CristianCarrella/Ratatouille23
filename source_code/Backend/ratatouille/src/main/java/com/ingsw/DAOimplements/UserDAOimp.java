@@ -54,7 +54,6 @@ public class UserDAOimp implements UserDAOint {
 		return newUser;
 	}
 	
-	
 	public User createEmployee(String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, User loggedUser) {
 				
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
@@ -104,7 +103,10 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> aa74092fb6644d1af7d5df756da3bf174b4b11e5
 	public User getUserById(Integer id_utente) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE id_utente = " + id_utente;
