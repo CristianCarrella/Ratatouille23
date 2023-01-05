@@ -18,7 +18,6 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
  
-	@Override
 	public ArrayList<User> getUser() {
 		ArrayList<User> users = new ArrayList<User>();
 		String query = "SELECT * FROM utente";
@@ -37,17 +36,15 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
 	
-	@Override
 	public User createAdmin(String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		
-		String query = "";
+		String query = null;
 		
 		try {
 			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + dataNascita + "', '" + email + "', '" + password + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");";
-			System.out.println(query);
 			db.getStatement().executeUpdate(query);
 		} catch (SQLException e) {
 			return null;
@@ -65,12 +62,15 @@ public class UserDAOimp implements UserDAOint {
 		int idUtenteCreato = 0;
 		String query = "";
 		
+		if (loggedUser==null) {
+			return null;
+		}
+		
 		try {
 			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "false, " + loggedUser.getIdUtente() + ", '" + now + "', " + loggedUser.getIdRistorante() + ");";
 			db.getStatement().executeUpdate(query);
 			
 			query = "SELECT id_utente FROM utente WHERE email = '" + email + "';";
-			System.out.println(query);
 			db.getStatement().executeQuery(query);
 			ResultSet rs = db.getStatement().executeQuery(query);
 			
@@ -80,14 +80,13 @@ public class UserDAOimp implements UserDAOint {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}
-		
-		
+		}		
 		
 		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, loggedUser.getIdUtente(), now.toString(), loggedUser.getIdRistorante());
 		return newUser;
 	}
 
+	
 	public ArrayList<User> getUserOfResturant(int id_ristorante) {
 		ArrayList<User> users = new ArrayList<User>();
 		String query = "SELECT * FROM utente WHERE id_ristorante = " + id_ristorante;
@@ -105,7 +104,7 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 
-	@Override
+
 	public User getUserById(Integer id_utente) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE id_utente = " + id_utente;
@@ -121,8 +120,8 @@ public class UserDAOimp implements UserDAOint {
 		}
 		return null;
 	}
+	
 
-	@Override
 	public User login(String email, String password) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + password + "'";
@@ -140,17 +139,14 @@ public class UserDAOimp implements UserDAOint {
 	}
 
 
-	@Override
 	public User verifyEmployee(String nome, String cognome, String email, String dataNascita) {
 		String query = null;
-		User u = null;
 		try {
 			query = "SELECT * FROM utente WHERE email = '" + email + "' AND nome = '" + nome + "' AND cognome = '" + cognome + "' AND data_nascita = '" + dataNascita + "';";
-			ResultSet rs = db.getStatement().executeQuery(query);
+			db.getStatement().executeQuery(query);						 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
 	

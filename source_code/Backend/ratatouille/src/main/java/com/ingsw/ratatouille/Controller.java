@@ -17,8 +17,14 @@ import com.ingsw.ratatouille.DatabaseConnection;
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.ingsw.DAOimplements.AvvisoDAOimp;
+import com.ingsw.DAOimplements.MenuDAOimp;
+import com.ingsw.DAOimplements.ProdottoDAOimp;
 import com.ingsw.DAOimplements.UserDAOimp;
+import com.ingsw.DAOimplements.CategoriaMenuDAOimp;
 import com.ingsw.DAOinterface.AvvisoDAOint;
+import com.ingsw.DAOinterface.CategoriaMenuDAOint;
+import com.ingsw.DAOinterface.MenuDAOint;
+import com.ingsw.DAOinterface.ProdottoDAOint;
 import com.ingsw.DAOinterface.UserDAOint;
 
 
@@ -28,6 +34,9 @@ public class Controller {
 	UserDAOint userDao = new UserDAOimp(db);
 	User loggedUser = null;
 	AvvisoDAOint avvisoDao = new AvvisoDAOimp(db);
+	MenuDAOint menuDao = new MenuDAOimp(db);
+	CategoriaMenuDAOint categoriaMenuDao = new CategoriaMenuDAOimp(db);
+	ProdottoDAOint prodottoDao = new ProdottoDAOimp(db);
 
 	@GetMapping("/user")
 	public ArrayList<User> getUser(@RequestParam(required = false) Integer id_ristorante){
@@ -37,12 +46,13 @@ public class Controller {
 			return userDao.getUserOfResturant(id_ristorante);
 		}
 	}
-	
+
 	@PostMapping("/signup/admin")
     public User createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
 		return userDao.createAdmin(nome, cognome, email, password, dataNascita, idRistorante);
 	}
 	
+	//senza aver prima aver effettuato un /login non si potrà fare un signup/employee
 	@PostMapping("/signup/newEmployee")
     public User createUser(@RequestParam (required = true) String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo) {
 		return userDao.createEmployee(nome, cognome, passwordTemporanea, email, dataNascita, ruolo, loggedUser);
@@ -103,7 +113,79 @@ public class Controller {
 		return avvisoDao.createNewAvviso(id_ristorante, testo, loggedUser);
 	}
 	
+	@GetMapping("/menu")
+	public ArrayList<Menu> getMenu(@RequestParam(required = false) Integer id_ristorante){
+		if(id_ristorante == null) 
+			return menuDao.getMenu();
+		else {
+			return menuDao.getMenuFromRestaurant(id_ristorante);
+		}
+	}
 	
+	@GetMapping("/menu/categoria")
+	public ArrayList<CategoriaMenu> getMenuCategories(@RequestParam(required = false) Integer id_ristorante){
+		if(id_ristorante == null) 
+			return categoriaMenuDao.getMenuCategories();
+		else {
+			return categoriaMenuDao.getMenuCategoriesFromRestaurant(id_ristorante);
+		}
+	}
+	
+	@GetMapping("/menu/categoria/piatti")
+	public ArrayList<Menu> getMenuPlateByCategory(@RequestParam(required = true) Integer id_ristorante, String categoria){
+		return menuDao.getMenuCategories(id_ristorante, categoria);
+	}
+	
+	@GetMapping("/menu/ristorante/piatto")
+	public ArrayList<Menu> getMenuPlateFromRestaurant(@RequestParam(required = true) Integer id_ristorante, String nomePiatto){
+		return menuDao.getMenuPlateInRestaurant(id_ristorante, nomePiatto);
+	}
+	
+	@GetMapping("/menu/piatto")
+	public ArrayList<Menu> getMenuPlateByName(@RequestParam(required = true) String nomePiatto){
+		return menuDao.getMenuPlate(nomePiatto);
+	}
+	
+	@PostMapping("/menu/newPlate")
+    public Menu createPlate(@RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni) {
+		return menuDao.createPlate(idRistorante, categoria, nome, prezzo, descrizione, allergeni);
+	}
+		
+	
+	@PostMapping("/menu/piatto/secondaLingua")
+	public Menu addSecondLanguage (@RequestParam (required = true) Integer idRistorante, int idProdotto, String nomeSecondaLingua, String descrizoineSecondaLingua) {
+		return menuDao.addSecondLanguage(idRistorante, idProdotto, nomeSecondaLingua, descrizoineSecondaLingua);
+	}
+	
+	
+	@GetMapping("/dispensa")
+	public ArrayList<Prodotto> getDispensa(@RequestParam(required = false) Integer id_ristorante){
+		if(id_ristorante == null) 
+			return prodottoDao.getDispensa();
+		else {
+			return prodottoDao.getDispensaFromRestaurant(id_ristorante);
+		}
+	}
+	
+	@GetMapping("/dispensa/categoria")
+	public ArrayList<Prodotto> getDispensaProductsByCategory(@RequestParam(required = true) Integer id_ristorante, String categoria){
+		return prodottoDao.getDispensaProduct(id_ristorante, categoria);
+	}
+	
+	@GetMapping("/dispensa/prodotto")
+	public ArrayList<Prodotto> getDispensaProductByName(@RequestParam(required = true) String nomeProdotto){
+		return prodottoDao.getDispensaProductByName(nomeProdotto);
+	}
+	
+	@GetMapping("/dispensa/prodotto/disponibili")
+	public ArrayList<Prodotto> getAvaiableDispensaProduct(@RequestParam(required = true) Integer id_ristorante){
+		return prodottoDao.getAvaiableDispensaProduct(id_ristorante);
+	}
+	
+	@PostMapping("/dispensa/newProduct")
+    public Prodotto createProduct(@RequestParam (required = true) Integer idRistorante, String nome, Integer stato, String descrizione, float prezzo, float quantita, String unitaMisura, String categoria) {
+		return prodottoDao.createProduct(idRistorante, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
+	}
 	
 	
 }

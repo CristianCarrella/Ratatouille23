@@ -23,7 +23,7 @@ public class User {
 		this.aggiunto_da = aggiuntoDa;
 		this.data_aggiunta = dataAggiunta;
 		this.id_ristorante = idRistorante;
-	}	
+	}
 
 	public int getIdUtente() {
 		return id_utente;
