@@ -57,10 +57,12 @@ public class MenuDAOimp implements MenuDAOint {
 	
 	public ArrayList<Menu> getMenuCategories(Integer idRistorante, String categoria){
 		ArrayList<Menu> menu = new ArrayList<Menu>();
-		String query = "SELECT * FROM elementi_menu WHERE id_ristorante = " + idRistorante + " AND nome LIKE '%" + categoria + "%'";
+		
+		String query = "SELECT * FROM elementi_menu JOIN categorie_menu ON elementi_menu.id_categoria = categorie_menu.id_categoria WHERE elementi_menu.id_ristorante = " + idRistorante + " AND  categorie_menu.nome LIKE '%" + categoria + "%'";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
+			System.out.print(query);
 			while(rs.next()) {
 				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
 				menu.add(menuTmp);
@@ -120,7 +122,8 @@ public class MenuDAOimp implements MenuDAOint {
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
-			idCategoria = rs.getInt("id_categoria");
+			while(rs.next())
+				idCategoria = rs.getInt("id_categoria");
 			return idCategoria;
 		} catch (SQLException e) {
 			e.printStackTrace();

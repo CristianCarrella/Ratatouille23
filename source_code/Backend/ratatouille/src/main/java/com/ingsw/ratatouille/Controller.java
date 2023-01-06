@@ -136,15 +136,18 @@ public class Controller {
 		return menuDao.getMenuCategories(id_ristorante, categoria);
 	}
 	
+	
 	@GetMapping("/menu/ristorante/piatto")
 	public ArrayList<Menu> getMenuPlateFromRestaurant(@RequestParam(required = true) Integer id_ristorante, String nomePiatto){
 		return menuDao.getMenuPlateInRestaurant(id_ristorante, nomePiatto);
 	}
 	
+	
 	@GetMapping("/menu/piatto")
 	public ArrayList<Menu> getMenuPlateByName(@RequestParam(required = true) String nomePiatto){
 		return menuDao.getMenuPlate(nomePiatto);
 	}
+	
 	
 	@PostMapping("/menu/newPlate")
     public Menu createPlate(@RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni) {
@@ -156,7 +159,6 @@ public class Controller {
 	public Menu addSecondLanguage (@RequestParam (required = true) Integer idRistorante, int idProdotto, String nomeSecondaLingua, String descrizoineSecondaLingua) {
 		return menuDao.addSecondLanguage(idRistorante, idProdotto, nomeSecondaLingua, descrizoineSecondaLingua);
 	}
-	
 	
 	@GetMapping("/dispensa")
 	public ArrayList<Prodotto> getDispensa(@RequestParam(required = false) Integer id_ristorante){
@@ -186,6 +188,7 @@ public class Controller {
     public Prodotto createProduct(@RequestParam (required = true) Integer idRistorante, String nome, Integer stato, String descrizione, float prezzo, float quantita, String unitaMisura, String categoria) {
 		return prodottoDao.createProduct(idRistorante, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
 	}
+	
 	
 	
 }
