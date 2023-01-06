@@ -72,6 +72,7 @@ public class Controller {
 	
 	@PostMapping("/login")
 	public User checkLogin(@RequestParam(required = true) String email, String password){
+		System.out.print("ciao");
 		loggedUser = userDao.login(email, password);
 		return loggedUser;
 	}

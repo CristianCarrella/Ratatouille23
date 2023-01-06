@@ -62,7 +62,6 @@ public class MenuDAOimp implements MenuDAOint {
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
-			System.out.print(query);
 			while(rs.next()) {
 				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
 				menu.add(menuTmp);
