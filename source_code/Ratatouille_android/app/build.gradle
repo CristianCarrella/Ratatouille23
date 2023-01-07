@@ -4,12 +4,13 @@ plugins {
 
 android {
     namespace 'com.example.ratatouille_android'
-    compileSdk 32
+    useLibrary 'org.apache.http.legacy'
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.ratatouille_android"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -29,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:3.14.4'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
