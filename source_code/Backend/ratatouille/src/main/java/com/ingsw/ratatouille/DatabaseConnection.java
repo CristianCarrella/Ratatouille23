@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.springframework.stereotype.Component;
+@Component
 public class DatabaseConnection {
 	Connection connection;
 	Statement statement;

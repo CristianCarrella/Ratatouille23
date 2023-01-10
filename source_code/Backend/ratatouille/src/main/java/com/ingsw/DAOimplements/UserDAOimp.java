@@ -6,10 +6,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
 import com.ingsw.DAOinterface.UserDAOint;
 import com.ingsw.ratatouille.DatabaseConnection;
 import com.ingsw.ratatouille.User;
-
+@Component
 public class UserDAOimp implements UserDAOint {
 	DatabaseConnection db;
 	
@@ -120,14 +122,14 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
 
-	public User login(String email, String password) {
+	public User login(String email, String password, String token, String expirationTime) {
 		User u = null;
 		String query = "SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + password + "'";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"));
+				u = new User(rs.getInt("id_utente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("data_nascita"), rs.getString("email"), rs.getString("password"), rs.getString("ruolo"), rs.getBoolean("isFirstAccess"), rs.getInt("aggiunto_da"), rs.getString("data_aggiunta"), rs.getInt("id_ristorante"), token, expirationTime);
 			}
 			return u;
 		} catch (SQLException e) {
