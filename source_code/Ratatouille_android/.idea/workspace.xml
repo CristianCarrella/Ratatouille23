@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="54920e5e-8fa5-4e23-acf1-29bcbbf40ed3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../ToDoTree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../ToDoTree.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../database/NewDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../database/NewDb.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../database/OldDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../database/OldDb.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../database/queries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../database/queries.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../postgres-docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../postgres-docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/.idea/queryGenerator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/.idea/queryGenerator.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../queryGenerator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../queryGenerator/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.buildship.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.buildship.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.eclipse.m2e.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.springframework.ide.eclipse.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/.settings/org.springframework.ide.eclipse.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/HELP.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/HELP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/bin/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/bin/main/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/AvvisoDAOimp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/AvvisoDAOimp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/CategoriaMenuDAOimp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/CategoriaMenuDAOimp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/MenuDAOimp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/MenuDAOimp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/ProdottoDAOimp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/ProdottoDAOimp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/UserDAOimp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOimplements/UserDAOimp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/AvvisoDAOint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/AvvisoDAOint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/CategoriaMenuDAOint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/CategoriaMenuDAOint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/MenuDAOint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/MenuDAOint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/ProdottoDAOint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/ProdottoDAOint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/UserDAOint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/DAOinterface/UserDAOint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Avviso.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Avviso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/AvvisoNascostoVisto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/AvvisoNascostoVisto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/CategoriaMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/CategoriaMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/LoggedUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/LoggedUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Prodotto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/Prodotto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/RatatuilleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/RatatuilleApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/security/CustomInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/security/CustomInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/security/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/java/com/ingsw/ratatouille/security/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/src/test/java/com/ingsw/ratatuille/RatatuilleApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/src/test/java/com/ingsw/ratatuille/RatatuilleApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/META-INF/maven/com.ingsw/ratatouille/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/META-INF/maven/com.ingsw/ratatouille/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/META-INF/maven/com.ingsw/ratatouille/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/META-INF/maven/com.ingsw/ratatouille/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/surefire-reports/2023-01-07T13-59-10_272-jvmRun1.dump" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/surefire-reports/2023-01-07T13-59-10_272-jvmRun1.dump" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/ratatouille/target/surefire-reports/2023-01-07T14-01-50_397-jvmRun1.dump" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/ratatouille/target/surefire-reports/2023-01-07T14-01-50_397-jvmRun1.dump" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/androidTest/java/com/example/ratatouille_android/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/androidTest/java/com/example/ratatouille_android/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/java/com/example/ratatouille_android/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/java/com/example/ratatouille_android/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/java/com/example/ratatouille_android/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/java/com/example/ratatouille_android/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable/edittext_rounded_corners.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable/edittext_rounded_corners.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable/roundedbutton.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/drawable/roundedbutton.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/xml/backup_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/test/java/com/example/ratatouille_android/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/app/src/test/java/com/example/ratatouille_android/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/Ratatouille_android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/Ratatouille_android/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\alfre\.android\avd\Pixel_3a_API_33_x86_64.avd]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2K91DqsfDLmOOkP0g8NhulmKrhk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Frontend/Ratatouille_android" />
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="Ratatouille_android.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="54920e5e-8fa5-4e23-acf1-29bcbbf40ed3" name="Changes" comment="" />
+      <created>1673371868013</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673371868013</updated>
+    </task>
+    <servers />
+  </component>
+</project>
