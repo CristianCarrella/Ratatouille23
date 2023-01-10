@@ -32,11 +32,12 @@ import com.ingsw.DAOinterface.UserDAOint;
 public class Controller {
 	DatabaseConnection db = new DatabaseConnection();
 	UserDAOint userDao = new UserDAOimp(db);
-	User loggedUser = new User();
+	LoggedUser loggedUser = null;
 	AvvisoDAOint avvisoDao = new AvvisoDAOimp(db);
 	MenuDAOint menuDao = new MenuDAOimp(db);
 	CategoriaMenuDAOint categoriaMenuDao = new CategoriaMenuDAOimp(db);
 	ProdottoDAOint prodottoDao = new ProdottoDAOimp(db);
+	
 
 	@GetMapping("/user")
 	public ArrayList<User> getUser(@RequestParam(required = false) Integer id_ristorante){
@@ -72,7 +73,7 @@ public class Controller {
 	
 	@PostMapping("/login")
 	public User checkLogin(HttpServletRequest request, @RequestParam(required = true) String email, String password){
-		loggedUser = (User)request.getSession().getAttribute("attributeToPass");
+		loggedUser = (LoggedUser)request.getSession().getAttribute("attributeToPass");
 		System.out.print(loggedUser.getNome());
 		return loggedUser;
 	}

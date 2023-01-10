@@ -18,6 +18,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ingsw.DAOimplements.UserDAOimp;
+import com.ingsw.ratatouille.LoggedUser;
 import com.ingsw.ratatouille.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ import jakarta.servlet.http.HttpSession;
 
 public class CustomInterceptor implements HandlerInterceptor {
 	UserDAOimp userDao;
-	ArrayList<User> loggedUsers = new ArrayList<User>();
+	ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
 	
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
@@ -49,7 +50,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     			ZonedDateTime zdt = ZonedDateTime.now(z);
     			ZonedDateTime later = zdt.plusMinutes(15); 
     			String expirationTime = later.toString();
-    			User u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
+    			LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
     			u.setToken(token);
     			u.setTk_expiration_timestamp(expirationTime);
     		    HttpSession session = request.getSession();
@@ -67,7 +68,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     
 
 	private boolean isValidToken(String token) {
-		for(User u : loggedUsers) {
+		for(LoggedUser u : loggedUsers) {
 			if(u.getToken().equals(token)) {
     			ZoneId z = ZoneId.of("Europe/Paris");
     			ZonedDateTime zdt = ZonedDateTime.now(z);
@@ -99,7 +100,7 @@ public class CustomInterceptor implements HandlerInterceptor {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
         String token = base64Encoder.encodeToString(randomBytes);
-    	for (User u : loggedUsers) {
+    	for (LoggedUser u : loggedUsers) {
     		if(u.getToken().equals(token)) {
     			generateToken();
     		}
