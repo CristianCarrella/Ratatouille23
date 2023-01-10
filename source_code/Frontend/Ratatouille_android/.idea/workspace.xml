@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54920e5e-8fa5-4e23-acf1-29bcbbf40ed3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../ToDoTree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ToDoTree.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../database/NewDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../database/NewDb.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../database/OldDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../database/OldDb.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../database/queries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../database/queries.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../postgres-docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../postgres-docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/queryGenerator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/queryGenerator.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../queryGenerator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="54920e5e-8fa5-4e23-acf1-29bcbbf40ed3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\alfre\.android\avd\Pixel_3a_API_33_x86_64.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\salvc\.android\avd\Pixel_3a_API_33_x86_64.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -31,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2K91DqsfDLmOOkP0g8NhulmKrhk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -47,7 +41,7 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
   </component>
   <component name="RunManager">
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="Ratatouille_android.app.main" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -104,17 +98,6 @@
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
       </method>
     </configuration>
   </component>
