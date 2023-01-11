@@ -1,10 +1,10 @@
 package com.example.ratatouille_android.models;
 
-import android.database.Observable;
-
 import com.example.ratatouille_android.views.LoginActivity;
 
-public class User extends Observable<LoginActivity>{
+import java.util.Observable;
+
+public class User extends Observable {
     private int id_utente;
     private String nome, cognome, data_nascita, email, password, ruolo;
     private boolean isFirstAccess;
@@ -16,7 +16,7 @@ public class User extends Observable<LoginActivity>{
 
     public User(){}
 
-    public User(int id, String nome, String cognome, String dataNascita, String email, String password, String ruolo, boolean isFirstAccess, int aggiuntoDa, String dataAggiunta, int idRistorante){
+    public User(LoginActivity loginActivity, int id, String nome, String cognome, String dataNascita, String email, String password, String ruolo, boolean isFirstAccess, int aggiuntoDa, String dataAggiunta, int idRistorante){
         this.id_utente = id;
         this.cognome = cognome;
         this.nome = nome;
@@ -28,8 +28,10 @@ public class User extends Observable<LoginActivity>{
         this.aggiunto_da = aggiuntoDa;
         this.data_aggiunta = dataAggiunta;
         this.id_ristorante = idRistorante;
+        addObserver(loginActivity);
+        setChanged();
+        notifyObservers();
     }
-
 
 }
 

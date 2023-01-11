@@ -2,10 +2,13 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <option name="nonWearDeviceLastStateName" value="Portrait" />
+      </config>
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Prova" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -13,6 +16,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="54920e5e-8fa5-4e23-acf1-29bcbbf40ed3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../../../ToDoTree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ToDoTree.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../database/NewDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../database/NewDb.sql" afterDir="false" />
@@ -27,6 +31,9 @@
       <change beforePath="$PROJECT_DIR$/../../../queryGenerator/.idea/queryGenerator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/.idea/queryGenerator.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../queryGenerator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../queryGenerator/main.py" afterDir="false" />
     </list>
+=======
+    <list default="true" id="54920e5e-8fa5-4e23-acf1-29bcbbf40ed3" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,6 +85,7 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
   </component>
   <component name="RecentsManager">
+<<<<<<< Updated upstream
     <key name="android.template.1104301943">
       <recent name="com.example.ratatouille_android" />
     </key>
@@ -85,6 +93,9 @@
       <recent name="com.example.ratatouille_android" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+=======
+    <key name="android.template.753335631">
+>>>>>>> Stashed changes
       <recent name="com.example.ratatouille_android" />
     </key>
   </component>
