@@ -6,4 +6,6 @@
     <string name="email">EMAIL</string>
     <string name="error">Error</string>
     <string name="successo_login">Login avvenuto con successo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
