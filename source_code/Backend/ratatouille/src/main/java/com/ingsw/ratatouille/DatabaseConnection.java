@@ -34,15 +34,6 @@ public class DatabaseConnection {
 			System.out.print("not connected");
 		}	
 		
-
-        try {
-            connection = DriverManager.getConnection(url, props);
-            statement = connection.createStatement();
-            System.out.print("connected");
-        }catch(SQLException e){
-        	e.printStackTrace();
-            System.out.print("not connected/n");
-        }
     
 	}
 	

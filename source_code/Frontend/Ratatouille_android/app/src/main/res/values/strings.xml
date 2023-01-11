@@ -4,4 +4,6 @@
     <string name="entra_nell_app">Entra nell\'app</string>
     <string name="Login">Login</string>
     <string name="email">EMAIL</string>
+    <string name="error">Error</string>
+    <string name="successo_login">Login avvenuto con successo</string>
 </resources>

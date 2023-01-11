@@ -11,9 +11,7 @@ public class LoggedUser extends User{
 		this.tk_expiration_timestamp = expirationTime;
 	}
 
-	public LoggedUser() {
-		
-	}
+	public LoggedUser() {}
 
 	public String getToken() {
 		return token;
