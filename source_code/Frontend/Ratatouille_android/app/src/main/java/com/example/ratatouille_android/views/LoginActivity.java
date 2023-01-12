@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.LoginController;
+import com.example.ratatouille_android.views.jfragment.HomeFragment;
 
 import java.util.Observable;
 import java.util.Observer;

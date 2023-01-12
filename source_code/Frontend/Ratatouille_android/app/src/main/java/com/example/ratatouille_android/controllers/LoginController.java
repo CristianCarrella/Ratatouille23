@@ -8,7 +8,6 @@ import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.LoginActivity;
-import com.example.ratatouille_android.views.SignUpActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
