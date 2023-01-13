@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_home_24"
-        app:layout_anchor="@id/bottomAppBar" />
+        app:layout_anchor="@id/bottomAppBar"
+        app:backgroundTint="#003F91"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
