@@ -1,7 +1,9 @@
 package com.example.ratatouille_android.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +17,14 @@ import com.example.ratatouille_android.views.jfragment.AccountFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.MaterialShapeDrawable;
 
 public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    BottomAppBar bottomAppBar;
 
     HomeFragment homeFragment = new HomeFragment();
     AccountFragment accountFragment = new AccountFragment();
@@ -34,14 +38,27 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomAppBar = findViewById(R.id.bottomAppBar);
+        FloatingActionButton floatingActionButton = findViewById(R.id.home);
+        bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
+        bottomNavigationView.getMenu().findItem(R.id.nothing).setEnabled(false);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+            }
+        };
+
+        floatingActionButton.setOnClickListener(onClickListener);
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
 
-        BadgeDrawable badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(8);
 
+        //BadgeDrawable badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
+        //badgeDrawable.setVisible(true);
+        //badgeDrawable.setNumber(8);
 
         bottomNavigationView.setBackground(null);
 
@@ -49,9 +66,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
-                        return true;
                     case R.id.notices:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
                         return true;
@@ -64,12 +78,26 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.functions:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, functionFragment).commit();
                         return true;
+                    case R.id.nothing:
+                        return true;
                 }
 
                 return false;
             }
         });
-        
+
+        BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
+
+        MaterialShapeDrawable bottomBarBackground = (MaterialShapeDrawable) bottomAppBar.getBackground();
+        bottomBarBackground.setShapeAppearanceModel(
+                bottomBarBackground.getShapeAppearanceModel()
+                        .toBuilder()
+                        .setTopRightCorner(CornerFamily.ROUNDED,40)
+                        .setTopLeftCorner(CornerFamily.ROUNDED,40)
+                        .setBottomRightCorner(CornerFamily.ROUNDED,40)
+                        .setBottomLeftCorner(CornerFamily.ROUNDED,40)
+                        .build());
+
 
     }
 }
