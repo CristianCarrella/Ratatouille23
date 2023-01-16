@@ -150,6 +150,15 @@ public class UserDAOimp implements UserDAOint {
 		}
 		return null;
 	}
+
+
+	@Override
+	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita) {
+		int idUtente = loggedUser.getIdUtente();
+		String query = null;
+		query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
+		return null;
+	}
 	
 }
 

@@ -47,6 +47,11 @@ public class Controller {
 			return userDao.getUserOfResturant(id_ristorante);
 		}
 	}
+	
+	@PostMapping("/user/account")
+	public User modifyUserAccount(@RequestParam(required = false) String nome, String cognome, String dataNascita){
+		return userDao.modifyUserNameSurnameDate(loggedUser, nome, cognome, dataNascita);		
+	}
 
 	@PostMapping("/signup/admin")
     public User createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {

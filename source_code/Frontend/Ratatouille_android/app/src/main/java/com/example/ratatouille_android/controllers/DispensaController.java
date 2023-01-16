@@ -6,6 +6,7 @@ import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.CreaProdottoActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
+import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.ModificaProdottoActivity;
 
 import org.json.JSONArray;
@@ -26,7 +27,7 @@ import okhttp3.Response;
 public class DispensaController {
     DispensaActivity dispensaActivitity;
     User loggedUser;
-    String url = "http://192.168.1.47:8080/dispensa";
+    String url = "http://192.168.1.5:8080/dispensa";
     ArrayList<Prodotto> dispensa = new ArrayList<Prodotto>();
 
     public DispensaController(){ }
@@ -155,7 +156,9 @@ public class DispensaController {
     }
 
     public void goToMenuActivity(){
-        //non ancora possibile da implementare - manca pagina di menu
+        Intent switchActivityIntent = new Intent(dispensaActivitity, HomeActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        dispensaActivitity.startActivity(switchActivityIntent);
     }
 
     public void goToModificaProdottoActivity(String nomeProdotto){

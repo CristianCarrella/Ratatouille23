@@ -27,7 +27,7 @@ public class CreaProdottoController {
     User loggedUser;
     Integer resultIndex = 0;
     String url = "https://it.openfoodfacts.org/cgi/search.pl?search_terms=";
-    String url2 = "http://192.168.1.47:8080/dispensa/newProduct";
+    String url2 = "http://192.168.1.5:8080/dispensa/newProduct";
 
     public CreaProdottoController(CreaProdottoActivity creaProdottoActivity, User loggedUser) {
         this.creaProdottoActivity = creaProdottoActivity;

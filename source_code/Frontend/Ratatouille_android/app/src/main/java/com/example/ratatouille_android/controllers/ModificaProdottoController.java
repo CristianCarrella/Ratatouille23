@@ -23,7 +23,7 @@ public class ModificaProdottoController {
     User loggedUser;
     ModificaProdottoActivity modificaProdottoActivity;
     String[] categorie = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
-    String url = "http://192.168.1.47:8080/dispensa";
+    String url = "http://192.168.1.5:8080/dispensa";
 
     public ModificaProdottoController(ModificaProdottoActivity modificaProdottoActivity, User loggedUser) {
         this.loggedUser = loggedUser;

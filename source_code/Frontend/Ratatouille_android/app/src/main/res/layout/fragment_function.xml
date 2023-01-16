@@ -12,6 +12,7 @@
         android:layout_width="119dp"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:onClick="onClickDispensaListener"
         android:text="Inventario\ndella\ndispensa"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"

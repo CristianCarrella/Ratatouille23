@@ -1,24 +1,21 @@
 package com.example.ratatouille_android.views;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ClipData;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ratatouille_android.controllers.HomeController;
+import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.jfragment.FunctionFragment;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
 import com.example.ratatouille_android.views.jfragment.LogoutFragment;
 import com.example.ratatouille_android.views.jfragment.NoticesFragment;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.views.jfragment.AccountFragment;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +23,10 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
-public class HomeActivity extends AppCompatActivity {
+import java.util.Observable;
+import java.util.Observer;
+
+public class HomeActivity extends AppCompatActivity implements Observer {
 
     BottomNavigationView bottomNavigationView;
 
@@ -35,11 +35,16 @@ public class HomeActivity extends AppCompatActivity {
     NoticesFragment noticesFragment = new NoticesFragment();
     FunctionFragment functionFragment = new FunctionFragment();
     LogoutFragment logoutFragment = new LogoutFragment();
+    User loggedUser;
+    HomeController homeController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
+        homeController = new HomeController(loggedUser, this);
 
         TextView textNomeCognome = findViewById(R.id.textNomeCognome);
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
@@ -111,6 +116,17 @@ public class HomeActivity extends AppCompatActivity {
                         .setBottomLeftCorner(CornerFamily.ROUNDED,40)
                         .build());
 
+
+    }
+
+
+
+    public void onClickDispensaListener(View v){
+        homeController.goToDispensaActivity();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
 
     }
 }

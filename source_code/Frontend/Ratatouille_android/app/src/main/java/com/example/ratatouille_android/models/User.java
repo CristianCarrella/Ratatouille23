@@ -36,6 +36,8 @@ public class User extends Observable implements Serializable {
         notifyObservers();
     }
 
+    public int getIdUtente() { return id_utente; }
+
     public int getIdRistorante() {
         return id_ristorante;
     }

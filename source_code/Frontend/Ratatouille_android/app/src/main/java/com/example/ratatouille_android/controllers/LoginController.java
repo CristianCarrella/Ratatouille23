@@ -9,6 +9,7 @@ import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.LoginActivity;
+import com.example.ratatouille_android.views.jfragment.HomeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +25,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginController {
-    public String url = "http://192.168.1.47:8080/login";
+    public String url = "http://192.168.1.5:8080/login";
     public String email, password;
     TextView error;
     User loggedUser;
@@ -95,7 +96,7 @@ public class LoginController {
     }
 
     public void goToHomeActivity(){
-        Intent switchActivityIntent = new Intent(loginActivity, DispensaActivity.class);
+        Intent switchActivityIntent = new Intent(loginActivity, HomeActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         loginActivity.startActivity(switchActivityIntent);
     }
