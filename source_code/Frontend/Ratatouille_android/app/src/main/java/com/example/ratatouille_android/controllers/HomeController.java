@@ -69,7 +69,7 @@ public class HomeController {
         RequestBody formBody = new FormBody.Builder()
                 .add("nome", nome)
                 .add("cognome", cognome)
-                .add("data_nascita", dataNascita)
+                .add("dataNascita", dataNascita)
                 .build();
         Request request = new Request.Builder()
                 .url(url + "/account")
@@ -95,20 +95,7 @@ public class HomeController {
                         Log.v("prova", myResponse);
                     }
                 });
-
             }
         });
-    }
-
-    public void setNome(EditText nome) {
-        this.nomeField = nome;
-    }
-
-    public void setCognome(EditText cognome) {
-        this.cognomeField = cognome;
-    }
-
-    public void setDataNascita(EditText dataNascita) {
-        this.dataNascitaField = dataNascita;
     }
 }

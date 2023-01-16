@@ -43,6 +43,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         try {
+            Log.v("prova", "prova");
             homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
         } catch (IOException e) {
             e.printStackTrace();

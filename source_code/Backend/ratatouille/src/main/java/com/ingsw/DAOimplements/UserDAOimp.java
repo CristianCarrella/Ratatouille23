@@ -155,8 +155,12 @@ public class UserDAOimp implements UserDAOint {
 	@Override
 	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita) {
 		int idUtente = loggedUser.getIdUtente();
-		String query = null;
-		query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
+		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
+		try {
+			db.getStatement().executeUpdate(query);						 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
