@@ -42,7 +42,6 @@ public class CustomInterceptor implements HandlerInterceptor {
     		if(!request.getRequestURI().toString().equals("/login")) {
     			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     			throw new RestClientException("Token non presente");
-    			
     		} else {
     			// devo fare il login
     			String token = generateToken();

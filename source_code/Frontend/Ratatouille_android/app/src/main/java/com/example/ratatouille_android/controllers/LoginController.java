@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.LoginActivity;
 import com.example.ratatouille_android.views.SignUpActivity;
@@ -24,7 +25,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginController {
-    public String url = "http://192.168.1.5:8080/login";
+    public String url = "http://192.168.1.47:8080/login";
     public String email, password;
     TextView error;
     User loggedUser;
@@ -76,7 +77,7 @@ public class LoginController {
                         JSONObject Jobject = null;
                         try {
                             Jobject = new JSONObject(myResponse);
-                            loggedUser = new User(loginActivity, Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"));
+                            loggedUser = new User(loginActivity, Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"), Jobject.getString("token"), Jobject.getString("tk_expiration_timestamp"));
                             error.setText(R.string.successo_login);
                             error.setTextColor(Color.GREEN);
                             goToHomeActivity();
@@ -95,7 +96,8 @@ public class LoginController {
     }
 
     public void goToHomeActivity(){
-        Intent switchActivityIntent = new Intent(loginActivity, HomeActivity.class);
+        Intent switchActivityIntent = new Intent(loginActivity, DispensaActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
         loginActivity.startActivity(switchActivityIntent);
     }
 }

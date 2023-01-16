@@ -177,8 +177,8 @@ public class Controller {
 	}
 	
 	@GetMapping("/dispensa/prodotto")
-	public ArrayList<Prodotto> getDispensaProductByName(@RequestParam(required = true) String nomeProdotto){
-		return prodottoDao.getDispensaProductByName(nomeProdotto);
+	public ArrayList<Prodotto> getDispensaProductByName(@RequestParam(required = true)Integer id_ristorante, String nomeProdotto){
+		return prodottoDao.getDispensaProductByName(id_ristorante, nomeProdotto);
 	}
 	
 	@GetMapping("/dispensa/prodotto/disponibili")
@@ -187,18 +187,23 @@ public class Controller {
 	}
 	
 	@PostMapping("/dispensa/newProduct")
-    public Prodotto createProduct(@RequestParam (required = true) Integer idRistorante, String nome, Integer stato, String descrizione, float prezzo, float quantita, String unitaMisura, String categoria) {
+    public Prodotto createProduct(@RequestParam (required = true) Integer idRistorante, String nome, Integer stato, String descrizione, Double prezzo, Double quantita, String unitaMisura, String categoria) {
 		return prodottoDao.createProduct(idRistorante, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
+	}
+	
+	@PostMapping("/dispensa/modifyProduct")
+    public Prodotto modifyProduct(@RequestParam (required = true) Integer idProdotto, String nome, Integer stato, String descrizione, Double prezzo, Double quantita, String unitaMisura, String categoria) {
+		return prodottoDao.modifyProduct(idProdotto, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
+	}
+	
+	@PostMapping("/dispensa/deleteProduct")
+    public Prodotto deleteProduct(@RequestParam (required = true) Integer idProdotto) {
+		return prodottoDao.deleteProduct(idProdotto);
 	}
 	
 	@GetMapping("/error")
 	public String getError() {
-		System.out.print("Errore!!!");
 		return "errore";
 	}
-	
-	
-	
-	
 	
 }
