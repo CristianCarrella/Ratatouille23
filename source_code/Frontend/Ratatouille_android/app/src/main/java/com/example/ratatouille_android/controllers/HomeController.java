@@ -29,7 +29,7 @@ public class HomeController {
     User loggedUser;
     HomeController homeController;
     HomeActivity homeActivity;
-    String url = "http://192.168.1.47:8080/user";
+    String url = "http://192.168.1.5:8080/user";
     String nome, cognome, dataNascita;
     EditText nomeField, cognomeField, dataNascitaField;
 
@@ -69,7 +69,7 @@ public class HomeController {
         RequestBody formBody = new FormBody.Builder()
                 .add("nome", nome)
                 .add("cognome", cognome)
-                .add("data_nascita", dataNascita)
+                .add("dataNascita", dataNascita)
                 .build();
         Request request = new Request.Builder()
                 .url(url + "/account")

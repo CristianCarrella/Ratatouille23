@@ -49,7 +49,7 @@ public class Controller {
 	}
 	
 	@PostMapping("/user/account")
-	public User modifyUserAccount(@RequestParam(required = false) String nome, String cognome, String dataNascita){
+	public User modifyUserAccount(@RequestParam(required = true) String nome, String cognome, String dataNascita){
 		return userDao.modifyUserNameSurnameDate(loggedUser, nome, cognome, dataNascita);		
 	}
 
