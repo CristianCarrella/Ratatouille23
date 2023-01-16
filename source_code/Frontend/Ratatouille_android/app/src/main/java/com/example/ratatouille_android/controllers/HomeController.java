@@ -29,7 +29,7 @@ public class HomeController {
     User loggedUser;
     HomeController homeController;
     HomeActivity homeActivity;
-    String url = "http://192.168.1.47:8080/user";
+    String url = "http://192.168.1.5:8080/user";
     String nome, cognome, dataNascita;
     EditText nomeField, cognomeField, dataNascitaField;
 

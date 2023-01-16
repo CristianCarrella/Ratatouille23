@@ -157,7 +157,7 @@ public class UserDAOimp implements UserDAOint {
 		int idUtente = loggedUser.getIdUtente();
 		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
 		try {
-			db.getStatement().executeUpdate(query);						 
+			db.getStatement().executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
