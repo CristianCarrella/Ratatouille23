@@ -7,6 +7,10 @@ import android.content.ClipData;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.ratatouille_android.views.jfragment.FunctionFragment;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
@@ -36,6 +40,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        TextView textNomeCognome = findViewById(R.id.textNomeCognome);
+        TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
+        TextView textRuolo = findViewById(R.id.textRuolo);
+        ImageView immagineProfilo = findViewById(R.id.imageView7);
+
+        textNomeCognome.setText("Nome e Cognome");
+        textNomeAttivita.setText("Attività");
+        textRuolo.setText("Ruolo");
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton floatingActionButton = findViewById(R.id.home);
