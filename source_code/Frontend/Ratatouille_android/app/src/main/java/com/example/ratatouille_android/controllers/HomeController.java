@@ -44,14 +44,6 @@ public class HomeController {
         homeActivity.startActivity(switchActivityIntent);
     }
 
-    public void onClickChangeInfoUser(){
-        try {
-            run(nomeField.getText().toString(), cognomeField.getText().toString(), dataNascitaField.getText().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public User setInfoUser(){
 
         try {
@@ -72,7 +64,7 @@ public class HomeController {
         serverRequest(client, request);
     }
 
-    void run(String nome, String cognome, String dataNascita) throws IOException {
+    public void run(String nome, String cognome, String dataNascita) throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("nome", nome)

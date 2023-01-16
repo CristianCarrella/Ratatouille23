@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
     HomeController homeController;
+    EditText nomeField, cognomeField, dataNascitaField;
 
 
     @Override
@@ -45,6 +48,10 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_home);
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
+
+        nomeField = accountFragment.getNome();
+        cognomeField = accountFragment.getCognome();
+        dataNascitaField = accountFragment.getDataNascita();
 
         TextView textNomeCognome = findViewById(R.id.textNomeCognome);
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
@@ -119,7 +126,13 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     }
 
-
+    public void onClickChangeInfoUser(View v){
+        try {
+            homeController.run(nomeField.getText().toString(), cognomeField.getText().toString(), dataNascitaField.getText().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void onClickDispensaListener(View v){
         homeController.goToDispensaActivity();
