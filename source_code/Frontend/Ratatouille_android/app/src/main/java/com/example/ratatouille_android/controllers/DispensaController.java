@@ -27,7 +27,7 @@ import okhttp3.Response;
 public class DispensaController {
     DispensaActivity dispensaActivitity;
     User loggedUser;
-    String url = "http://192.168.1.5:8080/dispensa";
+    String url = "http://192.168.1.47:8080/dispensa";
     ArrayList<Prodotto> dispensa = new ArrayList<Prodotto>();
 
     public DispensaController(){ }

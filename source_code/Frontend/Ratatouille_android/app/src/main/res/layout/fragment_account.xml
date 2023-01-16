@@ -150,7 +150,6 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/edittext_rounded_corners"
         android:backgroundTint="#F2A900"
-        android:onClick="onClickChangeInfoUser"
 
         android:text="Conferma"
         android:textSize="14sp"

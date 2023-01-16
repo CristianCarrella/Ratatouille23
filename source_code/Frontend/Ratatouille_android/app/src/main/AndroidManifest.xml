@@ -15,7 +15,6 @@
         android:theme="@style/Theme.Ratatouille_android"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
             android:name=".views.CreaProdottoActivity"
             android:exported="false">
@@ -43,7 +42,6 @@
         <activity
             android:name=".views.SignUpActivity"
             android:exported="true" />
-
         <activity
             android:name=".views.MainActivity"
             android:exported="true">
@@ -54,7 +52,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.LoginActivity" />
-
     </application>
 
 </manifest>

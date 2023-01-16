@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment = new HomeFragment();
-    AccountFragment accountFragment = new AccountFragment();
+    AccountFragment accountFragment;
     NoticesFragment noticesFragment = new NoticesFragment();
     FunctionFragment functionFragment = new FunctionFragment();
     LogoutFragment logoutFragment = new LogoutFragment();
@@ -48,10 +48,8 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_home);
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
+        accountFragment = new AccountFragment(this);
 
-        nomeField = accountFragment.getNome();
-        cognomeField = accountFragment.getCognome();
-        dataNascitaField = accountFragment.getDataNascita();
 
         TextView textNomeCognome = findViewById(R.id.textNomeCognome);
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
@@ -123,16 +121,9 @@ public class HomeActivity extends AppCompatActivity implements Observer {
                         .setBottomLeftCorner(CornerFamily.ROUNDED,40)
                         .build());
 
-
     }
 
-    public void onClickChangeInfoUser(View v){
-        try {
-            homeController.run(nomeField.getText().toString(), cognomeField.getText().toString(), dataNascitaField.getText().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public void onClickDispensaListener(View v){
         homeController.goToDispensaActivity();
@@ -141,5 +132,9 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+
+    public HomeController getHomeController() {
+        return homeController;
     }
 }

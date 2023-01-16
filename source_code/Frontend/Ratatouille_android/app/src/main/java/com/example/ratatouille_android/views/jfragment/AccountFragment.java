@@ -4,54 +4,49 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.HomeController;
+import com.example.ratatouille_android.views.HomeActivity;
 
-public class AccountFragment extends Fragment {
+import java.io.IOException;
 
-    private String nome, cognome;
-    HomeController homeController;
+public class AccountFragment extends Fragment implements View.OnClickListener {
+
     EditText nomeField, cognomeField, dateField;
+    HomeActivity homeActivity;
+
+    public AccountFragment(HomeActivity homeActivity){
+        this.homeActivity = homeActivity;
+    }
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        Button btn = view.findViewById(R.id.confermaButton);
+        btn.setOnClickListener(this);
+        nomeField = view.findViewById(R.id.nomeField);
+        cognomeField = view.findViewById(R.id.cognomeField);
+        dateField = view.findViewById(R.id.dataField);
 
-        
-
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
-
-        nomeField = rootView.findViewById(R.id.nomeField);
-        String nome = String.valueOf(nomeField.getText());
-        cognomeField = rootView.findViewById(R.id.cognomeField);
-        String cognome = String.valueOf(nomeField.getText());
-        dateField = rootView.findViewById(R.id.dataField);
-        String dataNascita = String.valueOf(nomeField.getText());
-//        homeController.setNome(nomeField);
-//        homeController.setCognome(cognomeField);
-//        homeController.setCognome(dateField);
-
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return view;
     }
 
-    public EditText getNome(){
-        return nomeField;
-    }
-
-    public EditText getCognome(){
-        return cognomeField;
-    }
-
-    public EditText getDataNascita(){
-        return dateField;
+    @Override
+    public void onClick(View v) {
+        try {
+            homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
