@@ -2,6 +2,7 @@ package com.example.ratatouille_android.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -17,16 +18,13 @@ import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.ModificaProdottoController;
 import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
-
-import org.w3c.dom.Text;
+import com.example.ratatouille_android.views.dialogs.DeleteDialog;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 public class ModificaProdottoActivity extends AppCompatActivity {
     User loggedUser;
-    ArrayList<Prodotto> dispensa;
+    private ArrayList<Prodotto> dispensa;
     String nomeProdotto;
     ModificaProdottoController modificaProdottoController;
     String categorie [] = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
@@ -39,7 +37,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
 
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         nomeProdotto = (String) getIntent().getSerializableExtra("nomeProdotto");
-        dispensa = (ArrayList<Prodotto>) getIntent().getSerializableExtra("dispensa");
+        setDispensa((ArrayList<Prodotto>) getIntent().getSerializableExtra("dispensa"));
 
         modificaProdottoController = new ModificaProdottoController(this, loggedUser);
 
@@ -90,15 +88,15 @@ public class ModificaProdottoActivity extends AppCompatActivity {
                 String kg_or_lt = kgOrlt.getText().toString();
                 String selectedCategoria = categoria.getSelectedItem().toString();
                 int i = findIndexProductInDispensa();
-                modificaProdottoController.modificaServerPiattoInfo(dispensa.get(i).getIdProdotto(), nomeProdotto, descrizione, costo, quantita, kg_or_lt, selectedCategoria);
+                modificaProdottoController.modificaServerPiattoInfo(getDispensa().get(i).getIdProdotto(), nomeProdotto, descrizione, costo, quantita, kg_or_lt, selectedCategoria);
             }
         };
 
         View.OnClickListener eliminaOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i = findIndexProductInDispensa();
-                modificaProdottoController.eliminaPiattoDalServer(dispensa.get(i).getIdProdotto());
+                DeleteDialog dialog = new DeleteDialog(ModificaProdottoActivity.this.modificaProdottoController, ModificaProdottoActivity.this);
+                dialog.show(getSupportFragmentManager(), "");
             }
         };
         eliminabutton.setOnClickListener(eliminaOnClickListener);
@@ -113,10 +111,10 @@ public class ModificaProdottoActivity extends AppCompatActivity {
 
         setUpSpinner(categoria);
 
-        descrizioneField.setText(dispensa.get(i).getDescrizione());
-        costoField.setText(dispensa.get(i).getPrezzo().toString());
-        quantitaField.setText(dispensa.get(i).getQuantita().toString());
-        switch (dispensa.get(i).getCategoria()){
+        descrizioneField.setText(getDispensa().get(i).getDescrizione());
+        costoField.setText(getDispensa().get(i).getPrezzo().toString());
+        quantitaField.setText(getDispensa().get(i).getQuantita().toString());
+        switch (getDispensa().get(i).getCategoria()){
             case "frutta":
                 categoria.setSelection(0);
                 break;
@@ -156,9 +154,9 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         categoria.setAdapter(adapter);
     }
 
-    private int findIndexProductInDispensa() {
+    public int findIndexProductInDispensa() {
         int i = 0;
-        for(Prodotto p : dispensa){
+        for(Prodotto p : getDispensa()){
             if(p.getNome().equals(nomeProdotto)){
                 return i;
             }
@@ -173,9 +171,21 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         errorLable.setTextColor(Color.RED);
     }
 
+    public void setErrorLableOnCancel(){
+        errorLable.setText("Operazione di eliminazione annullata");
+        errorLable.setTextColor(Color.parseColor("#FF4500"));
+    }
+
     public void setErrorLableOnSuccess(){
         errorLable.setText("Aggiornamento avvenuto con successo");
         errorLable.setTextColor(Color.GREEN);
     }
 
+    public ArrayList<Prodotto> getDispensa() {
+        return dispensa;
+    }
+
+    public void setDispensa(ArrayList<Prodotto> dispensa) {
+        this.dispensa = dispensa;
+    }
 }
