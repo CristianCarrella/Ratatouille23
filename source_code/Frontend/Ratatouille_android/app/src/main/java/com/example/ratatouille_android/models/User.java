@@ -45,6 +45,16 @@ public class User extends Observable implements Serializable {
     public String getToken() {
         return token;
     }
+
+    public String getNome() { return nome; }
+
+    public String getCognome() { return cognome; }
+
+    public String getRuolo() { return ruolo; }
+
+    public String getEmail() { return email; }
+
+    public String getData_aggiunta() { return data_aggiunta; }
 }
 
 

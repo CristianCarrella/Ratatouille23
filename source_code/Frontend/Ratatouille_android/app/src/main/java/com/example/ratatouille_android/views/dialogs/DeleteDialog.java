@@ -23,8 +23,8 @@ public class DeleteDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Sei sicuro? ")
-                .setPositiveButton(HtmlCompat.fromHtml("<font color='#FF0000'>Cancella</font>", HtmlCompat.FROM_HTML_MODE_LEGACY), new DialogInterface.OnClickListener() {
+        builder.setTitle("Sei sicuro di voler eliminare il prodotto? ")
+                .setPositiveButton(HtmlCompat.fromHtml("<font color='#FF0000'>Annulla</font>", HtmlCompat.FROM_HTML_MODE_LEGACY), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         modificaProdottoActivity.setErrorLableOnCancel();
                     }

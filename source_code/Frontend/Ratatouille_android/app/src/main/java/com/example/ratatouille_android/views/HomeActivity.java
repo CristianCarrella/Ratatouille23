@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
     HomeController homeController;
+    String nomeRistorante;
     EditText nomeField, cognomeField, dataNascitaField;
 
 
@@ -53,12 +54,15 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
         TextView textNomeCognome = findViewById(R.id.textNomeCognome);
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
+//        non credo vada messa anche l'attività dato che sta sempre nella pagina home
         TextView textRuolo = findViewById(R.id.textRuolo);
         ImageView immagineProfilo = findViewById(R.id.imageView7);
 
-        textNomeCognome.setText("Nome e Cognome");
-        textNomeAttivita.setText("Attività");
-        textRuolo.setText("Ruolo");
+        nomeRistorante = homeController.getNomeRistorante();
+
+        textNomeCognome.setText(loggedUser.getNome() + " " + loggedUser.getCognome());
+        textNomeAttivita.setText(nomeRistorante);
+        textRuolo.setText(loggedUser.getRuolo());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton floatingActionButton = findViewById(R.id.home);
@@ -124,6 +128,17 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     }
 
 
+    public String getUserEmail(){
+        return loggedUser.getEmail();
+    }
+
+    public String getUserRuolo(){
+        return loggedUser.getRuolo();
+    }
+
+    public String getUserDataAggiunta(){
+        return loggedUser.getData_aggiunta();
+    }
 
     public void onClickDispensaListener(View v){
         homeController.goToDispensaActivity();

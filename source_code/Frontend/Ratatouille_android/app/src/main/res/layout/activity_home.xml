@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:backgroundTint="#FFFBF3"
     android:layout_height="match_parent"
     tools:context=".views.HomeActivity">
 
@@ -11,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/container">
-
-
     </FrameLayout>
+
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -41,7 +42,19 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="410dp"
+        android:layout_height="731dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/logocolored_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+
         android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
