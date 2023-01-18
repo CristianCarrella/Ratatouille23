@@ -30,6 +30,8 @@ public class DispensaController {
     String url = "http://192.168.1.5:8080/dispensa";
     ArrayList<Prodotto> dispensa = new ArrayList<Prodotto>();
 
+    HomeActivity homeActivity;
+
     public DispensaController(){ }
 
     public DispensaController(DispensaActivity dispensaActivity, User loggedUser) {

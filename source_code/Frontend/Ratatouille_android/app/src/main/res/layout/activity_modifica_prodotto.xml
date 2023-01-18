@@ -123,8 +123,9 @@
 
     <ToggleButton
         android:id="@+id/kg_or_lt"
-        android:layout_width="48dp"
-        android:layout_height="39dp"
+        android:layout_width="46dp"
+        android:layout_height="34dp"
+        android:background="@drawable/rounded_corners_buttons"
         android:backgroundTint="#003F91"
         android:text="ToggleButton"
         android:textColor="#FFFFFF"
@@ -133,10 +134,10 @@
         android:translationY="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.876"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.585" />
 
     <Spinner
         android:id="@+id/spinner_categoria"

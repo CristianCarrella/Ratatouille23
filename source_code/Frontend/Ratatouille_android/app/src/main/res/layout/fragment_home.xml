@@ -9,6 +9,17 @@
     tools:layout_editor_absoluteX="13dp"
     tools:layout_editor_absoluteY="55dp">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="410dp"
+        android:layout_height="731dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/logocolored_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/nomeAttivitaHome"
         android:layout_width="wrap_content"

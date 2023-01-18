@@ -1,5 +1,6 @@
 package com.example.ratatouille_android.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -69,6 +70,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
         bottomNavigationView.getMenu().findItem(R.id.nothing).setEnabled(false);
 
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,9 +134,23 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         return loggedUser.getEmail();
     }
 
+    public String getUserName(){
+        return loggedUser.getNome();
+    }
+
+    public String getUserCognome(){
+        return loggedUser.getCognome();
+    }
+
+    public String getUserDataNascita(){
+        return loggedUser.getData_nascita();
+    }
+
     public String getUserRuolo(){
         return loggedUser.getRuolo();
     }
+
+    public int getAggiuntoDa() { return loggedUser.getAggiunto_da(); }
 
     public String getUserDataAggiunta(){
         return loggedUser.getData_aggiunta();

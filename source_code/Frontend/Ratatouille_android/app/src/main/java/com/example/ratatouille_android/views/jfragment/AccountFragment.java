@@ -23,7 +23,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     EditText nomeField, cognomeField, dateField;
     HomeActivity homeActivity;
-    TextView ruolo, email, aggiuntoDa, aggiutoInData;
+    TextView ruolo, email, aggiuntoDa, aggiutoInData, aggiuntoDaLabel, dataAggiuntaLabel;
 
     public AccountFragment(HomeActivity homeActivity){
         this.homeActivity = homeActivity;
@@ -44,10 +44,21 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         email = (TextView) view.findViewById(R.id.textViewEmail);
         aggiuntoDa = (TextView) view.findViewById(R.id.textViewAggiuntoDa);
         aggiutoInData = (TextView) view.findViewById(R.id.textViewAggiutoInData);
+        aggiuntoDaLabel = (TextView) view.findViewById(R.id.aggiuntoDaLabel);
+        dataAggiuntaLabel = (TextView) view.findViewById(R.id.dataAggiuntaDaLabel);
 
+        nomeField.setHint(homeActivity.getUserName());
+        cognomeField.setHint(homeActivity.getUserCognome());
+        dateField.setHint(homeActivity.getUserDataNascita());
         ruolo.setText(homeActivity.getUserRuolo());
         email.setText(homeActivity.getUserEmail());
         aggiutoInData.setText(homeActivity.getUserDataAggiunta());
+
+        if(aggiuntoDa.getText().toString().equals("")){
+            aggiuntoDa.setText("");
+            aggiuntoDaLabel.setText("");
+            dataAggiuntaLabel.setText("Data iscrizione:");
+        }
 
 
         return view;
