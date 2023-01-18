@@ -23,7 +23,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     EditText nomeField, cognomeField, dateField;
     HomeActivity homeActivity;
-    TextView ruolo, email, aggiuntoDa, aggiutoInData;
+    TextView ruolo, email, aggiuntoDa, aggiutoInData, errore;
 
     public AccountFragment(HomeActivity homeActivity){
         this.homeActivity = homeActivity;
@@ -44,6 +44,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         email = (TextView) view.findViewById(R.id.textViewEmail);
         aggiuntoDa = (TextView) view.findViewById(R.id.textViewAggiuntoDa);
         aggiutoInData = (TextView) view.findViewById(R.id.textViewAggiutoInData);
+        errore = (TextView) view.findViewById(R.id.textViewErrore);
 
         ruolo.setText(homeActivity.getUserRuolo());
         email.setText(homeActivity.getUserEmail());
@@ -56,7 +57,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         try {
-            homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+            if (nomeField.getText().toString().equals("") || cognomeField.getText().toString().equals("") || dateField.getText().toString().equals("")) {
+                errore.setText("Modifiche apportate con successo");
+                homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+            } else {
+                errore.setText("Compilare tutti i campi");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

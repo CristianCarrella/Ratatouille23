@@ -91,7 +91,7 @@ public class HomeController {
                 .add("dataNascita", dataNascita)
                 .build();
         Request request = new Request.Builder()
-                .url(url + "/account")
+                .url(url + "user/account")
                 .post(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
