@@ -69,20 +69,20 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         try {
             if(nomeField.getText().toString().equals("")){
-                nomeField.setText(homeActivity.getUserName());
+                nomeField.setText(nomeField.getHint().toString());
             }
             if(cognomeField.getText().toString().equals("")){
-                cognomeField.setText(homeActivity.getUserCognome());
+                cognomeField.setText(cognomeField.getHint().toString());
             }
             if(dateField.getText().toString().equals("")) {
-                dateField.setText(homeActivity.getUserDataNascita());
+                dateField.setText(dateField.getHint().toString());
             }
             this.setErrorLableOnSuccess();
             homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
             homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
-            nomeField.setHint(nomeField.getText());
-            cognomeField.setHint(cognomeField.getText());
-            dateField.setHint(dateField.getText());
+            nomeField.setHint(nomeField.getText().toString());
+            cognomeField.setHint(cognomeField.getText().toString());
+            dateField.setHint(dateField.getText().toString());
             nomeField.setText("");
             cognomeField.setText("");
             dateField.setText("");

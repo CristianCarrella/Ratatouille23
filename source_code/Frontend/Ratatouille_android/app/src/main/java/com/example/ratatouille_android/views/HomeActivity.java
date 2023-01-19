@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.ratatouille_android.controllers.HomeController;
 import com.example.ratatouille_android.models.Attivita;
+import com.example.ratatouille_android.models.Avviso;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.jfragment.FunctionFragment;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
@@ -56,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
         accountFragment = new AccountFragment(this);
-        noticesFragment = new NoticesFragment(this);
+        noticesFragment = new NoticesFragment(this, loggedUser);
         functionFragment = new FunctionFragment(this, loggedUser);
         homeFragment = new HomeFragment(this);
 
@@ -136,11 +137,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     }
 
-
-
-
-
-
     public String getUserEmail(){
         return loggedUser.getEmail();
     }
@@ -183,12 +179,17 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Attivita a = (Attivita) o;
-        nomeRistorante = a.getNome();
-        TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
-        TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
-        textNomeAttivita.setText(a.getNome());
-        textNomeAttivitaHome.setText(a.getNome());
+        if(o instanceof Attivita){
+            Attivita a = (Attivita) o;
+            nomeRistorante = a.getNome();
+            TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
+            TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
+            textNomeAttivita.setText(a.getNome());
+            textNomeAttivitaHome.setText(a.getNome());
+        } else {
+            Avviso a = (Avviso) o;
+            noticesFragment.updateB(a);
+        }
     }
 
     public HomeController getHomeController() {

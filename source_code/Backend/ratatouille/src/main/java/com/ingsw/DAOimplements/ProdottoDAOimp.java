@@ -79,7 +79,6 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 	public ArrayList<Prodotto> getDispensaProductByName(Integer id_ristorante, String nomeProdotto) {
 		ArrayList<Prodotto> prodotto = new ArrayList<Prodotto>();
 		String query = "SELECT * FROM prodotto WHERE id_ristorante = " + id_ristorante + " AND nome LIKE '%" + nomeProdotto + "%'";
-		System.out.print(query);
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);

@@ -23,12 +23,12 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 
 	public ArrayList<Avviso> getAvvisi() {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();
-		String query = "SELECT * FROM avviso";
+		String query = "SELECT * FROM avviso AS a INNER JOIN utente AS u on u.id_utente = a.id_utente";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Avviso a = new Avviso(rs.getInt("id_avviso"), rs.getInt("id_utente"), rs.getInt("id_ristorante"), rs.getString("testo"), rs.getString("data_ora"));
+				Avviso a = new Avviso(rs.getInt("id_avviso"), rs.getInt("id_utente"), rs.getInt("id_ristorante"), rs.getString("testo"), rs.getString("data_ora"), rs.getString("nome"));
 				avvisi.add(a);
 			}
 			return avvisi;
@@ -40,12 +40,12 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 
 	public ArrayList<Avviso> getAvvisiOfResturant(Integer id_ristorante) {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();
-		String query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante;
+		String query = "SELECT * FROM avviso AS a INNER JOIN utente AS u on u.id_utente = a.id_utente WHERE a.id_ristorante = " + id_ristorante;
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Avviso a = new Avviso(rs.getInt("id_avviso"), rs.getInt("id_utente"), rs.getInt("id_ristorante"), rs.getString("testo"), rs.getString("data_ora"));
+				Avviso a = new Avviso(rs.getInt("id_avviso"), rs.getInt("id_utente"), rs.getInt("id_ristorante"), rs.getString("testo"), rs.getString("data_ora"), rs.getString("nome"));
 				avvisi.add(a);
 			}
 			return avvisi;

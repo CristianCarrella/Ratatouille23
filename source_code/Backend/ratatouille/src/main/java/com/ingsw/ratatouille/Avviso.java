@@ -5,7 +5,7 @@ public class Avviso {
 	int id_utente;
 	int id_ristorante;
 	String testo;
-	String data_ora;
+	String data_ora, autore;
 	
 	public Avviso(int id_avviso, int id_utente, int id_ristorante, String testo, String data_ora) {
 		this.id_avviso = id_avviso;
@@ -13,6 +13,15 @@ public class Avviso {
 		this.id_ristorante = id_ristorante;
 		this.testo = testo;
 		this.data_ora = data_ora;
+	}
+	
+	public Avviso(int id_avviso, int id_utente, int id_ristorante, String testo, String data_ora, String autore) {
+		this.id_avviso = id_avviso;
+		this.id_utente = id_utente;
+		this.id_ristorante = id_ristorante;
+		this.testo = testo;
+		this.data_ora = data_ora;
+		this.autore = autore;
 	}
 
 	public int getIdAvviso() {
@@ -41,6 +50,10 @@ public class Avviso {
 
 	public String getTesto() {
 		return testo;
+	}
+	
+	public String getAutore() {
+		return autore;
 	}
 
 	public void setTesto(String testo) {

@@ -12,50 +12,53 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
+import com.example.ratatouille_android.controllers.NoticesController;
+import com.example.ratatouille_android.models.Avviso;
+import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 
-public class NoticesFragment extends Fragment implements Observer {
+public class NoticesFragment extends Fragment {
     HomeActivity homeActivity;
+    NoticesController noticesController;
+    View view;
+    User loggedUser;
+    LinearLayout layout;
+    ArrayList<Avviso> avviso = new ArrayList<Avviso>();
+    float factor;
 
-    public NoticesFragment(HomeActivity homeActivity){
+    public NoticesFragment(HomeActivity homeActivity, User loggedUser){
         this.homeActivity = homeActivity;
+        this.loggedUser = loggedUser;
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notices, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_notices, container, false);
+        layout = view.findViewById(R.id.linear_layoutCard);
+        factor = homeActivity.getResources().getDisplayMetrics().density;
+        noticesController = new NoticesController(homeActivity, loggedUser);
+        noticesController.getReadNoticeFromServer();
+        noticesController.getViewedNoticeFromServer();
+        noticesController.getNoticeFromServer();
 
-        LinearLayout layout = view.findViewById(R.id.linear_layoutCard);
-        float factor = homeActivity.getResources().getDisplayMetrics().density;
 
-        CardView card = new CardView(homeActivity);
-        CardView card2 = new CardView(homeActivity);
-        CardView card3 = new CardView(homeActivity);
-        CardView card4 = new CardView(homeActivity);
-        generateCard(factor, card);
-        generateCard(factor, card2);
-        generateCard(factor, card3);
-        generateCard(factor, card4);
 
-        layout.addView(card);
-        layout.addView(card2);
-        layout.addView(card3);
-        layout.addView(card4);
         return view;
     }
 
-    private void generateCard(float factor, CardView card) {
+    private void generateCard(float factor, CardView card, String header, String textMessage, boolean isRead) {
         card.setLayoutParams(new LinearLayout.LayoutParams((int)(322 * factor), (int)(112 * factor)));
         card.setBackgroundColor(Color.parseColor("#FFFBF3"));
 
@@ -64,47 +67,11 @@ public class NoticesFragment extends Fragment implements Observer {
         constraintLayout.setBackgroundColor(Color.parseColor("#FFFBF3"));
         card.addView(constraintLayout);
 
-        TextView header_message = new TextView(homeActivity);
-        header_message.setId(R.id.header_message);
-        header_message.setBackgroundResource(R.drawable.square_top_rounded);
-        header_message.setText("TextView");
-        header_message.setPadding(10,0,0,0);
-        header_message.setTextColor(Color.parseColor("#FFFFFF"));
-        LinearLayout.LayoutParams layout_566 = new LinearLayout.LayoutParams((int)(322 * factor), 0);
-        header_message.setLayoutParams(layout_566);
-        constraintLayout.addView(header_message);
+        generateHeaderTextCard(factor, constraintLayout, header);
+        generateShowMessageCard(factor, constraintLayout, textMessage);
+        generateHideButtonSpaceCard(factor, constraintLayout, isRead);
 
-        TextView show_message = new TextView(homeActivity);
-        show_message.setId(R.id.show_message);
-        show_message.setBackgroundResource(R.drawable.square_bottom_rounded);
-        show_message.setPaddingRelative(0, 0, (int) (10/homeActivity.getResources().getDisplayMetrics().density), 0);
-        show_message.setPadding(10,0,0,0);
-        show_message.setText("TextView");
-        LinearLayout.LayoutParams layout_343 = new LinearLayout.LayoutParams((int)(242 * factor), (int)(93 * factor));
-        layout_343.setMarginEnd(2);
-        show_message.setLayoutParams(layout_343);
-        constraintLayout.addView(show_message);
 
-        TextView spacing = new TextView(homeActivity);
-        spacing.setId(R.id.spacing);
-        spacing.setBackgroundResource(R.drawable.square_bottom_rounded2);
-        LinearLayout.LayoutParams layout_274 = new LinearLayout.LayoutParams((int)(81 * factor), (int)(93 * factor));
-        spacing.setLayoutParams(layout_274);
-        constraintLayout.addView(spacing);
-
-        ImageView hide_button = new ImageView(homeActivity);
-        hide_button.setId(R.id.hide_button);
-        hide_button.setImageResource(R.drawable.nascondi_button);
-        ConstraintLayout.LayoutParams layout_325 = new ConstraintLayout.LayoutParams((int)(80 * factor), (int)(40 * factor));
-        hide_button.setLayoutParams(layout_325);
-        constraintLayout.addView(hide_button);
-
-        TextView read_or_not = new TextView(homeActivity);
-        read_or_not.setId(R.id.read_or_not);
-        read_or_not.setBackgroundResource(R.drawable.circle_green);
-        ConstraintLayout.LayoutParams layout_837 = new ConstraintLayout.LayoutParams((int)(10 * factor),(int)(10 * factor));
-        read_or_not.setLayoutParams(layout_837);
-        constraintLayout.addView(read_or_not);
 
         ConstraintSet set = new ConstraintSet();
         set.clone(constraintLayout);
@@ -136,8 +103,62 @@ public class NoticesFragment extends Fragment implements Observer {
         set.applyTo(constraintLayout);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
+    private void generateHideButtonSpaceCard(float factor, ConstraintLayout constraintLayout, boolean isRead) {
+        TextView spacing = new TextView(homeActivity);
+        spacing.setId(R.id.spacing);
+        spacing.setBackgroundResource(R.drawable.square_bottom_rounded2);
+        LinearLayout.LayoutParams layout_274 = new LinearLayout.LayoutParams((int)(81 * factor), (int)(93 * factor));
+        spacing.setLayoutParams(layout_274);
+        constraintLayout.addView(spacing);
 
+        ImageView hide_button = new ImageView(homeActivity);
+        hide_button.setId(R.id.hide_button);
+        hide_button.setImageResource(R.drawable.nascondi_button);
+        ConstraintLayout.LayoutParams layout_325 = new ConstraintLayout.LayoutParams((int)(80 * factor), (int)(40 * factor));
+        hide_button.setLayoutParams(layout_325);
+        constraintLayout.addView(hide_button);
+
+        CheckBox read_or_not = new CheckBox(homeActivity);
+        read_or_not.setId(R.id.read_or_not);
+        if(isRead){
+            read_or_not.setChecked(true);
+        } else {
+            read_or_not.setChecked(false);
+        }
+        ConstraintLayout.LayoutParams layout_837 = new ConstraintLayout.LayoutParams((int)(33 * factor),(int)(33 * factor));
+        read_or_not.setLayoutParams(layout_837);
+        constraintLayout.addView(read_or_not);
+    }
+
+    private void generateShowMessageCard(float factor, ConstraintLayout constraintLayout, String textMessage) {
+        TextView show_message = new TextView(homeActivity);
+        show_message.setId(R.id.show_message);
+        show_message.setBackgroundResource(R.drawable.square_bottom_rounded);
+        show_message.setPaddingRelative(0, 0, (int) (10/homeActivity.getResources().getDisplayMetrics().density), 0);
+        show_message.setPadding(10,0,0,0);
+        show_message.setText(textMessage);
+        LinearLayout.LayoutParams layout_343 = new LinearLayout.LayoutParams((int)(242 * factor), (int)(93 * factor));
+        layout_343.setMarginEnd(2);
+        show_message.setLayoutParams(layout_343);
+        constraintLayout.addView(show_message);
+    }
+
+    private void generateHeaderTextCard(float factor, ConstraintLayout constraintLayout, String header) {
+        TextView header_message = new TextView(homeActivity);
+        header_message.setId(R.id.header_message);
+        header_message.setBackgroundResource(R.drawable.square_top_rounded);
+        header_message.setText(header);
+        header_message.setPadding(10,0,0,0);
+        header_message.setTextColor(Color.parseColor("#FFFFFF"));
+        LinearLayout.LayoutParams layout_566 = new LinearLayout.LayoutParams((int)(322 * factor), 0);
+        header_message.setLayoutParams(layout_566);
+        constraintLayout.addView(header_message);
+    }
+
+    public void updateB(Avviso avviso) {
+        float factor = homeActivity.getResources().getDisplayMetrics().density;
+        CardView card = new CardView(homeActivity);
+        generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.isRead());
+        layout.addView(card);
     }
 }
