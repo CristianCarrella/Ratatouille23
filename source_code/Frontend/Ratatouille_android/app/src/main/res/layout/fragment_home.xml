@@ -26,8 +26,9 @@
         android:layout_height="wrap_content"
         android:autoSizePresetSizes="25dp"
         android:text="Nome Attività"
-        android:textColor="@color/black"
+        android:textColor="#003F91"
         android:textSize="22dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,12 +37,14 @@
         app:layout_constraintVertical_bias="0.268" />
 
     <TextView
-        android:layout_width="277dp"
-        android:layout_height="84dp"
+        android:layout_width="289dp"
+        android:layout_height="125dp"
         android:autoSizePresetSizes="25dp"
         android:gravity="center"
         android:text="BENVENUTO IN RATATUILLE23\nIL SISTEMA IN GRADO DI FORNIRTI\nUNA FACILE GESTIONE\nDELLE TUE ATTIVITA’ DI RISTORAZIONE"
-        android:textColor="@color/black"
+        android:textColor="#003F91"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -8,6 +8,7 @@ import com.example.ratatouille_android.models.Attivita;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
+import com.example.ratatouille_android.views.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public class HomeController {
     Attivita attivita;
     HomeController homeController;
     HomeActivity homeActivity;
-    String url = "http://192.168.1.5:8080/";
+    String url = MainActivity.address + "/";
 
     String nome, cognome, dataNascita;
     EditText nomeField, cognomeField, dataNascitaField;

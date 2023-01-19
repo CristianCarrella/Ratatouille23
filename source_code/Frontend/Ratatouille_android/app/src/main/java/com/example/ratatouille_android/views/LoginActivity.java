@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity implements Observer {
             public void onClick(View view) {
                 //String email = String.valueOf(emailField.getText());
                 //String password = String.valueOf(passwordField.getText());
-                String email = "lise.michel@example.com";
-                String password = "hyperion";
+                String email = "maely.fleury@example.com";
+                String password = "password";
                 loginController = new LoginController(LoginActivity.this, email, password, error);
                 loginController.requestToServer();
 

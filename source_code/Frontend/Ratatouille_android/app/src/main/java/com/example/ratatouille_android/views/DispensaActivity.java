@@ -68,7 +68,7 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 cleanTable(tableLayout);
-                if(selectedFilter == "Nome")
+                if(selectedFilter.equals("Nome"))
                     dispensaController.getProductByNameFromServer(searchBar.getText().toString());
                 else
                     dispensaController.getProductByCategoriaFromServer(searchBar.getText().toString());

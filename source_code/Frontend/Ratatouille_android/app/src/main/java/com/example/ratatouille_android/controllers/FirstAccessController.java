@@ -8,6 +8,7 @@ import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.FirstAccessActivity;
 import com.example.ratatouille_android.views.HomeActivity;
+import com.example.ratatouille_android.views.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +26,7 @@ import okhttp3.Response;
 public class FirstAccessController {
     FirstAccessActivity firstAccessActivity;
     User loggedUser;
-    String url = "http://192.168.1.5:8080/user/first-access";
+    String url = MainActivity.address + "/user/first-access";
 
     public FirstAccessController(FirstAccessActivity firstAccessActivity, User loggedUser){
         this.firstAccessActivity = firstAccessActivity;

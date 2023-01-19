@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.DispensaActivity;
+import com.example.ratatouille_android.views.MainActivity;
 import com.example.ratatouille_android.views.ModificaProdottoActivity;
 
 
@@ -23,7 +24,7 @@ public class ModificaProdottoController {
     User loggedUser;
     ModificaProdottoActivity modificaProdottoActivity;
     String[] categorie = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
-    String url = "http://192.168.1.5:8080/dispensa";
+    String url = MainActivity.address + "/dispensa";
 
     public ModificaProdottoController(ModificaProdottoActivity modificaProdottoActivity, User loggedUser) {
         this.loggedUser = loggedUser;

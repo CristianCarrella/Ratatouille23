@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.CreaProdottoActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
+import com.example.ratatouille_android.views.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +28,7 @@ public class CreaProdottoController {
     User loggedUser;
     Integer resultIndex = 0;
     String url = "https://it.openfoodfacts.org/cgi/search.pl?search_terms=";
-    String url2 = "http://192.168.1.5:8080/dispensa/newProduct";
+    String url2 = MainActivity.address + "/dispensa/newProduct";
 
     public CreaProdottoController(CreaProdottoActivity creaProdottoActivity, User loggedUser) {
         this.creaProdottoActivity = creaProdottoActivity;

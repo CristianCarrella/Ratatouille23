@@ -8,6 +8,7 @@ import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.CreaProdottoActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
+import com.example.ratatouille_android.views.MainActivity;
 import com.example.ratatouille_android.views.ModificaProdottoActivity;
 
 import org.json.JSONArray;
@@ -26,9 +27,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DispensaController {
-    DispensaActivity dispensaActivitity;
+    DispensaActivity dispensaActivity;
     User loggedUser;
-    String url = "http://192.168.1.5:8080/dispensa";
+    String url = MainActivity.address + "/dispensa";
     ArrayList<Prodotto> dispensa = new ArrayList<Prodotto>();
 
     HomeActivity homeActivity;
@@ -36,7 +37,7 @@ public class DispensaController {
     public DispensaController(){ }
 
     public DispensaController(DispensaActivity dispensaActivity, User loggedUser) {
-        this.dispensaActivitity = dispensaActivity;
+        this.dispensaActivity = dispensaActivity;
         this.loggedUser = loggedUser;
     }
 
@@ -105,7 +106,7 @@ public class DispensaController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
-                dispensaActivitity.runOnUiThread(new Runnable() {
+                dispensaActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         JSONArray jsonA = null;
@@ -113,7 +114,7 @@ public class DispensaController {
                             jsonA = new JSONArray(myResponse);
                             for (int i = 0; i < jsonA.length(); i++){
                                 JSONObject json = jsonA.getJSONObject(i);
-                                Prodotto p = new Prodotto(dispensaActivitity, json.getInt("idProdotto"), json.getInt("idRistorante"), json.getString("nome"), json.getInt("stato"), json.getString("descrizione"), json.getDouble("prezzo"), json.getDouble("quantita"), json.getString("unitaMisura"),  json.getString("categoria"));
+                                Prodotto p = new Prodotto(dispensaActivity, json.getInt("idProdotto"), json.getInt("idRistorante"), json.getString("nome"), json.getInt("stato"), json.getString("descrizione"), json.getDouble("prezzo"), json.getDouble("quantita"), json.getString("unitaMisura"),  json.getString("categoria"));
                             }
 
                         } catch (JSONException e) {
@@ -136,7 +137,7 @@ public class DispensaController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
-                dispensaActivitity.runOnUiThread(new Runnable() {
+                dispensaActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         JSONArray jsonA = null;
@@ -144,7 +145,7 @@ public class DispensaController {
                             jsonA = new JSONArray(myResponse);
                             for (int i = 0; i < jsonA.length(); i++){
                                 JSONObject json = jsonA.getJSONObject(i);
-                                Prodotto p = new Prodotto(dispensaActivitity, json.getInt("idProdotto"), json.getInt("idRistorante"), json.getString("nome"), json.getInt("stato"), json.getString("descrizione"), json.getDouble("prezzo"), json.getDouble("quantita"), json.getString("unitaMisura"),  json.getString("categoria"));
+                                Prodotto p = new Prodotto(dispensaActivity, json.getInt("idProdotto"), json.getInt("idRistorante"), json.getString("nome"), json.getInt("stato"), json.getString("descrizione"), json.getDouble("prezzo"), json.getDouble("quantita"), json.getString("unitaMisura"),  json.getString("categoria"));
                                 dispensa.add(p);
                             }
 
@@ -159,22 +160,25 @@ public class DispensaController {
     }
 
     public void goToMenuActivity(){
-        Intent switchActivityIntent = new Intent(dispensaActivitity, HomeActivity.class);
+        Intent switchActivityIntent = new Intent(dispensaActivity, HomeActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
-        dispensaActivitity.startActivity(switchActivityIntent);
+        dispensaActivity.startActivity(switchActivityIntent);
+        dispensaActivity.finish();
     }
 
     public void goToModificaProdottoActivity(String nomeProdotto){
-        Intent switchActivityIntent = new Intent(dispensaActivitity, ModificaProdottoActivity.class);
+        Intent switchActivityIntent = new Intent(dispensaActivity, ModificaProdottoActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         switchActivityIntent.putExtra("nomeProdotto", nomeProdotto);
         switchActivityIntent.putExtra("dispensa", dispensa);
-        dispensaActivitity.startActivity(switchActivityIntent);
+        dispensaActivity.startActivity(switchActivityIntent);
+        dispensaActivity.finish();
     }
 
     public void goToCreaProdottoActivity() {
-        Intent switchActivityIntent = new Intent(dispensaActivitity, CreaProdottoActivity.class);
+        Intent switchActivityIntent = new Intent(dispensaActivity, CreaProdottoActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
-        dispensaActivitity.startActivity(switchActivityIntent);
+        dispensaActivity.startActivity(switchActivityIntent);
+        dispensaActivity.finish();
     }
 }

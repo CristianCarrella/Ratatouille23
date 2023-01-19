@@ -182,7 +182,11 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         nomeRistorante = a.getNome();
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
         TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
+        textNomeAttivita.setText(a.getNome());
+        textNomeAttivitaHome.setText(a.getNome());
+    }
 
-
+    public HomeController getHomeController() {
+        return homeController;
     }
 }
