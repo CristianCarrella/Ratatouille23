@@ -17,11 +17,13 @@ import com.ingsw.ratatouille.DatabaseConnection;
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.ingsw.DAOimplements.AvvisoDAOimp;
+import com.ingsw.DAOimplements.BusinessDAOimp;
 import com.ingsw.DAOimplements.MenuDAOimp;
 import com.ingsw.DAOimplements.ProdottoDAOimp;
 import com.ingsw.DAOimplements.UserDAOimp;
 import com.ingsw.DAOimplements.CategoriaMenuDAOimp;
 import com.ingsw.DAOinterface.AvvisoDAOint;
+import com.ingsw.DAOinterface.BusinessDAOint;
 import com.ingsw.DAOinterface.CategoriaMenuDAOint;
 import com.ingsw.DAOinterface.MenuDAOint;
 import com.ingsw.DAOinterface.ProdottoDAOint;
@@ -37,6 +39,7 @@ public class Controller {
 	MenuDAOint menuDao = new MenuDAOimp(db);
 	CategoriaMenuDAOint categoriaMenuDao = new CategoriaMenuDAOimp(db);
 	ProdottoDAOint prodottoDao = new ProdottoDAOimp(db);
+	BusinessDAOint businessDao = new BusinessDAOimp(db);
 	
 
 	@GetMapping("/user")
@@ -209,6 +212,11 @@ public class Controller {
 	@GetMapping("/error")
 	public String getError() {
 		return "errore";
+	}
+	
+	@GetMapping("/business/nomeAttivita")
+	public String getBusinessFromBusinessId(@RequestParam(required = true) Integer id_ristorante){
+		return businessDao.getBusinessFromBusinessId(id_ristorante);
 	}
 	
 }

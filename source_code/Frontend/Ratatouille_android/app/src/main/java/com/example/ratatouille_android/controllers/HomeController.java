@@ -30,6 +30,7 @@ public class HomeController {
     HomeController homeController;
     HomeActivity homeActivity;
     String url = "http://192.168.1.47:8080/user";
+
     String nome, cognome, dataNascita;
     EditText nomeField, cognomeField, dataNascitaField;
 
@@ -54,10 +55,29 @@ public class HomeController {
         return null;
     }
 
+    public String getNomeRistorante() {
+        try {
+            runAttivita(loggedUser.getIdRistorante(), loggedUser.getToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     void run(Integer id_utente, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "/" + id_utente.toString())
+                .url(url + "user/" + id_utente.toString())
+                .header("Authorization", token)
+                .build();
+
+        serverRequest(client, request);
+    }
+
+    void runAttivita(Integer id_ristorante, String token) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url + "business/nomeAttivita   " + id_ristorante.toString())
                 .header("Authorization", token)
                 .build();
 
@@ -72,7 +92,7 @@ public class HomeController {
                 .add("dataNascita", dataNascita)
                 .build();
         Request request = new Request.Builder()
-                .url(url + "/account")
+                .url(url + "user/account")
                 .post(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
@@ -98,4 +118,6 @@ public class HomeController {
             }
         });
     }
+
+
 }
