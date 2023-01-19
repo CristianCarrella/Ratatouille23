@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     HomeFragment homeFragment;
     AccountFragment accountFragment;
-    NoticesFragment noticesFragment ;
+    NoticesFragment noticesFragment;
     FunctionFragment functionFragment;
     LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.notices:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
                         return true;
@@ -126,53 +126,55 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         bottomBarBackground.setShapeAppearanceModel(
                 bottomBarBackground.getShapeAppearanceModel()
                         .toBuilder()
-                        .setTopRightCorner(CornerFamily.ROUNDED,40)
-                        .setTopLeftCorner(CornerFamily.ROUNDED,40)
-                        .setBottomRightCorner(CornerFamily.ROUNDED,40)
-                        .setBottomLeftCorner(CornerFamily.ROUNDED,40)
+                        .setTopRightCorner(CornerFamily.ROUNDED, 40)
+                        .setTopLeftCorner(CornerFamily.ROUNDED, 40)
+                        .setBottomRightCorner(CornerFamily.ROUNDED, 40)
+                        .setBottomLeftCorner(CornerFamily.ROUNDED, 40)
                         .build());
 
     }
 
 
-
-
-
-    public String getUserEmail(){
+    public String getUserEmail() {
         return loggedUser.getEmail();
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return loggedUser.getNome();
     }
 
-    public String getUserCognome(){
+    public String getUserCognome() {
         return loggedUser.getCognome();
     }
 
-    public String getUserDataNascita(){
+    public String getUserDataNascita() {
         return loggedUser.getData_nascita();
     }
 
-    public String getUserRuolo(){
+    public String getUserRuolo() {
         return loggedUser.getRuolo();
     }
 
-    public int getAggiuntoDa() { return loggedUser.getAggiunto_da(); }
+    public int getAggiuntoDa() {
+        return loggedUser.getAggiunto_da();
+    }
 
-    public String getUserDataAggiunta(){
+    public String getUserDataAggiunta() {
         return loggedUser.getData_aggiunta();
     }
 
-    public void onClickDispensaListener(View v){
+    public void onClickDispensaListener(View v) {
         homeController.goToDispensaActivity();
     }
 
-    public void setTextNomeCognome(String nomeCognome){
+    public void setTextNomeCognome(String nomeCognome) {
         textNomeCognome.setText(nomeCognome);
     }
 
-    public String getNomeRistorante(){ return nomeRistorante; }
+
+    public String getNomeRistorante() {
+        return nomeRistorante;
+    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -180,11 +182,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         nomeRistorante = a.getNome();
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
         TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
-        textNomeAttivita.setText(a.getNome());
-        textNomeAttivitaHome.setText(a.getNome());
-    }
 
-    public HomeController getHomeController() {
-        return homeController;
+
     }
 }

@@ -29,7 +29,6 @@ public class HomeController {
     HomeActivity homeActivity;
     String url = "http://192.168.1.5:8080/";
 
-
     String nome, cognome, dataNascita;
     EditText nomeField, cognomeField, dataNascitaField;
 
