@@ -16,13 +16,18 @@ public class BusinessDAOimp implements BusinessDAOint {
 	}
 
 	
-	public String getBusinessFromBusinessId(Integer idRistorante) {
+	public Business getBusinessFromBusinessId(Integer idRistorante) {
 		String query = "SELECT * FROM ristorante WHERE id_ristorante = " + idRistorante;
 		System.out.println(query);
-		ResultSet rs;
+		ResultSet rs = null;
+		Business b;
 		try {
-			rs = db.getStatement().executeQuery(query);			
-			return rs.getString("nome");
+			rs = db.getStatement().executeQuery(query);	
+			while(rs.next()) {
+				b = new Business(rs.getInt("id_ristorante"), rs.getString("nome"), rs.getString("telefono"), rs.getString("indirizzo"), rs.getString("nome_immagine"), rs.getInt("id_proprietario"));
+				System.out.println(rs.getString("nome"));
+				return b;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

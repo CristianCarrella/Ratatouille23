@@ -82,13 +82,19 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         View.OnClickListener applicaListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String descrizione = descrizioneField.getText().toString();
                 String costo = costoField.getText().toString();
                 String quantita = quantitaField.getText().toString();
                 String kg_or_lt = kgOrlt.getText().toString();
                 String selectedCategoria = categoria.getSelectedItem().toString();
                 int i = findIndexProductInDispensa();
-                modificaProdottoController.modificaServerPiattoInfo(getDispensa().get(i).getIdProdotto(), nomeProdotto, descrizione, costo, quantita, kg_or_lt, selectedCategoria);
+                if (descrizione.equals("") || costo.equals("") || quantita.equals("")) {
+                    errorLable.setText("Compilare tutti i campi");
+                    errorLable.setTextColor(Color.RED);
+                } else {
+                    modificaProdottoController.modificaServerPiattoInfo(getDispensa().get(i).getIdProdotto(), nomeProdotto, descrizione, costo, quantita, kg_or_lt, selectedCategoria);
+                }
             }
         };
 
@@ -179,6 +185,11 @@ public class ModificaProdottoActivity extends AppCompatActivity {
     public void setErrorLableOnSuccess(){
         errorLable.setText("Aggiornamento avvenuto con successo");
         errorLable.setTextColor(Color.GREEN);
+    }
+
+    public void setErrorLableOnMissed(){
+        errorLable.setText("Compilare tutti i campi");
+        errorLable.setTextColor(Color.RED);
     }
 
     public ArrayList<Prodotto> getDispensa() {

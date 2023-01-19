@@ -19,8 +19,11 @@ import android.widget.TextView;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.views.HomeActivity;
 
+import java.util.Observable;
+import java.util.Observer;
 
-public class NoticesFragment extends Fragment {
+
+public class NoticesFragment extends Fragment implements Observer {
     HomeActivity homeActivity;
 
     public NoticesFragment(HomeActivity homeActivity){
@@ -131,5 +134,10 @@ public class NoticesFragment extends Fragment {
         set.connect(R.id.read_or_not, ConstraintSet.TOP, R.id.hide_button, ConstraintSet.BOTTOM);
 
         set.applyTo(constraintLayout);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

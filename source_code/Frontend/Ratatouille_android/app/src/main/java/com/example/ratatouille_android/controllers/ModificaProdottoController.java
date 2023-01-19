@@ -23,7 +23,7 @@ public class ModificaProdottoController {
     User loggedUser;
     ModificaProdottoActivity modificaProdottoActivity;
     String[] categorie = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
-    String url = "http://192.168.1.47:8080/dispensa";
+    String url = "http://192.168.1.5:8080/dispensa";
 
     public ModificaProdottoController(ModificaProdottoActivity modificaProdottoActivity, User loggedUser) {
         this.loggedUser = loggedUser;
@@ -34,6 +34,7 @@ public class ModificaProdottoController {
         Intent switchActivityIntent = new Intent(modificaProdottoActivity, DispensaActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         modificaProdottoActivity.startActivity(switchActivityIntent);
+        modificaProdottoActivity.finish();
     }
 
     public void modificaServerPiattoInfo(Integer idProdotto, String nome, String descrizione, String costo, String quantita, String kg_or_lt, String categoria) {
@@ -93,8 +94,9 @@ public class ModificaProdottoController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
-                if(!myResponse.contains("status"))
+                if(!myResponse.contains("status")) {
                     modificaProdottoActivity.setErrorLableOnSuccess();
+                }
 
             }
         });

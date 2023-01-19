@@ -26,7 +26,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginController {
-    public String url = "http://192.168.1.47:8080/login";
+    public String url = "http://192.168.1.5:8080/login";
     public String email, password;
     TextView error;
     User loggedUser;

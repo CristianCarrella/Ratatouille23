@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.controllers.HomeController;
+import com.example.ratatouille_android.models.Attivita;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.jfragment.FunctionFragment;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
@@ -40,8 +42,10 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
     HomeController homeController;
+    Attivita attivita;
     String nomeRistorante;
     EditText nomeField, cognomeField, dataNascitaField;
+    TextView nomeRistoranteTextView, textNomeCognome;
 
 
     @Override
@@ -55,13 +59,12 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         functionFragment = new FunctionFragment(this, loggedUser);
 
 
-        TextView textNomeCognome = findViewById(R.id.textNomeCognome);
+        textNomeCognome = findViewById(R.id.textNomeCognome);
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
-//        non credo vada messa anche l'attività dato che sta sempre nella pagina home
         TextView textRuolo = findViewById(R.id.textRuolo);
         ImageView immagineProfilo = findViewById(R.id.imageView7);
 
-        nomeRistorante = homeController.getNomeRistorante();
+        homeController.getNomeRistorante();
 
         textNomeCognome.setText(loggedUser.getNome() + " " + loggedUser.getCognome());
         textNomeAttivita.setText(nomeRistorante);
@@ -132,6 +135,9 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     }
 
 
+
+
+
     public String getUserEmail(){
         return loggedUser.getEmail();
     }
@@ -162,9 +168,18 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         homeController.goToDispensaActivity();
     }
 
+    public void setTextNomeCognome(String nomeCognome){
+        textNomeCognome.setText(nomeCognome);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-
+        Attivita a = (Attivita) o;
+        TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
+        TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
+        TextView textNomeCognome = findViewById(R.id.textNomeCognome);
+        textNomeAttivita.setText(a.getNome());
+        textNomeAttivitaHome.setText(a.getNome());
     }
 
     public HomeController getHomeController() {

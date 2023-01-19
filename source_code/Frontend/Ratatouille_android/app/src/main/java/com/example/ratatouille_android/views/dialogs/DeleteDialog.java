@@ -33,6 +33,7 @@ public class DeleteDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         int i = modificaProdottoActivity.findIndexProductInDispensa();
                         modificaProdottoController.eliminaPiattoDalServer(modificaProdottoActivity.getDispensa().get(i).getIdProdotto());
+                        modificaProdottoController.goToDispensaActivity();
                     }
                 });
         return builder.create();

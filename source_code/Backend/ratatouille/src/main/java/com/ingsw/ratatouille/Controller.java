@@ -220,7 +220,7 @@ public class Controller {
 	}
 	
 	@GetMapping("/business/nomeAttivita")
-	public String getBusinessFromBusinessId(@RequestParam(required = true) Integer id_ristorante){
+	public Business getBusinessFromBusinessId(@RequestParam(required = true) Integer id_ristorante){
 		return businessDao.getBusinessFromBusinessId(id_ristorante);
 	}
 	
