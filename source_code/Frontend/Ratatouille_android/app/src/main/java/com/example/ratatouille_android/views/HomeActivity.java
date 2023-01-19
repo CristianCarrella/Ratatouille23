@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     HomeController homeController;
     Attivita attivita;
     String nomeRistorante = "";
+
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
 
@@ -135,7 +136,11 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     }
 
 
-    public String getUserEmail() {
+
+
+
+
+    public String getUserEmail(){
         return loggedUser.getEmail();
     }
 
@@ -171,7 +176,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         textNomeCognome.setText(nomeCognome);
     }
 
-
     public String getNomeRistorante() {
         return nomeRistorante;
     }
@@ -179,10 +183,13 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Attivita a = (Attivita) o;
-        nomeRistorante = a.getNome();
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
         TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
+        textNomeAttivita.setText(a.getNome());
+        textNomeAttivitaHome.setText(a.getNome());
+    }
 
-
+    public HomeController getHomeController() {
+        return homeController;
     }
 }
