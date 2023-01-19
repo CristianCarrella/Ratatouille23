@@ -69,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         homeController.getNomeRistorante();
 
         textNomeCognome.setText(loggedUser.getNome() + " " + loggedUser.getCognome());
+        nomeRistorante.equals(textNomeAttivita);
         textRuolo.setText(loggedUser.getRuolo());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -183,6 +184,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Attivita a = (Attivita) o;
+        nomeRistorante = a.getNome();
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
         TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
         textNomeAttivita.setText(a.getNome());
