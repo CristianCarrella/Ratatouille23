@@ -23,7 +23,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 
 	public ArrayList<Avviso> getAvvisi() {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();
-		String query = "SELECT * FROM avviso AS a INNER JOIN utente AS u on u.id_utente = a.id_utente";
+		String query = "SELECT a.id_avviso, u.id_utente, u.id_ristorante, a.testo, a.data_ora, u.nome FROM avviso AS a INNER JOIN utente AS u on u.id_utente = a.id_utente";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
@@ -90,38 +90,39 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 	
-	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser, Integer id_ristorante) {
+	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
-		String query = null;		
-		
 		try {
-			query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante + " AND id_avviso = " + id_avviso;
-			rs = db.getStatement().executeQuery(query);
-			if(rs.isBeforeFirst()) {
-				query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
-				db.getStatement().executeUpdate(query);
-			}
+			String query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
+			db.getStatement().executeUpdate(query);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public AvvisoNascostoVisto setAvvisoNotViewed(Integer id_avviso, User loggedUser) {
+		ResultSet rs;
+		String query = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_avviso = " + id_avviso;
+		try {
+			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser, Integer id_ristorante) {
+	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
 		String query = null;		
-		
 		try {
-			query = "SELECT * FROM avviso WHERE id_ristorante = " + id_ristorante + " AND id_avviso = " + id_avviso;
-			rs = db.getStatement().executeQuery(query);
-			if(rs.isBeforeFirst()) {
-				query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
-				db.getStatement().executeUpdate(query);
-			}
+			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
+			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -156,12 +157,14 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 				}
 			}
 			
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
+
+
 	
 
 	

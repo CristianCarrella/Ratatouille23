@@ -1,5 +1,7 @@
 package com.example.ratatouille_android.controllers;
 
+import android.util.Log;
+
 import com.example.ratatouille_android.models.Avviso;
 import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
@@ -17,8 +19,10 @@ import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class NoticesController {
@@ -26,7 +30,7 @@ public class NoticesController {
     NoticesFragment noticesFragment;
     HomeActivity homeActivity;
     User loggedUser;
-    String url = MainActivity.address + "/avvisi";
+    String url = MainActivity.address;
     ArrayList<Avviso> avvisiLetti = new ArrayList<Avviso>();
     ArrayList<Avviso> avvisiNascosti = new ArrayList<Avviso>();
 
@@ -59,10 +63,68 @@ public class NoticesController {
         }
     }
 
+    public void markAsReadNotice(Integer id_avviso){
+        try {
+            runMarkNoticeAsRead(id_avviso, loggedUser.getIdRistorante());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void markAsNotReadNotice(Integer id_avviso){
+        try {
+            runMarkNoticeAsNotRead(id_avviso);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void runMarkNoticeAsNotRead(Integer id_avviso) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("id_avviso", String.valueOf(id_avviso))
+                .build();
+        Request request = new Request.Builder()
+                .url(url + "/avviso/segna-come-non-letto/" + id_avviso)
+                .post(formBody)
+                .header("Authorization", loggedUser.getToken())
+                .build();
+        serverRequestMarkNotice(client, request);
+    }
+
+    void runMarkNoticeAsRead(Integer id_avviso, Integer id_ristorante){
+        OkHttpClient client = new OkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("id_avviso", String.valueOf(id_avviso))
+                .add("id_ristorante", String.valueOf(id_ristorante))
+                .build();
+        Request request = new Request.Builder()
+                .url(url + "/avviso/segna-come-letto/" + id_avviso)
+                .post(formBody)
+                .header("Authorization",  loggedUser.getToken())
+                .build();
+        serverRequestMarkNotice(client, request);
+    }
+
+    private void serverRequestMarkNotice(OkHttpClient client, Request request) {
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String myResponse = response.body().string();
+                Log.v("prova", "prova");
+            }
+        });
+    }
+
     void runNotices(Integer id_ristorante, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "?id_avviso=" + id_ristorante.toString())
+                .url(url + "/avvisi?id_avviso=" + id_ristorante.toString())
                 .header("Authorization", token)
                 .build();
 
@@ -72,7 +134,7 @@ public class NoticesController {
     void runReadNotices(Integer id_ristorante, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "-viewed/" + loggedUser.getIdUtente())
+                .url(url + "/avvisi-viewed/" + loggedUser.getIdUtente())
                 .header("Authorization", token)
                 .build();
 
@@ -82,7 +144,7 @@ public class NoticesController {
     void runHiddenNotices(Integer id_ristorante, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "-hidden/" + loggedUser.getIdUtente())
+                .url(url + "/avvisi-hidden/" + loggedUser.getIdUtente())
                 .header("Authorization", token)
                 .build();
 
