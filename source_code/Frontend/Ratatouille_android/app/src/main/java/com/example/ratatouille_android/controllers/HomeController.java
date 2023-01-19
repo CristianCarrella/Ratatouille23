@@ -27,11 +27,8 @@ public class HomeController {
     Attivita attivita;
     HomeController homeController;
     HomeActivity homeActivity;
-<<<<<<< Updated upstream
-    String url = "http://192.168.1.47:8080/";
-=======
     String url = "http://192.168.1.5:8080/";
->>>>>>> Stashed changes
+
 
     String nome, cognome, dataNascita;
     EditText nomeField, cognomeField, dataNascitaField;

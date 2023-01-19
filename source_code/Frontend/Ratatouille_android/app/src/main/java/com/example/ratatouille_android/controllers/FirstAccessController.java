@@ -25,7 +25,7 @@ import okhttp3.Response;
 public class FirstAccessController {
     FirstAccessActivity firstAccessActivity;
     User loggedUser;
-    String url = "http://192.168.1.47:8080/user/first-access";
+    String url = "http://192.168.1.5:8080/user/first-access";
 
     public FirstAccessController(FirstAccessActivity firstAccessActivity, User loggedUser){
         this.firstAccessActivity = firstAccessActivity;

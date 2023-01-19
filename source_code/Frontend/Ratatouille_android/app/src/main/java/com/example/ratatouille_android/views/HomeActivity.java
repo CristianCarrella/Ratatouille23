@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     BottomNavigationView bottomNavigationView;
 
-    HomeFragment homeFragment = new HomeFragment();
+    HomeFragment homeFragment;
     AccountFragment accountFragment;
     NoticesFragment noticesFragment ;
     FunctionFragment functionFragment;
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     User loggedUser;
     HomeController homeController;
     Attivita attivita;
-    String nomeRistorante;
+    String nomeRistorante = "";
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
 
@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         accountFragment = new AccountFragment(this);
         noticesFragment = new NoticesFragment(this);
         functionFragment = new FunctionFragment(this, loggedUser);
+        homeFragment = new HomeFragment(this);
 
 
         textNomeCognome = findViewById(R.id.textNomeCognome);
@@ -67,7 +68,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         homeController.getNomeRistorante();
 
         textNomeCognome.setText(loggedUser.getNome() + " " + loggedUser.getCognome());
-        textNomeAttivita.setText(nomeRistorante);
         textRuolo.setText(loggedUser.getRuolo());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -172,12 +172,14 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         textNomeCognome.setText(nomeCognome);
     }
 
+    public String getNomeRistorante(){ return nomeRistorante; }
+
     @Override
     public void update(Observable o, Object arg) {
         Attivita a = (Attivita) o;
+        nomeRistorante = a.getNome();
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
         TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
-        TextView textNomeCognome = findViewById(R.id.textNomeCognome);
         textNomeAttivita.setText(a.getNome());
         textNomeAttivitaHome.setText(a.getNome());
     }
