@@ -1,10 +1,8 @@
 package com.example.ratatouille_android.views;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +25,6 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -135,10 +132,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
                         .build());
 
     }
-
-
-
-
 
 
     public String getUserEmail(){

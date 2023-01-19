@@ -67,9 +67,9 @@ public class Controller {
 		return userDao.createEmployee(nome, cognome, passwordTemporanea, email, dataNascita, ruolo, loggedUser);
 	}
 	
-	@PostMapping("/signup/employee")
-    public User verifyUser(@RequestParam (required = true) String nome, String cognome, String email, String dataNascita) {
-		return userDao.verifyEmployee(nome, cognome, email, dataNascita);
+	@PostMapping("/verify")
+    public User verifyUser(@RequestParam (required = true) String email, String nomeRistorante) {
+		return userDao.verifyEmployee(email, nomeRistorante);
 	}
 	
 	@PostMapping("/user/first-access")

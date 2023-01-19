@@ -12,7 +12,7 @@ public interface UserDAOint {
 	public ArrayList<User> getUserOfResturant(int id_ristorante);
 	public User getUserById(Integer id);
 	public LoggedUser login(String email, String password, String token, String time);
-	public User verifyEmployee(String nome, String cognome, String email, String dataNascita);
+	public User verifyEmployee(String email, String nomeRistorante);
 	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita);
 	public User firstAccess(Integer id_utente, String newPassword);
 }

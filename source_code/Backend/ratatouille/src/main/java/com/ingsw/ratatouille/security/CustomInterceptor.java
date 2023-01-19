@@ -38,23 +38,25 @@ public class CustomInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	
     	if(request.getHeader("Authorization") == null) {
-    		System.out.print(request.getRequestURI().toString());
-    		if(!request.getRequestURI().toString().equals("/login")) {
+    		
+    		if(!(request.getRequestURI().toString().equals("/login") || request.getRequestURI().toString().equals("/verify"))) {
+    			System.out.print(request.getRequestURI().toString());
     			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     			throw new RestClientException("Token non presente");
     		} else {
-    			// devo fare il login
-    			String token = generateToken();
-    			ZoneId z = ZoneId.of("Europe/Paris");
-    			ZonedDateTime zdt = ZonedDateTime.now(z);
-    			ZonedDateTime later = zdt.plusMinutes(15); 
-    			String expirationTime = later.toString();
-    			LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
-    			u.setToken(token);
-    			u.setTk_expiration_timestamp(expirationTime);
-    		    HttpSession session = request.getSession();
-    		    session.setAttribute("attributeToPass", u);
-    			loggedUsers.add(u);
+    			if(request.getRequestURI().toString().equals("/login")) {
+	    			String token = generateToken();
+	    			ZoneId z = ZoneId.of("Europe/Paris");
+	    			ZonedDateTime zdt = ZonedDateTime.now(z);
+	    			ZonedDateTime later = zdt.plusMinutes(15); 
+	    			String expirationTime = later.toString();
+	    			LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
+	    			u.setToken(token);
+	    			u.setTk_expiration_timestamp(expirationTime);
+	    		    HttpSession session = request.getSession();
+	    		    session.setAttribute("attributeToPass", u);
+	    			loggedUsers.add(u);
+    			}
     		}
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
