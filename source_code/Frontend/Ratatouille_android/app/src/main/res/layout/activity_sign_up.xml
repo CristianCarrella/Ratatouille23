@@ -9,7 +9,7 @@
     tools:context=".views.SignUpActivity">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/login_button3"
+        android:id="@+id/verifica_button"
         android:layout_width="136dp"
         android:layout_height="46dp"
         android:backgroundTint="#003F91"
@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.162" />
 
     <EditText
-        android:id="@+id/email_field5"
+        android:id="@+id/ristorante_field"
         android:layout_width="226dp"
         android:layout_height="29dp"
         android:background="@drawable/edittext_rounded_corners"
@@ -87,15 +87,14 @@
         android:id="@+id/nome_ristorante_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="224dp"
         android:text="NOME RISTORANTE"
         android:textColor="#003F91"
-        app:layout_constraintBottom_toTopOf="@+id/email_field5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978" />
+        app:layout_constraintVertical_bias="0.379" />
 
     <EditText
         android:id="@+id/email_field3"
@@ -153,5 +152,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/angolo_basso_dx" />
+
+    <TextView
+        android:id="@+id/errorVerifica"
+        android:layout_width="285dp"
+        android:layout_height="73dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verifica_button"
+        app:layout_constraintVertical_bias="0.182" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

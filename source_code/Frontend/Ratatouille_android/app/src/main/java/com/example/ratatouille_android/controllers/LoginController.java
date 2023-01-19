@@ -2,6 +2,7 @@ package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
@@ -74,6 +75,7 @@ public class LoginController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String myResponse = response.body().string();
+
                 loginActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
