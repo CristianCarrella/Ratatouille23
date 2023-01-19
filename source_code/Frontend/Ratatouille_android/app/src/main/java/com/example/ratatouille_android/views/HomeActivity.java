@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     HomeController homeController;
     Attivita attivita;
     String nomeRistorante = "";
+
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
 
@@ -68,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         homeController.getNomeRistorante();
 
         textNomeCognome.setText(loggedUser.getNome() + " " + loggedUser.getCognome());
+        nomeRistorante.equals(textNomeAttivita);
         textRuolo.setText(loggedUser.getRuolo());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -135,7 +137,11 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     }
 
 
-    public String getUserEmail() {
+
+
+
+
+    public String getUserEmail(){
         return loggedUser.getEmail();
     }
 
@@ -170,7 +176,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     public void setTextNomeCognome(String nomeCognome) {
         textNomeCognome.setText(nomeCognome);
     }
-
 
     public String getNomeRistorante() {
         return nomeRistorante;
