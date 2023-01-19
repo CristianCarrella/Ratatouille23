@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     HomeFragment homeFragment = new HomeFragment();
     AccountFragment accountFragment;
-    NoticesFragment noticesFragment = new NoticesFragment();
+    NoticesFragment noticesFragment ;
     FunctionFragment functionFragment = new FunctionFragment();
     LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
         accountFragment = new AccountFragment(this);
+        noticesFragment = new NoticesFragment(this);
 
 
         TextView textNomeCognome = findViewById(R.id.textNomeCognome);
