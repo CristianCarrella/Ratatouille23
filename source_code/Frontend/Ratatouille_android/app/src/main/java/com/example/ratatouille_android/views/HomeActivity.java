@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     HomeFragment homeFragment = new HomeFragment();
     AccountFragment accountFragment;
     NoticesFragment noticesFragment ;
-    FunctionFragment functionFragment = new FunctionFragment();
+    FunctionFragment functionFragment;
     LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
     HomeController homeController;
@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         homeController = new HomeController(loggedUser, this);
         accountFragment = new AccountFragment(this);
         noticesFragment = new NoticesFragment(this);
+        functionFragment = new FunctionFragment(this, loggedUser);
 
 
         TextView textNomeCognome = findViewById(R.id.textNomeCognome);

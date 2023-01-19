@@ -54,6 +54,7 @@ public class NoticesFragment extends Fragment {
 
     private void generateCard(float factor, CardView card) {
         card.setLayoutParams(new LinearLayout.LayoutParams((int)(322 * factor), (int)(112 * factor)));
+        card.setBackgroundColor(Color.parseColor("#FFFBF3"));
 
         ConstraintLayout constraintLayout = new ConstraintLayout(homeActivity);
         constraintLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));

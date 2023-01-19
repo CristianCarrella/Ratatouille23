@@ -144,7 +144,7 @@ public class UserDAOimp implements UserDAOint {
 		String query = null;
 		try {
 			query = "SELECT * FROM utente WHERE email = '" + email + "' AND nome = '" + nome + "' AND cognome = '" + cognome + "' AND data_nascita = '" + dataNascita + "';";
-			db.getStatement().executeQuery(query);						 
+			db.getStatement().executeQuery(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -158,6 +158,20 @@ public class UserDAOimp implements UserDAOint {
 		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
 		try {
 			db.getStatement().executeUpdate(query);
+			return getUserById(idUtente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	@Override
+	public User firstAccess(Integer id_utente, String newPassword) {
+		String query = "UPDATE utente SET password = '" + newPassword + "', isfirstaccess = false WHERE id_utente = " + id_utente;
+		try {
+			db.getStatement().executeUpdate(query);
+			return getUserById(id_utente);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

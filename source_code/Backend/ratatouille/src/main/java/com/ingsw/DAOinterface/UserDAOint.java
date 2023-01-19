@@ -1,6 +1,5 @@
 package com.ingsw.DAOinterface;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ingsw.ratatouille.LoggedUser;
@@ -15,4 +14,5 @@ public interface UserDAOint {
 	public LoggedUser login(String email, String password, String token, String time);
 	public User verifyEmployee(String nome, String cognome, String email, String dataNascita);
 	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita);
+	public User firstAccess(Integer id_utente, String newPassword);
 }

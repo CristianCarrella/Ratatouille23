@@ -71,6 +71,11 @@ public class Controller {
     public User verifyUser(@RequestParam (required = true) String nome, String cognome, String email, String dataNascita) {
 		return userDao.verifyEmployee(nome, cognome, email, dataNascita);
 	}
+	
+	@PostMapping("/user/first-access")
+    public User firstAccess(@RequestParam (required = true) Integer id_utente, String newPassword) {
+		return userDao.firstAccess(id_utente, newPassword);
+	}
 
 	
 	@GetMapping("/user/{id}")

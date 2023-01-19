@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.DispensaActivity;
+import com.example.ratatouille_android.views.FirstAccessActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.LoginActivity;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
@@ -40,6 +41,7 @@ public class LoginController {
         this.password = password;
         this.error = error;
     }
+
 
     public void requestToServer(){
         try {
@@ -77,10 +79,15 @@ public class LoginController {
                         JSONObject Jobject = null;
                         try {
                             Jobject = new JSONObject(myResponse);
+                            Boolean isFistAccess = Jobject.getBoolean("firstAccess");
                             loggedUser = new User(loginActivity, Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"), Jobject.getString("token"), Jobject.getString("tk_expiration_timestamp"));
                             error.setText(R.string.successo_login);
                             error.setTextColor(Color.GREEN);
-                            goToHomeActivity();
+                            if(isFistAccess){
+                                goToFirstAccessActivity();
+                            }else {
+                                goToHomeActivity();
+                            }
 
                         } catch (JSONException e) {
                             error.setText(R.string.error);
@@ -97,6 +104,12 @@ public class LoginController {
 
     public void goToHomeActivity(){
         Intent switchActivityIntent = new Intent(loginActivity, HomeActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        loginActivity.startActivity(switchActivityIntent);
+    }
+
+    public void goToFirstAccessActivity(){
+        Intent switchActivityIntent = new Intent(loginActivity, FirstAccessActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         loginActivity.startActivity(switchActivityIntent);
     }

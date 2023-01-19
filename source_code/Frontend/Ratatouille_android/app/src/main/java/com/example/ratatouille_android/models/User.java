@@ -59,6 +59,10 @@ public class User extends Observable implements Serializable {
     public String getData_aggiunta() { return data_aggiunta; }
 
     public int getAggiunto_da() { return aggiunto_da; }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
 
 
