@@ -171,6 +171,7 @@
         android:backgroundTint="#F2A900"
 
         android:text="Conferma"
+        android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
