@@ -22,7 +22,7 @@
     <ScrollView
         android:layout_width="379dp"
         android:layout_height="471dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/messaggi_nascosti_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,13 +42,13 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
+        android:id="@+id/messaggi_nascosti_button"
         android:layout_width="118dp"
         android:layout_height="62dp"
         android:background="@drawable/edittext_rounded_corners"
         android:backgroundTint="#F2A900"
-        android:onClick="goToNoticesActivity"
         android:text="Messaggi Nascosti"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

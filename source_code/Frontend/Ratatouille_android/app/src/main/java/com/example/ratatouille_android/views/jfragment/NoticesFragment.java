@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -45,12 +46,18 @@ public class NoticesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_notices, container, false);
         layout = view.findViewById(R.id.linear_layoutCard);
+        Button messaggiNascostiButton = view.findViewById(R.id.messaggi_nascosti_button);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noticesController.goToHideMessageActivity();
+            }
+        };
+        messaggiNascostiButton.setOnClickListener(onClickListener);
+
         factor = homeActivity.getResources().getDisplayMetrics().density;
         noticesController = new NoticesController(homeActivity, loggedUser);
-        noticesController.getReadNoticeFromServer();
-        noticesController.getHiddenNoticeFromServer();
-        noticesController.getNoticeFromServer();
-
 
 
         return view;
@@ -68,7 +75,7 @@ public class NoticesFragment extends Fragment {
 
         generateHeaderTextCard(factor, constraintLayout, header);
         generateShowMessageCard(factor, constraintLayout, textMessage);
-        generateHideButtonSpaceCard(factor, constraintLayout, isRead, id_avviso);
+        generateHideButtonSpaceCard(card, factor, constraintLayout, isRead, id_avviso);
 
 
         ConstraintSet set = new ConstraintSet();
@@ -101,7 +108,7 @@ public class NoticesFragment extends Fragment {
         set.applyTo(constraintLayout);
     }
 
-    private void generateHideButtonSpaceCard(float factor, ConstraintLayout constraintLayout, boolean isRead, Integer id_avviso) {
+    private void generateHideButtonSpaceCard(CardView card, float factor, ConstraintLayout constraintLayout, boolean isRead, Integer id_avviso) {
         TextView spacing = new TextView(homeActivity);
         spacing.setId(R.id.spacing);
         spacing.setBackgroundResource(R.drawable.square_bottom_rounded2);
@@ -115,6 +122,14 @@ public class NoticesFragment extends Fragment {
         ConstraintLayout.LayoutParams layout_325 = new ConstraintLayout.LayoutParams((int)(80 * factor), (int)(40 * factor));
         hide_button.setLayoutParams(layout_325);
         constraintLayout.addView(hide_button);
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noticesController.markAsHideNotice(id_avviso);
+                card.setVisibility(View.INVISIBLE);
+            }
+        };
+        hide_button.setOnClickListener(onClickListener);
 
         CheckBox read_or_not = new CheckBox(homeActivity);
         read_or_not.setId(R.id.read_or_not);
@@ -167,10 +182,14 @@ public class NoticesFragment extends Fragment {
         constraintLayout.addView(header_message);
     }
 
-    public void updateA(Avviso avviso) {
-        float factor = homeActivity.getResources().getDisplayMetrics().density;
-        CardView card = new CardView(homeActivity);
-        generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.isRead(), avviso.getIdAvviso());
-        layout.addView(card);
+    public void generateCard(Avviso avviso) {
+        if(!avviso.isHidden()) {
+            float factor = homeActivity.getResources().getDisplayMetrics().density;
+            CardView card = new CardView(homeActivity);
+            generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.isRead(), avviso.getIdAvviso());
+            layout.addView(card);
+        }
     }
+
+
 }

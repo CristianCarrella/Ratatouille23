@@ -10,6 +10,7 @@ import com.ingsw.DAOinterface.AvvisoDAOint;
 import com.ingsw.ratatouille.Avviso;
 import com.ingsw.ratatouille.AvvisoNascostoVisto;
 import com.ingsw.ratatouille.DatabaseConnection;
+import com.ingsw.ratatouille.LoggedUser;
 import com.ingsw.ratatouille.User;
 
 
@@ -114,6 +115,33 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		}
 		return null;
 	}
+	
+	@Override
+	public AvvisoNascostoVisto setAvvisoNotHidden(Integer id_avviso, LoggedUser loggedUser) {
+		ResultSet rs;
+		String query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_avviso = " + id_avviso;
+		try {
+			db.getStatement().executeUpdate(query);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public AvvisoNascostoVisto getAvvisoNascosto(Integer id_avviso) {
+		ResultSet rs;
+		String query = "SELECT * FROM avviso JOIN cronologia_nascosti_avviso ON avviso.id_avviso = cronologia_nascosti_avviso.id_avviso WHERE avviso.id_avviso = " + id_avviso;
+		try {
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				AvvisoNascostoVisto a = new AvvisoNascostoVisto(rs.getInt("id_avviso"), rs.getInt("id_utente") , rs.getInt("id_ristorante"),rs.getString("testo") , rs.getString("data_ora"), rs.getString("data_nascosto"));
+				return a;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
@@ -121,8 +149,9 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		ResultSet rs;
 		String query = null;		
 		try {
-			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
+			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
 			db.getStatement().executeUpdate(query);
+			return getAvvisoNascosto(id_avviso);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -162,6 +191,9 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		}
 		return null;
 	}
+
+
+
 
 
 

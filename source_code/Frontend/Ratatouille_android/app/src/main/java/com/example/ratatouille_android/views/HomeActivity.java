@@ -3,6 +3,7 @@ package com.example.ratatouille_android.views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     Attivita attivita;
     String nomeRistorante = "";
     AvvisiNascostiActivity hiddenNotices;
+    int currentFragment;
 
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
@@ -52,13 +54,26 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
         accountFragment = new AccountFragment(this);
         noticesFragment = new NoticesFragment(this, loggedUser);
         functionFragment = new FunctionFragment(this, loggedUser);
         homeFragment = new HomeFragment(this);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        currentFragment = getIntent().getExtras().getInt("frgToLoad");
+        switch (currentFragment){
+            case R.id.notices:
+                bottomNavigationView.getMenu().findItem(R.id.notices).setChecked(true);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
+                break;
+            default:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+                break;
+        }
 
         textNomeCognome = findViewById(R.id.textNomeCognome);
         TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
@@ -67,11 +82,9 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
         homeController.getNomeRistorante();
 
-        textNomeCognome.setText(loggedUser.getNome() + " " + loggedUser.getCognome());
-        nomeRistorante.equals(textNomeAttivita);
+        textNomeCognome.setText(String.format("%s %s", loggedUser.getNome(), loggedUser.getCognome()));
         textRuolo.setText(loggedUser.getRuolo());
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         FloatingActionButton floatingActionButton = findViewById(R.id.home);
         bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
         bottomNavigationView.getMenu().findItem(R.id.nothing).setEnabled(false);
@@ -86,9 +99,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         };
 
         floatingActionButton.setOnClickListener(onClickListener);
-
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
 
 
         //BadgeDrawable badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
@@ -183,10 +193,12 @@ public class HomeActivity extends AppCompatActivity implements Observer {
             TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
             TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
             textNomeAttivita.setText(a.getNome());
-            textNomeAttivitaHome.setText(a.getNome());
+            if(currentFragment == R.id.home)
+                textNomeAttivitaHome.setText(a.getNome());
         } else {
             Avviso a = (Avviso) o;
-            noticesFragment.updateA(a);
+            Log.v("Prova", a.getTesto() + " " +  a.isHidden() + " " + a.isRead());
+            noticesFragment.generateCard(a);
         }
     }
 

@@ -127,6 +127,11 @@ public class Controller {
 		return avvisoDao.setAvvisoHidden(id_avviso, loggedUser);
 	}
 	
+	@PostMapping("/avviso/segna-come-non-nascosto/{id_avviso}")
+	public AvvisoNascostoVisto setAvvisoNotHidden(@PathVariable Integer id_avviso) {
+		return avvisoDao.setAvvisoNotHidden(id_avviso, loggedUser);
+	}
+	
 	@PostMapping("/avviso/crea")
 	public Avviso createNewAvviso(@RequestParam(required = true) Integer id_ristorante, String testo) {
 		return avvisoDao.createNewAvviso(id_ristorante, testo, loggedUser);

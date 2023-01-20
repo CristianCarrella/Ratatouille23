@@ -108,6 +108,7 @@ public class LoginController {
     public void goToHomeActivity(){
         Intent switchActivityIntent = new Intent(loginActivity, HomeActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
+        switchActivityIntent.putExtra("frgToLoad", R.id.home);
         loginActivity.startActivity(switchActivityIntent);
     }
 

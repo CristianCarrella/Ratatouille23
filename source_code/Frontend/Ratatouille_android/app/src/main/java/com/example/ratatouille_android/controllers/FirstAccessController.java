@@ -80,6 +80,7 @@ public class FirstAccessController {
     public void goToHomeActivity(){
         Intent switchActivityIntent = new Intent(firstAccessActivity, HomeActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
+        switchActivityIntent.putExtra("frgToLoad", R.id.home);
         firstAccessActivity.startActivity(switchActivityIntent);
     }
 }

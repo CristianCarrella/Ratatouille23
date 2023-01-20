@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/back_button"
+        android:id="@+id/back_button2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="15dp"
@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.826">
 
         <LinearLayout
-            android:id="@+id/linear_layoutCard"
+            android:id="@+id/linear_layoutCard2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/empty_tall_divider"

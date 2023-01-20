@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.ingsw.ratatouille.Avviso;
 import com.ingsw.ratatouille.AvvisoNascostoVisto;
+import com.ingsw.ratatouille.LoggedUser;
 import com.ingsw.ratatouille.User;
 
 public interface AvvisoDAOint {
@@ -17,5 +18,6 @@ public interface AvvisoDAOint {
 	public AvvisoNascostoVisto setAvvisoNotViewed(Integer id_avviso, User loggedUser);
 	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser);
 	public Avviso createNewAvviso(Integer id_ristorante, String testo, User loggedUser);
+	public AvvisoNascostoVisto setAvvisoNotHidden(Integer id_avviso, LoggedUser loggedUser);
 
 }
