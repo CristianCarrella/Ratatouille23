@@ -112,15 +112,19 @@ public class Controller {
 		return avvisoDao.getAvvisiViewedOf(id_user);
 	}
 	
-	// senza l'id ristorante è possibile marcare come letti *tramite richieste* avvisi che non appartengono all'utente
 	@PostMapping("/avviso/segna-come-letto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso, @RequestParam(required = true) Integer id_ristorante) {
-		return avvisoDao.setAvvisoViewed(id_avviso, loggedUser, id_ristorante);
+	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso) {
+		return avvisoDao.setAvvisoViewed(id_avviso, loggedUser);
+	}
+	
+	@PostMapping("/avviso/segna-come-non-letto/{id_avviso}")
+	public AvvisoNascostoVisto setAvvisoNotViewed(@PathVariable Integer id_avviso) {
+		return avvisoDao.setAvvisoNotViewed(id_avviso, loggedUser);
 	}
 	
 	@PostMapping("/avviso/segna-come-nascosto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoHidden(@PathVariable Integer id_avviso, @RequestParam(required = true) Integer id_ristorante) {
-		return avvisoDao.setAvvisoHidden(id_avviso, loggedUser, id_ristorante);
+	public AvvisoNascostoVisto setAvvisoHidden(@PathVariable Integer id_avviso) {
+		return avvisoDao.setAvvisoHidden(id_avviso, loggedUser);
 	}
 	
 	@PostMapping("/avviso/crea")

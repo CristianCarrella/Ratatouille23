@@ -1,6 +1,5 @@
 package com.example.ratatouille_android.views.jfragment;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -13,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,8 +24,6 @@ import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 
 public class NoticesFragment extends Fragment {
@@ -58,9 +56,10 @@ public class NoticesFragment extends Fragment {
         return view;
     }
 
-    private void generateCard(float factor, CardView card, String header, String textMessage, boolean isRead) {
+    private void generateCard(float factor, CardView card, String header, String textMessage, boolean isRead, Integer id_avviso) {
         card.setLayoutParams(new LinearLayout.LayoutParams((int)(322 * factor), (int)(112 * factor)));
         card.setBackgroundColor(Color.parseColor("#FFFBF3"));
+        card.setElevation(0);
 
         ConstraintLayout constraintLayout = new ConstraintLayout(homeActivity);
         constraintLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -69,8 +68,7 @@ public class NoticesFragment extends Fragment {
 
         generateHeaderTextCard(factor, constraintLayout, header);
         generateShowMessageCard(factor, constraintLayout, textMessage);
-        generateHideButtonSpaceCard(factor, constraintLayout, isRead);
-
+        generateHideButtonSpaceCard(factor, constraintLayout, isRead, id_avviso);
 
 
         ConstraintSet set = new ConstraintSet();
@@ -103,7 +101,7 @@ public class NoticesFragment extends Fragment {
         set.applyTo(constraintLayout);
     }
 
-    private void generateHideButtonSpaceCard(float factor, ConstraintLayout constraintLayout, boolean isRead) {
+    private void generateHideButtonSpaceCard(float factor, ConstraintLayout constraintLayout, boolean isRead, Integer id_avviso) {
         TextView spacing = new TextView(homeActivity);
         spacing.setId(R.id.spacing);
         spacing.setBackgroundResource(R.drawable.square_bottom_rounded2);
@@ -125,6 +123,20 @@ public class NoticesFragment extends Fragment {
         } else {
             read_or_not.setChecked(false);
         }
+
+        read_or_not.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                    if(isChecked){
+                        noticesController.markAsReadNotice(id_avviso);
+                    }else{
+                        noticesController.markAsNotReadNotice(id_avviso);
+                    }
+                }
+            }
+        );
+
+
         ConstraintLayout.LayoutParams layout_837 = new ConstraintLayout.LayoutParams((int)(33 * factor),(int)(33 * factor));
         read_or_not.setLayoutParams(layout_837);
         constraintLayout.addView(read_or_not);
@@ -158,7 +170,7 @@ public class NoticesFragment extends Fragment {
     public void updateA(Avviso avviso) {
         float factor = homeActivity.getResources().getDisplayMetrics().density;
         CardView card = new CardView(homeActivity);
-        generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.isRead());
+        generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.isRead(), avviso.getIdAvviso());
         layout.addView(card);
     }
 }

@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.example.ratatouille_android.R;
 
 public class MainActivity extends AppCompatActivity {
-    public static String address = "http://192.168.1.5:8080";
+    public static String address = "http://192.168.1.47:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
