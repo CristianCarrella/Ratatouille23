@@ -59,11 +59,15 @@ public class CustomInterceptor implements HandlerInterceptor {
     			}
     		}
     	} else {
+    		System.out.println(request.getRequestURI().toString());
     		if(isValidToken(request.getHeader("Authorization"))) {
-    			System.out.print("Token valido");
+    			System.out.print("Token valido");    			
     			if(request.getRequestURI().toString().equals("/logout")) {
     				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
     			}
+    		} else {
+    			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    			throw new RestClientException("Token non valido");
     		}
     	}
         return true;
@@ -77,7 +81,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     			ZoneId z = ZoneId.of("Europe/Paris");
     			ZonedDateTime zdt = ZonedDateTime.now(z);
     			ZonedDateTime tk_timestamp = ZonedDateTime.parse(u.getTk_expiration_timestamp());
-    			if(tk_timestamp.compareTo(zdt) < 0){
+    			if(tk_timestamp.compareTo(zdt) > 0){
 	    			ZonedDateTime later = zdt.plusMinutes(15); 
 	    			u.setTk_expiration_timestamp(later.toString());
 					return true;

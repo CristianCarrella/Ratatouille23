@@ -154,4 +154,11 @@ public class HomeController {
         });
     }
 
+    public void goToHomeActivity(){
+        Intent switchActivityIntent = new Intent(homeActivity, HomeActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        homeActivity.startActivity(switchActivityIntent);
+        homeActivity.finish();
+    }
+
 }

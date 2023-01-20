@@ -43,8 +43,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/messaggi_nascosti_button"
-        android:layout_width="118dp"
-        android:layout_height="62dp"
+        android:layout_width="176dp"
+        android:layout_height="50dp"
         android:background="@drawable/edittext_rounded_corners"
         android:backgroundTint="#F2A900"
         android:text="Messaggi Nascosti"

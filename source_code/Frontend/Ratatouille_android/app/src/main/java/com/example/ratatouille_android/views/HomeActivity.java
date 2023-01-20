@@ -2,6 +2,7 @@ package com.example.ratatouille_android.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -11,12 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.controllers.HomeController;
+import com.example.ratatouille_android.controllers.LogoutController;
 import com.example.ratatouille_android.models.Attivita;
 import com.example.ratatouille_android.models.Avviso;
 import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.dialogs.LogoutDialog;
 import com.example.ratatouille_android.views.jfragment.FunctionFragment;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
-import com.example.ratatouille_android.views.jfragment.LogoutFragment;
 import com.example.ratatouille_android.views.jfragment.NoticesFragment;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.views.jfragment.AccountFragment;
@@ -38,13 +40,14 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     AccountFragment accountFragment;
     NoticesFragment noticesFragment;
     FunctionFragment functionFragment;
-    LogoutFragment logoutFragment = new LogoutFragment();
     User loggedUser;
+    LogoutController logoutController;
     HomeController homeController;
     Attivita attivita;
     String nomeRistorante = "";
     AvvisiNascostiActivity hiddenNotices;
     int currentFragment;
+    HomeActivity homeActivity = this;
 
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
@@ -63,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         functionFragment = new FunctionFragment(this, loggedUser);
         homeFragment = new HomeFragment(this);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        logoutController = new LogoutController(this, loggedUser);
 
         currentFragment = getIntent().getExtras().getInt("frgToLoad");
         switch (currentFragment){
@@ -118,7 +122,8 @@ public class HomeActivity extends AppCompatActivity implements Observer {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, accountFragment).commit();
                         return true;
                     case R.id.logout:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, logoutFragment).commit();
+                        LogoutDialog logoutDialog = new LogoutDialog(logoutController, HomeActivity.this);
+                        logoutDialog.show(getSupportFragmentManager(), "");
                         return true;
                     case R.id.functions:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, functionFragment).commit();
@@ -200,6 +205,13 @@ public class HomeActivity extends AppCompatActivity implements Observer {
             Log.v("Prova", a.getTesto() + " " +  a.isHidden() + " " + a.isRead());
             noticesFragment.generateCard(a);
         }
+    }
+
+    public void goToHomeActivity(){
+        Intent switchActivityIntent = new Intent(homeActivity, HomeActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        homeActivity.startActivity(switchActivityIntent);
+        homeActivity.finish();
     }
 
     public HomeController getHomeController() {
