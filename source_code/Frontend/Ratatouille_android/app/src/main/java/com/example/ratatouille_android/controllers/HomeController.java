@@ -2,10 +2,12 @@ package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 import com.example.ratatouille_android.models.Attivita;
 import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.AvvisiNascostiActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.MainActivity;
@@ -40,6 +42,12 @@ public class HomeController {
 
     public void goToDispensaActivity(){
         Intent switchActivityIntent = new Intent(homeActivity, DispensaActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        homeActivity.startActivity(switchActivityIntent);
+    }
+
+    public void goToNoticesActivity(){
+        Intent switchActivityIntent = new Intent(homeActivity, AvvisiNascostiActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         homeActivity.startActivity(switchActivityIntent);
     }

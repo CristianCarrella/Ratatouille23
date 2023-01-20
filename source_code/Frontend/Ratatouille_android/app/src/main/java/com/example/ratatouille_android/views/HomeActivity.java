@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     HomeController homeController;
     Attivita attivita;
     String nomeRistorante = "";
+    AvvisiNascostiActivity hiddenNotices;
 
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
@@ -185,7 +186,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
             textNomeAttivitaHome.setText(a.getNome());
         } else {
             Avviso a = (Avviso) o;
-            noticesFragment.updateB(a);
+            noticesFragment.updateA(a);
         }
     }
 

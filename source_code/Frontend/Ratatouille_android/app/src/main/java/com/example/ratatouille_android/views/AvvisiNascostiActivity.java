@@ -1,13 +1,14 @@
-package com.example.ratatouille_android.views.jfragment;
+package com.example.ratatouille_android.views;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.fragment.app.Fragment;
+import com.example.ratatouille_android.R;
+import com.example.ratatouille_android.controllers.NoticesController;
+import com.example.ratatouille_android.models.Avviso;
+import com.example.ratatouille_android.models.User;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,33 +18,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ratatouille_android.R;
-import com.example.ratatouille_android.controllers.NoticesController;
-import com.example.ratatouille_android.models.Avviso;
-import com.example.ratatouille_android.models.User;
-import com.example.ratatouille_android.views.HomeActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import com.example.ratatouille_android.databinding.ActivityAvvisiNascostiBinding;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
+public class AvvisiNascostiActivity extends AppCompatActivity {
 
-public class NoticesFragment extends Fragment {
+    User loggedUser;
     HomeActivity homeActivity;
     NoticesController noticesController;
     View view;
-    User loggedUser;
     LinearLayout layout;
     ArrayList<Avviso> avviso = new ArrayList<Avviso>();
     float factor;
 
-    public NoticesFragment(HomeActivity homeActivity, User loggedUser){
+    public AvvisiNascostiActivity(HomeActivity homeActivity, User loggedUser){
         this.homeActivity = homeActivity;
         this.loggedUser = loggedUser;
     }
 
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_notices, container, false);
         layout = view.findViewById(R.id.linear_layoutCard);
@@ -56,6 +57,15 @@ public class NoticesFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        noticesController.getHiddenNoticeFromServer();
+
+
     }
 
     private void generateCard(float factor, CardView card, String header, String textMessage, boolean isRead) {
@@ -155,7 +165,7 @@ public class NoticesFragment extends Fragment {
         constraintLayout.addView(header_message);
     }
 
-    public void updateA(Avviso avviso) {
+    public void updateB(Avviso avviso) {
         float factor = homeActivity.getResources().getDisplayMetrics().density;
         CardView card = new CardView(homeActivity);
         generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.isRead());

@@ -1,8 +1,11 @@
 package com.example.ratatouille_android.controllers;
 
+import android.content.Intent;
+
 import com.example.ratatouille_android.models.Avviso;
 import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.AvvisiNascostiActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.MainActivity;
@@ -43,9 +46,9 @@ public class NoticesController {
         }
     }
 
-    public void getViewedNoticeFromServer(){
+    public void getHiddenNoticeFromServer(){
         try {
-            runReadNotices(loggedUser.getIdRistorante(), loggedUser.getToken());
+            runHiddenNotices(loggedUser.getIdRistorante(), loggedUser.getToken());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -195,4 +198,6 @@ public class NoticesController {
         }
         return false;
     }
+
+
 }
