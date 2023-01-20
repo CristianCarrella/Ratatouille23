@@ -61,6 +61,9 @@ public class CustomInterceptor implements HandlerInterceptor {
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
     			System.out.print("Token valido");
+    			if(request.getRequestURI().toString().equals("/logout")) {
+    				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
+    			}
     		}
     	}
         return true;
@@ -107,6 +110,17 @@ public class CustomInterceptor implements HandlerInterceptor {
     		}
     	}
     	return token;
+    }
+    
+    
+    public LoggedUser removeLoggedUser(Integer idUtente) {
+    	for(LoggedUser u : loggedUsers) {
+    		if(u.getIdUtente() == idUtente) {
+    			loggedUsers.remove(u);
+    			return u;
+    		}
+    	}
+    	return null;
     }
     
 

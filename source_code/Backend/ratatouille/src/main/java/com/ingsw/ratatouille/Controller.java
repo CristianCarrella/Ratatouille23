@@ -228,6 +228,11 @@ public class Controller {
 		return "errore";
 	}
 	
+	@PostMapping("/logout")
+	public String logout(@RequestParam (required = true) Integer idUtente) {
+		return "logged out";
+	}
+	
 	@GetMapping("/business/nomeAttivita")
 	public Business getBusinessFromBusinessId(@RequestParam(required = true) Integer id_ristorante){
 		return businessDao.getBusinessFromBusinessId(id_ristorante);
