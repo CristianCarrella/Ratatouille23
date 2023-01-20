@@ -82,7 +82,10 @@ public class CreaProdottoController {
                             if(jsonObject.has("quantity") && jsonObject.has("brands") && jsonObject.has("countries") && jsonObject.has("packaging")) {
                                 descrizione = "Quantità: " + jsonObject.getString("quantity") + "\nBrands: " + jsonObject.getString("brands") + "\nPaesi di produzione: " + jsonObject.getString("countries") + "\nConfezionamento: " + jsonObject.getString("packaging");
                                 descrizione = descrizione.replace("'", " ");
+                            }else{
+                                descrizione = "Non trovata";
                             }
+
                             if (jsonObject.has("quantity")) {
                                 kg_or_lt = jsonObject.getString("quantity");
                                 if (kg_or_lt.contains("L") || kg_or_lt.contains("l"))
@@ -114,6 +117,7 @@ public class CreaProdottoController {
                             creaProdottoActivity.setDescrizioneInputInput(descrizione);
                             creaProdottoActivity.setKg_or_ltInput(kg_or_lt);
                             creaProdottoActivity.setErrorLableAutoCompilationOnSuccess();
+                            creaProdottoActivity.setCaricamentoOnEnd();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

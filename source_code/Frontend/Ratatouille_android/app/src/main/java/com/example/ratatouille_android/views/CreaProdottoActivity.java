@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -27,6 +28,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
     Spinner categoriaSpinner;
     Button auto_button;
     String categoria;
+    ProgressBar caricamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
         quantitaInput = findViewById(R.id.quantita_input);
         kg_or_lt = findViewById(R.id.kg_or_lt);
         categoriaSpinner = findViewById(R.id.spinner_categoria);
+        caricamento = findViewById(R.id.caricamento);
 
         ImageView back_button = findViewById(R.id.back_button2);
         Button ok_button = findViewById(R.id.ok_button);
@@ -68,10 +71,13 @@ public class CreaProdottoActivity extends AppCompatActivity {
                 if(auto_button.getText().toString().equals("Non è quello che cercavo"))
                     creaProdottoController.setResultIndex(creaProdottoController.getResultIndex() + 1);
 
-                if(!nomeProdotto.equals(""))
+                if(!nomeProdotto.equals("")) {
+                    caricamento.setVisibility(View.VISIBLE);
                     creaProdottoController.getInfoProdotto(nomeProdotto);
-                else
+                }
+                else {
                     setErrorLableAutoCompilationOnErrorEmpty();
+                }
             }
         };
 
@@ -176,6 +182,10 @@ public class CreaProdottoActivity extends AppCompatActivity {
     public void setErrorLableOnSuccess(){
         errorLable.setText("Prodotto aggiunto con successo");
         errorLable.setTextColor(Color.GREEN);
+    }
+
+    public void setCaricamentoOnEnd(){
+        caricamento.setVisibility(View.INVISIBLE);
     }
 
     public void resetField(){
