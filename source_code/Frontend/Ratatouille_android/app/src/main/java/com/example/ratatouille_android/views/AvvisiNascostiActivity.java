@@ -121,7 +121,9 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 avvisiNascostiController.markAsNotHideNotice(id_avviso);
-                card.setVisibility(View.INVISIBLE);
+                LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) card.getLayoutParams();
+                layoutParams.height = 0;
+                card.setLayoutParams(layoutParams);
             }
         };
         hide_button.setOnClickListener(onClickListener);
