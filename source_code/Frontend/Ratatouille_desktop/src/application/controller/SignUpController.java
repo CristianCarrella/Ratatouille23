@@ -52,7 +52,7 @@ public class SignUpController {
     	String password = passwordField.getText();
     	String cognome = cognomeField.getText();
     	String dataNascita = dataNascitaField.getValue().toString();
-    	    	
+    	
     	//Richiesta al server
     	//Se la registrazione fallisce
     	errorLabel.setText("Errore");
