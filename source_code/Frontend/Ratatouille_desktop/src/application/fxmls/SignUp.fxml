@@ -15,13 +15,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SignUpController">   <children>
       <BorderPane layoutX="74.0" layoutY="78.0" prefHeight="356.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <FlowPane prefHeight="73.0" prefWidth="516.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label />
+                  <Label fx:id="errorLabel" />
                   <ImageView fitHeight="80.0" fitWidth="80.0">
                      <image>
                         <Image url="@../img/angolo_alto_sx.png" />
@@ -37,23 +36,29 @@
                      <left>
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="160.0" spacing="6.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField prefHeight="14.0" prefWidth="205.0" promptText="Nome" />
-                              <PasswordField promptText="Password" />
-                              <DatePicker promptText="Data di nascita" />
+                                 <TextField fx:id="nomeField" prefHeight="14.0" prefWidth="205.0" promptText="Nome">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin></TextField>
+                              <PasswordField fx:id="passwordField" promptText="Password" />
+                              <DatePicker fx:id="dataNascitaField" promptText="Data di nascita" />
                            </children>
                         </VBox>
                      </left>
                      <right>
                         <VBox prefHeight="76.0" prefWidth="160.0" spacing="6.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField prefWidth="100.0" promptText="Cognome" />
-                              <TextField promptText="Email" />
+                              <TextField fx:id="cognomeField" prefWidth="100.0" promptText="Cognome" />
+                              <TextField fx:id="emailField" promptText="Email" />
                            </children>
                            <padding>
                               <Insets left="10.0" top="5.0" />
                            </padding>
                         </VBox>
                      </right>
+                     <top>
+                        <Label BorderPane.alignment="CENTER" />
+                     </top>
                   </BorderPane>
                </center>
                <left>
@@ -69,8 +74,7 @@
                <top>
                   <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="90.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">
-                           <VBox.margin>
+                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
                               <Insets />
                            </VBox.margin>
                            <font>
@@ -79,8 +83,8 @@
                         </Button>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label style="-fx-text-fill: #003F91;" text="Login" translateX="-10.0" />
-                              <Label prefHeight="17.0" prefWidth="43.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="31.0" />
+                              <Label fx:id="loginLabel" style="-fx-text-fill: #003F91;" text="Login" translateX="-10.0" />
+                              <Label prefHeight="17.0" prefWidth="43.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="31.0" underline="true" />
                            </children>
                         </FlowPane>
                      </children>

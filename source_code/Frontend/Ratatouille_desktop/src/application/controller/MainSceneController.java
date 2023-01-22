@@ -21,7 +21,7 @@ public class MainSceneController {
 	}
 
 	private void goToLoginScene(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/SignUp.fxml"));
 		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
