@@ -31,10 +31,11 @@
          <center>
             <BorderPane prefHeight="105.0" prefWidth="516.0" BorderPane.alignment="CENTER">
                <center>
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="221.0" spacing="6.0" BorderPane.alignment="CENTER">
+                  <VBox fx:id="layoutFields" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="221.0" spacing="6.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField />
-                        <PasswordField />
+                        <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" visible="false" />
+                        <TextField fx:id="email" promptText="Email" />
+                        <PasswordField fx:id="password" promptText="Password" />
                      </children>
                   </VBox>
                </center>
