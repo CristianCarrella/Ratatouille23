@@ -7,19 +7,78 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import com.gluonhq.charm.glisten.control.TextField?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RisorseUmaneController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RisorseUmaneController">
+
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <AnchorPane prefHeight="352.0" prefWidth="108.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="22.0" layoutY="21.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" style="-fx-background-radius: 30px; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 2,0,0,1); -fx-background-color: F2A900; -fx-background-image: url(../img/menu_icon.png); -fx-background-size: 100% 100%; -fx-background-position: center center;" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0" />
+                  <Button layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#showSideBar" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                     <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/menu_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="homeBtn" layoutX="22.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/home_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="noticeBtn" layoutX="22.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/menu_resturant_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="menuBtn" layoutX="22.0" layoutY="266.0" mnemonicParsing="false" onAction="#goToNotice" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/notices_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="personaleBtn" layoutX="22.0" layoutY="349.0" mnemonicParsing="false" onAction="#goToGestisciPersonale" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/humanResurce_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="personalizzaBtn" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#goToPersonalizzaAttivita" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/customize_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="accountBtn" layoutX="22.0" layoutY="525.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/account_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </AnchorPane>
          </left>
