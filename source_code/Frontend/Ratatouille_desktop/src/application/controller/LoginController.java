@@ -1,7 +1,4 @@
 package application.controller;
-
-
-
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -12,14 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 
 public class LoginController {
 	@FXML
