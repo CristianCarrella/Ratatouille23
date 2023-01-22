@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ingsw.DAOimplements.UserDAOimp;
 import com.ingsw.ratatouille.LoggedUser;
+import com.ingsw.ratatouille.RatatuilleApplication;
 import com.ingsw.ratatouille.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,7 +60,6 @@ public class CustomInterceptor implements HandlerInterceptor {
     			}
     		}
     	} else {
-    		System.out.println(request.getRequestURI().toString());
     		if(isValidToken(request.getHeader("Authorization"))) {
     			System.out.print("Token valido");    			
     			if(request.getRequestURI().toString().equals("/logout")) {
@@ -118,6 +118,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     
     
     public LoggedUser removeLoggedUser(Integer idUtente) {
+    	System.out.println(loggedUsers);
     	for(LoggedUser u : loggedUsers) {
     		if(u.getIdUtente() == idUtente) {
     			loggedUsers.remove(u);

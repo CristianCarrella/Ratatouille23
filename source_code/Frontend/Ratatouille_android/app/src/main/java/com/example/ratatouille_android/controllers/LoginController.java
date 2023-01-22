@@ -67,10 +67,16 @@ public class LoginController {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                error.setText(R.string.error);
-                error.setTextColor(Color.RED);
                 call.cancel();
+                loginActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        error.setText(R.string.error);
+                        error.setTextColor(Color.RED);
+                    }
+                });
             }
+
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {

@@ -1,18 +1,12 @@
 package com.ingsw.ratatouille;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ingsw.ratatouille.DatabaseConnection;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -61,7 +55,6 @@ public class Controller {
 		return userDao.createAdmin(nome, cognome, email, password, dataNascita, idRistorante);
 	}
 	
-	//senza aver prima aver effettuato un /login non si potrà fare un signup/employee
 	@PostMapping("/signup/newEmployee")
     public User createUser(@RequestParam (required = true) String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo) {
 		return userDao.createEmployee(nome, cognome, passwordTemporanea, email, dataNascita, ruolo, loggedUser);
