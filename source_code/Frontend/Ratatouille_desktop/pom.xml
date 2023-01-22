@@ -32,5 +32,10 @@
 </dependency>
 
         
-</dependencies>
+  	<dependency>
+  		<groupId>com.ingsw</groupId>
+  		<artifactId>ratatouille</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

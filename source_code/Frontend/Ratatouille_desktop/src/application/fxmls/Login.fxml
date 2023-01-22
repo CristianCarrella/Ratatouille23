@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LoginController">
    <children>
       <BorderPane layoutX="74.0" layoutY="78.0" prefHeight="356.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -45,7 +45,7 @@
                <top>
                   <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="90.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #003F91;" text="Login" textFill="WHITE" textOverrun="CLIP" translateX="25.0">
+                        <Button mnemonicParsing="false" onAction="#login" style="-fx-background-color: #003F91;" text="Login" textFill="WHITE" textOverrun="CLIP" translateX="25.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
