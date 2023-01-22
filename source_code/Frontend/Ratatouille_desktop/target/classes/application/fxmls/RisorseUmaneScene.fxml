@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
+<?import com.gluonhq.charm.glisten.control.TextField?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RisorseUmaneController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -82,7 +83,7 @@
                               </ToggleButtonGroup>
                            </children>
                         </FlowPane>
-                        <Button mnemonicParsing="false" text="Submit">
+                        <Button mnemonicParsing="false" prefHeight="157.0" prefWidth="63.0" text="Submit">
                            <VBox.margin>
                               <Insets left="180.0" />
                            </VBox.margin>
@@ -99,7 +100,7 @@
             </BorderPane>
          </center>
          <bottom>
-            <Button mnemonicParsing="false" text="Gestisci Personale" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button onAction="#goToGestisciPersonaleScene" mnemonicParsing="false" text="Gestisci Personale" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
                   <Insets bottom="100.0" right="100.0" />
                </BorderPane.margin>

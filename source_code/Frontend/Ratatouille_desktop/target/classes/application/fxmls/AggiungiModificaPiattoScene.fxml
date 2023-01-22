@@ -6,17 +6,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MenuController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <AnchorPane prefHeight="352.0" prefWidth="108.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="22.0" layoutY="21.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="34.0" style="-fx-background-radius: 30px; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 2,0,0,1); -fx-background-color: F2A900; -fx-background-image: url(../img/menu_icon.png); -fx-background-size: 100% 100%; -fx-background-position: center center;" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0" />
+                  <Button onAction="#goToMenu" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="34.0" style="-fx-background-radius: 30px; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 2,0,0,1); -fx-background-color: F2A900; -fx-background-image: url(../img/menu_icon.png); -fx-background-size: 100% 100%; -fx-background-position: center center;" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-cancel-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </AnchorPane>
          </left>

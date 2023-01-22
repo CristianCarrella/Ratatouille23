@@ -19,7 +19,6 @@
          <top>
             <FlowPane prefHeight="73.0" prefWidth="516.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label />
                   <ImageView fitHeight="80.0" fitWidth="80.0">
                      <image>
                         <Image url="@../img/angolo_alto_sx.png" />
@@ -33,7 +32,7 @@
                <center>
                   <VBox fx:id="layoutFields" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="221.0" spacing="6.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" visible="false" />
+                        <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" />
                         <TextField fx:id="email" promptText="Email" />
                         <PasswordField fx:id="password" promptText="Password" />
                      </children>
@@ -57,7 +56,7 @@
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label style="-fx-text-fill: #003F91;" text="Login" translateX="-10.0" />
-                              <Label prefHeight="17.0" prefWidth="43.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="31.0" />
+                              <Label fx:id="signUp" prefHeight="17.0" prefWidth="43.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="31.0" />
                            </children>
                         </FlowPane>
                      </children>
