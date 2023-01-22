@@ -18,6 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class LoginController {
 	@FXML
@@ -37,6 +42,49 @@ public class LoginController {
 	private DatabaseConnection db;
 	
 	public LoginController() {}
+	
+//	public void requestToServer(){
+//        try {
+//            run(email, password);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void run(String email, String password) throws IOException {
+//    	try {
+//            URL url = new URL("https://jsonplaceholder.typicode.com/posts/1");
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            conn.setRequestMethod("GET");
+//            conn.setRequestProperty("Accept", "application/json");
+//
+//            if (conn.getResponseCode() != 200) {
+//                throw new RuntimeException("Failed : HTTP error code : "
+//                        + conn.getResponseCode());
+//            }
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(
+//                    (conn.getInputStream())));
+//
+//            String output;
+//            String jsonString = "";
+//            while ((output = br.readLine()) != null) {
+//                jsonString += output;
+//            }
+//
+//            JSONObject json = new JSONObject(jsonString);
+//            System.out.println("JSON Response: " + json.toString());
+//
+//            conn.disconnect();
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
 	
 	public void login(ActionEvent actionEvent) throws IOException {
 		System.out.print(email.getText());
@@ -77,4 +125,6 @@ public class LoginController {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
+	
 }
