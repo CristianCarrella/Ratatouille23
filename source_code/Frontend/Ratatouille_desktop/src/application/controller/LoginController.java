@@ -1,6 +1,8 @@
 package application.controller;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import application.DatabaseConnection;
 import javafx.event.ActionEvent;
@@ -45,7 +47,7 @@ public class LoginController {
 	
 //	public void requestToServer(){
 //        try {
-//            run(email, password);
+//            run("teka.freitas@example.com" , "meister");
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -53,12 +55,21 @@ public class LoginController {
 //
 //    public void run(String email, String password) throws IOException {
 //    	try {
-//            URL url = new URL("https://jsonplaceholder.typicode.com/posts/1");
+//            URL url = new URL("https://localhost:8080/login");
 //            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setRequestMethod("GET");
+//            conn.setRequestMethod("POST");
 //            conn.setRequestProperty("Accept", "application/json");
-//
-//            if (conn.getResponseCode() != 200) {
+//            conn.setDoOutput(true);
+//            
+//            JSONObject json = new JSONObject();
+//            json.put("email", "teka.freitas@example.com");
+//            json.put("password", "meister");
+//            
+//            OutputStream os = conn.getOutputStream();
+//            os.write(json.toString().getBytes());
+//            os.flush();
+//            
+//            if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
 //                throw new RuntimeException("Failed : HTTP error code : "
 //                        + conn.getResponseCode());
 //            }
@@ -72,8 +83,8 @@ public class LoginController {
 //                jsonString += output;
 //            }
 //
-//            JSONObject json = new JSONObject(jsonString);
-//            System.out.println("JSON Response: " + json.toString());
+//            JSONObject jsonRes = new JSONObject(jsonString);
+//            System.out.println("JSON Response: " + jsonRes.toString());
 //
 //            conn.disconnect();
 //

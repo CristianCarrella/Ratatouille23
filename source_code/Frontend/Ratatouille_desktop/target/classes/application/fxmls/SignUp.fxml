@@ -74,7 +74,7 @@
                <top>
                   <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="90.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
+                        <Button fx:id="signUpButton" mnemonicParsing="false"  style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
                               <Insets />
                            </VBox.margin>
                            <font>
@@ -83,7 +83,7 @@
                         </Button>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="loginLabel" style="-fx-text-fill: #003F91;" text="Login" translateX="-10.0" />
+                              <Label fx:id="login" style="-fx-text-fill: #003F91;" text="Login" translateX="-10.0" />
                               <Label prefHeight="17.0" prefWidth="43.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="31.0" underline="true" />
                            </children>
                         </FlowPane>

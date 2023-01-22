@@ -28,7 +28,7 @@ public class SignUpController {
 	@FXML
 	TextField emailField;
 	@FXML
-	Label loginLabel;
+	Label login;
 	@FXML
 	Label errorLabel;
 	@FXML
@@ -40,7 +40,7 @@ public class SignUpController {
 	
     @FXML
     public void initialize() {
-    	loginLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
+    	login.addEventHandler(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
         	try {
 				goToLoginScene();
 			} catch (IOException e) {
@@ -68,7 +68,7 @@ public class SignUpController {
     
 	private void goToLoginScene() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Login.fxml"));
-		stage = (Stage) loginLabel.getScene().getWindow();
+		stage = (Stage) login.getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
