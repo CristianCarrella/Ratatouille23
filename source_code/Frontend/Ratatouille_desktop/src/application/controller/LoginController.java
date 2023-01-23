@@ -1,7 +1,9 @@
 package application.controller;
 import java.io.IOException;
 
+
 import application.driver.UtenteDriver;
+import application.model.Utente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,19 +34,20 @@ public class LoginController {
 	private Scene scene;
 	private Parent parent;
 	private UtenteDriver utenteDriver = new UtenteDriver();
+	public static Utente loggedUser;
 	
 	public LoginController() {	}
 
 	public void login(ActionEvent actionEvent) throws IOException {
-		utenteDriver.requestToServer(email.getText(), password.getText());
-		//richiesta al server
-		//Se richiesta andata male
-		errorLabel.setText("Errore");
-		errorLabel.setTextFill(Color.RED);
-		//Se richiesta andata bene
-		errorLabel.setText("Login avvenuto con successo");
-		errorLabel.setTextFill(Color.GREEN);
-		goToHomeScene(actionEvent);
+		loggedUser = utenteDriver.requestToServer(email.getText(), password.getText());
+		if(loggedUser == null) {
+			errorLabel.setText("Errore");
+			errorLabel.setTextFill(Color.RED);
+		}else {
+			errorLabel.setText("Login avvenuto con successo");
+			errorLabel.setTextFill(Color.GREEN);
+			goToHomeScene(actionEvent);
+		}
 	}
 	
 	@FXML
@@ -70,6 +73,7 @@ public class LoginController {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
 		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
+		FXMLLoader fxmlLoader = new FXMLLoader();
 		stage.setScene(scene);
 		stage.show();
 	}

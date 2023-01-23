@@ -17,36 +17,49 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import application.model.Utente;
+
 public class UtenteDriver {
+	
+	Utente loggedUser;
 	
 	public UtenteDriver() {
 		
 	}
 	
-	public void requestToServer(String email, String password){
+	public Utente requestToServer(String email, String password){
 		try {
 			//run(email, password);
-			run("teka.freitas@example.com", "meister");
+			return run("teka.freitas@example.com", "meister");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
-	public void run(String email, String password) throws IOException {
-		HttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost("http://localhost:8080/login");
-	
-		// Request parameters and other properties.
-		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		params.add(new BasicNameValuePair("email", email));
-		params.add(new BasicNameValuePair("password", password));
-		httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-	
-		//Execute and get the response.
-		HttpResponse response = httpclient.execute(httppost);
-		HttpEntity entity = response.getEntity();
-		String json = EntityUtils.toString(response.getEntity());
-		System.out.print(json);
+	public Utente run(String email, String password) throws IOException {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/login");
+		
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("email", email));
+			params.add(new BasicNameValuePair("password", password));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			JSONObject jsonObject = new JSONObject(json);
+			if(jsonObject.has("nome") && jsonObject.has("token")) {
+				loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
+				return loggedUser;
+			}
+		}catch (Exception e) {
+			System.out.print("Errore nella connessione");
+		}
+		return null;
+		
 	}
 	
 }

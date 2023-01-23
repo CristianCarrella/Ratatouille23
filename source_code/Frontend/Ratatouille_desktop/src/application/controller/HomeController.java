@@ -2,6 +2,8 @@ package application.controller;
 
 import java.io.IOException;
 
+
+import application.model.Utente;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -35,12 +37,13 @@ public class HomeController {
 	@FXML
 	ImageView sidebarBtn;
 	
+	private Utente LoggedUser = LoginController.loggedUser;
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
 	
 	public HomeController() {
-	
+		
 	}
 	
 	
