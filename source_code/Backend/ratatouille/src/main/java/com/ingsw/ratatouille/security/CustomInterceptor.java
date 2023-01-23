@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ingsw.DAOimplements.UserDAOimp;
 import com.ingsw.ratatouille.LoggedUser;
+import com.ingsw.ratatouille.RatatuilleApplication;
 import com.ingsw.ratatouille.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,28 +39,35 @@ public class CustomInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	
     	if(request.getHeader("Authorization") == null) {
-    		System.out.print(request.getRequestURI().toString());
-    		if(!request.getRequestURI().toString().equals("/login")) {
+    		
+    		if(!(request.getRequestURI().toString().equals("/login") || request.getRequestURI().toString().equals("/verify"))) {
+    			System.out.print(request.getRequestURI().toString());
     			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     			throw new RestClientException("Token non presente");
-    			
     		} else {
-    			// devo fare il login
-    			String token = generateToken();
-    			ZoneId z = ZoneId.of("Europe/Paris");
-    			ZonedDateTime zdt = ZonedDateTime.now(z);
-    			ZonedDateTime later = zdt.plusMinutes(15); 
-    			String expirationTime = later.toString();
-    			LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
-    			u.setToken(token);
-    			u.setTk_expiration_timestamp(expirationTime);
-    		    HttpSession session = request.getSession();
-    		    session.setAttribute("attributeToPass", u);
-    			loggedUsers.add(u);
+    			if(request.getRequestURI().toString().equals("/login")) {
+	    			String token = generateToken();
+	    			ZoneId z = ZoneId.of("Europe/Paris");
+	    			ZonedDateTime zdt = ZonedDateTime.now(z);
+	    			ZonedDateTime later = zdt.plusMinutes(15); 
+	    			String expirationTime = later.toString();
+	    			LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
+	    			u.setToken(token);
+	    			u.setTk_expiration_timestamp(expirationTime);
+	    		    HttpSession session = request.getSession();
+	    		    session.setAttribute("attributeToPass", u);
+	    			loggedUsers.add(u);
+    			}
     		}
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
-    			System.out.print("Token valido");
+    			System.out.print("Token valido");    			
+    			if(request.getRequestURI().toString().equals("/logout")) {
+    				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
+    			}
+    		} else {
+    			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    			throw new RestClientException("Token non valido");
     		}
     	}
         return true;
@@ -73,7 +81,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     			ZoneId z = ZoneId.of("Europe/Paris");
     			ZonedDateTime zdt = ZonedDateTime.now(z);
     			ZonedDateTime tk_timestamp = ZonedDateTime.parse(u.getTk_expiration_timestamp());
-    			if(tk_timestamp.compareTo(zdt) < 0){
+    			if(tk_timestamp.compareTo(zdt) > 0){
 	    			ZonedDateTime later = zdt.plusMinutes(15); 
 	    			u.setTk_expiration_timestamp(later.toString());
 					return true;
@@ -106,6 +114,18 @@ public class CustomInterceptor implements HandlerInterceptor {
     		}
     	}
     	return token;
+    }
+    
+    
+    public LoggedUser removeLoggedUser(Integer idUtente) {
+    	System.out.println(loggedUsers);
+    	for(LoggedUser u : loggedUsers) {
+    		if(u.getIdUtente() == idUtente) {
+    			loggedUsers.remove(u);
+    			return u;
+    		}
+    	}
+    	return null;
     }
     
 

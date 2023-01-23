@@ -5,129 +5,180 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFBF3"
-    tools:context=".views.jfragment.FunctionFragment">
+    tools:context=".views.jfragment.FunctionFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-253dp">
 
-    <Button
-        android:id="@+id/dispensaButton"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Inventario\ndella\ndispensa"
-        android:textSize="10dp"
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="410dp"
+        android:layout_height="731dp"
+        android:layout_marginBottom="56dp"
+        android:padding="12dp"
+        android:src="@drawable/logocolored_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.416" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/attivitaButton"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
         android:gravity="left"
+        android:padding="12dp"
         android:text="Visualizza\nattività\n"
+        android:textColor="#FFFFFF"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.416" />
+        app:layout_constraintVertical_bias="0.229" />
 
-    <Button
-        android:id="@+id/ordiniButton"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Visualizza\nordini\n"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.416" />
-
-    <Button
-        android:id="@+id/lockedButton1"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Funzionalità\nbloccata\n"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <Button
-        android:id="@+id/lockedButton2"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Funzionalità\nbloccata\n"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/lockedButton3"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Funzionalità\nbloccata\n"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
-        android:id="@+id/lockedButton4"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Funzionalità\nbloccata\n"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
-
-    <Button
-        android:id="@+id/lockedButton5"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Funzionalità\nbloccata\n"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/lockedButton6"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
         android:gravity="left"
+        android:padding="12dp"
         android:text="Funzionalità\nbloccata\n"
+        android:textColor="#FFFFFF"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lockedButton5"
+        app:layout_constraintVertical_bias="0.002" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dispensaButton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_inventory_2_24"
+        android:gravity="left"
+        android:onClick="onClickDispensaListener"
+        android:padding="12dp"
+        android:shadowColor="#FF1E1E"
+        android:text="Inventario\ndella\ndispensa"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
+        app:layout_constraintVertical_bias="0.229" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lockedButton5"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="Funzionalità\nbloccata\n"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lockedButton2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lockedButton2"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
+        android:gravity="left"
+        android:padding="12dp"
+        android:text="Funzionalità\nbloccata\n"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/attivitaButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lockedButton1"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
+        android:gravity="left"
+        android:padding="12dp"
+        android:text="Funzionalità\nbloccata\n"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ordiniButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ordiniButton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
+        android:gravity="left"
+        android:padding="12dp"
+        android:text="Visualizza\nordini\n"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dispensaButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lockedButton4"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/roundedbutton4"
+        android:drawableRight="@drawable/ic_outline_lock_24"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="Funzionalità\nbloccata\n"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lockedButton1"
+        app:layout_constraintVertical_bias="0.002" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

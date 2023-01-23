@@ -7,15 +7,31 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.ratatouille_android.R;
+import com.example.ratatouille_android.controllers.HomeController;
+import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.HomeActivity;
 
 public class FunctionFragment extends Fragment {
+    User loggedUser;
+    HomeActivity homeActivity;
+
+    public FunctionFragment(HomeActivity homeActivity, User loggedUser){
+        this.loggedUser = loggedUser;
+        this.homeActivity = homeActivity;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_function, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_function, container, false);
+        Button buttonInventarioDispensa = view.findViewById(R.id.dispensaButton);
+        if(loggedUser.getRuolo().equals("addetto_sala")){
+            buttonInventarioDispensa.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_outline_lock_24, 0);
+            buttonInventarioDispensa.setClickable(false);
+        }
+        return view;
     }
+
 }

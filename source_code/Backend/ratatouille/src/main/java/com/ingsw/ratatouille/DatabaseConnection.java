@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseConnection {
 	Connection connection;
-	Statement statement;
 	//da fare singleton 
 	DatabaseConnection(){
 		try {
@@ -28,7 +27,6 @@ public class DatabaseConnection {
 		
 		try {
 			connection = DriverManager.getConnection(url, props);
-			statement = connection.createStatement();
 			System.out.print("connected");
 		}catch(SQLException e){
 			System.out.print("not connected");
@@ -42,6 +40,12 @@ public class DatabaseConnection {
     }
 
     public Statement getStatement() {
+    	Statement statement = null;
+		try {
+			statement = connection.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         return statement;
     }
 }

@@ -14,4 +14,11 @@
         <!-- Customize your theme here. -->
 
     </style>
+    <style name="Theme.Ratatouille_android.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Ratatouille_android.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Ratatouille_android.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

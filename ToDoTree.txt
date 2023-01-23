@@ -1,28 +1,4 @@
-CREARE REPOSITORY PRIVATA
-PROGRAMMARE TEMPO PROGETTO SU PROJECT LIBRE 
-CANCELLARE DRIVE
-
-
-
-usabilità a priori tabella + calcoli + altre cose
-albero delle funzionalità (?)
-descrizione delle pagine più importanti dei mockUp(?)
-
-
-1 - 2 - 3 - 5 - 9 - 13
-
-
-NOTE: SEGUIRE L'ORDINE DELLA TRACCIA
-
-
-
-DOMANDE DA FARE A STARACE:
-Località turistiche (in fase di registrazione o altri modi?)
-
-usabilità = 
-(tempo_per_compiere_il_compito / tempo_ideale) 
-* (1 - (numero_di_click / numero_ideale_di_click)) 
-* (1 - (numero_di_equivoci / numero_ideale_di_equivoci)) 
-* (1 + (livello_di_esperienza / 100))
-* (peso_del_compito/massimo_peso_compito)
-
+To Do list:
+- In android : Notifiche android notizie
+- In android : Prima password visibile
+- In desktop : A che serve pulsante ordina su menu desktop?

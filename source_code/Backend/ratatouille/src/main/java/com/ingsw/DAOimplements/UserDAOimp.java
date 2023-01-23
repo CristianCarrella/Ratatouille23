@@ -140,11 +140,44 @@ public class UserDAOimp implements UserDAOint {
 	}
 
 
-	public User verifyEmployee(String nome, String cognome, String email, String dataNascita) {
+	public User verifyEmployee(String email, String nomeRistorante) {
 		String query = null;
+		ResultSet rs;
+		Integer idUser = null;
 		try {
-			query = "SELECT * FROM utente WHERE email = '" + email + "' AND nome = '" + nome + "' AND cognome = '" + cognome + "' AND data_nascita = '" + dataNascita + "';";
-			db.getStatement().executeQuery(query);						 
+			query = "SELECT id_utente FROM utente JOIN ristorante ON utente.id_ristorante = ristorante.id_ristorante WHERE email = '" + email + "' AND ristorante.nome = '" + nomeRistorante + "';";
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next()) {
+				idUser = rs.getInt("id_utente");
+			}
+			return getUserById(idUser);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	@Override
+	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita) {
+		int idUtente = loggedUser.getIdUtente();
+		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
+		try {
+			db.getStatement().executeUpdate(query);
+			return getUserById(idUtente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	@Override
+	public User firstAccess(Integer id_utente, String newPassword) {
+		String query = "UPDATE utente SET password = '" + newPassword + "', isfirstaccess = false WHERE id_utente = " + id_utente;
+		try {
+			db.getStatement().executeUpdate(query);
+			return getUserById(id_utente);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -2,12 +2,17 @@ package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.DispensaActivity;
+import com.example.ratatouille_android.views.FirstAccessActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.LoginActivity;
+import com.example.ratatouille_android.views.MainActivity;
+import com.example.ratatouille_android.views.jfragment.HomeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +28,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginController {
-    public String url = "http://192.168.1.5:8080/login";
+    public String url = MainActivity.address + "/login";
     public String email, password;
     TextView error;
     User loggedUser;
@@ -38,6 +43,7 @@ public class LoginController {
         this.password = password;
         this.error = error;
     }
+
 
     public void requestToServer(){
         try {
@@ -61,24 +67,36 @@ public class LoginController {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                error.setText(R.string.error);
-                error.setTextColor(Color.RED);
                 call.cancel();
+                loginActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        error.setText(R.string.error);
+                        error.setTextColor(Color.RED);
+                    }
+                });
             }
+
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String myResponse = response.body().string();
+
                 loginActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         JSONObject Jobject = null;
                         try {
                             Jobject = new JSONObject(myResponse);
-                            loggedUser = new User(loginActivity, Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"));
+                            Boolean isFistAccess = Jobject.getBoolean("firstAccess");
+                            loggedUser = new User(loginActivity, Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"), Jobject.getString("token"), Jobject.getString("tk_expiration_timestamp"));
                             error.setText(R.string.successo_login);
                             error.setTextColor(Color.GREEN);
-                            goToHomeActivity();
+                            if(isFistAccess){
+                                goToFirstAccessActivity();
+                            }else {
+                                goToHomeActivity();
+                            }
 
                         } catch (JSONException e) {
                             error.setText(R.string.error);
@@ -95,6 +113,14 @@ public class LoginController {
 
     public void goToHomeActivity(){
         Intent switchActivityIntent = new Intent(loginActivity, HomeActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        switchActivityIntent.putExtra("frgToLoad", R.id.home);
+        loginActivity.startActivity(switchActivityIntent);
+    }
+
+    public void goToFirstAccessActivity(){
+        Intent switchActivityIntent = new Intent(loginActivity, FirstAccessActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
         loginActivity.startActivity(switchActivityIntent);
     }
 }

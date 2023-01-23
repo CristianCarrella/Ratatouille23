@@ -1,43 +1,112 @@
 package com.example.ratatouille_android.views.jfragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
+import com.example.ratatouille_android.controllers.HomeController;
+import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.HomeActivity;
 
-public class AccountFragment extends Fragment {
+import java.io.IOException;
 
-    private String nome, cognome;
+public class AccountFragment extends Fragment implements View.OnClickListener {
 
-    public static AccountFragment newInstance(String nome, String cognome) {
-        AccountFragment fragment = new AccountFragment();
-        Bundle args = new Bundle();
-        args.putString(String.valueOf(R.id.nomeField), fragment.nome);
-        args.putString(String.valueOf(R.id.cognomeField), fragment.cognome);
-        fragment.setArguments(args);
-        return fragment;
+    EditText nomeField, cognomeField, dateField;
+    HomeActivity homeActivity;
+    TextView ruolo, email, aggiuntoDa, aggiutoInData, aggiuntoDaLabel, dataAggiuntaLabel, errore;
+
+    public AccountFragment(HomeActivity homeActivity){
+        this.homeActivity = homeActivity;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            nome = getArguments().getString(String.valueOf(R.id.nomeField));
-            cognome = getArguments().getString(String.valueOf(R.id.cognomeField));
-        }
 
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        Button btn = view.findViewById(R.id.confermaButton);
+        btn.setOnClickListener(this);
+        nomeField = view.findViewById(R.id.nomeField);
+        cognomeField = view.findViewById(R.id.cognomeField);
+        dateField = view.findViewById(R.id.dataField);
 
+        ruolo = (TextView) view.findViewById(R.id.textViewRuolo);
+        email = (TextView) view.findViewById(R.id.textViewEmail);
+        aggiuntoDa = (TextView) view.findViewById(R.id.textViewAggiuntoDa);
+        aggiutoInData = (TextView) view.findViewById(R.id.textViewAggiutoInData);
+        aggiuntoDaLabel = (TextView) view.findViewById(R.id.aggiuntoDaLabel);
+        dataAggiuntaLabel = (TextView) view.findViewById(R.id.dataAggiuntaDaLabel);
+        errore = (TextView) view.findViewById(R.id.textViewErrore);
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        nomeField.setHint(homeActivity.getUserName());
+        cognomeField.setHint(homeActivity.getUserCognome());
+        dateField.setHint(homeActivity.getUserDataNascita());
+        ruolo.setText(homeActivity.getUserRuolo());
+        email.setText(homeActivity.getUserEmail());
+        aggiutoInData.setText(homeActivity.getUserDataAggiunta());
+
+        if(aggiuntoDa.getText().toString().equals("")){
+            aggiuntoDa.setText("");
+            aggiuntoDaLabel.setText("");
+            dataAggiuntaLabel.setText("Data iscrizione:");
+        }
+
+        return view;
     }
+
+    @Override
+    public void onClick(View v) {
+        try {
+            if(nomeField.getText().toString().equals("")){
+                nomeField.setText(nomeField.getHint().toString());
+            }
+            if(cognomeField.getText().toString().equals("")){
+                cognomeField.setText(cognomeField.getHint().toString());
+            }
+            if(dateField.getText().toString().equals("")) {
+                dateField.setText(dateField.getHint().toString());
+            }
+            this.setErrorLableOnSuccess();
+            homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+            homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
+            nomeField.setHint(nomeField.getText().toString());
+            cognomeField.setHint(cognomeField.getText().toString());
+            dateField.setHint(dateField.getText().toString());
+            nomeField.setText("");
+            cognomeField.setText("");
+            dateField.setText("");
+
+        } catch (IOException e) {
+            this.setErrorLableOnError();
+            e.printStackTrace();
+        }
+    }
+
+    public void run(String nome){
+
+    }
+
+    public void setErrorLableOnError(){
+        errore.setText("Errore");
+        errore.setTextColor(Color.RED);
+    }
+
+    public void setErrorLableOnSuccess(){
+        errore.setText("Modifiche apportate con successo");
+        errore.setTextColor(Color.parseColor("#008000"));
+    }
+
+
+
 }
