@@ -40,7 +40,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     	
     	if(request.getHeader("Authorization") == null) {
     		
-    		if(!(request.getRequestURI().toString().equals("/login") || request.getRequestURI().toString().equals("/verify"))) {
+    		if(!(request.getRequestURI().toString().equals("/login") || request.getRequestURI().toString().equals("/verify") || request.getRequestURI().toString().equals("/signup-admin"))) {
     			System.out.print(request.getRequestURI().toString());
     			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     			throw new RestClientException("Token non presente");

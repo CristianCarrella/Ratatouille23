@@ -2,6 +2,8 @@ package application.controller;
 
 
 import java.io.IOException;
+
+import application.driver.UtenteDriver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +30,8 @@ public class SignUpController {
 	@FXML
 	TextField emailField;
 	@FXML
+	TextField nomeAttivitaField;
+	@FXML
 	Label login;
 	@FXML
 	Label errorLabel;
@@ -37,6 +41,7 @@ public class SignUpController {
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
+	private UtenteDriver utenteDriver = new UtenteDriver();
 	
     @FXML
     public void initialize() {
@@ -50,27 +55,41 @@ public class SignUpController {
     }
     
     public void signUp(ActionEvent actionEvent) throws IOException{
-    	String nome = nomeField.getText();
-    	String email = emailField.getText();
-    	String password = passwordField.getText();
-    	String cognome = cognomeField.getText();
-    	String dataNascita = dataNascitaField.getValue().toString();
+    	String nome = nomeField.getText().toString();
+    	String email = emailField.getText().toString();
+    	String password = passwordField.getText().toString();
+    	String cognome = cognomeField.getText().toString();
+    	String dataNascita = "";
+    	if(dataNascitaField.getValue() != null)
+    		dataNascita = dataNascitaField.getValue().toString();
+    	String nomeAttivita = nomeAttivitaField.getText().toString();
     	
-    	//Richiesta al server
-    	//Se la registrazione fallisce
-    	errorLabel.setText("Errore");
-    	errorLabel.setTextFill(Color.RED);
-    	//Se la registrazione ha successo
-    	errorLabel.setText("Registrazione avvenuta con successo");
-    	errorLabel.setTextFill(Color.GREEN);
-    	goToLoginScene();
+    	if(!(nome.isBlank() || cognome.isBlank() || email.isBlank() || password.isBlank() || dataNascita.isBlank() || nomeAttivita.isBlank())) {
+			if(!utenteDriver.requestSignUpToServer(nome, email, password, cognome, dataNascita, nomeAttivita)) {
+		    	errorLabel.setText("Errore");
+		    	errorLabel.setTextFill(Color.RED);
+			}else {
+		    	errorLabel.setText("Registrazione avvenuta con successo");
+		    	errorLabel.setTextFill(Color.GREEN);
+				goToLoginScene();
+			}
+		}else {
+	    	errorLabel.setText("Compilare tutti i campi");
+	    	errorLabel.setTextFill(Color.RED);
+		}
+
+    	
     }
     
 	private void goToLoginScene() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Login.fxml"));
 		stage = (Stage) login.getScene().getWindow();
 		Scene scene = new Scene(root);
+		double prevWidth = stage.getWidth();
+		double prevHeight = stage.getHeight();
 		stage.setScene(scene);
+		stage.setWidth(prevWidth);
+		stage.setHeight(prevHeight);
 		stage.show();
 	}
 }
