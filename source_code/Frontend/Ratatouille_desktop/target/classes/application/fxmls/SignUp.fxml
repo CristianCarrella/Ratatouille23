@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -20,7 +19,7 @@
          <top>
             <FlowPane prefHeight="73.0" prefWidth="516.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="errorLabel" />
+                  <Label />
                   <ImageView fitHeight="80.0" fitWidth="80.0">
                      <image>
                         <Image url="@../img/angolo_alto_sx.png" />
@@ -32,41 +31,31 @@
          <center>
             <BorderPane prefHeight="105.0" prefWidth="516.0" BorderPane.alignment="CENTER">
                <center>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <left>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="160.0" spacing="6.0" BorderPane.alignment="CENTER">
+                  <BorderPane BorderPane.alignment="CENTER">
+                     <center>
+                        <VBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" BorderPane.alignment="CENTER">
                            <children>
                                  <TextField fx:id="nomeField" prefHeight="14.0" prefWidth="205.0" promptText="Nome">
                                  <VBox.margin>
                                     <Insets top="5.0" />
-                                 </VBox.margin></TextField>
-                              <PasswordField fx:id="passwordField" promptText="Password" />
-                        <DatePicker fx:id="dataNascitaField" promptText="Data di nascita" style="-fx-border-color: #003F91; -fx-background-radius: 50 0 0 50; -fx-border-radius: 50 0 0 50;" />
-                           </children>
-                        </VBox>
-                     </left>
-                     <right>
-                        <VBox prefHeight="76.0" prefWidth="160.0" spacing="6.0" BorderPane.alignment="CENTER">
-                           <children>
+                                 </VBox.margin>
+                              </TextField>
                               <TextField fx:id="cognomeField" prefWidth="100.0" promptText="Cognome" />
                               <TextField fx:id="emailField" promptText="Email" />
+                              <PasswordField fx:id="passwordField" promptText="Password" />
+                              <TextField fx:id="nomeAttivitaField" promptText="Nome attività" />
+                        <DatePicker fx:id="dataNascitaField" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="216.0" promptText="Data di nascita" style="-fx-border-color: #003F91; -fx-background-radius: 50 0 0 50; -fx-border-radius: 50 0 0 50;" />
                            </children>
-                           <padding>
-                              <Insets left="10.0" top="5.0" />
-                           </padding>
+                           <BorderPane.margin>
+                              <Insets left="150.0" right="150.0" />
+                           </BorderPane.margin>
                         </VBox>
-                     </right>
-                     <top>
-                        <Label BorderPane.alignment="CENTER" />
-                     </top>
+                     </center>
                   </BorderPane>
                </center>
-               <left>
-                  <Pane prefHeight="76.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Pane prefHeight="76.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-               </right>
+               <top>
+                  <Label fx:id="errorLabel" BorderPane.alignment="CENTER" />
+               </top>
             </BorderPane>
          </center>
          <bottom>
@@ -74,7 +63,7 @@
                <top>
                   <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="90.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="signUpButton" mnemonicParsing="false" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
+                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
                            <font>

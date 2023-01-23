@@ -2,6 +2,7 @@ package com.ingsw.DAOimplements;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,22 +40,43 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
 	
-	public User createAdmin(String nome, String cognome, String email, String password, String dataNascita, int idRistorante) {
-		
+	public User createAdmin(String nome, String cognome, String email, String password, String dataNascita, String nomeRistorante) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
-		
-		String query = null;
-		
+
+		String query = "INSERT INTO ristorante(id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (default, '" + nomeRistorante + "', NULL, NULL, NULL, NULL, NULL)";
+		Integer idUtente = 0, idRistorante = 0;
 		try {
-			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + dataNascita + "', '" + email + "', '" + password + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");";
+			
 			db.getStatement().executeUpdate(query);
+			Statement stmt = db.getConnection().createStatement(
+				    ResultSet.TYPE_SCROLL_INSENSITIVE,
+				    ResultSet.CONCUR_READ_ONLY
+				);
+			query = "SELECT max(id_ristorante) AS last_value FROM ristorante";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			if(rs.isBeforeFirst()) {
+				while(rs.next()) {
+					idRistorante = rs.getInt("last_value");
+				}
+			}
+			
+			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + dataNascita + "', '" + email + "', '" + password + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");"; 
+			db.getStatement().executeUpdate(query);
+			query = "SELECT id_utente FROM utente WHERE email = '" + email + "'";
+
+			ResultSet rs2 = db.getStatement().executeQuery(query);
+			if(rs2.isBeforeFirst()) {
+				while(rs2.next())  {
+					idUtente = rs2.getInt("id_utente");
+				}
+			}
+			return getUserById(idUtente);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
-		
-		User newUser = new User();
-		return newUser;
 	}
 	
 	public User createEmployee(String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, User loggedUser) {

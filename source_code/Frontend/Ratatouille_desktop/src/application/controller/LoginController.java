@@ -39,7 +39,7 @@ public class LoginController {
 	public LoginController() {	}
 
 	public void login(ActionEvent actionEvent) throws IOException {
-		loggedUser = utenteDriver.requestToServer(email.getText(), password.getText());
+		loggedUser = utenteDriver.requestLoginToServer(email.getText(), password.getText());
 		if(loggedUser == null) {
 			errorLabel.setText("Errore");
 			errorLabel.setTextFill(Color.RED);
@@ -65,7 +65,11 @@ public class LoginController {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/SignUp.fxml"));
 		stage = (Stage) (signUp.getScene().getWindow());
 		Scene scene = new Scene(root);
+		double prevWidth = stage.getWidth();
+		double prevHeight = stage.getHeight();
 		stage.setScene(scene);
+		stage.setWidth(prevWidth);
+		stage.setHeight(prevHeight);
 		stage.show();
 	}
 	
@@ -73,8 +77,7 @@ public class LoginController {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
 		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		stage.setScene(scene);
+		stage.setScene(scene);		
 		stage.show();
 	}
 	
