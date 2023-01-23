@@ -30,6 +30,48 @@ public class Utente extends Observable{
 	}
 
 	public Utente() {}
+	
+	
+
+	public int getId_utente() {
+		return id_utente;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public String getData_nascita() {
+		return data_nascita;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getRuolo() {
+		return ruolo;
+	}
+
+	public boolean isFirstAccess() {
+		return isFirstAccess;
+	}
+
+	public int getAggiunto_da() {
+		return aggiunto_da;
+	}
+
+	public String getData_aggiunta() {
+		return data_aggiunta;
+	}
+
+	public int getId_ristorante() {
+		return id_ristorante;
+	}
 
 	public String getToken() {
 		return token;

@@ -1,9 +1,12 @@
 package application.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
+import application.driver.UtenteDriver;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -15,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
@@ -36,13 +40,32 @@ public class RisorseUmaneController {
 	@FXML
 	Label errLabel;
 	@FXML
+	RadioButton supervisoreRBtn, addettoSalaRBtn, addettoCucinaRBtn;
+	@FXML
 	DatePicker dataNascitaInput;
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
+	UtenteDriver utenteDriver = new UtenteDriver();
 
 	public RisorseUmaneController() {}
+	
+	public void creaNuovoImpiegato() {
+		
+		if(!nomeInput.equals("") && !cognomeInput.equals("") && !emailInput.equals("") && !passwordInput.equals("") && !dataNascitaInput.equals("")) {
+			
+			if(supervisoreRBtn.isSelected()) {
+				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.toString(), "supervisore");
+			}
+			if(addettoSalaRBtn.isSelected()) {
+				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.toString(), "addetto_sala");
+			}
+			if(addettoCucinaRBtn.isSelected()) {
+				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.toString(), "addetto_cucina");
+			}
+		}
+	}
 	
 	public void goToGestisciPersonaleScene(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/GestisciPersonaleScene.fxml"));

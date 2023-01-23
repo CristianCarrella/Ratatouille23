@@ -86,7 +86,7 @@
                   </TextField>
                   <TextField fx:id="cognomeInput" promptText="Cognome" />
                   <TextField fx:id="mailInput" promptText="Email" />
-                  <TextField fx:id="numeroInput" promptText="Numero cellulare" />
+                  <TextField fx:id="dataInput" promptText="Data di nascita" />
                   <Label fx:id="errorLabel" />
                </children>
                <BorderPane.margin>

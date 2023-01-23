@@ -2,6 +2,8 @@ package application.controller;
 
 import java.io.IOException;
 
+import application.driver.UtenteDriver;
+import application.model.Utente;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -26,7 +28,7 @@ public class AccountController {
 	@FXML
 	ImageView sidebarBtn;
 	@FXML
-	TextField nomeInput, cognomeInput, numeroInput, mailInput;
+	TextField nomeInput, cognomeInput, dataInput, mailInput;
 	@FXML
 	Button salvaBtn;
 	@FXML
@@ -35,11 +37,18 @@ public class AccountController {
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
+	private Utente loggedUser = LoginController.loggedUser;
 	
 	public AccountController() {
-	
+		
 	}
 	
+	public void mostraDatiAccount() {
+		nomeInput.setPromptText(loggedUser.getNome());
+		cognomeInput.setPromptText(loggedUser.getCognome());
+		dataInput.setPromptText(loggedUser.getData_nascita());
+		mailInput.setPromptText(loggedUser.getEmail());
+	}
 	
 	public void goToHome(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
