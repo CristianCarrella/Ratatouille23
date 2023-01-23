@@ -1,6 +1,8 @@
 package application.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 import application.driver.UtenteDriver;
 import application.model.Utente;
@@ -15,9 +17,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -28,7 +32,7 @@ public class AccountController {
 	@FXML
 	ImageView sidebarBtn;
 	@FXML
-	TextField nomeInput, cognomeInput, dataInput, mailInput;
+	TextField nomeInput, cognomeInput, mailInput;
 	@FXML
 	Button salvaBtn;
 	@FXML
@@ -38,16 +42,35 @@ public class AccountController {
 	private Scene scene;
 	private Parent parent;
 	private Utente loggedUser = LoginController.loggedUser;
+	private UtenteDriver utenteDriver = new UtenteDriver();
 	
 	public AccountController() {
 		
 	}
 	
 	public void mostraDatiAccount() {
-		nomeInput.setPromptText(loggedUser.getNome());
-		cognomeInput.setPromptText(loggedUser.getCognome());
-		dataInput.setPromptText(loggedUser.getData_nascita());
-		mailInput.setPromptText(loggedUser.getEmail());
+		nomeInput.setText(loggedUser.getNome());
+		cognomeInput.setText(loggedUser.getCognome());
+		mailInput.setText(loggedUser.getEmail());		
+	} 
+	
+	public void modificaProfilo(ActionEvent actionEvent) {
+		String nome = nomeInput.getText().toString();
+    	String email = mailInput.getText().toString();
+    	String cognome = cognomeInput.getText().toString();
+    	String dataNascita = "";
+    	if(!(nome.isBlank() || cognome.isBlank() || email.isBlank())) {
+			if(!utenteDriver.requestModifyAccountToServer(nome, email, cognome)) {
+		    	errorLabel.setText("Errore");
+		    	errorLabel.setTextFill(Color.RED);
+			}else {
+		    	errorLabel.setText("Modifiche apportate con successo");
+		    	errorLabel.setTextFill(Color.GREEN);
+			}
+		}else {
+	    	errorLabel.setText("Compilare tutti i campi");
+	    	errorLabel.setTextFill(Color.RED);
+		}
 	}
 	
 	public void goToHome(ActionEvent actionEvent) throws IOException {

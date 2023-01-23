@@ -49,6 +49,11 @@ public class Controller {
 	public User modifyUserAccount(@RequestParam(required = true) String nome, String cognome, String dataNascita){
 		return userDao.modifyUserNameSurnameDate(loggedUser, nome, cognome, dataNascita);		
 	}
+	
+	@PostMapping("/user/accountDesktop")
+	public User modifyUserAccountDesktop(@RequestParam(required = true) String nome, String cognome, String email){
+		return userDao.modifyUserNameSurnameEmail(loggedUser, nome, cognome, email);		
+	}
 
 	@PostMapping("/signup-admin")
     public User createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, String nomeAttivita) {

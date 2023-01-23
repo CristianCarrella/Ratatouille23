@@ -79,6 +79,7 @@
             <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
                   <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="GESTIONE PROFILO" />
+                  <Label fx:id="errorLabel" />
                   <TextField fx:id="nomeInput" promptText="Nome">
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -86,8 +87,6 @@
                   </TextField>
                   <TextField fx:id="cognomeInput" promptText="Cognome" />
                   <TextField fx:id="mailInput" promptText="Email" />
-                  <TextField fx:id="dataInput" promptText="Data di nascita" />
-                  <Label fx:id="errorLabel" />
                </children>
                <BorderPane.margin>
                   <Insets left="50.0" right="50.0" top="30.0" />
@@ -95,7 +94,7 @@
             </VBox>
          </center>
          <bottom>
-            <Button id="salvaInput" fx:id="salvaBtn" mnemonicParsing="false" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button id="salvaInput" onAction="#modificaProfilo"  fx:id="salvaBtn" mnemonicParsing="false" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
                   <Insets bottom="50.0" right="100.0" />
                </BorderPane.margin>

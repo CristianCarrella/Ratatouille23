@@ -47,6 +47,17 @@ public class UtenteDriver {
 		}
 		return null;
 	}
+	
+	
+	public boolean requestModifyAccountToServer(String nome, String email, String cognome) {
+		try {
+			return runModificaAccount(nome, email, cognome);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 
 	public boolean requestSignUpToServer(String nome, String email, String password, String cognome, String dataNascita, String nomeAttivita){
 		try {
@@ -55,7 +66,6 @@ public class UtenteDriver {
 			e.printStackTrace();
 		}
 		return false;
-
 	}
 
 	public Utente runLogin(String email, String password) throws IOException {
@@ -94,6 +104,33 @@ public class UtenteDriver {
 			params.add(new BasicNameValuePair("password", password));
 			params.add(new BasicNameValuePair("dataNascita", dataNascita));
 			params.add(new BasicNameValuePair("nomeAttivita", nomeAttivita));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			JSONObject jsonObject = new JSONObject(json);
+			
+			if(jsonObject.has("nome") && jsonObject.has("email")) {
+				return true;
+			}
+		}catch (Exception e) {
+			System.out.print("Errore nella connessione");
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean runModificaAccount(String nome, String email, String cognome) throws IOException {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/user/accountDesktop");
+		
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("nome", nome));
+			params.add(new BasicNameValuePair("cognome", cognome));
+			params.add(new BasicNameValuePair("email", email));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpResponse response = httpclient.execute(httppost);

@@ -15,4 +15,5 @@ public interface UserDAOint {
 	public User verifyEmployee(String email, String nomeRistorante);
 	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita);
 	public User firstAccess(Integer id_utente, String newPassword);
+	public User modifyUserNameSurnameEmail(User loggedUser, String nome, String cognome, String email);
 }

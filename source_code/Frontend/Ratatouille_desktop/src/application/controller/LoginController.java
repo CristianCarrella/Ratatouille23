@@ -43,7 +43,7 @@ public class LoginController {
 		if(loggedUser == null) {
 			errorLabel.setText("Errore");
 			errorLabel.setTextFill(Color.RED);
-		}else {
+		} else {
 			errorLabel.setText("Login avvenuto con successo");
 			errorLabel.setTextFill(Color.GREEN);
 			goToHomeScene(actionEvent);
@@ -65,11 +65,7 @@ public class LoginController {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/SignUp.fxml"));
 		stage = (Stage) (signUp.getScene().getWindow());
 		Scene scene = new Scene(root);
-		double prevWidth = stage.getWidth();
-		double prevHeight = stage.getHeight();
 		stage.setScene(scene);
-		stage.setWidth(prevWidth);
-		stage.setHeight(prevHeight);
 		stage.show();
 	}
 	
@@ -77,7 +73,8 @@ public class LoginController {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
 		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
-		stage.setScene(scene);		
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		stage.setScene(scene);
 		stage.show();
 	}
 	

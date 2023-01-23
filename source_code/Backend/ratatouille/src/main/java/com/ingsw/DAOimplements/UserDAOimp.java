@@ -192,6 +192,18 @@ public class UserDAOimp implements UserDAOint {
 		}
 		return null;
 	}
+	
+	public User modifyUserNameSurnameEmail(User loggedUser, String nome, String cognome, String email) {
+		int idUtente = loggedUser.getIdUtente();
+		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', email = '" + email + "' WHERE id_utente = " + idUtente;
+		try {
+			db.getStatement().executeUpdate(query);
+			return getUserById(idUtente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 
 	@Override
