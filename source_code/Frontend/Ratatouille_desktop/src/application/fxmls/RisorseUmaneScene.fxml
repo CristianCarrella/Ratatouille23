@@ -13,13 +13,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
-<?import com.gluonhq.charm.glisten.control.TextField?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RisorseUmaneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RisorseUmaneController">
 
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="200.0" prefWidth="866.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <AnchorPane prefHeight="352.0" prefWidth="108.0" BorderPane.alignment="CENTER">
                <children>
@@ -83,11 +81,11 @@
             </AnchorPane>
          </left>
          <center>
-            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" BorderPane.alignment="CENTER">
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="418.0" BorderPane.alignment="CENTER">
                <left>
                   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="210.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Nome">
+                        <TextField fx:id="nomeInput" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Nome">
                            <VBox.margin>
                               <Insets right="10.0" top="10.0" />
                            </VBox.margin>
@@ -98,7 +96,7 @@
                <right>
                   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Cognome">
+                        <TextField fx:id="cognomeInput" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Cognome">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -118,14 +116,14 @@
                   </VBox>
                </top>
                <bottom>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+                  <VBox prefHeight="195.0" prefWidth="410.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField promptText="Email" />
-                        <TextField promptText="Password" />
-                        <DatePicker promptText="Data di nascita" />
+                        <TextField fx:id="emailInput" prefHeight="20.0" prefWidth="410.0" promptText="Email" />
+                        <TextField fx:id="passwordInput" promptText="Password" />
+                        <DatePicker fx:id="dataNascitaInput" promptText="Data di nascita" style="-fx-border-color: #003F91; -fx-background-radius: 50 0 0 50; -fx-border-radius: 50 0 0 50;" />
                         <FlowPane hgap="45.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ToggleButtonGroup prefHeight="25.0" prefWidth="239.0" selectionType="SINGLE">
+                              <ToggleButtonGroup fx:id="ruoloInput" prefHeight="25.0" prefWidth="239.0" selectionType="SINGLE">
                                   <toggles>
                                     <RadioButton mnemonicParsing="false" text="Supervisore">
                                        <padding>
@@ -142,7 +140,8 @@
                               </ToggleButtonGroup>
                            </children>
                         </FlowPane>
-                        <Button mnemonicParsing="false" prefHeight="157.0" prefWidth="63.0" text="Submit">
+                        <Label fx:id="" alignment="CENTER" maxWidth="1.7976931348623157E308" />
+                        <Button fx:id="invioBtn" mnemonicParsing="false" prefHeight="157.0" prefWidth="63.0" text="Submit" textFill="WHITE">
                            <VBox.margin>
                               <Insets left="180.0" />
                            </VBox.margin>
@@ -159,9 +158,9 @@
             </BorderPane>
          </center>
          <bottom>
-            <Button onAction="#goToGestisciPersonaleScene" mnemonicParsing="false" text="Gestisci Personale" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button mnemonicParsing="false" onAction="#goToGestisciPersonaleScene" text="Gestisci Personale" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
-                  <Insets bottom="100.0" right="100.0" />
+                  <Insets bottom="50.0" right="100.0" />
                </BorderPane.margin>
             </Button>
          </bottom>

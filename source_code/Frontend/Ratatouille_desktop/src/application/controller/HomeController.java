@@ -81,8 +81,8 @@ public class HomeController {
 	}
 	
 	public void goToAccount(ActionEvent actionEvent) throws IOException {
-//		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Account.fxml"));
-//		changeScene(actionEvent, root);
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AccountScene.fxml"));
+		changeScene(actionEvent, root);
 	}
 	
 	

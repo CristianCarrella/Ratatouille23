@@ -2,10 +2,10 @@ package application.controller;
 
 import java.io.IOException;
 
+import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,29 +13,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class RisorseUmaneController {
 
 	boolean isInvisible = true;
 	@FXML
-	Button accountBtn;
-	@FXML
-	Button homeBtn;
-	@FXML
-	Button noticeBtn;
-	@FXML
-	Button menuBtn;
-	@FXML
-	Button personaleBtn;
-	@FXML
-	Button personalizzaBtn;
+	Button accountBtn, homeBtn, noticeBtn, menuBtn, personaleBtn, personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
+	@FXML
+	TextField nomeInput, cognomeInput, emailInput, passwordInput;
+	@FXML
+	ToggleButtonGroup ruoloInput;
+	@FXML
+	Button invioBtn;
+	@FXML
+	Label errLabel;
+	@FXML
+	DatePicker dataNascitaInput;
 	
 	private Stage stage;
 	private Scene scene;
@@ -89,8 +90,8 @@ public class RisorseUmaneController {
 	}
 	
 	public void goToAccount(ActionEvent actionEvent) throws IOException {
-//		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Account.fxml"));
-//		changeScene(actionEvent, root);
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AccountScene.fxml"));
+		changeScene(actionEvent, root);
 	}
 	
 	

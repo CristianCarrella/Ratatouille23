@@ -1,6 +1,7 @@
 .button{
 	-fx-background-color: #003F91;
 	-fx-background-radius: 20px;
+	-fx-text-fill: white;
 }
 
 .button:hover{
@@ -35,4 +36,35 @@
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 2,0,0,1); 
 	-fx-background-insets: 0 0 -1 0, 0, 1, 2;
 	-fx-background-color: #000466; 
+}
+
+.text-field{
+	-fx-background-radius: 50px;
+	-fx-border-color:  #003F91;
+	-fx-border-radius: 50px;
+}
+
+.text-area{
+	-fx-border-color:  #003F91;
+}
+
+.text-area:focused{
+	-fx-border-color:  #000466;
+}
+
+.text-field:focused{
+	-fx-background-radius: 50px;
+	-fx-border-color:  #000466;
+	-fx-border-radius: 50px;
+}
+
+.date-picker .text-field {
+    -fx-background-radius: 50 0 0 50;
+	-fx-border-color:  #FFFFFF;
+	-fx-border-radius: 50 0 0 50;
+}
+
+.scroll-pane{
+	-fx-background-color: #FFFBF3;
+	-fx-fit-to-width: true;
 }

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SignUpController">   <children>
+<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SignUpController">   <children>
       <BorderPane layoutX="74.0" layoutY="78.0" prefHeight="356.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <FlowPane prefHeight="73.0" prefWidth="516.0" BorderPane.alignment="CENTER">
@@ -41,7 +41,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin></TextField>
                               <PasswordField fx:id="passwordField" promptText="Password" />
-                              <DatePicker fx:id="dataNascitaField" promptText="Data di nascita" />
+                        <DatePicker fx:id="dataNascitaField" promptText="Data di nascita" style="-fx-border-color: #003F91; -fx-background-radius: 50 0 0 50; -fx-border-radius: 50 0 0 50;" />
                            </children>
                         </VBox>
                      </left>
@@ -74,8 +74,8 @@
                <top>
                   <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="90.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="signUpButton" mnemonicParsing="false"  style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
-                              <Insets />
+                        <Button fx:id="signUpButton" mnemonicParsing="false" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
+                              <Insets top="15.0" />
                            </VBox.margin>
                            <font>
                               <Font name="Franklin Gothic Medium Cond" size="12.0" />

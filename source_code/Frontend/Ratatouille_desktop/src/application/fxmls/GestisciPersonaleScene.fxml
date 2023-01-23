@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestisciPersonaleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestisciPersonaleController">
    <children>
       <BorderPane prefHeight="560.0" prefWidth="849.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="0.0">
          <left>
             <AnchorPane prefHeight="560.0" prefWidth="60.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="indietroBtn" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#goToRisorseUmaneScene" prefHeight="28.0" prefWidth="70.0" style="-fx-background-radius: 30px; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 2,0,0,1); -fx-background-color: F2A900; -fx-background-image: url(../img/menu_icon.png); -fx-background-size: 100% 100%; -fx-background-position: center center;" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                  <Button fx:id="indietroBtn" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" styleClass="buttonRounded1" onAction="#goToRisorseUmaneScene" prefHeight="28.0" prefWidth="70.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -54,13 +54,13 @@
                         <Label maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Label" textAlignment="CENTER" />
                         <FlowPane hgap="32.0" prefHeight="118.0" prefWidth="430.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Declassa">
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Declassa" textFill="WHITE">
                                  <FlowPane.margin>
                                     <Insets />
                                  </FlowPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Promuovi" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Solleva da incarico" />
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Promuovi" textFill="WHITE" />
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Solleva da incarico" textFill="WHITE" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />

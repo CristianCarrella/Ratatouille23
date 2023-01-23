@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:controller="application.controller.PersonalizzazioneAttivitaController" stylesheets="@../application.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PersonalizzazioneAttivitaController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <AnchorPane prefHeight="352.0" prefWidth="108.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button onAction="#showSideBar" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                  <Button layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#showSideBar" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -25,7 +25,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="homeBtn" layoutX="22.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="58.0" prefWidth="65.0"  styleClass="buttonRounded2" visible="false">
+                  <Button fx:id="homeBtn" layoutX="22.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -65,7 +65,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="accountBtn" layoutX="22.0" layoutY="525.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2"  visible="false">
+                  <Button fx:id="accountBtn" layoutX="22.0" layoutY="525.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -80,23 +80,24 @@
             <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="PERSONALIZZAZIONE ATTIVITA'" />
-                  <TextField promptText="Email">
+                  <TextField fx:id="emailInput" promptText="Email">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Indirizzo" />
-                  <TextField promptText="Numero telefono" />
+                  <TextField fx:id="indirizzoInput" promptText="Indirizzo" />
+                  <TextField fx:id="telefonoInput" promptText="Numero telefono" />
                   <Label text="Carica logo" />
                   <Pane maxHeight="178.0" maxWidth="415.0" minHeight="178.0" minWidth="415.0" prefHeight="178.0" prefWidth="415.0" style="-fx-border-color: black; -fx-border-radius: 44; -fx-border-width: 3;">
                      <children>
-                        <ImageView fitHeight="175.0" fitWidth="412.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="logoInput" fitHeight="175.0" fitWidth="412.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/logo_uploader.png" />
                            </image>
                         </ImageView>
                      </children>
                   </Pane>
+                  <Label fx:id="errorLabel" />
                </children>
                <BorderPane.margin>
                   <Insets left="50.0" right="50.0" top="30.0" />
@@ -104,9 +105,9 @@
             </VBox>
          </center>
          <bottom>
-            <Button mnemonicParsing="false" text="Salva" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button fx:id="salvaBtn" mnemonicParsing="false" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
-                  <Insets bottom="100.0" right="100.0" />
+                  <Insets bottom="50.0" right="100.0" />
                </BorderPane.margin>
             </Button>
          </bottom>

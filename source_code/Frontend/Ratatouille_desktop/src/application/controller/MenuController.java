@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -32,6 +34,12 @@ public class MenuController {
 	Button personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
+	@FXML
+	Label errorLabel;
+	@FXML
+	TextField inputField;
+	@FXML
+	ImageView filterBtn;
 
 	private Stage stage;
 	private Scene scene;
@@ -85,8 +93,8 @@ public class MenuController {
 	}
 	
 	public void goToAccount(ActionEvent actionEvent) throws IOException {
-//		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Account.fxml"));
-//		changeScene(actionEvent, root);
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AccountScene.fxml"));
+		changeScene(actionEvent, root);
 	}
 	
 	

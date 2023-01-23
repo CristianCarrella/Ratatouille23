@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:controller="application.controller.MenuController" stylesheets="@../application.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MenuController">
 
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 		<left>
             <AnchorPane prefHeight="352.0" prefWidth="108.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button onAction="#showSideBar" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                  <Button layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#showSideBar" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -29,7 +29,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="homeBtn" layoutX="22.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="58.0" prefWidth="65.0"  styleClass="buttonRounded2" visible="false">
+                  <Button fx:id="homeBtn" layoutX="22.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -69,7 +69,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="accountBtn" layoutX="22.0" layoutY="525.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2"  visible="false">
+                  <Button fx:id="accountBtn" layoutX="22.0" layoutY="525.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="58.0" prefWidth="65.0" styleClass="buttonRounded2" visible="false">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -89,9 +89,10 @@
                   <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="10.0">
                      <children>
                         <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="MENU'" />
+                        <Label fx:id="errorLabel" prefHeight="1.0" prefWidth="28.0" />
                         <FlowPane alignment="TOP_CENTER" maxWidth="1.7976931348623157E308">
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets />
                            </VBox.margin>
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
@@ -99,12 +100,12 @@
                                     <Image url="@../img/swap.png" />
                                  </image>
                               </ImageView>
-                              <TextField maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="395.0">
+                              <TextField fx:id="inputField" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="395.0" promptText="Nome piatto">
                                  <FlowPane.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </FlowPane.margin>
                               </TextField>
-                              <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="filterBtn" fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/filter.png" />
                                  </image>
@@ -113,7 +114,7 @@
                         </FlowPane>
                         <ScrollPane fitToWidth="true">
                            <content>
-                              <VBox alignment="CENTER" maxWidth="1.7976931348623157E308">
+                              <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: FFFBF3;;">
                                  <children>
                                     <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
                                        <children>
@@ -194,7 +195,7 @@
             </BorderPane>
          </center>
          <bottom>
-            <Button onAction="#goToAggiungiPiatto" mnemonicParsing="false" text="Aggiungi piatto" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button mnemonicParsing="false" onAction="#goToAggiungiPiatto" text="Aggiungi piatto" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
                   <Insets bottom="100.0" right="100.0" />
                </BorderPane.margin>

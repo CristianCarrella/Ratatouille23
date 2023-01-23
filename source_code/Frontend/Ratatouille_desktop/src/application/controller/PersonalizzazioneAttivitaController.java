@@ -13,6 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -21,19 +23,17 @@ import javafx.util.Duration;
 public class PersonalizzazioneAttivitaController {
 	boolean isInvisible = true;
 	@FXML
-	Button accountBtn;
-	@FXML
-	Button homeBtn;
-	@FXML
-	Button noticeBtn;
-	@FXML
-	Button menuBtn;
-	@FXML
-	Button personaleBtn;
-	@FXML
-	Button personalizzaBtn;
+	Button accountBtn, homeBtn, noticeBtn, menuBtn, personaleBtn, personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
+	@FXML
+	TextField emailInput, indirizzoInput, telefonoInput;
+	@FXML
+	Button salvaBtn;
+	@FXML
+	ImageView logoInput; 
+	@FXML
+	Label errorLabel;
 	
 	private Stage stage;
 	private Scene scene;
@@ -81,8 +81,8 @@ public class PersonalizzazioneAttivitaController {
 	}
 	
 	public void goToAccount(ActionEvent actionEvent) throws IOException {
-//		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Account.fxml"));
-//		changeScene(actionEvent, root);
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AccountScene.fxml"));
+		changeScene(actionEvent, root);
 	}
 	
 	

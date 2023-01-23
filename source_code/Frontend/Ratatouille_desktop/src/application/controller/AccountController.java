@@ -13,41 +13,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class AvvisiController {
+public class AccountController {
 	boolean isInvisible = true;
 	@FXML
-	Button accountBtn;
-	@FXML
-	Button homeBtn;
-	@FXML
-	Button noticeBtn;
-	@FXML
-	Button menuBtn;
-	@FXML
-	Button personaleBtn;
-	@FXML
-	Button personalizzaBtn;
+	Button accountBtn, homeBtn, noticeBtn, menuBtn, personaleBtn, personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
 	@FXML
-	TextArea testoAvviso;
+	TextField nomeInput, cognomeInput, numeroInput, mailInput;
 	@FXML
-	Button inviaBtn;
-
+	Button salvaBtn;
+	@FXML
+	Label errorLabel;
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
 	
-	public AvvisiController() {
+	public AccountController() {
 	
 	}
 	

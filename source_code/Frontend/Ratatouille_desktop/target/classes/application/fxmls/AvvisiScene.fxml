@@ -85,7 +85,7 @@
                      <children>
                         <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="AVVISI" />
                         <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91;" text="Scrivi qui gli avvisi ai tuoi dipendenti" />
-                        <TextArea prefHeight="93.0" prefWidth="437.0">
+                        <TextArea fx:id="testoAvviso" prefHeight="93.0" prefWidth="437.0">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
@@ -95,12 +95,12 @@
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                            <children>
-                              <Button mnemonicParsing="false" text="Button" />
+                              <Button fx:id="inviaBtn" mnemonicParsing="false" text="Invia" textFill="WHITE" />
                            </children>
                         </FlowPane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-fit-to-width: true;">
+                        <ScrollPane prefHeight="111.0" prefWidth="444.0">
                           <content>
-                              <VBox alignment="TOP_CENTER">
+                              <VBox alignment="TOP_CENTER" style="-fx-background-color: FFFBF3;;">
                                  <children>
                                     <BorderPane maxWidth="1.7976931348623157E308" style="-fx-border-color: #003F91; -fx-border-radius: 20; -fx-border-width: 2;">
                                        <top>
@@ -111,7 +111,7 @@
                                           </Label>
                                        </top>
                                        <center>
-                                          <Pane prefHeight="87.0" prefWidth="452.0" style="-fx-border-color: #003F91; -fx-border-style: solid none none solid; -fx-border-width: 2; -fx-background-color: #FFF; -fx-background-radius: 20;" BorderPane.alignment="CENTER" />
+                                          <Pane prefHeight="87.0" prefWidth="403.0" style="-fx-border-color: #003F91; -fx-border-style: solid none none solid; -fx-border-width: 2; -fx-background-color: #FFF; -fx-background-radius: 20;" BorderPane.alignment="CENTER" />
                                        </center>
                                        <left>
                                           <Pane style="-fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;" BorderPane.alignment="CENTER">

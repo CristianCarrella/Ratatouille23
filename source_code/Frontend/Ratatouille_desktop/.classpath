@@ -38,16 +38,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/alfre/.m2/repository/net/minidev/json-smart/2.4.8/json-smart-2.4.8.jar" sourcepath="C:/Users/alfre/.m2/repository/net/minidev/json-smart/2.4.8/json-smart-2.4.8-sources.jar">
-		<attributes>
-			<attribute name="test" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="net.minidev"/>
-			<attribute name="maven.artifactId" value="json-smart"/>
-			<attribute name="maven.version" value="2.4.8"/>
-			<attribute name="maven.scope" value="test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/alfre/Documents/GitHub/Ratatouille23/source_code/Frontend/Ratatouille_desktop/gson-2.8.2.jar" sourcepath=""/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
