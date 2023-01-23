@@ -18,7 +18,7 @@
          <left>
             <AnchorPane prefHeight="560.0" prefWidth="60.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="indietroBtn" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" styleClass="buttonRounded1" onAction="#goToRisorseUmaneScene" prefHeight="28.0" prefWidth="70.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                  <Button fx:id="indietroBtn" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#goToRisorseUmaneScene" prefHeight="28.0" prefWidth="70.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -30,7 +30,7 @@
             </AnchorPane>
          </left>
          <center>
-            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" BorderPane.alignment="CENTER">
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="437.0" BorderPane.alignment="CENTER">
                <top>
                   <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="410.0" BorderPane.alignment="CENTER">
                      <children>
@@ -47,20 +47,20 @@
                   </VBox>
                </top>
                <bottom>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+                  <VBox prefHeight="200.0" prefWidth="471.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Label" textAlignment="CENTER" />
-                        <Label maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Label" textAlignment="CENTER" />
-                        <Label maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Label" textAlignment="CENTER" />
+                        <Label fx:id="nomeCognomeLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Nome e Cognome" textAlignment="CENTER" />
+                        <Label fx:id="emailLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Email" textAlignment="CENTER" />
+                        <Label fx:id="RuoloLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" style="-fx-alignment: center;" text="Ruolo" textAlignment="CENTER" />
                         <FlowPane hgap="32.0" prefHeight="118.0" prefWidth="430.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Declassa" textFill="WHITE">
+                              <Button onAction="#declassa" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Declassa" textFill="WHITE">
                                  <FlowPane.margin>
                                     <Insets />
                                  </FlowPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Promuovi" textFill="WHITE" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Solleva da incarico" textFill="WHITE" />
+                              <Button onAction="#promuovi" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Promuovi" textFill="WHITE" />
+                              <Button onAction="#licenzia" mnemonicParsing="false" prefHeight="26.0" prefWidth="143.0" text="Solleva da incarico" textFill="WHITE" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
