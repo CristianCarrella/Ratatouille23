@@ -46,27 +46,33 @@
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/com.gluonhq.attach/util -->
+	<dependency>
+	    <groupId>com.gluonhq.attach</groupId>
+	    <artifactId>util</artifactId>
+	    <version>4.0.16</version>
+	    <scope>runtime</scope>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20220924</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
 <dependency>
-    <groupId>com.gluonhq.attach</groupId>
-    <artifactId>util</artifactId>
-    <version>4.0.16</version>
-    <scope>runtime</scope>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.14</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.11.0</version>
 </dependency>
 
-	
-	<!-- https://mvnrepository.com/artifact/net.minidev/json-smart -->
-	<dependency>
-	    <groupId>net.minidev</groupId>
-	    <artifactId>json-smart</artifactId>
-	    <version>2.4.8</version>
-	</dependency>
-
-	<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-	<dependency>
-		<groupId>com.googlecode.json-simple</groupId>
-		<artifactId>json-simple</artifactId>
-		<version>1.1.1</version>
-	</dependency>
 
   	<dependency>
   		<groupId>com.ingsw</groupId>

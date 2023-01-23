@@ -4,9 +4,10 @@ module ratatouille_desktop {
 	requires java.desktop;
 	requires javafx.graphics;
 	requires java.sql;
-	requires json.smart;
-	requires json.simple;
 	requires com.gluonhq.charm.glisten;
+	requires org.json;
+	requires org.apache.httpcomponents.httpclient;
+	requires org.apache.httpcomponents.httpcore;
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controller to javafx.fxml;
 }
