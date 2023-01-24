@@ -68,3 +68,7 @@
 	-fx-background-color: #FFFBF3;
 	-fx-fit-to-width: true;
 }
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}

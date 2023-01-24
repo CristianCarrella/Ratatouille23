@@ -134,6 +134,11 @@ public class Controller {
 	public Avviso createNewAvviso(@RequestParam(required = true) Integer id_ristorante, String testo) {
 		return avvisoDao.createNewAvviso(id_ristorante, testo, loggedUser);
 	}
+
+	@PostMapping("/avviso/cancella")
+	public boolean deleteAvviso(@RequestParam(required = true) Integer id_Avviso) {
+		return avvisoDao.deleteAvviso(id_Avviso);
+	}
 	
 	@GetMapping("/menu")
 	public ArrayList<Menu> getMenu(@RequestParam(required = false) Integer id_ristorante){
