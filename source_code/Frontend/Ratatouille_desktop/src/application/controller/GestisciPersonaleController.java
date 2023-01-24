@@ -1,6 +1,8 @@
 package application.controller;
 
+import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.driver.UtenteDriver;
 import application.model.Utente;
@@ -10,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -21,11 +24,37 @@ public class GestisciPersonaleController {
 	private Parent parent;
 	private Utente loggedUser = LoginController.loggedUser;
 	private UtenteDriver utenteDriver = new UtenteDriver();
+	private ArrayList<Utente> utenti = utenteDriver.showEmplyees();
 	
 	@FXML
 	Label nomeCognomeLabel, emailLabel, ruoloLabel;
+	@FXML
+	ComboBox utentiComboBox;
 
 	public GestisciPersonaleController() {}
+	
+	@FXML
+	public void initialize() {
+		for (Utente utente : utenti) {
+			utentiComboBox.getItems().add("ID: " + utente.getIdUtente() + " - Nome: " + utente.getNome() + " " + utente.getCognome());
+		}
+	}
+	
+	public void mostraDatiUtente(){
+		String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
+		String id = datiUtente.substring(4, 6);
+		id.replace(" ", "");
+		System.out.println(id);
+		
+		for(Utente u : utenti) {
+			if(id.equals(String.valueOf(u.getIdUtente()))) {
+				String nomeCognome = u.getNome() + " " + u.getCognome();
+				String email = u.getEmail();
+				String ruolo = u.getRuolo().toString();
+				mostraInformazioniUtente(nomeCognome, email, ruolo);
+			}
+		}
+	}	
 	
 	public void goToRisorseUmaneScene(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/RisorseUmaneScene.fxml"));

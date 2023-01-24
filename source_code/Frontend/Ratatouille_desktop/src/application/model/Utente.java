@@ -28,6 +28,14 @@ public class Utente extends Observable{
 		this.token = token;
 		this.tk_expiration_timestamp = expirationTime;
 	}
+	
+	public Utente(int id, String nome, String cognome, String email, String ruolo) {
+		this.id_utente = id;
+		this.cognome = cognome;
+		this.nome = nome;
+		this.email = email;
+		this.ruolo = ruolo;
+	}
 
 	public Utente() {}
 	

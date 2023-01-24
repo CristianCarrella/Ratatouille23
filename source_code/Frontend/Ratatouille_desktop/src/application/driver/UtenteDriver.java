@@ -25,6 +25,7 @@ import application.model.Utente;
 public class UtenteDriver {
 	
 	private Utente loggedUser = LoginController.loggedUser;
+	private ArrayList<Utente> utenti  = new ArrayList<Utente>();
 	
 	public UtenteDriver() {
 		
@@ -50,14 +51,16 @@ public class UtenteDriver {
 		return null;
 	}
 	
-//	public ArrayList<Utente> showEmplyees(){
-//		try {
-//			return runshowEmplyees(loggedUser.getId_ristorante());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
+	public ArrayList<Utente> showEmplyees(){
+		try {
+			return runShowEmplyees(loggedUser.getIdRistorante());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	public boolean requestModifyAccountToServer(String nome, String email, String cognome) {
@@ -79,7 +82,7 @@ public class UtenteDriver {
 		return false;
 	}
 
-	private void runshowEmplyees(int idRistorante) throws Exception {
+	private ArrayList<Utente> runShowEmplyees(int idRistorante) throws Exception {
         try {
             HttpClient httpclient = HttpClients.createDefault();
             HttpGet httpget = new HttpGet("http://localhost:8080/user?id_ristorante=" + idRistorante);
@@ -91,14 +94,17 @@ public class UtenteDriver {
             JSONArray jsonArray = new JSONArray(json);
             for(int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-  //              Utente a = new Utente(jsonObject.getInt("id_utente"), jsonObject.getInt("idUtente"), jsonObject.getInt("idRistorante"), jsonObject.getString("testo"), jsonObject.getString("dataOra"), jsonObject.getString("autore"));
+                Utente u = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("email"), jsonObject.getString("ruolo"));
+                utenti.add(u);
             }
+            return utenti;
 
 
         }catch (JSONException e) {
             e.printStackTrace();
             System.out.print("Errore nel parsing del JSON");
         }
+        return null;
     }
 	
 	public Utente runLogin(String email, String password) throws IOException {

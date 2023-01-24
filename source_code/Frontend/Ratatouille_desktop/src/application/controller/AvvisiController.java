@@ -93,7 +93,7 @@ public class AvvisiController implements Observer {
 			errorLabel.setTextFill(Color.GREEN);
 			testoAvviso.setText("");
 		}else {
-			errorLabel.setText("Il testo non può essere vuoto");
+			errorLabel.setText("Il testo non puÃ² essere vuoto");
 		}
 	}
 	
@@ -203,16 +203,14 @@ public class AvvisiController implements Observer {
 		imageView.setPreserveRatio(true);
 		imageView.setImage(image);
 		imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			//avvisiDriver.requestDeleteAvviso(idAvviso);
-			// se va a buon fine
-			containerNotice.setPrefHeight(0);
-			containerNotice.setMaxHeight(0);
 			if(avvisiDriver.requestDeleteAvviso(idAvviso)) {
 				containerNotice.getChildren().clear();
 				containerNotice.setPrefHeight(0);
 				containerNotice.setStyle("-fx-border-color: red; -fx-border-width: 2; -fx-border-radius: 20;");
 				Label label = new Label("Messaggio eliminato");
 				containerNotice.setCenter(label);
+				
+				
 			} else {
 				errorLabel.setText("Errore nella cancellazione del messaggio");
 				errorLabel.setTextFill(Color.RED);

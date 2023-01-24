@@ -35,7 +35,7 @@
                   <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="410.0" BorderPane.alignment="CENTER">
                      <children>
                         <Text fill="#003f91" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="CERCA INFORMAZIONI UTENTE" textAlignment="CENTER" wrappingWidth="418.1875" />
-                        <ComboBox prefHeight="25.0" prefWidth="346.0">
+                        <ComboBox fx:id="utentiComboBox" onAction="#mostraDatiUtente" prefHeight="25.0" prefWidth="346.0">
                            <VBox.margin>
                               <Insets left="35.0" top="10.0" />
                            </VBox.margin>
