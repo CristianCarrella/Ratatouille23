@@ -136,8 +136,8 @@ public class Controller {
 	}
 
 	@PostMapping("/avviso/cancella")
-	public boolean deleteAvviso(@RequestParam(required = true) Integer id_Avviso) {
-		return avvisoDao.deleteAvviso(id_Avviso);
+	public boolean deleteAvviso(@RequestParam(required = true) Integer id_avviso) {
+		return avvisoDao.deleteAvviso(id_avviso);
 	}
 	
 	@GetMapping("/menu")
