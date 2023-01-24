@@ -48,6 +48,11 @@ public class AccountController {
 		
 	}
 	
+	@FXML
+	public void initialize() {
+		mostraDatiAccount();
+	}
+	
 	public void mostraDatiAccount() {
 		nomeInput.setText(loggedUser.getNome());
 		cognomeInput.setText(loggedUser.getCognome());

@@ -2,6 +2,9 @@ package application.controller;
 
 import java.io.IOException;
 
+import application.driver.BusinessDriver;
+import application.model.Business;
+import application.model.Utente;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -27,7 +30,7 @@ public class PersonalizzazioneAttivitaController {
 	@FXML
 	ImageView sidebarBtn;
 	@FXML
-	TextField emailInput, indirizzoInput, telefonoInput;
+	TextField nomeInput, indirizzoInput, telefonoInput;
 	@FXML
 	Button salvaBtn;
 	@FXML
@@ -38,9 +41,28 @@ public class PersonalizzazioneAttivitaController {
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
+	private BusinessDriver businessDriver = new BusinessDriver();
+	private Utente loggedUser = LoginController.loggedUser;
+	private Business business;
 	
 	public PersonalizzazioneAttivitaController() {
 	
+	}
+	
+	@FXML
+	public void initialize() {
+		mostraDatiRistorante();
+	}
+	
+	public void mostraDatiRistorante() {
+		try {
+			business = businessDriver.requestBusinessToServer();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nomeInput.setText(business.getNome());
+		indirizzoInput.setText(business.getIndirizzo());
+		telefonoInput.setText(business.getNumeroTelefono());
 	}
 	
 	

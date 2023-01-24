@@ -10,10 +10,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,6 +50,15 @@ public class UtenteDriver {
 		return null;
 	}
 	
+//	public ArrayList<Utente> showEmplyees(){
+//		try {
+//			return runshowEmplyees(loggedUser.getId_ristorante());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+	
 	
 	public boolean requestModifyAccountToServer(String nome, String email, String cognome) {
 		try {
@@ -68,6 +79,28 @@ public class UtenteDriver {
 		return false;
 	}
 
+	private void runshowEmplyees(int idRistorante) throws Exception {
+        try {
+            HttpClient httpclient = HttpClients.createDefault();
+            HttpGet httpget = new HttpGet("http://localhost:8080/user?id_ristorante=" + idRistorante);
+            httpget.setHeader("Authorization", loggedUser.getToken());
+
+            HttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+            String json = EntityUtils.toString(response.getEntity());
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+  //              Utente a = new Utente(jsonObject.getInt("id_utente"), jsonObject.getInt("idUtente"), jsonObject.getInt("idRistorante"), jsonObject.getString("testo"), jsonObject.getString("dataOra"), jsonObject.getString("autore"));
+            }
+
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+            System.out.print("Errore nel parsing del JSON");
+        }
+    }
+	
 	public Utente runLogin(String email, String password) throws IOException {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
@@ -126,6 +159,7 @@ public class UtenteDriver {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/user/accountDesktop");
+			httppost.setHeader("Autorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("nome", nome));

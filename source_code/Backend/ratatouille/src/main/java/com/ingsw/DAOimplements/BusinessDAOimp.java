@@ -14,7 +14,6 @@ public class BusinessDAOimp implements BusinessDAOint {
 	public BusinessDAOimp(DatabaseConnection db) {
 		this.db = db;
 	}
-
 	
 	public Business getBusinessFromBusinessId(Integer idRistorante) {
 		String query = "SELECT * FROM ristorante WHERE id_ristorante = " + idRistorante;

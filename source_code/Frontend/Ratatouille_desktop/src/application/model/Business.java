@@ -14,6 +14,10 @@ public class Business {
 		this.idProprietario = idProprietario;
 	}
 
+	public Business() {
+		
+	}
+
 	public int getIdRistorante() {
 		return idRistorante;
 	}
