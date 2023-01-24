@@ -32,5 +32,20 @@ public class BusinessDAOimp implements BusinessDAOint {
 		return null;		
 	}
 
+	@Override
+	public Business modifyBusinessInfo(Integer idRistorante, String nome, String indirizzo, String telefono) {
+		String query = "UPDATE ristorante SET nome = '" + nome + "', telefono = '" + telefono + "', indirizzo = '" + indirizzo + "' WHERE id_ristorante = " + idRistorante;
+		ResultSet rs = null;
+		Business b;
+		try {
+			db.getStatement().executeUpdate(query);
+			return getBusinessFromBusinessId(idRistorante);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 
 }

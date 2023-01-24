@@ -105,7 +105,7 @@
             </VBox>
          </center>
          <bottom>
-            <Button fx:id="salvaBtn" mnemonicParsing="false" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button fx:id="salvaBtn" onAction="#modificaDati" mnemonicParsing="false" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
                   <Insets bottom="50.0" right="100.0" />
                </BorderPane.margin>

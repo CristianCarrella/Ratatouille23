@@ -65,6 +65,10 @@ public class PersonalizzazioneAttivitaController {
 		telefonoInput.setText(business.getNumeroTelefono());
 	}
 	
+	public void modificaDati() {
+		business = businessDriver.requestModifyBusinessToServer(nomeInput.getText().toString().replaceAll(" ", "%20"), indirizzoInput.getText().toString().replaceAll(" ", "%20"), telefonoInput.getText().toString().replaceAll(" ", "%20"));
+	}
+	
 	
 	public void goToHome(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));

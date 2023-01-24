@@ -93,14 +93,14 @@ public class AvvisiDriver {
 		}
 	}
 
-	public void requestDeleteAvviso(Integer idAvviso) {
-		try {
-			runCancellaAvvisi(idAvviso);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	public void requestDeleteAvviso(Integer idAvviso) {
+//		try {
+//			runCancellaAvvisi(idAvviso);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	
 	

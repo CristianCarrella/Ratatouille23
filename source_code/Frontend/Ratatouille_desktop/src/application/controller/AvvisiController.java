@@ -203,7 +203,7 @@ public class AvvisiController implements Observer {
 		imageView.setPreserveRatio(true);
 		imageView.setImage(image);
 		imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			avvisiDriver.requestDeleteAvviso(idAvviso);
+			//avvisiDriver.requestDeleteAvviso(idAvviso);
 			// se va a buon fine
 			containerNotice.setPrefHeight(0);
 			containerNotice.setMaxHeight(0);

@@ -241,4 +241,9 @@ public class Controller {
 		return businessDao.getBusinessFromBusinessId(id_ristorante);
 	}
 	
+	@PostMapping("/business")
+	public Business modifyBusinessInfo(@RequestParam(required = true) Integer id_ristorante, String nome, String numeroTelefono, String indirizzo){
+		return businessDao.modifyBusinessInfo(id_ristorante, nome, indirizzo, numeroTelefono);
+	}
+	
 }
