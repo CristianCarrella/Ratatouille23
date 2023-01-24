@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AvvisiController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="813.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AvvisiController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
            <left>
@@ -85,6 +85,7 @@
                      <children>
                         <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="AVVISI" />
                         <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91;" text="Scrivi qui gli avvisi ai tuoi dipendenti" />
+                        <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" />
                         <TextArea fx:id="testoAvviso" prefHeight="93.0" prefWidth="437.0">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" top="10.0" />
@@ -95,32 +96,16 @@
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="inviaBtn" mnemonicParsing="false" text="Invia" textFill="WHITE" />
+                              <Button fx:id="inviaBtn" mnemonicParsing="false" onAction="#scriviAvviso" prefHeight="32.0" prefWidth="64.0" text="Invia" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
                            </children>
                         </FlowPane>
-                        <ScrollPane prefHeight="111.0" prefWidth="444.0">
+                        <ScrollPane hmin="330.0" maxHeight="-Infinity" minViewportHeight="400.0" prefHeight="469.0" prefViewportHeight="400.0" prefWidth="687.0">
                           <content>
-                              <VBox alignment="TOP_CENTER" style="-fx-background-color: FFFBF3;;">
+                              <VBox fx:id="vBoxLayout" alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: FFFBF3;">
                                  <children>
-                                    <BorderPane maxWidth="1.7976931348623157E308" style="-fx-border-color: #003F91; -fx-border-radius: 20; -fx-border-width: 2;">
-                                       <top>
-                                           <Label maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="453.0" text="label2" BorderPane.alignment="CENTER">
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </Label>
-                                       </top>
-                                       <center>
-                                          <Pane prefHeight="87.0" prefWidth="403.0" style="-fx-border-color: #003F91; -fx-border-style: solid none none solid; -fx-border-width: 2; -fx-background-color: #FFF; -fx-background-radius: 20;" BorderPane.alignment="CENTER" />
-                                       </center>
-                                       <left>
-                                          <Pane style="-fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;" BorderPane.alignment="CENTER">
-                                             <children>
-                                                <ImageView fitHeight="65.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                          </Pane>
-                                       </left>
-                                    </BorderPane>
                                  </children>
                               </VBox>
                           </content>

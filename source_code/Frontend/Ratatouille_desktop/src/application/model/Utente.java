@@ -33,7 +33,7 @@ public class Utente extends Observable{
 	
 	
 
-	public int getId_utente() {
+	public int getIdUtente() {
 		return id_utente;
 	}
 
@@ -45,7 +45,7 @@ public class Utente extends Observable{
 		return cognome;
 	}
 
-	public String getData_nascita() {
+	public String getDataNascita() {
 		return data_nascita;
 	}
 
@@ -61,15 +61,15 @@ public class Utente extends Observable{
 		return isFirstAccess;
 	}
 
-	public int getAggiunto_da() {
+	public int getAggiuntoDa() {
 		return aggiunto_da;
 	}
 
-	public String getData_aggiunta() {
+	public String getDataAggiunta() {
 		return data_aggiunta;
 	}
 
-	public int getId_ristorante() {
+	public int getIdRistorante() {
 		return id_ristorante;
 	}
 

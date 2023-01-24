@@ -1,0 +1,109 @@
+package application.driver;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import application.controller.AvvisiController;
+import application.controller.LoginController;
+import application.model.Avviso;
+import application.model.Utente;
+
+public class AvvisiDriver {
+	private Utente loggedUser = LoginController.loggedUser;
+	public AvvisiDriver() { }
+	
+	public void requestAvvisiFromServer(AvvisiController avvisiController) {
+		try {
+			runGetAvvisi(loggedUser.getIdRistorante(), avvisiController);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void runGetAvvisi(int idRistorante, AvvisiController avvisiController) throws Exception {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet("http://localhost:8080/avvisi?id_ristorante=" + idRistorante);
+			httpget.setHeader("Authorization", loggedUser.getToken());
+			
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			JSONArray jsonArray = new JSONArray(json);
+			for(int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				if(jsonObject.has("idAvviso") && jsonObject.has("testo")) {
+					Avviso a = new Avviso(avvisiController, jsonObject.getInt("idAvviso"), jsonObject.getInt("idUtente"), jsonObject.getInt("idRistorante"), jsonObject.getString("testo"), jsonObject.getString("dataOra"), jsonObject.getString("autore"));
+				}
+			}
+			
+
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+		}
+	}
+	
+	public void requestScriviAvvisiFromServer(AvvisiController avvisiController, String testo) {
+		try {
+			runScriviAvvisi(loggedUser.getIdRistorante(), avvisiController, testo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void runScriviAvvisi(Integer idRistorante, AvvisiController avvisiController, String testo) throws Exception {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/avviso/crea");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("id_ristorante", idRistorante.toString()));
+			params.add(new BasicNameValuePair("testo", testo));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			JSONObject jsonObject = new JSONObject(json);
+			if(jsonObject.has("idAvviso") && jsonObject.has("testo")) {
+				Avviso a = new Avviso(avvisiController, jsonObject.getInt("idAvviso"), jsonObject.getInt("idUtente"), jsonObject.getInt("idRistorante"), jsonObject.getString("testo"), jsonObject.getString("dataOra"), jsonObject.getString("autore"));
+			}
+		
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+		}
+	}
+
+	public void requestDeleteAvviso(Integer idAvviso) {
+		try {
+			runCancellaAvvisi(idAvviso);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+
+}

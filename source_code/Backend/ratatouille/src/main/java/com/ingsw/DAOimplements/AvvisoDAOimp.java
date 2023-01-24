@@ -41,7 +41,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 
 	public ArrayList<Avviso> getAvvisiOfResturant(Integer id_ristorante) {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();
-		String query = "SELECT * FROM avviso AS a INNER JOIN utente AS u on u.id_utente = a.id_utente WHERE a.id_ristorante = " + id_ristorante;
+		String query = "SELECT * FROM avviso AS a INNER JOIN utente AS u on u.id_utente = a.id_utente WHERE a.id_ristorante = " + id_ristorante + " ORDER BY data_ora ASC";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
@@ -118,7 +118,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	
 	@Override
 	public AvvisoNascostoVisto setAvvisoNotHidden(Integer id_avviso, LoggedUser loggedUser) {
-		ResultSet rs;
 		String query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_avviso = " + id_avviso;
 		try {
 			db.getStatement().executeUpdate(query);
@@ -127,7 +126,19 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		}
 		return null;
 	}
-	
+
+	@Override
+	public boolean deleteAvviso(Integer idAvviso) {
+		String query = "DELETE FROM avviso WHERE id_avviso = " + idAvviso;
+		try {
+			db.getStatement().executeUpdate(query);
+			return true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public AvvisoNascostoVisto getAvvisoNascosto(Integer id_avviso) {
 		ResultSet rs;
 		String query = "SELECT * FROM avviso JOIN cronologia_nascosti_avviso ON avviso.id_avviso = cronologia_nascosti_avviso.id_avviso WHERE avviso.id_avviso = " + id_avviso;
@@ -164,15 +175,19 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
 		String query = null;
+		String autore = "";
 		boolean isSupervisoreOrAdmin = false;
 		
 		try {
-			query = "SELECT ruolo FROM utente WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante;
+			query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante;
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
 				String ruolo = rs.getString("ruolo");
-				if(ruolo.equals("admin") || ruolo.equals("supervisore"))
+				if(ruolo.equals("admin") || ruolo.equals("supervisore")) {
 					isSupervisoreOrAdmin = true;
+					autore = rs.getString("nome");
+				}
+
 			}
 			
 			if(isSupervisoreOrAdmin) {
@@ -182,7 +197,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 				query = "SELECT id_avviso FROM avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
 				rs = db.getStatement().executeQuery(query);
 				while(rs.next()) {
-					return new Avviso(rs.getInt("id_avviso"), loggedUser.getIdUtente(), id_ristorante, testo, now.toString());
+					return new Avviso(rs.getInt("id_avviso"), loggedUser.getIdUtente(), id_ristorante, testo, now.toString(), autore);
 				}
 			}
 			

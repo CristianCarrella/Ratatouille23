@@ -1,4 +1,5 @@
 To Do list:
 - In android : Notifiche android notizie
 - In android : Prima password visibile
+- In backend : singleton per dbconnection
 - In desktop : A che serve pulsante ordina su menu desktop?
