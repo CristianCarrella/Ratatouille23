@@ -93,14 +93,40 @@ public class AvvisiDriver {
 		}
 	}
 
-//	public void requestDeleteAvviso(Integer idAvviso) {
-//		try {
-//			runCancellaAvvisi(idAvviso);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
+	public boolean requestDeleteAvviso(Integer idAvviso) {
+		try {
+			return runCancellaAvvisi(idAvviso);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private boolean runCancellaAvvisi(Integer idAvviso) throws Exception {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/avviso/cancella");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("id_avviso", idAvviso.toString()));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+			return false;
+		}
+	}
+
 	
 	
 	
