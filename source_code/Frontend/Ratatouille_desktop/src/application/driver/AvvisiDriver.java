@@ -52,8 +52,6 @@ public class AvvisiDriver {
 					Avviso a = new Avviso(avvisiController, jsonObject.getInt("idAvviso"), jsonObject.getInt("idUtente"), jsonObject.getInt("idRistorante"), jsonObject.getString("testo"), jsonObject.getString("dataOra"), jsonObject.getString("autore"));
 				}
 			}
-			
-
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");

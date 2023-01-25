@@ -5,7 +5,6 @@ public class Menu {
 	private String nome, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua;
 	private int idElemento, idRistorante, idCategoria;
 	private float prezzo;
-	private CategoriaMenu categoria = new CategoriaMenu();
 
 	public Menu(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
 		this.idElemento = idElemento;
