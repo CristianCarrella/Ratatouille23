@@ -16,4 +16,7 @@ public interface UserDAOint {
 	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita);
 	public User firstAccess(Integer id_utente, String newPassword);
 	public User modifyUserNameSurnameEmail(User loggedUser, String nome, String cognome, String email);
+	public User upgradeUserRole(int idUtente, String ruolo);
+	public User downgradeUserRole(LoggedUser loggedUser, int idUtente, String ruoloInput);
+	public void fireUser(LoggedUser loggedUser, int idUtente, String ruolo);
 }

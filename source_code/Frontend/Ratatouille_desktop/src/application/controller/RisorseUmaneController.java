@@ -22,6 +22,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class RisorseUmaneController {
@@ -38,7 +39,7 @@ public class RisorseUmaneController {
 	@FXML
 	Button invioBtn;
 	@FXML
-	Label errLabel;
+	Label errorLabel;
 	@FXML
 	RadioButton supervisoreRBtn, addettoSalaRBtn, addettoCucinaRBtn;
 	@FXML
@@ -52,18 +53,24 @@ public class RisorseUmaneController {
 	public RisorseUmaneController() {}
 	
 	public void creaNuovoImpiegato() {
-		
-		if(!nomeInput.equals("") && !cognomeInput.equals("") && !emailInput.equals("") && !passwordInput.equals("") && !dataNascitaInput.equals("")) {
-			
+		if(!nomeInput.getText().toString().isBlank() && !cognomeInput.getText().toString().isBlank() && !emailInput.getText().toString().isBlank() && !passwordInput.getText().toString().isBlank() && !dataNascitaInput.getValue().toString().isBlank()) {			
 			if(supervisoreRBtn.isSelected()) {
-				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.toString(), "supervisore");
+				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "supervisore");
 			}
 			if(addettoSalaRBtn.isSelected()) {
-				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.toString(), "addetto_sala");
+				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "addetto_sala");
 			}
 			if(addettoCucinaRBtn.isSelected()) {
-				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.toString(), "addetto_cucina");
+				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "addetto_cucina");
 			}
+			
+			if(!(supervisoreRBtn.isSelected() || addettoSalaRBtn.isSelected() || addettoCucinaRBtn.isSelected())) {
+				errorLabel.setText("Selezionare un ruolo per il dipendente");
+		    	errorLabel.setTextFill(Color.RED);
+			}
+		} else {
+			errorLabel.setText("Compilare tutti i campi");
+	    	errorLabel.setTextFill(Color.RED);
 		}
 	}
 	

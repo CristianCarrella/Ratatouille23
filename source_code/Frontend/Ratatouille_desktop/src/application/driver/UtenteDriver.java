@@ -81,6 +81,110 @@ public class UtenteDriver {
 		}
 		return false;
 	}
+	
+	public Utente requestUpgradeRoleToServer(String idUtente, String ruolo){
+		try {
+			return runUpgradeRole(idUtente, ruolo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Utente requestDowngradeRoleToServer(String idUtente, String ruolo){
+		try {
+			return runDowngradeRole(idUtente, ruolo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public boolean requestFireUserToServer(String idUtente, String ruolo){
+		try {
+			return runFireUser(idUtente, ruolo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Utente runUpgradeRole(String idUtente, String ruolo) throws IOException {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/user/upgradeRole");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+		
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("idUtente", idUtente));
+			params.add(new BasicNameValuePair("ruolo", ruolo));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			JSONObject jsonObject = new JSONObject(json);
+			
+			Utente u = new Utente(jsonObject.getInt("id_utente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("email"), jsonObject.getString("ruolo"));
+			return u;
+			
+		}catch (Exception e) {
+			System.out.print("Errore nella connessione");
+		}
+		return null;
+	}
+	
+	public Utente runDowngradeRole(String idUtente, String ruolo) throws IOException {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/user/downgradeRole");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+		
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("idUtente", idUtente));
+			params.add(new BasicNameValuePair("ruolo", ruolo));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			JSONObject jsonObject = new JSONObject(json);
+			
+			Utente u = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("email"), jsonObject.getString("ruolo"));
+			return u;
+			
+		}catch (Exception e) {
+			System.out.print("Errore nella connessione");
+		}
+		return null;
+	}
+	
+	public boolean runFireUser(String idUtente, String ruolo) throws IOException {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/user/fire");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+		
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("idUtente", idUtente));
+			params.add(new BasicNameValuePair("ruolo", ruolo));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			JSONObject jsonObject = new JSONObject(json);
+			
+			return true;
+			
+		}catch (Exception e) {
+			System.out.print("Errore nella connessione");
+		}
+		return false;
+	}
 
 	private ArrayList<Utente> runShowEmplyees(int idRistorante) throws Exception {
         try {
@@ -165,7 +269,7 @@ public class UtenteDriver {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/user/accountDesktop");
-			httppost.setHeader("Autorization", loggedUser.getToken());
+			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("nome", nome));
@@ -193,12 +297,13 @@ public class UtenteDriver {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/signup/newEmployee");
+			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("nome", nome));
 			params.add(new BasicNameValuePair("cognome", cognome));
-			params.add(new BasicNameValuePair("email", email));
 			params.add(new BasicNameValuePair("passwordTemporanea", password));
+			params.add(new BasicNameValuePair("email", email));
 			params.add(new BasicNameValuePair("dataNascita", dataNascita));
 			params.add(new BasicNameValuePair("ruolo", ruolo));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -207,19 +312,14 @@ public class UtenteDriver {
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			JSONObject jsonObject = new JSONObject(json);
-			if(jsonObject.has("nome") && jsonObject.has("token")) {
-				loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
-				return loggedUser;
-			}
+			loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
+			return loggedUser;
+						
 		}catch (Exception e) {
 			System.out.print("Errore nella connessione");
 		}
 		return null;
 		
-	}
-	
-	public Utente getLoggedUser() {
-		return loggedUser;
 	}
 	
 }

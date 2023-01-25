@@ -54,6 +54,21 @@ public class Controller {
 	public User modifyUserAccountDesktop(@RequestParam(required = true) String nome, String cognome, String email){
 		return userDao.modifyUserNameSurnameEmail(loggedUser, nome, cognome, email);		
 	}
+	
+	@PostMapping("/user/upgradeRole")
+	public User upgradeUserRole(@RequestParam(required = true) int idUtente, String ruolo){
+		return userDao.upgradeUserRole(idUtente, ruolo);		
+	}
+	
+	@PostMapping("/user/downgradeRole")
+	public User downgradeUserRole(@RequestParam(required = true) int idUtente, String ruolo){
+		return userDao.downgradeUserRole(loggedUser, idUtente, ruolo);		
+	}
+	
+	@PostMapping("/user/fire")
+	public void fireUser(@RequestParam(required = true) int idUtente, String ruolo){
+		userDao.fireUser(loggedUser, idUtente, ruolo);		
+	}
 
 	@PostMapping("/signup-admin")
     public User createAdmin(@RequestParam (required = true) String nome, String cognome, String email, String password, String dataNascita, String nomeAttivita) {

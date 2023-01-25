@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import application.driver.BusinessDriver;
 import application.model.Business;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -66,7 +68,9 @@ public class PersonalizzazioneAttivitaController {
 	}
 	
 	public void modificaDati() {
-		business = businessDriver.requestModifyBusinessToServer(nomeInput.getText().toString().replaceAll(" ", "%20"), indirizzoInput.getText().toString().replaceAll(" ", "%20"), telefonoInput.getText().toString().replaceAll(" ", "%20"));
+		business = businessDriver.requestModifyBusinessToServer(nomeInput.getText().toString(), indirizzoInput.getText().toString(), telefonoInput.getText().toString());
+		errorLabel.setText("Modifiche apportate con successo");
+    	errorLabel.setTextFill(Color.GREEN);
 	}
 	
 	

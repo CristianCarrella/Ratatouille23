@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GestisciPersonaleController {
@@ -27,30 +28,45 @@ public class GestisciPersonaleController {
 	private ArrayList<Utente> utenti = utenteDriver.showEmplyees();
 	
 	@FXML
-	Label nomeCognomeLabel, emailLabel, ruoloLabel;
+	Label nomeCognomeLabel, emailLabel, ruoloLabel, errorLabel;
 	@FXML
 	ComboBox utentiComboBox;
 
+	String ruoloUI = "";
 	public GestisciPersonaleController() {}
 	
 	@FXML
 	public void initialize() {
 		for (Utente utente : utenti) {
-			utentiComboBox.getItems().add("ID: " + utente.getIdUtente() + " - Nome: " + utente.getNome() + " " + utente.getCognome());
+			utentiComboBox.getItems().add("ID: " + utente.getIdUtente() + " ~ " + utente.getNome() + " " + utente.getCognome() + " - " + utente.getRuolo());
 		}
 	}
 	
 	public void mostraDatiUtente(){
 		String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
 		String id = datiUtente.substring(4, 6);
-		id.replace(" ", "");
+		if(id.contains(" ")) {
+			id = datiUtente.substring(4, 5);
+		}
+		if(datiUtente.contains("addetto_sala")) {
+			ruoloUI = "Addetto alla Sala";
+		}
+		if(datiUtente.contains("addetto_cucina")) {
+			ruoloUI = "Addetto alla Cucina";
+		}
+		if(datiUtente.contains("supervisore")) {
+			ruoloUI = "Supervisore";
+		}
+		if(datiUtente.contains("admin")) {
+			ruoloUI = "Amministratore";
+		}
 		System.out.println(id);
 		
 		for(Utente u : utenti) {
 			if(id.equals(String.valueOf(u.getIdUtente()))) {
 				String nomeCognome = u.getNome() + " " + u.getCognome();
 				String email = u.getEmail();
-				String ruolo = u.getRuolo().toString();
+				String ruolo = ruoloUI;
 				mostraInformazioniUtente(nomeCognome, email, ruolo);
 			}
 		}
@@ -71,54 +87,70 @@ public class GestisciPersonaleController {
 	}
 	
 	public void declassa(ActionEvent actionEvent) {
-		//servono altri parametri
-		if(loggedUser.getRuolo().equals("admin")) {
-			if(ruoloLabel.getText().equals("supervisore")) {
-				//chiede conferma e poi ruolo diventa addetto alla cucina
+		if((loggedUser.getRuolo().equals("supervisore")) && ruoloLabel.getText().equals("Supervisore")) {
+			errorLabel.setText("Non hai i permessi per declassare un supervisore");
+	    	errorLabel.setTextFill(Color.RED);
+		} else {
+			if(ruoloLabel.getText().equals("Addetto alla sala")) {
+				errorLabel.setText("Non puoi declassare un addetto alla sala, forse volevi sollevarlo dal suo incarico");
+		    	errorLabel.setTextFill(Color.RED);
+			} else {
+				if(ruoloLabel.getText().equals("Amministratore")) {
+					errorLabel.setText("Non puoi declassare un amministratore");
+			    	errorLabel.setTextFill(Color.RED);
+				} else {
+					String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
+					String id = datiUtente.substring(4, 6);
+					if(id.contains(" ")) {
+						id = datiUtente.substring(4, 5);
+					}
+					utenteDriver.requestDowngradeRoleToServer(id, ruoloLabel.getText().toString());
+					errorLabel.setText("Modifiche apportate con successo");
+			    	errorLabel.setTextFill(Color.GREEN);
+				}
 			}
-		}
-		if(ruoloLabel.getText().equals("addetto_cucina")) {
-			//chiede conferma e poi ruolo diventa addetto alla sala
-		}
-		if(ruoloLabel.getText().equals("addetto_sala")) {
-			//errorLabel da creare "Non puoi declassare un addetto alla sala, forse volevi sollevarlo dal suo incarico"
-		}
-		if(ruoloLabel.getText().equals("admin")) {
-			//errorLabel da creare "Non puoi declassare un amministratore"
 		}
 	}
 	
 	public void promuovi(ActionEvent actionEvent) {
-		//servono altri parametri
-		if(ruoloLabel.getText().equals("addetto_cucina")) {
-			//chiede conferma e poi ruolo diventa supervisore
-		}
-		if(ruoloLabel.getText().equals("addetto_sala")) {
-			//chiede conferma e poi ruolo diventa addetto alla cucina
-		}
-		if(ruoloLabel.getText().equals("admin")) {
-			//errorLabel da creare "Non puoi promuovere un amministratore, è già al vertice"
-		}
-		if(ruoloLabel.getText().equals("supervisore")) {
-			//errorLabel da creare "Non puoi promuovere un supervisore, ci può essere un solo amministratore per attività"
+		if(ruoloLabel.getText().equals("Amministratore")) {
+			errorLabel.setText("Non puoi promuovere un amministratore, è già al vertice");
+	    	errorLabel.setTextFill(Color.RED);
+		} else {
+			if(ruoloLabel.getText().equals("Supervisore")) {
+				errorLabel.setText("Non puoi promuovere un supervisore, ci può essere un solo amministratore per attività");
+		    	errorLabel.setTextFill(Color.RED);
+			} else {
+				String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
+				String id = datiUtente.substring(4, 6);
+				if(id.contains(" ")) {
+					id = datiUtente.substring(4, 5);
+				}
+				utenteDriver.requestUpgradeRoleToServer(id, ruoloLabel.getText().toString());
+				errorLabel.setText("Modifiche apportate con successo");
+		    	errorLabel.setTextFill(Color.GREEN);
+			}
 		}
 	}
 	
 	public void licenzia(ActionEvent actionEvent) {
-		//servono altri parametri
-		if(loggedUser.getRuolo().equals("admin")) {
-			if(ruoloLabel.getText().equals("supervisore")) {
-				//chiede conferma e poi licenzia
+		if(ruoloLabel.getText().equals("Amministratore")) {
+			errorLabel.setText("Non puoi licenziare un amministratore");
+	    	errorLabel.setTextFill(Color.RED);
+		} else {
+			if(ruoloLabel.getText().equals("Supervisore") && loggedUser.getRuolo().equals("supervisore")) {
+				errorLabel.setText("Non puoi licenziare un supervisore perché ha il tuo stesso grado");
+		    	errorLabel.setTextFill(Color.RED);
+			} else {
+				String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
+				String id = datiUtente.substring(4, 6);
+				if(id.contains(" ")) {
+					id = datiUtente.substring(4, 5);
+				}
+				utenteDriver.requestFireUserToServer(id, ruoloLabel.getText().toString());
+				errorLabel.setText("Modifiche apportate con successo");
+		    	errorLabel.setTextFill(Color.GREEN);
 			}
-		}
-		if(ruoloLabel.getText().equals("addetto_cucina")) {
-			//chiede conferma e poi licenzia
-		}
-		if(ruoloLabel.getText().equals("addetto_sala")) {
-			//chiede conferma e poi licenzia
-		}
-		if(ruoloLabel.getText().equals("admin")) {
-			//errorLabel da creare "Non puoi licenziare un amministratore"
 		}
 	}
 	

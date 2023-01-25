@@ -2,7 +2,8 @@ package application.controller;
 
 import java.io.IOException;
 
-
+import application.driver.BusinessDriver;
+import application.model.Business;
 import application.model.Utente;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -15,8 +16,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,16 +39,24 @@ public class HomeController {
 	Button personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
+	@FXML
+	Text nomeAttivitaLabel;
 	
 	private Utente LoggedUser = LoginController.loggedUser;
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
+	private BusinessDriver businessDriver = new BusinessDriver();
 	
 	public HomeController() {
 		
 	}
 	
+	@FXML
+	public void initialize() {
+		Business business = businessDriver.requestBusinessToServer();
+		nomeAttivitaLabel.setText(business.getNome().toUpperCase());
+	}
 	
 	public void goToHome(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));

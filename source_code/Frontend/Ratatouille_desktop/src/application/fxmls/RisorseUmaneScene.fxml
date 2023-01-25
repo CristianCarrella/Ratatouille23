@@ -130,18 +130,18 @@
                                           <Insets right="45.0" />
                                        </padding>
                                     </RadioButton>
-                                    <RadioButton fx:id="addettoSalaRBtn" mnemonicParsing="false" text="Addetto alla sala">
+                                    <RadioButton fx:id="addettoCucinaRBtn" mnemonicParsing="false" text="Addetto alla cucina">
                                        <padding>
                                           <Insets right="45.0" />
                                        </padding>
                                     </RadioButton>
-                                    <RadioButton fx:id="addettoCucinaRBtn" mnemonicParsing="false" text="Addetto alla cucina" />
+                                    <RadioButton fx:id="addettoSalaRBtn" mnemonicParsing="false" text="Addetto alla sala" />
                                   </toggles>
                               </ToggleButtonGroup>
                            </children>
                         </FlowPane>
-                        <Label fx:id="" alignment="CENTER" maxWidth="1.7976931348623157E308" />
-                        <Button fx:id="invioBtn" onAction="#creaNuovoImpiegato" mnemonicParsing="false" prefHeight="157.0" prefWidth="63.0" text="Submit" textFill="WHITE">
+                        <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" />
+                        <Button fx:id="invioBtn" mnemonicParsing="false" onAction="#creaNuovoImpiegato" prefHeight="157.0" prefWidth="63.0" text="Submit" textFill="WHITE">
                            <VBox.margin>
                               <Insets left="180.0" />
                            </VBox.margin>

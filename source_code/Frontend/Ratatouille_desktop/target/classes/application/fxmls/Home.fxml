@@ -94,7 +94,7 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </right>
                <center>
-                  <Text fill="#003f91" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="NOME RISTORANTE" BorderPane.alignment="CENTER" />
+                  <Text fx:id="nomeAttivitaLabel" fill="#003f91" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="NOME RISTORANTE" BorderPane.alignment="CENTER" />
                </center>
                <bottom>
                   <Text fill="#003f91" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="BENVENUTO IN RATATUILLE23 IL SISTEMA IN GRADO DI FORNIRTI FACILE GESTIONE DELLE TUE ATTIVITA’ DI RISTORAZIONE" textAlignment="CENTER" translateY="-40.0" wrappingWidth="274.0" BorderPane.alignment="CENTER">

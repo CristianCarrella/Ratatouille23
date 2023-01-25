@@ -56,10 +56,10 @@ private Utente loggedUser = LoginController.loggedUser;
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/business");
-			httppost.setHeader("Autentication", loggedUser.getToken());
+			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idRistorante", String.valueOf(idRistorante)));
+			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(idRistorante)));
 			params.add(new BasicNameValuePair("nome", nome));
 			params.add(new BasicNameValuePair("indirizzo", indirizzo));
 			params.add(new BasicNameValuePair("numeroTelefono", numeroTelefono));
