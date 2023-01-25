@@ -62,7 +62,7 @@ CREATE TABLE prodotto(
 	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(100) NOT NULL,
 	stato INTEGER NOT NULL,
-	descrizione VARCHAR(500) NOT NULL,
+	descrizione VARCHAR(1000) NOT NULL,
 	prezzo REAL NOT NULL,
 	quantita REAL NOT NULL,
 	unita_misura UNITA_DI_MISURA,
@@ -83,10 +83,10 @@ CREATE TABLE elementi_menu(
 	id_categoria INTEGER NOT NULL,
 	nome VARCHAR(100) NOT NULL,
 	prezzo REAL NOT NULL,
-	descrizione VARCHAR(500) NOT NULL,
+	descrizione VARCHAR(1000) NOT NULL,
 	allergeni VARCHAR(200) NOT NULL,
 	nome_seconda_lingua VARCHAR(100),
-	descrizione_seconda_lingua VARCHAR(500),
+	descrizione_seconda_lingua VARCHAR(1000),
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante),
 	FOREIGN KEY(id_categoria) REFERENCES categorie_menu(id_categoria)
 );

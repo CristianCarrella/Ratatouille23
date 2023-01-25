@@ -195,6 +195,11 @@ public class Controller {
     public Menu createPlate(@RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni) {
 		return menuDao.createPlate(idRistorante, categoria, nome, prezzo, descrizione, allergeni);
 	}
+
+	@PostMapping("/menu/deletePlate")
+	public boolean deletePlate(@RequestParam (required = true) Integer idPiatto) {
+		return menuDao.deletePlate(idPiatto);
+	}
 		
 	
 	@PostMapping("/menu/piatto/secondaLingua")

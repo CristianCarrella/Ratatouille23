@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import application.controller.AvvisiController;
 import application.controller.LoginController;
 import application.model.Avviso;
+import application.model.Piatto;
 import application.model.Utente;
 
 public class AvvisiDriver {
@@ -52,8 +53,6 @@ public class AvvisiDriver {
 					Avviso a = new Avviso(avvisiController, jsonObject.getInt("idAvviso"), jsonObject.getInt("idUtente"), jsonObject.getInt("idRistorante"), jsonObject.getString("testo"), jsonObject.getString("dataOra"), jsonObject.getString("autore"));
 				}
 			}
-			
-
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
@@ -126,10 +125,6 @@ public class AvvisiDriver {
 			return false;
 		}
 	}
-
-	
-	
-	
 	
 
 }

@@ -42,7 +42,7 @@ public class LoginController {
 	public void login(ActionEvent actionEvent) throws IOException {
 		loggedUser = utenteDriver.requestLoginToServer(email.getText(), password.getText());
 		if(loggedUser == null) {
-			errorLabel.setText("Errore");
+			errorLabel.setText("Email o password errata");
 			errorLabel.setTextFill(Color.RED);
 		} else {
 			errorLabel.setText("Login avvenuto con successo");

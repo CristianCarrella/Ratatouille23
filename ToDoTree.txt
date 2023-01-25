@@ -3,3 +3,4 @@ To Do list:
 - In android : Prima password visibile
 - In backend : singleton per dbconnection
 - In desktop : A che serve pulsante ordina su menu desktop?
+- In database : aggiungere unique constraint nel nome della categoria

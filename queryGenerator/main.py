@@ -1,4 +1,5 @@
 import math
+import traceback
 
 import requests
 import random
@@ -526,20 +527,20 @@ adj = (
     "yummy",
     "zany", "zealous", "zesty", "zippy", "zonked");
 
-idUser = 0
-idAttivita = 0
-idProdotto = 0
-idDispensa = 0
-idAvviso = 0
-idCategoria = 0
-idPiatto = 0
-idMenu = 0
+idUser = 1
+idAttivita = 1
+idProdotto = 1
+idDispensa = 1
+idAvviso = 1
+idCategoria = 1
+idPiatto = 1
+idMenu = 1
 
 ruolo = ["admin", "supervisore", "addetto_cucina", "addetto_sala"]
 
 NUM_MAX_OF_AVVISI_NASCOSTI = 4
 NUMBER_OF_USER = 35
-NUMBER_OF_ATTIVITA = 20
+NUMBER_OF_ATTIVITA = 10
 NUMBER_OF_PIATTI = 100
 NUMBER_OF_AVVISI = 100
 NUMBER_OF_MENU = NUMBER_OF_ATTIVITA
@@ -573,7 +574,7 @@ def generateUser():
                 repeat = True
 
         apici = "'"
-        name =  apici + js['results'][0]['name']['first'] + apici
+        name = apici + js['results'][0]['name']['first'] + apici
         surname = apici + js['results'][0]['name']['last'] + apici
         password = apici + js['results'][0]['login']['password'] + apici
         datanascita = apici + js['results'][0]['dob']['date'] + apici
@@ -585,7 +586,7 @@ def generateUser():
 
         email = apici + js['results'][0]['email'] + apici
         role = ruolo[random.randint(0, 3)]
-        id_attivita = random.randint(0, NUMBER_OF_ATTIVITA - 1)
+        id_attivita = random.randint(1, NUMBER_OF_ATTIVITA)
         tmp = existAdminInAttivita(id_attivita)
         if tmp != -1:
             role = ruolo[random.randint(1, 3)]
@@ -600,7 +601,7 @@ def generateUser():
                 role = "admin"
                 aggiuntoda = -1
 
-        query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (" + str(idUser) + ", " + name + ", " + surname + ", " + datanascita + ", " + email + ", " + password + ", '" + role + "', " + isFirstAccess + ", " + str(aggiuntoda) + ", " + dataaggiunta + ", " + str(id_attivita) + ");\n"
+        query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, " + name + ", " + surname + ", " + datanascita + ", " + email + ", " + password + ", '" + role + "', " + isFirstAccess + ", " + str(aggiuntoda) + ", " + dataaggiunta + ", " + str(id_attivita) + ");\n"
         print(query)
         f.write(query)
 
@@ -679,7 +680,7 @@ def generateAttivita():
                 img_name = apici + "img.png" + apici
                 idproprietario = u.getIdUser()
                 lstid = idproprietario
-                query = "INSERT INTO ristorante (id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (" + str(idAttivita) + ", " + nome + ", " + phone + ", " + indirizzo + ", " + "NULL" + ", " + img_name + ", " + str(idproprietario) + ");\n"
+                query = "INSERT INTO ristorante (id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (default, " + nome + ", " + phone + ", " + indirizzo + ", " + "NULL" + ", " + img_name + ", " + str(idproprietario) + ");\n"
                 print(query)
                 f.write(query)
                 a = Attivita(idAttivita, nome, phone, indirizzo, " ", img_name, idproprietario)
@@ -720,9 +721,9 @@ def generateProdotto():
         'carne',
         'pesce',
         'uova',
-        'latte e derivati',
+        'latte_e_derivati',
         'legumi',
-        'cereali e derivati',
+        'cereali_e_derivati',
         'altro'
     ]
     kgOlt = ["kg", "lt"]
@@ -773,8 +774,8 @@ def generateProdotto():
                     categoria = categoria_prodotti[7]
                 elif word == searches[8]:
                     categoria = categoria_prodotti[8]
-                #print(str(idProdotto) + " " + nome + " descrizione " + str(costo) + " " + str(stato) + " " + str(quantita) + " " + unitamisura + " " + str(id_ristorante) + " " + categoria + " ")
-                query = "INSERT INTO prodotti (id_prodotti, id_ristorante, nome, stato, descrizione, prezzo, quantita, unita_misura, categoria_prodotti) VALUES (" + str(idProdotto) + ", " + str(id_ristorante) + ", " + apici + nome + apici + ", " + str(stato) + ", " + apici + descrizione + apici + ", " + str(costo) + ", " + str(quantita) + ", " + apici + unitamisura + apici + ", " + apici + categoria + apici + ");\n"
+                # print(str(idProdotto) + " " + nome + " descrizione " + str(costo) + " " + str(stato) + " " + str(quantita) + " " + unitamisura + " " + str(id_ristorante) + " " + categoria + " ")
+                query = "INSERT INTO prodotto (id_prodotto, id_ristorante, nome, stato, descrizione, prezzo, quantita, unita_misura, categoria_prodotto) VALUES (default, " + str(id_ristorante) + ", " + apici + nome + apici + ", " + str(stato) + ", " + apici + descrizione + apici + ", " + str(costo) + ", " + str(quantita) + ", " + apici + unitamisura + apici + ", " + apici + categoria + apici + ");\n"
                 print(query)
                 f.write(query)
             i += 1
@@ -832,7 +833,7 @@ def generateAvviso():
         else:
             startDate = datetime.datetime(2022, 11, 20, 13, 00)
         for x in random_date(startDate, 10):
-            randomdate = x.strftime("%d/%m/%y %H:%M")
+            randomdate = x.strftime("%Y-%m-%dT%H:%M")
 
         idscrittore = 0
         for u in users:
@@ -842,7 +843,7 @@ def generateAvviso():
                     ristorante = u.getIdAttivita()
                     idscrittore = u.getIdUser()
                     testo = "AVVISO: " + ' '.join([random.choice(i) for i in l])
-                    query = "INSERT INTO avvisi(id_avvisi, id_utente, id_ristorante, testo, data_ora) VALUES (" + str(idAvviso) + ", " + str(idscrittore) + ", " + str(ristorante) + ", " + apici + testo + apici + ", " + apici + randomdate + apici + ");\n"
+                    query = "INSERT INTO avviso(id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + str(idscrittore) + ", " + str(ristorante) + ", " + apici + testo + apici + ", " + apici + randomdate + apici + ");\n"
                     #print(str(idAvviso) + " " + testo + " " + randomdate + " " + str(ristorante) + " " + str(idscrittore))
                     print(query)
                     f.write(query)
@@ -886,9 +887,9 @@ def generaCronologiaMessaggi(vistiOrNascosti):
                 break
             if a.getIdAttivita() == u.getIdAttivita() and i < num_of_avvisi_nascosti:
                 if vistiOrNascosti == 1:
-                    query = "INSERT INTO cronologia_lettura_avvisi (id_utente, id_avvisi) VALUES (" +  str(u.getIdUser()) + ", " + str(a.getIdAvviso()) + ");\n"
+                    query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" +  str(u.getIdUser()) + ", " + str(a.getIdAvviso()) +", '2022-09-20T13:54'"+");\n"
                 else:
-                    query = "INSERT INTO cronologia_nascosti_avvisi (id_utente, id_avvisi) VALUES (" +  str(u.getIdUser()) + ", " + str(a.getIdAvviso()) + ");\n"
+                    query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" +  str(u.getIdUser()) + ", " + str(a.getIdAvviso()) +", '2022-09-20T13:54'" +");\n"
                 # print("id_user: " + str(u.getIdUser()) + " id_avviso: " + str(a.getIdAvviso()) + " (di debug) id_ristorante: " + str(a.getIdAttivita()))
                 print(query)
                 f.write(query)
@@ -907,12 +908,12 @@ class Cronologia:
 def generateCategoria():
     global attivita, categorieMenu
     categorie = ["primi", "secondi", "dessert", "bevande"]
-    i = 0
+    i = 1
     apici = "'"
     for a in attivita:
         for c in categorie:
             #print(str(i), a.getIdAttivita(), categorie[i % 4])
-            query = "INSERT INTO categorie_menu(id_categorie, id_ristorante, nome) VALUES (" + str(i) + ", " + str(a.getIdAttivita()) + ", " + apici + categorie[i % 4] + apici + ");\n"
+            query = "INSERT INTO categorie_menu(id_categoria, id_ristorante, nome) VALUES (default, " + str(a.getIdAttivita()) + ", " + apici + categorie[i % 4] + apici + ");\n"
             print(query)
             f.write(query)
             c = Categoria(i, a.getIdAttivita(), categorie[i % 4])
@@ -942,17 +943,17 @@ class Categoria:
 
 def fromIdCategoriaToIdRistorante(idcategoria):
     global categorieMenu
-    for c in categorieMenu:
-        if c.getIdCategoria() == idcategoria:
-            return c.getIdRistorante()
+    while True:
+        index = random.randint(0, categorieMenu.__len__() - 1)
+        if categorieMenu[index].getIdCategoria() == idcategoria:
+            return categorieMenu[index].getIdRistorante()
 
 
-def getRandomIdOfCategoryOfPiatto(piatto, min, max):
+def getRandomIdOfCategoryOfPiatto(categoria):
     global categorieMenu
-    found = False
-    while not found:
-        index = random.randint(min, max)
-        if categorieMenu[index].getNome() == piatto:
+    while True:
+        index = random.randint(0, categorieMenu.__len__() - 1)
+        if categorieMenu[index].getNome() == categoria:
             return categorieMenu[index].getIdCategoria()
 
 
@@ -993,13 +994,13 @@ def generatePiatto2():
                 allergeni = js["products"][j]["allergens"]
 
                 if word == searches[0]:
-                    id_categoria = getRandomIdOfCategoryOfPiatto("bevande", 0, NUMBER_OF_ATTIVITA)
+                    id_categoria = getRandomIdOfCategoryOfPiatto("bevande")
                 elif word == searches[1]:
-                    id_categoria = getRandomIdOfCategoryOfPiatto("primi", 0, NUMBER_OF_ATTIVITA)
+                    id_categoria = getRandomIdOfCategoryOfPiatto("primi")
                 elif word == searches[2]:
-                    id_categoria = getRandomIdOfCategoryOfPiatto("dessert", 0, NUMBER_OF_ATTIVITA)
+                    id_categoria = getRandomIdOfCategoryOfPiatto("dessert")
                 else:
-                    id_categoria = getRandomIdOfCategoryOfPiatto("secondi", 0, NUMBER_OF_ATTIVITA)
+                    id_categoria = getRandomIdOfCategoryOfPiatto("secondi")
 
                 #print(nome + " descrizione " + str(costo) + " " + allergeni + " " + str(id_categoria) + " " + str(fromIdCategoriaToIdRistorante(id_categoria)))
                 query = "INSERT INTO elementi_menu(id_elementi, id_ristorante, id_categoria, nome, prezzo, descrizione, allergeni, nome_seconda_lingua, descrizione_seconda_lingua) VALUES (default, " + str(fromIdCategoriaToIdRistorante(id_categoria)) + ", " + str(id_categoria) + ", " + apici + nome + apici + ", " + str(costo) + ", " + apici + descrizione + apici + ", " + apici +  allergeni + apici + ", NULL, NULL);\n"
@@ -1009,6 +1010,7 @@ def generatePiatto2():
         except:
             i += 1
             print("")
+
 
 
 class ElementiMenu:
