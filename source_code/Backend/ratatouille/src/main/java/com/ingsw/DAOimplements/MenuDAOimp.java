@@ -77,7 +77,7 @@ public class MenuDAOimp implements MenuDAOint {
 
 	public ArrayList<Menu> getMenuPlateInRestaurant(Integer idRistorante, String nomePiatto) {
 		ArrayList<Menu> menu = new ArrayList<Menu>();
-		String query = "SELECT * FROM elementi_menu WHERE id_ristorante = " + idRistorante + " AND nome LIKE '%" + nomePiatto + "%'";
+		String query = "SELECT * FROM elementi_menu WHERE id_ristorante = " + idRistorante + " AND nome ILIKE '" + nomePiatto + "%'";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
@@ -149,10 +149,7 @@ public class MenuDAOimp implements MenuDAOint {
 
 	
 	public Menu addSecondLanguage(Integer idRistorante, int idProdotto, String nomeSecondaLingua, String descrizoineSecondaLingua) {
-		String query = null;
-		
-						
-		query = "UPDATE elementi_menu SET nome_seconda_lingua = '" + nomeSecondaLingua + "', descrizione_seconda_lingua = '" + descrizoineSecondaLingua + "' WHERE id_prodotto = " + idProdotto;
+		String query = "UPDATE elementi_menu SET nome_seconda_lingua = '" + nomeSecondaLingua + "', descrizione_seconda_lingua = '" + descrizoineSecondaLingua + "' WHERE id_prodotto = " + idProdotto;
 		try {
 			db.getStatement().executeUpdate(query);
 		} catch (SQLException e) {
@@ -160,5 +157,17 @@ public class MenuDAOimp implements MenuDAOint {
 		}
 		return null;
 	}
-	
+
+	@Override
+	public boolean deletePlate(Integer idPiatto) {
+		String query = "DELETE FROM elementi_menu WHERE id_elemento = " + idPiatto;
+		try {
+			db.getStatement().executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

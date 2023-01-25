@@ -27,6 +27,18 @@ public class Piatto extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
+	public Piatto(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+		this.idElemento = idElemento;
+		this.idRistorante = idRistorante;
+		this.idCategoria = idCategoria;
+		this.nome = nome;
+		this.prezzo = prezzo;
+		this.descrizione = descrizione;
+		this.allergeni = allergeni;
+		this.nomeSecondaLingua = nomeSecondaLingua;
+		this.descrizioneSecondaLingua = descrizioneSecondaLingua;
+	}
 
 	public String getNome() {
 		return nome;

@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import application.model.Avviso;
 import application.model.CategoriaMenu;
 import application.model.Piatto;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -67,6 +70,11 @@ public class MenuController implements Observer{
 	@FXML
 	ArrayList<VBox> categorie = new ArrayList<VBox>();
 	
+	@FXML
+	ArrayList<BorderPane> removedPiatti = new ArrayList<BorderPane>();
+	ArrayList<String> removedPiattiIndex = new ArrayList<String>();
+	ArrayList<Integer> removedPiattiIndex2 = new ArrayList<Integer>();
+	
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
@@ -79,6 +87,68 @@ public class MenuController implements Observer{
 	@FXML
 	public void initialize() {
 		menuDriver.requestMenuFromServer(this);
+		inputField.setOnKeyPressed(event -> {
+			
+			if(event.getCode() == KeyCode.BACK_SPACE) {
+				int i = 0;
+				for(BorderPane removed : removedPiatti) {
+					for(VBox v : categorie) {
+						if(v.getId().equals(removedPiattiIndex.get(i))) {
+							v.getChildren().add(1, removed);
+						}
+					}
+					i++;
+				}
+
+				removedPiattiIndex.clear();
+				removedPiattiIndex2.clear();
+				removedPiatti.clear();
+				
+				System.out.print("ARRIVO QUI");
+				
+				searchPiatto();
+			}
+			if (event.getCode().isLetterKey()) {
+				searchPiatto();
+			}
+			
+		});
+	}
+	
+	public void searchPiatto() {
+		String input = inputField.getText().toString();
+		if(!input.isBlank()) {
+			ArrayList<Piatto> result = menuDriver.requestSearchPiatto(input);
+			for(VBox v : categorie) {
+				//PER CATEGORIA
+//				HBox hBox = (HBox) v.getChildren().get(0);
+//				Label label = (Label) hBox.getChildren().get(1);
+//				System.out.print(label.getText())
+				
+				for(int i = 1; i < v.getChildren().size(); i++) { //itero gli elementi di una categoria presenti sull'interfaccia
+					BorderPane pane = (BorderPane) v.getChildren().get(i);
+					Label label = (Label) pane.getTop();
+					String textLabel = label.getText().toString();
+					if(!isPresentInResult(textLabel, result)) {
+						BorderPane pane2 = pane;
+						v.getChildren().remove(i);
+						removedPiatti.add(pane2);
+						removedPiattiIndex.add(v.getId());
+						removedPiattiIndex2.add(i);
+					}
+				}
+			}
+		}
+	}
+	
+	
+	private boolean isPresentInResult(String nomePiatto, ArrayList<Piatto> piatti) {
+		for(Piatto piatto : piatti) {
+			if(nomePiatto.contains(piatto.getNome())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void goToAggiungiPiatto(ActionEvent actionEvent) throws IOException {
@@ -265,7 +335,6 @@ public class MenuController implements Observer{
 		vBox.getChildren().add(pane2);
 		containerPiatto.setRight(vBox);
 		containerPiatto.setAlignment(vBox, Pos.CENTER);
-		
 	}
 
 	private ImageView setImageView(String path, Double width, Double height, Double x, Double y) {
@@ -297,16 +366,16 @@ public class MenuController implements Observer{
 		String path = "src/application/img/garbage.png";
         ImageView imageView = setImageView(path, 34.0, 60.0, 3.0, 23.0);
 		imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			//if(avvisiDriver.requestDeleteAvviso(idAvviso)) {
+			if(menuDriver.requestDeletePiatto(MenuController.this, idAvviso)) {
 				containerNotice.getChildren().clear();
 				containerNotice.setPrefHeight(0);
 				containerNotice.setStyle("-fx-border-color: red; -fx-border-width: 2; -fx-border-radius: 20;");
-				Label label = new Label("Piatto eliminato - solo effetto non c'è ancora la cancellazione dal db");
+				Label label = new Label("Piatto eliminato");
 				containerNotice.setCenter(label);
-//			} else {
-//				errorLabel.setText("Errore nella cancellazione del messaggio");
-//				errorLabel.setTextFill(Color.RED);
-//			}
+			} else {
+				errorLabel.setText("Errore nella cancellazione del messaggio");
+				errorLabel.setTextFill(Color.RED);
+			}
         });
 		pane.getChildren().add(imageView);
 		containerNotice.setLeft(pane);

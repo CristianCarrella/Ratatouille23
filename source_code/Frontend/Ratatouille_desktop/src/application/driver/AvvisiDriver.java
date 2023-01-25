@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import application.controller.AvvisiController;
 import application.controller.LoginController;
 import application.model.Avviso;
+import application.model.Piatto;
 import application.model.Utente;
 
 public class AvvisiDriver {
@@ -124,10 +125,6 @@ public class AvvisiDriver {
 			return false;
 		}
 	}
-
-	
-	
-	
 	
 
 }
