@@ -218,5 +218,71 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 	
+	public User downgradeUserRole(LoggedUser loggedUser, int idUtente, String ruoloInput) {
+		String query = "";
+		if(loggedUser.getRuolo().equals("admin") && ruoloInput.equals("supervisore")) {
+			query = "UPDATE utente SET ruolo = 'addetto_cucina' WHERE id_utente = " + idUtente;
+		}
+		if(ruoloInput.contains("cucina")) {
+			query = "UPDATE utente SET ruolo = 'addetto_sala' WHERE id_utente = " + idUtente;
+		}
+		
+		try {
+			db.getStatement().executeUpdate(query);
+			return getUserById(idUtente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public User upgradeUserRole(int idUtente, String ruoloInput) {
+		String query = "";
+		if(ruoloInput.contains("cucina")) {
+			query = "UPDATE utente SET ruolo = 'supervisore' WHERE id_utente = " + idUtente;
+		}
+		if(ruoloInput.contains("sala")) {
+			query = "UPDATE utente SET ruolo = 'addetto_cucina' WHERE id_utente = " + idUtente;
+		}
+		
+		try {
+			db.getStatement().executeUpdate(query);
+			return getUserById(idUtente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void fireUser(LoggedUser loggedUser, int idUtente, String ruoloInput) {
+		String query = "";
+		String query2 = "";
+		String query3 = "";
+		
+		if(loggedUser.getRuolo().equals("admin") && ruoloInput.equals("supervisore")) {
+			query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente;
+			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
+			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;
+		}
+		if(ruoloInput.equals("addetto_cucina")) {
+			query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente;
+			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
+			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;
+		}
+		if(ruoloInput.equals("addetto_sala")) {
+			query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente;
+			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
+			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;
+		}
+		
+		try {
+			db.getStatement().executeUpdate(query);
+			db.getStatement().executeUpdate(query2);
+			db.getStatement().executeUpdate(query3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 
