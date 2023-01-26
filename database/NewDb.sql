@@ -3,7 +3,7 @@ CREATE TABLE ristorante(
 	nome VARCHAR(30) NOT NULL,
 	telefono VARCHAR(30),
 	indirizzo VARCHAR(50),
-	logo BYTEA,
+	logo bytea,
 	nome_immagine VARCHAR(30),
 	id_proprietario INTEGER
 );

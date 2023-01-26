@@ -1,6 +1,5 @@
 package application.controller;
 
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -30,7 +28,7 @@ public class GestisciPersonaleController {
 	@FXML
 	Label nomeCognomeLabel, emailLabel, ruoloLabel, errorLabel;
 	@FXML
-	ComboBox utentiComboBox;
+	ComboBox<String> utentiComboBox;
 
 	String ruoloUI = "";
 	public GestisciPersonaleController() {}
@@ -67,6 +65,7 @@ public class GestisciPersonaleController {
 				String nomeCognome = u.getNome() + " " + u.getCognome();
 				String email = u.getEmail();
 				String ruolo = ruoloUI;
+				System.out.println("aiutodio" + nomeCognome + email + ruolo);
 				mostraInformazioniUtente(nomeCognome, email, ruolo);
 			}
 		}
@@ -91,7 +90,7 @@ public class GestisciPersonaleController {
 			errorLabel.setText("Non hai i permessi per declassare un supervisore");
 	    	errorLabel.setTextFill(Color.RED);
 		} else {
-			if(ruoloLabel.getText().equals("Addetto alla sala")) {
+			if(ruoloLabel.getText().equals("Addetto alla Sala")) {
 				errorLabel.setText("Non puoi declassare un addetto alla sala, forse volevi sollevarlo dal suo incarico");
 		    	errorLabel.setTextFill(Color.RED);
 			} else {
@@ -101,10 +100,21 @@ public class GestisciPersonaleController {
 				} else {
 					String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
 					String id = datiUtente.substring(4, 6);
+					String ruolo = "";
 					if(id.contains(" ")) {
 						id = datiUtente.substring(4, 5);
 					}
-					utenteDriver.requestDowngradeRoleToServer(id, ruoloLabel.getText().toString());
+					if(ruoloLabel.getText().toString().contains("Cucina")) {
+						ruolo = "addetto_cucina";
+					}
+					if(ruoloLabel.getText().toString().contains("Sala")) {
+						ruolo = "addetto_sala";
+					}
+					if(ruoloLabel.getText().toString().contains("visore")) {
+						ruolo = "supervisore";
+					}
+					
+					utenteDriver.requestDowngradeRoleToServer(id, ruolo);
 					errorLabel.setText("Modifiche apportate con successo");
 			    	errorLabel.setTextFill(Color.GREEN);
 				}
@@ -123,10 +133,20 @@ public class GestisciPersonaleController {
 			} else {
 				String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
 				String id = datiUtente.substring(4, 6);
+				String ruolo = "";
 				if(id.contains(" ")) {
 					id = datiUtente.substring(4, 5);
 				}
-				utenteDriver.requestUpgradeRoleToServer(id, ruoloLabel.getText().toString());
+				if(ruoloLabel.getText().toString().contains("Cucina")) {
+					ruolo = "addetto_cucina";
+				}
+				if(ruoloLabel.getText().toString().contains("Sala")) {
+					ruolo = "addetto_sala";
+				}
+				if(ruoloLabel.getText().toString().contains("visore")) {
+					ruolo = "supervisore";
+				}
+				utenteDriver.requestUpgradeRoleToServer(id, ruolo);
 				errorLabel.setText("Modifiche apportate con successo");
 		    	errorLabel.setTextFill(Color.GREEN);
 			}
@@ -144,10 +164,20 @@ public class GestisciPersonaleController {
 			} else {
 				String datiUtente = utentiComboBox.getSelectionModel().getSelectedItem().toString();
 				String id = datiUtente.substring(4, 6);
+				String ruolo = "";
 				if(id.contains(" ")) {
 					id = datiUtente.substring(4, 5);
 				}
-				utenteDriver.requestFireUserToServer(id, ruoloLabel.getText().toString());
+				if(ruoloLabel.getText().toString().contains("Cucina")) {
+					ruolo = "addetto_cucina";
+				}
+				if(ruoloLabel.getText().toString().contains("Sala")) {
+					ruolo = "addetto_sala";
+				}
+				if(ruoloLabel.getText().toString().contains("visore")) {
+					ruolo = "supervisore";
+				}
+				utenteDriver.requestFireUserToServer(id, ruolo);
 				errorLabel.setText("Modifiche apportate con successo");
 		    	errorLabel.setTextFill(Color.GREEN);
 			}

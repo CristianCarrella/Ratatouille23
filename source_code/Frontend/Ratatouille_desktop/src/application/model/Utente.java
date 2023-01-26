@@ -39,7 +39,17 @@ public class Utente extends Observable{
 
 	public Utente() {}
 	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public int getIdUtente() {
 		return id_utente;

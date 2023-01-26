@@ -1,5 +1,6 @@
 package application.driver;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,9 +23,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import application.controller.LoginController;
 import application.model.Business;
 import application.model.Utente;
+import javafx.scene.image.Image;
 
 public class BusinessDriver {
 	public static Business business;
@@ -76,6 +80,30 @@ private Utente loggedUser = LoginController.loggedUser;
 		}
 		return null;
 	}
+	
+//	public Business runSetLogo(Image image, String fileName) throws IOException {
+//		try {
+//			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+//			builder.addBinaryBody("image", image, ContentType.APPLICATION_OCTET_STREAM, fileName);
+//			builder.addTextBody("fileName", fileName);
+//
+//			HttpEntity multipart = builder.build();
+//			HttpClient httpclient = HttpClients.createDefault();
+//			HttpPost httppost = new HttpPost("http://localhost:8080/business/image");
+//			httppost.setHeader("Authorization", loggedUser.getToken());
+//			httppost.setEntity(multipart);
+//
+//			HttpResponse response = httpclient.execute(httppost);
+//			HttpEntity entity = response.getEntity();
+//			String json = EntityUtils.toString(response.getEntity());
+//			JSONObject jsonObject = new JSONObject(json);
+////			business = new Business(jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getString("numeroTelefono"), jsonObject.getString("indirizzo"), jsonObject.getString("nomeImmagine"), jsonObject.getInt("idProprietario"));
+////            return business;
+//		}catch (Exception e) {
+//			System.out.print("Errore nella connessione");
+//		}
+//		return null;
+//	}
 	
 	private Business runBusiness(int idRistorante) throws Exception {
         try {

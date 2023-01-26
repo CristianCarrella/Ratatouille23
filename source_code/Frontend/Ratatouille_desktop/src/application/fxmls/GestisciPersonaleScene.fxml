@@ -68,7 +68,7 @@
                         </FlowPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="errorLabel" contentDisplay="CENTER" layoutX="203.0" layoutY="14.0" textAlignment="CENTER" />
+                              <Label fx:id="errorLabel" contentDisplay="CENTER" layoutX="16.0" layoutY="14.0" prefHeight="27.0" prefWidth="406.0" textAlignment="CENTER" />
                            </children>
                         </AnchorPane>
                      </children>

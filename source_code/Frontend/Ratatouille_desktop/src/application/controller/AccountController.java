@@ -54,6 +54,8 @@ public class AccountController {
 	}
 	
 	public void mostraDatiAccount() {
+		
+		
 		nomeInput.setText(loggedUser.getNome());
 		cognomeInput.setText(loggedUser.getCognome());
 		mailInput.setText(loggedUser.getEmail());		
@@ -63,12 +65,14 @@ public class AccountController {
 		String nome = nomeInput.getText().toString();
     	String email = mailInput.getText().toString();
     	String cognome = cognomeInput.getText().toString();
-    	String dataNascita = "";
     	if(!(nome.isBlank() || cognome.isBlank() || email.isBlank())) {
 			if(!utenteDriver.requestModifyAccountToServer(nome, email, cognome)) {
 		    	errorLabel.setText("Errore");
 		    	errorLabel.setTextFill(Color.RED);
 			}else {
+				loggedUser.setNome(nome);
+				loggedUser.setCognome(cognome);
+				loggedUser.setEmail(email);
 		    	errorLabel.setText("Modifiche apportate con successo");
 		    	errorLabel.setTextFill(Color.GREEN);
 			}
