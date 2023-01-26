@@ -39,6 +39,7 @@ public class MenuDriver {
 		}
 	}
 	
+	
 	public void requestGetPiattiFromServer(MenuController menuController, String categoria) {
 		try {
 			runGetPiattiFromCategorie(loggedUser.getIdRistorante(), menuController, categoria);
@@ -100,6 +101,67 @@ public class MenuDriver {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 		}
+	}
+	
+	public ArrayList<CategoriaMenu> getCategorieRistoranteLoggedUserWihoutChangeUI() throws Exception {
+		ArrayList<CategoriaMenu> categorie = new ArrayList<CategoriaMenu>();
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria?id_ristorante=" + loggedUser.getIdRistorante());
+			httpget.setHeader("Authorization", loggedUser.getToken());
+			
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			JSONArray jsonArray = new JSONArray(json);
+			for(int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				if(jsonObject.has("idCategoria") && jsonObject.has("idRistorante")) {
+					CategoriaMenu a = new CategoriaMenu(jsonObject.getInt("idCategoria"), jsonObject.getInt("idRistorante"), jsonObject.getString("nome"));
+					categorie.add(a);
+				}
+			}
+			return categorie;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+		}
+		return null;
+	}
+	
+	public ArrayList<Piatto> getPiattiFromCategorieWithoutChangeUI(String categoria) throws Exception {
+		ArrayList<Piatto> piatti = new ArrayList<Piatto>();
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + loggedUser.getIdRistorante() + "&&categoria=" + categoria);
+			httpget.setHeader("Authorization", loggedUser.getToken());
+			
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			JSONArray jsonArray = new JSONArray(json);
+			for(int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				String nomeSecondaLingua = "";
+				String descrizioneSecondaLingua = "";
+				
+				if(!jsonObject.isNull("descrizioneSecondaLingua"))
+					descrizioneSecondaLingua = jsonObject.getString("descrizioneSecondaLingua");
+				
+				if(!jsonObject.isNull("nomeSecondaLingua"))
+					nomeSecondaLingua = jsonObject.getString("nomeSecondaLingua");
+					
+				if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
+					Piatto piatto = new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua);
+					piatti.add(piatto);
+				}
+			}
+			return piatti;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+		}
+		return null;
 	}
 
 	private void runGetMenu(Integer idRistorante, MenuController menuController) throws Exception {

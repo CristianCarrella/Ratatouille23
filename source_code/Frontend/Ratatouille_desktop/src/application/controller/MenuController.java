@@ -63,17 +63,20 @@ public class MenuController implements Observer{
 	@FXML
 	TextField inputField;
 	@FXML
-	ImageView filterBtn;
+	Button filterBtn;
 	@FXML
 	VBox vBoxLayout;
-	
+
 	@FXML
 	ArrayList<VBox> categorie = new ArrayList<VBox>();
+	ArrayList<Piatto> piatti = new ArrayList<Piatto>();
 	
 	@FXML
-	ArrayList<BorderPane> removedPiatti = new ArrayList<BorderPane>();
-	ArrayList<String> removedPiattiIndex = new ArrayList<String>();
-	ArrayList<Integer> removedPiattiIndex2 = new ArrayList<Integer>();
+	ArrayList<Label> removedTop = new ArrayList<Label>();
+	ArrayList<Label> removedCenter = new ArrayList<Label>();
+	ArrayList<Pane> removedLeft = new ArrayList<Pane>();
+	ArrayList<VBox> removedRight = new ArrayList<VBox>();
+	ArrayList<BorderPane> removedPane = new ArrayList<BorderPane>();
 	
 	private Stage stage;
 	private Scene scene;
@@ -87,69 +90,80 @@ public class MenuController implements Observer{
 	@FXML
 	public void initialize() {
 		menuDriver.requestMenuFromServer(this);
+		
 		inputField.setOnKeyPressed(event -> {
 			
 			if(event.getCode() == KeyCode.BACK_SPACE) {
 				int i = 0;
-				for(BorderPane removed : removedPiatti) {
-					for(VBox v : categorie) {
-						if(v.getId().equals(removedPiattiIndex.get(i))) {
-							v.getChildren().add(1, removed);
-						}
-					}
+				for(BorderPane pane : removedPane) {
+					pane.setTop(removedTop.get(i));
+					pane.setRight(removedRight.get(i));
+					pane.setLeft(removedLeft.get(i));
+					pane.setCenter(removedCenter.get(i));
+					pane.setStyle("-fx-border-color: #003F91; -fx-border-radius: 20; -fx-border-width: 2; -fx-border-insets: 3px;");
 					i++;
 				}
-
-				removedPiattiIndex.clear();
-				removedPiattiIndex2.clear();
-				removedPiatti.clear();
-				
-				System.out.print("ARRIVO QUI");
-				
 				searchPiatto();
 			}
 			if (event.getCode().isLetterKey()) {
 				searchPiatto();
 			}
-			
 		});
+		filterBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
+			try {
+				goToOrdinaScene();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        });
 	}
 	
 	public void searchPiatto() {
 		String input = inputField.getText().toString();
 		if(!input.isBlank()) {
 			ArrayList<Piatto> result = menuDriver.requestSearchPiatto(input);
+
 			for(VBox v : categorie) {
-				//PER CATEGORIA
-//				HBox hBox = (HBox) v.getChildren().get(0);
-//				Label label = (Label) hBox.getChildren().get(1);
-//				System.out.print(label.getText())
-				
-				for(int i = 1; i < v.getChildren().size(); i++) { //itero gli elementi di una categoria presenti sull'interfaccia
+				for(int i = 1; i < v.getChildren().size(); i++) { 
 					BorderPane pane = (BorderPane) v.getChildren().get(i);
 					Label label = (Label) pane.getTop();
-					String textLabel = label.getText().toString();
-					if(!isPresentInResult(textLabel, result)) {
-						BorderPane pane2 = pane;
-						v.getChildren().remove(i);
-						removedPiatti.add(pane2);
-						removedPiattiIndex.add(v.getId());
-						removedPiattiIndex2.add(i);
+					if(label != null) {
+						String textLabel = label.getText().toString();
+						
+						if(!isPresentInResult(textLabel, result)) {
+							//pane.setVisible(false);
+							removedCenter.add((Label)pane.getCenter());
+							removedTop.add((Label)pane.getTop());
+							removedRight.add((VBox)pane.getRight());
+							removedLeft.add((Pane)pane.getLeft());
+							removedPane.add(pane);
+							pane.setCenter(null);
+							pane.setTop(null);
+							pane.setLeft(null);
+							pane.setRight(null);
+							pane.setLeft(null);
+							pane.setStyle("");
+							//v.getChildren().remove(i);
+						}
 					}
 				}
 			}
+			
 		}
 	}
 	
+
 	
 	private boolean isPresentInResult(String nomePiatto, ArrayList<Piatto> piatti) {
 		for(Piatto piatto : piatti) {
-			if(nomePiatto.contains(piatto.getNome())) {
+			if (nomePiatto.contains(piatto.getNome())) {
 				return true;
 			}
 		}
 		return false;
+		
 	}
+	
 	
 	public void goToAggiungiPiatto(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AggiungiModificaPiattoScene.fxml"));
@@ -159,6 +173,13 @@ public class MenuController implements Observer{
 		stage.show();
 	}
 	
+	public void goToOrdinaScene() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/OrdinaMenuScene.fxml"));
+		stage = (Stage) (filterBtn.getScene().getWindow());
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 	
 	public void goToHome(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
@@ -245,12 +266,22 @@ public class MenuController implements Observer{
 		return null;
 	}
 	
+	private VBox findVBoxForPiatto(Piatto p) {
+		for(VBox vBox : categorie) {
+			if(Integer.parseInt(vBox.getId()) == p.getIdCategoria()) {
+				return vBox;
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof Piatto) {
 			Piatto piatto = (Piatto) o;
+			piatti.add(piatto);
 			BorderPane containerPiatto = new BorderPane();
-			containerPiatto.setStyle("-fx-border-color: #003F91; -fx-border-radius: 20; -fx-border-width: 2;");
+			containerPiatto.setStyle("-fx-border-color: #003F91; -fx-border-radius: 20; -fx-border-width: 2; -fx-border-insets: 3px;");
 			generateHeaderNotice(piatto, containerPiatto);
 			generateBodyNotice(piatto, containerPiatto);
 			ImageView imageView = generateLeftGarbageButtonNotice(containerPiatto, piatto.getIdElemento());
@@ -263,7 +294,6 @@ public class MenuController implements Observer{
 			if (v == null) {
 				v = new VBox();
 			}
-			v.setSpacing(10.0);
 			categorie.add(v);
 			v.setId(String.valueOf(categoriaMenu.getIdCategoria()));
 			vBoxLayout.getChildren().add(v);
@@ -334,7 +364,7 @@ public class MenuController implements Observer{
 		vBox.getChildren().add(pane1);
 		vBox.getChildren().add(pane2);
 		containerPiatto.setRight(vBox);
-		containerPiatto.setAlignment(vBox, Pos.CENTER);
+		BorderPane.setAlignment(vBox, Pos.CENTER);
 	}
 
 	private ImageView setImageView(String path, Double width, Double height, Double x, Double y) {
@@ -379,7 +409,7 @@ public class MenuController implements Observer{
         });
 		pane.getChildren().add(imageView);
 		containerNotice.setLeft(pane);
-		containerNotice.setAlignment(imageView, Pos.CENTER);
+		BorderPane.setAlignment(imageView, Pos.CENTER);
 		return imageView;
 	}
 

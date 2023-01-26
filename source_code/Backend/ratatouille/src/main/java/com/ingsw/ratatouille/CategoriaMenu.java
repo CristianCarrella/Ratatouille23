@@ -5,11 +5,7 @@ public class CategoriaMenu {
 	private int idCategoria, idRistorante;
 	private String nome;
 	
-	public CategoriaMenu() {
-		this.getIdCategoria();
-		this.getIdRistorante();
-		this.getNome();
-	}
+	public CategoriaMenu() { }
 	
 	public CategoriaMenu(int idCategoria, int idRistorante, String nome){
 		this.nome = nome;
