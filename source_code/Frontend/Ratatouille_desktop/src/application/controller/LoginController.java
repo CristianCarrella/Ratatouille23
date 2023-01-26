@@ -51,6 +51,12 @@ public class LoginController {
 		}
 	}
 	
+	public void setLoggedUser(String nome, String cognome, String email) {
+		loggedUser.setNome(nome);
+		loggedUser.setCognome(cognome);
+		loggedUser.setEmail(email);
+	}
+	
 	@FXML
 	public void initialize() {
 		signUp.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {

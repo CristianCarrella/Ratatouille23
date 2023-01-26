@@ -1,12 +1,15 @@
 package com.ingsw.ratatouille;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -264,6 +267,16 @@ public class Controller {
 	@PostMapping("/business")
 	public Business modifyBusinessInfo(@RequestParam(required = true) Integer id_ristorante, String nome, String numeroTelefono, String indirizzo){
 		return businessDao.modifyBusinessInfo(id_ristorante, nome, indirizzo, numeroTelefono);
+	}
+	
+	@PostMapping("/business/image")
+	public void saveBusinessImage(@RequestParam("image") MultipartFile image, String fileName){
+		try {
+			businessDao.saveBusinessImage(loggedUser, image, fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -19,9 +20,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,7 +40,7 @@ public class PersonalizzazioneAttivitaController {
 	@FXML
 	Button salvaBtn;
 	@FXML
-	ImageView logoInput; 
+	ImageView logoInputView; 
 	@FXML
 	Label errorLabel;
 	
@@ -46,6 +50,7 @@ public class PersonalizzazioneAttivitaController {
 	private BusinessDriver businessDriver = new BusinessDriver();
 	private Utente loggedUser = LoginController.loggedUser;
 	private Business business;
+	private String fileName = "";
 	
 	public PersonalizzazioneAttivitaController() {
 	
@@ -65,6 +70,20 @@ public class PersonalizzazioneAttivitaController {
 		nomeInput.setText(business.getNome());
 		indirizzoInput.setText(business.getIndirizzo());
 		telefonoInput.setText(business.getNumeroTelefono());
+	}
+	
+	public void caricaLogo() {
+		FileChooser fileChooser = new FileChooser();
+			fileChooser.getExtensionFilters().addAll(
+				new ExtensionFilter("Immagini PNG", "*.png")
+		    );
+		File selectedFile = fileChooser.showOpenDialog(stage);
+		
+		if (selectedFile != null) {
+			fileName = selectedFile.getName();
+	        Image image = new Image(selectedFile.toURI().toString());
+	        logoInputView.setImage(image);
+	    }
 	}
 	
 	public void modificaDati() {

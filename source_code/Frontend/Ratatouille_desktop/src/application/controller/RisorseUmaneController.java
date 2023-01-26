@@ -55,19 +55,42 @@ public class RisorseUmaneController {
 	public void creaNuovoImpiegato() {
 		if(!nomeInput.getText().toString().isBlank() && !cognomeInput.getText().toString().isBlank() && !emailInput.getText().toString().isBlank() && !passwordInput.getText().toString().isBlank() && !dataNascitaInput.getValue().toString().isBlank()) {			
 			if(supervisoreRBtn.isSelected()) {
+				errorLabel.setText("Dipendente inserito nel sistema");
+		    	errorLabel.setTextFill(Color.GREEN);
 				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "supervisore");
+				nomeInput.setText("");
+				cognomeInput.setText("");
+				emailInput.setText("");
+				passwordInput.setText("");
+				dataNascitaInput.setValue(null);
 			}
 			if(addettoSalaRBtn.isSelected()) {
+				errorLabel.setText("Dipendente inserito nel sistema");
+		    	errorLabel.setTextFill(Color.GREEN);
 				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "addetto_sala");
+				nomeInput.setText("");
+				cognomeInput.setText("");
+				emailInput.setText("");
+				passwordInput.setText("");
+				dataNascitaInput.setValue(null);
 			}
 			if(addettoCucinaRBtn.isSelected()) {
+				errorLabel.setText("Dipendente inserito nel sistema");
+		    	errorLabel.setTextFill(Color.GREEN);
 				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "addetto_cucina");
+				nomeInput.setText("");
+				cognomeInput.setText("");
+				emailInput.setText("");
+				passwordInput.setText("");
+				dataNascitaInput.setValue(null);
 			}
-			
 			if(!(supervisoreRBtn.isSelected() || addettoSalaRBtn.isSelected() || addettoCucinaRBtn.isSelected())) {
 				errorLabel.setText("Selezionare un ruolo per il dipendente");
 		    	errorLabel.setTextFill(Color.RED);
 			}
+			addettoCucinaRBtn.setSelected(false);
+			addettoSalaRBtn.setSelected(false);
+			supervisoreRBtn.setSelected(false);
 		} else {
 			errorLabel.setText("Compilare tutti i campi");
 	    	errorLabel.setTextFill(Color.RED);
