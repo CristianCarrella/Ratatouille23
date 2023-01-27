@@ -1,13 +1,17 @@
 package application.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 import application.driver.MenuDriver;
 import application.model.CategoriaMenu;
 import application.model.Piatto;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -32,28 +36,75 @@ public class OrdinaMenuController {
 	@FXML
 	Button categoriaPrecedenteBtn;
 	@FXML
-	HBox hBoxLayout;
+	HBox hBoxLayout, hBoxLayout1;
 	@FXML
 	BorderPane panelLayout;
+	@FXML
+	Button resetBtn;
+	
+	@FXML
+	Button applica;
 	
 	MenuDriver menuDriver = new MenuDriver();
+	ArrayList<CategoriaMenu> categorieForUI;
 	ArrayList<CategoriaMenu> categorie;
 	Integer categoriaCounter = 1;
 	ArrayList<Piatto> piatti = null;
+	ArrayList<Piatto> allPiattiOfResturant = new ArrayList<Piatto>();
+	ArrayList<VBox> categorieVBoxs = new ArrayList<>();
 	Stack<VBox> savedStateLeft = new Stack<VBox>();
 	Stack<VBox> savedStateRight = new Stack<VBox>();
 	Integer pagesDiscovered = 1, numOfCategorie = 0;
-	boolean backPressed = false;
+	ArrayList<CategoriaMenu> queueCategoria = new ArrayList<CategoriaMenu>();
+	Integer indexOfCategoria = 0;
+	boolean backPressed = false, resetPressed = false;
+	
+	
+	private boolean existAlreadyAnMenu(List<Piatto> menu) {
+		for (Piatto piatto : menu) {
+			if(piatto.getPosizione() != null)
+				return true;
+		}
+		return false;
+	}
 	
 	@FXML
 	public void initialize(){
 		try {
-			categorie = menuDriver.getCategorieRistoranteLoggedUserWihoutChangeUI();
-			numOfCategorie = categorie.size();
+			allPiattiOfResturant = menuDriver.getAllPiattiOfMenu();
+			categorieForUI = menuDriver.getCategorieRistoranteLoggedUserWihoutChangeUI();
+			categorie = new ArrayList<>(categorieForUI);
+			numOfCategorie = categorieForUI.size();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for (CategoriaMenu categoriaMenu : categorie) {
+		if(existAlreadyAnMenu(allPiattiOfResturant)) {
+			VBox menuVBox = new VBox();
+			Label spacingLabel = new Label();
+			menuVBox.getChildren().add(spacingLabel);
+			Label oldMenuLabel = new Label("OLD MENU");
+			menuVBox.getChildren().add(oldMenuLabel);
+			Collections.sort(allPiattiOfResturant, (o1, o2) -> o1.getPosizione().compareTo(o2.getPosizione()));
+			for(CategoriaMenu categoriaMenu : categorie) {
+				if(categoriaMenu.getPosizione() != 0) {
+					Label categoriaLabel = new Label(categoriaMenu.getNome());
+					categoriaLabel.setStyle("-fx-text-fill: #003F91");
+					menuVBox.getChildren().add(categoriaLabel);
+					for(Piatto piatto : allPiattiOfResturant) {
+						if(categoriaMenu.getIdCategoria() == piatto.getIdCategoria()) {
+							System.out.println(piatto.getPosizione());
+							if(piatto.getPosizione() != 0) {
+								Label piattoLabel = new Label(piatto.getNome());
+								menuVBox.getChildren().add(piattoLabel);
+							}
+						}
+					}
+				}
+			}
+			hBoxLayout1.getChildren().add(menuVBox);
+		}
+		
+		for (CategoriaMenu categoriaMenu : categorieForUI) {
 			comboboxInput.getItems().add(categoriaMenu.getNome());
 		}
 		comboboxInput.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
@@ -71,51 +122,188 @@ public class OrdinaMenuController {
 		});
 		
 		categoriaSuccessivaBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			savedStateLeft.add((VBox)panelLayout.getCenter());
-			if(pagesDiscovered < numOfCategorie && backPressed) {
-				panelLayout.setCenter(savedStateRight.pop());
-			} else { 
-				if(pagesDiscovered >= numOfCategorie) {
-					panelLayout.setCenter(savedStateRight.pop());
+			if(resetPressed) {
+				resetPressed = false;
+				queueCategoria.remove((int)indexOfCategoria);
+			}
+			resetBtn.setDisable(false);
+			errorLabel.setText("");
+			if(isSelectedSomethingInMainCombobox()) {
+				System.out.println("Index: " + indexOfCategoria + " pagesDisc: " + pagesDiscovered + " backPressed: " + backPressed);
+				
+				if(!savedStateLeft.contains((VBox)panelLayout.getCenter()))
+					savedStateLeft.add((VBox)panelLayout.getCenter());
+				
+				if (savedStateLeft.size() < numOfCategorie) {
+					indexOfCategoria++;
+					if(backPressed) {
+						if(savedStateRight.size() > 0) {
+							panelLayout.setCenter(savedStateRight.pop());
+						}
+						else {
+							backPressed = false;
+							pagesDiscovered++;
+							comboboxInput.getItems().clear();
+							fillComboBoxWithListCategorie(comboboxInput, categorieForUI);
+							panelLayout.setCenter(null);
+							comboboxInput.setDisable(false);
+							aggiungBtn.setDisable(false);	
+						}
+					} else { 
+							pagesDiscovered++;
+							comboboxInput.getItems().clear();
+							comboboxInput.setPromptText("Categoria " + (indexOfCategoria + 1));
+							fillComboBoxWithListCategorie(comboboxInput, categorieForUI);
+							panelLayout.setCenter(null);
+							comboboxInput.setDisable(false);
+							aggiungBtn.setDisable(false);		
+					}
 				} else {
-					pagesDiscovered++;
-					fillComboBoxWithListCategorie(comboboxInput);
-					panelLayout.setCenter(null);
-					comboboxInput.setDisable(false);
-					aggiungBtn.setDisable(false);		
+					errorLabel.setText("Non ci sono altre categorie");
 				}
+			}else {
+				errorLabel.setText("Per andare avanti devi compilare la categoria");
 			}
 		});
 		
 		categoriaPrecedenteBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			backPressed = true;
-			savedStateRight.add((VBox)panelLayout.getCenter());
-			panelLayout.setCenter(savedStateLeft.pop());
-			comboboxInput.setDisable(true);
-			aggiungBtn.setDisable(true);
+			if(isSelectedSomethingInMainCombobox()){
+				System.out.println("Index: " + indexOfCategoria);
+				if(resetPressed) {
+					resetPressed = false;
+					queueCategoria.remove((int)indexOfCategoria);
+				}
+				resetBtn.setDisable(false);
+				errorLabel.setText("");
+				backPressed = true;
+				if(!savedStateRight.contains((VBox)panelLayout.getCenter()))
+					savedStateRight.add((VBox)panelLayout.getCenter());
+				if(savedStateLeft.size() > 0) {
+					indexOfCategoria--;
+					panelLayout.setCenter(savedStateLeft.pop());
+					comboboxInput.setDisable(true);
+					aggiungBtn.setDisable(true);				
+				}else {
+					errorLabel.setText("Non ci sono altre categorie");
+				}
+			}else {
+				errorLabel.setText("Per andare avanti devi compilare la categoria");
+			}
+		});
+		
+		resetBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
+			if(isSelectedSomethingInMainCombobox()){
+				comboboxInput.getItems().clear();
+				if(queueCategoria.size() > 0) {
+					resetPressed = true;
+					CategoriaMenu actualCategoria = queueCategoria.get(indexOfCategoria);
+					VBox vBox = findVBoxContainsCategoria(actualCategoria.getNome());
+					if(vBox != null) {
+						vBox.getChildren().clear();
+						categorieForUI.add(actualCategoria);
+					}
+					for (Iterator iterator = queueCategoria.iterator(); iterator.hasNext();) {
+						CategoriaMenu categoriaMenu = (CategoriaMenu) iterator.next();
+						System.out.println(categoriaMenu.getNome());
+					}
+					
+				}
+				fillComboBoxWithListCategorie(comboboxInput, categorieForUI);
+				
+				panelLayout.setCenter(null);
+				comboboxInput.setDisable(false);
+				aggiungBtn.setDisable(false);
+			} else {
+				errorLabel.setText("Ancora non hai compilato niente");
+			}
+		});
+		
+		applica.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
+			menuDriver.requestDeleteMenuSorting();
+			int posizioneCategoria = 1, posizionePiatto = 1;
+			for (VBox vBox : categorieVBoxs) {
+				posizionePiatto = 1;
+				if(!vBox.getChildren().isEmpty()) {
+					Label nomeCategoria = (Label) vBox.getChildren().get(0);
+					Integer idCategoria = getCategoriaIdFromNome(nomeCategoria.getText());
+					menuDriver.requestUpdatePositionCategoria(idCategoria, posizioneCategoria);
+					for(int i = 1; i < vBox.getChildren().size(); i++) {
+						Label nomePiatto = (Label) vBox.getChildren().get(i);
+						Integer idPiatto = getPiattoIdFromNome(nomePiatto.getText());
+						System.out.println(idPiatto);
+						menuDriver.requestUpdatePositionInMenuPiatto(idPiatto, posizionePiatto);
+						posizionePiatto++;
+					}
+				}
+				posizioneCategoria++;
+			}
 		});
 		
 		
+		
+	}
+
+	private Integer getCategoriaIdFromNome(String nomeInput) {
+		for(CategoriaMenu categoriaMenu : categorie) {
+			if(categoriaMenu.getNome().equals(nomeInput)) {
+				return categoriaMenu.getIdCategoria();
+			}
+		}
+		return null;
+	}
+	
+	private Integer getPiattoIdFromNome(String nomeInput) {
+		for(Piatto piatto : allPiattiOfResturant) {
+			if(piatto.getNome().equals(nomeInput)) {
+				return piatto.getIdElemento();
+			}
+		}
+		return null;
+	}
+
+	private boolean isSelectedSomethingInMainCombobox() {
+		return !(comboboxInput.getSelectionModel().getSelectedItem() == null && !comboboxInput.isDisabled());
 	}
 	
 	public void primaCategoriaScelta() throws Exception {
 		ComboBox<String> comboBox = new ComboBox<String>();
 		String categoriaScelta = comboboxInput.getSelectionModel().getSelectedItem();	
-		removeFromListCategoria(categoriaScelta, categorie);
-		comboboxInput.getItems().clear();
+		
 		if(categoriaScelta == null) {
-			errorLabel.setText("Errore");
+			comboboxInput.getSelectionModel().select(0);
+			categoriaScelta = comboboxInput.getSelectionModel().getSelectedItem();
+			System.out.println(categoriaScelta);
+			generateInputStructureForSortOfMenu(comboBox, categoriaScelta); 
 		} else {
-			Label categoria = new Label(categoriaScelta + " "  + categoriaCounter);
-			categoriaCounter ++;
-			categoria.setStyle("-fx-text-fill: #003F91");
-			vBoxLayout2.getChildren().add(categoria);
-			piatti = fillPiattiOfCategoria(categoriaScelta);
-			VBox vBox = new VBox();
-			panelLayout.setCenter(vBox);
-			generatePiattoChooseCombobox(comboBox, vBox); 
+			generateInputStructureForSortOfMenu(comboBox, categoriaScelta); 
 		}
 		
+	}
+
+	private void generateInputStructureForSortOfMenu(ComboBox<String> comboBox, String categoriaScelta) throws Exception {
+		removeFromListCategoria(categoriaScelta, categorieForUI);
+		Label categoria = new Label(categoriaScelta);
+		categoria.setStyle("-fx-text-fill: #003F91");
+		VBox categoriaVBox = new VBox();
+		categoriaVBox.getChildren().add(categoria);
+		categorieVBoxs.add(categoriaVBox);
+		vBoxLayout2.getChildren().add(indexOfCategoria + 2, categoriaVBox);
+		piatti = fillPiattiOfCategoria(categoriaScelta);
+		VBox vBox = new VBox();
+		panelLayout.setCenter(vBox);
+		generatePiattoChooseCombobox(comboBox, vBox, categoriaVBox);
+	}
+	
+	private VBox findVBoxContainsCategoria(String nomeCategoria) {
+		for(VBox v : categorieVBoxs) {
+			if(!v.getChildren().isEmpty()) {
+				Label nomeCategoriaLabel = (Label) v.getChildren().get(0);
+				if(nomeCategoriaLabel.getText().toString().contains(nomeCategoria)) {
+					return v;
+				}	
+			}
+		}
+		return null;
 	}
 
 	private void fillComboBoxWithListPiatti(ComboBox<String> comboBox) {
@@ -124,14 +312,14 @@ public class OrdinaMenuController {
 		}
 	}
 	
-	private void fillComboBoxWithListCategorie(ComboBox<String> comboBox) {
-		for (CategoriaMenu categoriaMenu : categorie) {
+	private void fillComboBoxWithListCategorie(ComboBox<String> comboBox, List<CategoriaMenu> listCategoria) {
+		for (CategoriaMenu categoriaMenu : listCategoria) {
 			comboBox.getItems().add(categoriaMenu.getNome());
 		}
 	}
 	
 
-	private void generatePiattoChooseCombobox(ComboBox<String> comboBox, VBox vBoxLayout) {
+	private void generatePiattoChooseCombobox(ComboBox<String> comboBox, VBox vBoxLayout, VBox categoriaVBox) {
 		if(piatti.size() != 0) {
 			fillComboBoxWithListPiatti(comboBox);
 			vBoxLayout.getChildren().add(comboBox);
@@ -143,8 +331,8 @@ public class OrdinaMenuController {
 					errorLabel.setText("Errore");
 				}else {
 					Label piatto = new Label(piattoScelto);
-					vBoxLayout2.getChildren().add(piatto);
-					generatePiattoChooseCombobox(new ComboBox<String>(), vBoxLayout);
+					categoriaVBox.getChildren().add(piatto);
+					generatePiattoChooseCombobox(new ComboBox<String>(), vBoxLayout, categoriaVBox);
 				}
 			});
 		}else {
@@ -165,6 +353,7 @@ public class OrdinaMenuController {
 		for (Iterator iterator = categorie.iterator(); iterator.hasNext();) {
 			CategoriaMenu categoria = (CategoriaMenu) iterator.next();
 			if(categoria.getNome() == categoriaScelta) {
+				queueCategoria.add(categoria);
 				iterator.remove();
 			}
 		}
@@ -176,3 +365,5 @@ public class OrdinaMenuController {
 	}
 	
 }
+
+

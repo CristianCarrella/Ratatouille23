@@ -8,23 +8,26 @@ import application.controller.MenuController;
 public class CategoriaMenu extends Observable{
 	
 	private int idCategoria, idRistorante;
+	private Integer posizione;
 	private String nome;
 	
 	public CategoriaMenu() {}
 	
-	public CategoriaMenu(MenuController menuController, int idCategoria, int idRistorante, String nome){
+	public CategoriaMenu(MenuController menuController, int idCategoria, int idRistorante, String nome,  Integer posizione){
 		this.nome = nome;
 		this.idCategoria = idCategoria;
 		this.idRistorante = idRistorante;
+		this.posizione = posizione;
 		addObserver(menuController);
 		setChanged();
 		notifyObservers();
 	}
 	
-	public CategoriaMenu(int idCategoria, int idRistorante, String nome){
+	public CategoriaMenu(int idCategoria, int idRistorante, String nome, Integer posizione){
 		this.nome = nome;
 		this.idCategoria = idCategoria;
 		this.idRistorante = idRistorante;
+		this.posizione = posizione;
 	}
 	
 	public int getIdCategoria() {
@@ -39,5 +42,8 @@ public class CategoriaMenu extends Observable{
 		return nome;
 	}
 	
+	public Integer getPosizione() {
+		return posizione;
+	}
 	
 }

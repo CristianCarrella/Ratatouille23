@@ -180,14 +180,27 @@ public class Controller {
 	public ArrayList<Menu> getMenuPlateByCategory(@RequestParam(required = true) Integer id_ristorante, String categoria){
 		return menuDao.getMenuCategories(id_ristorante, categoria);
 	}
-	
+
+	@PostMapping("/menu/piatto-update-posizione")
+	public boolean updatePosizionePiatto(@RequestParam(required = true) Integer id_piatto, Integer posizione){
+		return menuDao.updatePosizionePiatto(id_piatto, posizione);
+	}
+
+	@PostMapping("/menu/delete-ordine-menu-precedente")
+	public boolean deleteSortingMenu(@RequestParam(required = true) Integer id_ristorante){
+		return menuDao.deleteSortingMenu(id_ristorante) && categoriaMenuDao.deleteSortingMenu(id_ristorante);
+	}
+
+	@PostMapping("/categoria-update-posizione")
+	public boolean updatePosizioneCategoria(@RequestParam(required = true) Integer id_categoria, Integer posizione){
+		return categoriaMenuDao.updatePosizioneCategoria(id_categoria, posizione);
+	}
 	
 	@GetMapping("/menu/ristorante/piatto")
 	public ArrayList<Menu> getMenuPlateFromRestaurant(@RequestParam(required = true) Integer id_ristorante, String nomePiatto){
 		return menuDao.getMenuPlateInRestaurant(id_ristorante, nomePiatto);
 	}
-	
-	
+
 	@GetMapping("/menu/piatto")
 	public ArrayList<Menu> getMenuPlateByName(@RequestParam(required = true) String nomePiatto){
 		return menuDao.getMenuPlate(nomePiatto);

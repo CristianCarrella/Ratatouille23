@@ -3,10 +3,10 @@ package com.ingsw.ratatouille;
 public class Menu {
 	
 	private String nome, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua;
-	private int idElemento, idRistorante, idCategoria;
+	private int idElemento, idRistorante, idCategoria, posizione;
 	private float prezzo;
 
-	public Menu(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+	public Menu(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, Integer posizione) {
 		this.idElemento = idElemento;
 		this.idRistorante = idRistorante;
 		this.idCategoria = idCategoria;
@@ -16,6 +16,7 @@ public class Menu {
 		this.allergeni = allergeni;
 		this.nomeSecondaLingua = nomeSecondaLingua;
 		this.descrizioneSecondaLingua = descrizioneSecondaLingua;
+		this.posizione = posizione;
 	}
 
 	public String getNome() {
@@ -54,5 +55,6 @@ public class Menu {
 		return prezzo;
 	}
 
+	public int getPosizione(){return posizione;}
 	
 }

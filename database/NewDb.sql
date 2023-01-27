@@ -74,6 +74,7 @@ CREATE TABLE categorie_menu(
 	id_categoria SERIAL PRIMARY KEY,
 	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
+	posizione_categoria INTEGER,
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)
 );
 
@@ -87,6 +88,8 @@ CREATE TABLE elementi_menu(
 	allergeni VARCHAR(200) NOT NULL,
 	nome_seconda_lingua VARCHAR(100),
 	descrizione_seconda_lingua VARCHAR(1000),
+	posizione_elemento INTEGER,
+	UNIQUE(posizione_elemento, id_categoria),
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante),
 	FOREIGN KEY(id_categoria) REFERENCES categorie_menu(id_categoria)
 );

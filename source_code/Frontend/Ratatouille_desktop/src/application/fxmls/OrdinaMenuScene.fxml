@@ -36,11 +36,13 @@
                <children>
                   <Button fx:id="categoriaPrecedenteBtn" mnemonicParsing="false" text="Categoria precedente" />
                   <Button fx:id="categoriaSuccessivaBtn" mnemonicParsing="false" text="Categoria successiva" />
+                  <Button fx:id="resetBtn" mnemonicParsing="false" styleClass="buttonRounded1" text="Reset categoria" />
+                  <Button fx:id="applica" mnemonicParsing="false" text="Applica" />
                </children>
             </HBox>
          </bottom>
          <center>
-            <HBox spacing="100.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="hBoxLayout1" spacing="100.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox fx:id="vBoxLayout" alignment="TOP_CENTER" prefHeight="468.0" prefWidth="234.0" spacing="5.0">
                      <children>
@@ -53,7 +55,7 @@
                   <VBox fx:id="vBoxLayout2" prefHeight="468.0" prefWidth="240.0">
                      <children>
                         <Label />
-                        <Label text="MENU" />
+                        <Label prefHeight="17.0" prefWidth="190.0" text="MENU" />
                      </children>
                   </VBox>
                </children>

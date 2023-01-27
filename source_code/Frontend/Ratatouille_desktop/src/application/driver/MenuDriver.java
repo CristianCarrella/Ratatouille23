@@ -70,7 +70,7 @@ public class MenuDriver {
 					nomeSecondaLingua = jsonObject.getString("nomeSecondaLingua");
 					
 				if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
-					Piatto a = new Piatto(menuController, jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua);
+					Piatto a = new Piatto(menuController, jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua, jsonObject.getInt("posizione"));
 					System.out.print(a.getIdElemento());
 				}
 			}
@@ -93,7 +93,7 @@ public class MenuDriver {
 			for(int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				if(jsonObject.has("idCategoria") && jsonObject.has("idRistorante")) {
-					CategoriaMenu a = new CategoriaMenu(menuController, jsonObject.getInt("idCategoria"), jsonObject.getInt("idRistorante"), jsonObject.getString("nome"));
+					CategoriaMenu a = new CategoriaMenu(menuController, jsonObject.getInt("idCategoria"), jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getInt("posizione"));
 					categorieRistorante.add(a);
 				}
 			}
@@ -117,7 +117,7 @@ public class MenuDriver {
 			for(int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				if(jsonObject.has("idCategoria") && jsonObject.has("idRistorante")) {
-					CategoriaMenu a = new CategoriaMenu(jsonObject.getInt("idCategoria"), jsonObject.getInt("idRistorante"), jsonObject.getString("nome"));
+					CategoriaMenu a = new CategoriaMenu(jsonObject.getInt("idCategoria"), jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getInt("posizione"));
 					categorie.add(a);
 				}
 			}
@@ -152,7 +152,7 @@ public class MenuDriver {
 					nomeSecondaLingua = jsonObject.getString("nomeSecondaLingua");
 					
 				if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
-					Piatto piatto = new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua);
+					Piatto piatto = new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua, jsonObject.getInt("posizione"));
 					piatti.add(piatto);
 				}
 			}
@@ -164,10 +164,11 @@ public class MenuDriver {
 		return null;
 	}
 
-	private void runGetMenu(Integer idRistorante, MenuController menuController) throws Exception {
+	public ArrayList<Piatto> getAllPiattiOfMenu() throws Exception {
+		ArrayList<Piatto> piatti = new ArrayList<>();
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu?id_ristorante=" + idRistorante);
+			HttpGet httpget = new HttpGet("http://localhost:8080/menu?id_ristorante=" + loggedUser.getIdRistorante());
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -186,14 +187,16 @@ public class MenuDriver {
 					nomeSecondaLingua = jsonObject.getString("nomeSecondaLingua");
 					
 				if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
-					Piatto a = new Piatto(menuController, jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua);
-					System.out.print(a.getIdElemento());
+					Piatto a = new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua, jsonObject.getInt("posizione"));
+					piatti.add(a);
 				}
 			}
+			return piatti;
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 		}
+		return null;
 	}
 	
 	public boolean requestDeletePiatto(MenuController menuController, Integer idPiatto) {
@@ -263,7 +266,7 @@ public class MenuDriver {
 					nomeSecondaLingua = jsonObject.getString("nomeSecondaLingua");
 					
 				if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
-					Piatto a = new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua);
+					Piatto a = new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua, jsonObject.getInt("posizione"));
 					result.add(a);
 				}
 			}
@@ -275,5 +278,111 @@ public class MenuDriver {
 		}
 		return null;
 	}
+
+	public boolean requestUpdatePositionCategoria(Integer idCategoria, Integer posizione) {
+		try {
+			return runUpdatePositionCategoria(idCategoria, posizione);
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	private boolean runUpdatePositionCategoria(Integer idCategoria, Integer posizione) throws Exception{
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/categoria-update-posizione");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("id_categoria", idCategoria.toString()));
+			params.add(new BasicNameValuePair("posizione", posizione.toString()));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return false;
+	}
+
+	public boolean requestUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) {
+		try {
+			return runUpdatePositionInMenuPiatto(idPiatto, posizione);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean runUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) throws Exception{
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/menu/piatto-update-posizione");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("id_piatto", idPiatto.toString()));
+			params.add(new BasicNameValuePair("posizione", posizione.toString()));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return false;
+	}
+	
+	public boolean requestDeleteMenuSorting() {
+		try {
+			return runDeleteMenuSorting(loggedUser.getIdRistorante());
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean runDeleteMenuSorting(Integer idRistorante) throws Exception{
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/menu/delete-ordine-menu-precedente");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("id_ristorante", idRistorante.toString()));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.print(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return false;
+	}
+
 	
 }

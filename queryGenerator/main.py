@@ -913,7 +913,7 @@ def generateCategoria():
     for a in attivita:
         for c in categorie:
             #print(str(i), a.getIdAttivita(), categorie[i % 4])
-            query = "INSERT INTO categorie_menu(id_categoria, id_ristorante, nome) VALUES (default, " + str(a.getIdAttivita()) + ", " + apici + categorie[i % 4] + apici + ");\n"
+            query = "INSERT INTO categorie_menu(id_categoria, id_ristorante, nome, posizione_categoria) VALUES (default, " + str(a.getIdAttivita()) + ", " + apici + categorie[i % 4] + apici + ", NULL);\n"
             print(query)
             f.write(query)
             c = Categoria(i, a.getIdAttivita(), categorie[i % 4])
@@ -1003,7 +1003,7 @@ def generatePiatto2():
                     id_categoria = getRandomIdOfCategoryOfPiatto("secondi")
 
                 #print(nome + " descrizione " + str(costo) + " " + allergeni + " " + str(id_categoria) + " " + str(fromIdCategoriaToIdRistorante(id_categoria)))
-                query = "INSERT INTO elementi_menu(id_elementi, id_ristorante, id_categoria, nome, prezzo, descrizione, allergeni, nome_seconda_lingua, descrizione_seconda_lingua) VALUES (default, " + str(fromIdCategoriaToIdRistorante(id_categoria)) + ", " + str(id_categoria) + ", " + apici + nome + apici + ", " + str(costo) + ", " + apici + descrizione + apici + ", " + apici +  allergeni + apici + ", NULL, NULL);\n"
+                query = "INSERT INTO elementi_menu(id_elemento, id_ristorante, id_categoria, nome, prezzo, descrizione, allergeni, nome_seconda_lingua, descrizione_seconda_lingua, posizione_elemento) VALUES (default, " + str(fromIdCategoriaToIdRistorante(id_categoria)) + ", " + str(id_categoria) + ", " + apici + nome + apici + ", " + str(costo) + ", " + apici + descrizione + apici + ", " + apici +  allergeni + apici + ", NULL, NULL, NULL);\n"
                 print(query)
                 f.write(query)
             i += 1
@@ -1058,15 +1058,19 @@ class Menu:
 
 
 def main():
-
-
+    f.write("ALTER SEQUENCE utente_id_utente_seq RESTART WITH 1;")
     generateUser()
+    f.write("ALTER SEQUENCE ristorante_id_ristorante_seq RESTART WITH 1;")
     generateAttivita()
+    f.write("ALTER SEQUENCE avviso_id_avviso_seq RESTART WITH 1;")
     generateAvviso()
     generaCronologiaMessaggi(1)
     generaCronologiaMessaggi(2)
+    f.write("ALTER SEQUENCE categorie_menu_id_categoria_seq RESTART WITH 1;")
     generateCategoria()
+    f.write("ALTER SEQUENCE elementi_menu_id_elemento_seq RESTART WITH 1;")
     generatePiatto2()
+    f.write("ALTER SEQUENCE elementi_menu_id_elemento_seq RESTART WITH 1;")
     generateProdotto()
     f.close()
 

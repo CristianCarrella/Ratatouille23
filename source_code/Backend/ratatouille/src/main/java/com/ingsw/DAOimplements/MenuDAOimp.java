@@ -26,7 +26,7 @@ public class MenuDAOimp implements MenuDAOint {
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
+				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
 				menu.add(menuTmp);
 			}
 			return menu;
@@ -44,7 +44,7 @@ public class MenuDAOimp implements MenuDAOint {
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
+				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
 				menu.add(menuTmp);
 			}
 			return menu;
@@ -63,7 +63,7 @@ public class MenuDAOimp implements MenuDAOint {
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
+				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
 				menu.add(menuTmp);
 			}
 			return menu;
@@ -82,7 +82,7 @@ public class MenuDAOimp implements MenuDAOint {
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
+				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
 				menu.add(menuTmp);
 			}
 			return menu;
@@ -101,7 +101,7 @@ public class MenuDAOimp implements MenuDAOint {
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"));
+				Menu menuTmp = new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
 				menu.add(menuTmp);
 			}
 			return menu;
@@ -114,10 +114,9 @@ public class MenuDAOimp implements MenuDAOint {
 
 	
 	public int getIdFromCategoryName(String categoria) {
-		String query = null;
+		String query = "SELECT id_categoria FROM categorie_menu WHERE nome LIKE '%" + categoria + "%'";;
 		int idCategoria = 0;
-		
-		query = "SELECT id_categoria FROM categorie_menu WHERE nome LIKE '%" + categoria + "%'";
+
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
@@ -161,6 +160,30 @@ public class MenuDAOimp implements MenuDAOint {
 	@Override
 	public boolean deletePlate(Integer idPiatto) {
 		String query = "DELETE FROM elementi_menu WHERE id_elemento = " + idPiatto;
+		try {
+			db.getStatement().executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updatePosizionePiatto(Integer idPiatto, Integer posizione) {
+		String query = "UPDATE elementi_menu SET posizione_elemento = " + posizione + " WHERE id_elemento = " + idPiatto;
+		try {
+			db.getStatement().executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteSortingMenu(Integer idRistorante) {
+		String query = "UPDATE elementi_menu SET posizione_elemento = NULL WHERE id_ristorante = " + idRistorante;
 		try {
 			db.getStatement().executeUpdate(query);
 			return true;

@@ -10,10 +10,11 @@ public class Piatto extends Observable{
 
 	private String nome, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua;
 	private int idElemento, idRistorante, idCategoria;
+	Integer posizione;
 	private float prezzo;
 	MenuController menuController;
 	
-	public Piatto(MenuController menuController, int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+	public Piatto(MenuController menuController, int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, Integer posizione) {
 		this.idElemento = idElemento;
 		this.idRistorante = idRistorante;
 		this.idCategoria = idCategoria;
@@ -23,12 +24,13 @@ public class Piatto extends Observable{
 		this.allergeni = allergeni;
 		this.nomeSecondaLingua = nomeSecondaLingua;
 		this.descrizioneSecondaLingua = descrizioneSecondaLingua;
+		this.posizione = posizione;
 		addObserver(menuController);
 		setChanged();
 		notifyObservers();
 	}
 	
-	public Piatto(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+	public Piatto(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, Integer posizione) {
 		this.idElemento = idElemento;
 		this.idRistorante = idRistorante;
 		this.idCategoria = idCategoria;
@@ -38,6 +40,7 @@ public class Piatto extends Observable{
 		this.allergeni = allergeni;
 		this.nomeSecondaLingua = nomeSecondaLingua;
 		this.descrizioneSecondaLingua = descrizioneSecondaLingua;
+		this.posizione = posizione;
 	}
 
 	public String getNome() {
@@ -74,6 +77,10 @@ public class Piatto extends Observable{
 
 	public float getPrezzo() {
 		return prezzo;
+	}
+	
+	public Integer getPosizione() {
+		return posizione;
 	}
 
 }

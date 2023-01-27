@@ -17,4 +17,8 @@ public interface MenuDAOint {
 	public Menu addSecondLanguage(Integer idRistorante, int idProdotto, String nomeSecondaLingua, String descrizoineSecondaLingua);
 
 	public boolean deletePlate(Integer idPiatto);
+
+	public boolean updatePosizionePiatto(Integer idPiatto, Integer posizione);
+
+	public boolean deleteSortingMenu(Integer idRistorante);
 }
