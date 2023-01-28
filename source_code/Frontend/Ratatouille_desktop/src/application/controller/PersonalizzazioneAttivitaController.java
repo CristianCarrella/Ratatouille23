@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -81,8 +82,17 @@ public class PersonalizzazioneAttivitaController {
 		
 		if (selectedFile != null) {
 			fileName = selectedFile.getName();
+			System.out.println("cosedavedere" + selectedFile.toURI().toString());
+	        File file = new File(selectedFile.toURI().toString().replace("file:/", ""));
 	        Image image = new Image(selectedFile.toURI().toString());
 	        logoInputView.setImage(image);
+	        
+			try {
+				businessDriver.runSetLogo(file, fileName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 	    }
 	}
 	
