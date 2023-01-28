@@ -307,7 +307,7 @@ public class MenuController implements Observer{
 			nomeCategoriaLabel.setAlignment(Pos.CENTER);
 			nomeCategoriaLabel.setMaxWidth(Double.MAX_VALUE);
 			nomeCategoriaLabel.setTextAlignment(TextAlignment.CENTER);
-			nomeCategoriaLabel.setPrefWidth(100);
+			nomeCategoriaLabel.setPrefWidth(200);
 			String path = "src/application/img/down_arrow.png";
 			String path2 = "src/application/img/right_arrow.png";
 			InputStream iStream = null;

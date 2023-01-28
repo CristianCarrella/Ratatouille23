@@ -115,7 +115,8 @@ public class MenuDAOimp implements MenuDAOint {
 	
 	public int getCategoryIdOfResturantFromCategoryName(Integer idRistorante, String categoria) {
 		String query = "SELECT id_categoria FROM categorie_menu WHERE nome = '" + categoria + "' AND id_ristorante = " + idRistorante;
-
+		System.out.println();
+		System.out.println(query);
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
@@ -127,14 +128,30 @@ public class MenuDAOimp implements MenuDAOint {
 		
 		return 0;
 	}
-	
+	@Override
+	public boolean createCategoria(Integer idRistorante, String nomeNuovaCategoria) {
+		String query = "INSERT INTO categorie_menu(id_categoria, id_ristorante, nome, posizione_categoria) VALUES (default, " + idRistorante + ", '" + nomeNuovaCategoria + "', NULL)";
+		System.out.println(query);
+		try {
+			db.getStatement().executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	public boolean createPlate(Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
 		String query = null;
 		int idCategoria = 0;
 		
 		idCategoria = getCategoryIdOfResturantFromCategoryName(idRistorante, categoria);
+		if(idCategoria == 0){
+			createCategoria(idRistorante, categoria);
+			idCategoria = getCategoryIdOfResturantFromCategoryName(idRistorante, categoria);
+		}
 		query = "INSERT INTO elementi_menu (id_elemento, id_ristorante,	id_categoria, nome, prezzo, descrizione, allergeni, nome_seconda_lingua, descrizione_seconda_lingua, posizione_elemento ) VALUES (default, " + idRistorante + ", " + idCategoria + ",'" + nome + "', " + prezzo + ", '" + descrizione + "', '" + allergeni + "', '" + nomeSecondaLingua + "', '" + descrizioneSecondaLingua + "', NULL)";
+		System.out.println(query);
 		try {
 			db.getStatement().executeUpdate(query);
 			return true;

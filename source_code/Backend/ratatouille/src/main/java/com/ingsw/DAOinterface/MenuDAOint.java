@@ -13,6 +13,7 @@ public interface MenuDAOint {
 	public ArrayList<Menu> getMenuPlateInRestaurant(Integer id_ristorante, String nomePiatto);
 	public ArrayList<Menu> getMenuPlate(String nomePiatto);
 	public boolean createPlate(Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua);
+	public boolean createCategoria(Integer idRistorante, String nomeNuovaCategoria);
 	public int getCategoryIdOfResturantFromCategoryName(Integer idRistorante, String categoria);
 	public Menu addSecondLanguage(Integer idRistorante, int idProdotto, String nomeSecondaLingua, String descrizoineSecondaLingua);
 

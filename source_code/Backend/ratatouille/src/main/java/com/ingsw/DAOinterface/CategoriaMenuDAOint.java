@@ -13,4 +13,6 @@ public interface CategoriaMenuDAOint {
     public boolean updatePosizioneCategoria(Integer idCategoria, Integer posizione);
 
     public boolean deleteSortingMenu(Integer idRistorante);
+
+    public boolean createCategoria(Integer idRistorante, String nomeNuovaCategoria);
 }

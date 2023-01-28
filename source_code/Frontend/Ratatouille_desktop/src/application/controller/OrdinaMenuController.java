@@ -146,7 +146,6 @@ public class OrdinaMenuController {
 			resetBtn.setDisable(false);
 			errorLabel.setText("");
 			if(isSelectedSomethingInMainCombobox()) {
-				System.out.println("Index: " + indexOfCategoria + " pagesDisc: " + pagesDiscovered + " backPressed: " + backPressed);
 				
 				if(!savedStateLeft.contains((VBox)panelLayout.getCenter()))
 					savedStateLeft.add((VBox)panelLayout.getCenter());
@@ -185,7 +184,6 @@ public class OrdinaMenuController {
 		
 		categoriaPrecedenteBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
 			if(isSelectedSomethingInMainCombobox()){
-				System.out.println("Index: " + indexOfCategoria);
 				if(resetPressed) {
 					resetPressed = false;
 					queueCategoria.remove((int)indexOfCategoria);

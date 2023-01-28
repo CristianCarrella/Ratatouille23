@@ -23,11 +23,13 @@ import application.controller.MenuController;
 import application.model.CategoriaMenu;
 import application.model.Piatto;
 import application.model.Utente;
+import javafx.scene.control.TextField;
 
 public class MenuDriver {
 	private Utente loggedUser = LoginController.loggedUser;
 	private ArrayList<CategoriaMenu> categorieRistorante = new ArrayList<CategoriaMenu>();
 	public MenuDriver() { }
+	
 	
 	public void requestMenuFromServer(MenuController menuController) {
 		try {
@@ -51,7 +53,7 @@ public class MenuDriver {
 	public void runGetPiattiFromCategorie(Integer idRistorante, MenuController menuController, String categoria) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + idRistorante + "&&categoria=" + categoria);
+			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + idRistorante + "&&categoria=" + URLEncoder.encode(categoria,"UTF-8"));
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -133,7 +135,7 @@ public class MenuDriver {
 		ArrayList<Piatto> piatti = new ArrayList<Piatto>();
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + loggedUser.getIdRistorante() + "&&categoria=" + categoria);
+			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + loggedUser.getIdRistorante() + "&&categoria=" + URLEncoder.encode(categoria, "UTF-8"));
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -504,6 +506,94 @@ public class MenuDriver {
 
 		}
 		return false;
+	}
+
+	public boolean creaCategoria(String nomeCategoriaNuova) {
+		try {
+			return runcreaCategoria(nomeCategoriaNuova, loggedUser.getIdRistorante());
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	private boolean runcreaCategoria(String nomeCategoriaNuova, Integer idRistorante) throws Exception{
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newCategoria");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("nomeNuovaCategoria", nomeCategoriaNuova));
+			params.add(new BasicNameValuePair("idRistorante", idRistorante.toString()));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.println(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return false;
+	}
+
+	public JSONObject autocompletamentoProdotto(String nomeProdotto, Integer resultIndex) {
+		String nome = nomeProdotto, categoria = null, descrizione = null, allergeni = null;
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet("https://it.openfoodfacts.org/cgi/search.pl?search_terms=" + nomeProdotto + "&&json=true");
+			httpget.setHeader("Authorization", loggedUser.getToken());
+			
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			JSONObject jsonObject1 = new JSONObject(json);
+			JSONArray nestedJsonA = jsonObject1.getJSONArray("products");
+			JSONObject jsonObject = nestedJsonA.getJSONObject(resultIndex);
+			JSONObject result = new JSONObject();
+			
+			categoria = jsonObject.getString("categories");
+			categoria = categoria.substring(0, 28);
+			categoria = categoria.replaceAll("'", "");
+			categoria = categoria.replaceAll("-", "");
+			categoria = categoria.replaceAll(",", "");
+			if (jsonObject.has("generic_name_it")) {
+                nome = jsonObject.getString("generic_name_it");
+                if (nome.equals(""))
+                    nome = nomeProdotto;
+                nome = nome.replaceAll("'", "");
+            }
+			
+			if(jsonObject.has("quantity") && jsonObject.has("brands") && jsonObject.has("countries") && jsonObject.has("packaging")) {
+                descrizione = "Quantità: " + jsonObject.getString("quantity") + "\nBrands: " + jsonObject.getString("brands") + "\nPaesi di produzione: " + jsonObject.getString("countries") + "\nConfezionamento: " + jsonObject.getString("packaging");
+                descrizione = descrizione.replaceAll("'", " ");
+            }else{
+                descrizione = "Non trovata";
+            }
+			
+			if(jsonObject.has("allergens")) {
+				allergeni = jsonObject.getString("allergens");
+			}
+			
+			result.put("categoria", categoria);
+			result.put("nome", nome);
+			result.put("descrizione", descrizione);
+			result.put("allergeni", allergeni);
+			
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return null;
 	}
 
 }

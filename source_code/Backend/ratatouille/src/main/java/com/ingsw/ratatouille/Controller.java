@@ -210,8 +210,12 @@ public class Controller {
 	public ArrayList<Menu> getMenuPlateByName(@RequestParam(required = true) String nomePiatto){
 		return menuDao.getMenuPlate(nomePiatto);
 	}
-	
-	
+
+	@PostMapping("/menu/newCategoria")
+	public boolean createCategoria(@RequestParam(required = true) String nomeNuovaCategoria, Integer idRistorante){
+		return categoriaMenuDao.createCategoria(idRistorante, nomeNuovaCategoria);
+	}
+
 	@PostMapping("/menu/newPlate")
     public boolean createPlate(@RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
 		return menuDao.createPlate(idRistorante, categoria, nome, prezzo, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua);

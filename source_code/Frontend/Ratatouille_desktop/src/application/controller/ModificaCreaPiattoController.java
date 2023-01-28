@@ -5,19 +5,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import application.driver.MenuDriver;
 import application.model.CategoriaMenu;
 import application.model.Piatto;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -25,13 +31,15 @@ public class ModificaCreaPiattoController {
 	@FXML
 	TextArea descrizioneInput, descrizioneSecondaLinguaInput;
 	@FXML
-	TextField nomePiattoInput, costoInput, allergeniInput, secondaLinguaInput, nomeSecondaLinguaInput, allergeniSecondaLinguaInput;
+	TextField nomePiattoInput, nomePiattoAuto, costoInput, allergeniInput, secondaLinguaInput, nomeSecondaLinguaInput, allergeniSecondaLinguaInput;
 	@FXML
 	ComboBox<String> categoriaInput;
 	@FXML
 	Label errorLabel;
 	@FXML
-	Button btnSalvaCambiamenti;
+	Button btnSalvaCambiamenti, autocompletamentoBtn;
+	
+	private Integer resultIndex = 0;
 	
 	Integer idPiatto = null;
 	ArrayList<CategoriaMenu> categorie = new ArrayList<CategoriaMenu>();
@@ -40,6 +48,7 @@ public class ModificaCreaPiattoController {
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
+	String nomeCategoriaNuova;
 	
 	
 	private MenuDriver menuDriver = new MenuDriver();
@@ -55,10 +64,39 @@ public class ModificaCreaPiattoController {
 
 	@FXML
 	public void initialize() {
+
 		categorie = menuDriver.getCategorieRistoranteLoggedUserWihoutChangeUI();
 		fillComboBoxWithListCategorie(categoriaInput, categorie);
 		categoriaInput.getSelectionModel().select(0);
+		
+		categoriaInput.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+			if(newValue == "Nuova Categoria") {
+				stage = (Stage) (errorLabel.getScene().getWindow());
+		        TilePane pane = new TilePane();
+		        TextInputDialog td = new TextInputDialog("Nome categoria");
+		        td.setHeaderText("Nuova Categoria");
+		        Button okButton = (Button) td.getDialogPane().lookupButton(ButtonType.OK);
+		        Button annullaButton = (Button) td.getDialogPane().lookupButton(ButtonType.CANCEL);
+		        TextField nomeCategoriaNuovaInput = (TextField) td.getEditor();
+		        
+		        okButton.addEventFilter(ActionEvent.ACTION, MouseEvent -> {
+		        	nomeCategoriaNuova = nomeCategoriaNuovaInput.getText();
+		        	menuDriver.creaCategoria(nomeCategoriaNuova);
+		        	categoriaInput.getItems().add(nomeCategoriaNuova);
+		        	categoriaInput.getSelectionModel().select(nomeCategoriaNuova);
+		        });
+		        
+		        annullaButton.addEventFilter(ActionEvent.ACTION, MouseEvent -> {
+		        	categoriaInput.getSelectionModel().select(0);
+		        });
+		        td.show();
+		        
+			}
+		}); 
+		
 		if(piattoIsUnderModification()) {
+			nascondiAutocompletamentoField();
+			
 			Piatto piatto = menuDriver.getPiattoInfoFromServer(idPiatto);
 			
 			if(piatto != null) {
@@ -74,11 +112,35 @@ public class ModificaCreaPiattoController {
 				
 				categoriaInput.getSelectionModel().select(findCategoriaOfPiatto(piatto.getIdCategoria()).getNome());
 			}
+		} else {
+			autocompletamentoBtn.addEventFilter(ActionEvent.ACTION, MouseEvent -> {
+				JSONObject result = menuDriver.autocompletamentoProdotto(nomePiattoAuto.getText(), resultIndex);
+				if(result != null) {
+					nomePiattoInput.setText(result.getString("nome"));
+					allergeniInput.setText(result.getString("allergeni"));
+					descrizioneInput.setText(result.getString("descrizione"));
+					categoriaInput.getSelectionModel().select(result.getString("categoria"));
+					descrizioneInput.setWrapText(true);
+					autocompletamentoBtn.setText("Non sono soddisfatto del risultato");
+					autocompletamentoBtn.setStyle("-fx-background-color: #ffa500;");
+				}
+				resultIndex++;
+			});
+			
+			
 		}
 		
 		btnSalvaCambiamenti.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
 			salvaPiatto();
 		});
+		
+	}
+
+	private void nascondiAutocompletamentoField() {
+		autocompletamentoBtn.setMaxHeight(0);
+		autocompletamentoBtn.setVisible(false);
+		nomePiattoAuto.setMaxHeight(0);
+		nomePiattoAuto.setVisible(false);
 	}
 	
 	public void backToMenu() throws IOException {
@@ -93,6 +155,7 @@ public class ModificaCreaPiattoController {
 		for (CategoriaMenu categoriaMenu : listCategoria) {
 			comboBox.getItems().add(categoriaMenu.getNome());
 		}
+		comboBox.getItems().add("Nuova Categoria");
 	}
 
 	private CategoriaMenu findCategoriaOfPiatto(Integer idCategoria) {
@@ -118,6 +181,7 @@ public class ModificaCreaPiattoController {
 		String nomeSecondaLingua = nomeSecondaLinguaInput.getText();
 		String descrizioneSecondaLingua = descrizioneSecondaLinguaInput.getText();
 		String categoriaScelta = categoriaInput.getSelectionModel().getSelectedItem().toString();
+		
 		if (!(nomePiatto.isBlank() || costo.isBlank() || descrizione.isBlank())) {
 			if(piattoIsUnderModification()) {
 				if(menuDriver.modificaPiatto(nomePiatto, descrizione, costo, allergeni, nomeSecondaLingua, descrizioneSecondaLingua, categoriaScelta, idPiatto)) {
