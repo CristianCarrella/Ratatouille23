@@ -1,5 +1,6 @@
 package com.ingsw.ratatouille;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -297,13 +298,18 @@ public class Controller {
 	}
 	
 	@PostMapping("/business/image")
-	public void saveBusinessImage(@RequestParam("image") MultipartFile image, String fileName){
+	public void saveBusinessImage(@RequestParam(required = true) MultipartFile image, String fileName){
 		try {
 			businessDao.saveBusinessImage(loggedUser, image, fileName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@GetMapping("/business/getImage")
+	public Image getBusinessImage(){
+		return businessDao.getBusinessImage(loggedUser);
 	}
 	
 }
