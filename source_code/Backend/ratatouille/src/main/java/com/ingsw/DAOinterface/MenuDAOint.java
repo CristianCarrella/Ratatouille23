@@ -12,8 +12,8 @@ public interface MenuDAOint {
 	public ArrayList<Menu> getMenuCategories(Integer idRistorante, String categoria);
 	public ArrayList<Menu> getMenuPlateInRestaurant(Integer id_ristorante, String nomePiatto);
 	public ArrayList<Menu> getMenuPlate(String nomePiatto);
-	public Menu createPlate(Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni);
-	public int getIdFromCategoryName(String categoria);
+	public boolean createPlate(Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua);
+	public int getCategoryIdOfResturantFromCategoryName(Integer idRistorante, String categoria);
 	public Menu addSecondLanguage(Integer idRistorante, int idProdotto, String nomeSecondaLingua, String descrizoineSecondaLingua);
 
 	public boolean deletePlate(Integer idPiatto);
@@ -21,4 +21,8 @@ public interface MenuDAOint {
 	public boolean updatePosizionePiatto(Integer idPiatto, Integer posizione);
 
 	public boolean deleteSortingMenu(Integer idRistorante);
+
+	public Menu getPiattoById(Integer idPiatto);
+
+	boolean updatePlate(Integer idPiatto, Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua);
 }

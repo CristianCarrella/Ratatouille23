@@ -2,5 +2,8 @@ To Do list:
 - In android : Notifiche android notizie
 - In android : Prima password visibile
 - In backend : singleton per dbconnection
-- In desktop : A che serve pulsante ordina su menu desktop?
 - In database : aggiungere unique constraint nel nome della categoria
+- In desktop : aggiungere affordance sui pulsanti di cancellazione messaggio avviso
+- In desktop : fare creazione nuova categoria
+- Ovunque : aggiungere campo seconda lingua(?)
+- Ovunque : controllare gli input

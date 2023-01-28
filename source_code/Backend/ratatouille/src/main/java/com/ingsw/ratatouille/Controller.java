@@ -201,6 +201,11 @@ public class Controller {
 		return menuDao.getMenuPlateInRestaurant(id_ristorante, nomePiatto);
 	}
 
+	@GetMapping("/menu/ristorante/piatto/{id_piatto}")
+	public Menu getPlateById(@PathVariable Integer id_piatto){
+		return menuDao.getPiattoById(id_piatto);
+	}
+
 	@GetMapping("/menu/piatto")
 	public ArrayList<Menu> getMenuPlateByName(@RequestParam(required = true) String nomePiatto){
 		return menuDao.getMenuPlate(nomePiatto);
@@ -208,8 +213,13 @@ public class Controller {
 	
 	
 	@PostMapping("/menu/newPlate")
-    public Menu createPlate(@RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni) {
-		return menuDao.createPlate(idRistorante, categoria, nome, prezzo, descrizione, allergeni);
+    public boolean createPlate(@RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+		return menuDao.createPlate(idRistorante, categoria, nome, prezzo, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua);
+	}
+
+	@PostMapping("/menu/updatePlate/{id_piatto}")
+	public boolean updatePlate(@PathVariable Integer id_piatto, @RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+		return menuDao.updatePlate(id_piatto, idRistorante, categoria, nome, prezzo, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua);
 	}
 
 	@PostMapping("/menu/deletePlate")

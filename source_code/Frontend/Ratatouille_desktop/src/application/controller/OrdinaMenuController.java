@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -13,6 +14,9 @@ import application.model.CategoriaMenu;
 import application.model.Piatto;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class OrdinaMenuController {
 	public OrdinaMenuController() {	}
@@ -45,6 +50,10 @@ public class OrdinaMenuController {
 	@FXML
 	Button applica;
 	
+	private Stage stage;
+	private Scene scene;
+	private Parent parent;
+	
 	MenuDriver menuDriver = new MenuDriver();
 	ArrayList<CategoriaMenu> categorieForUI;
 	ArrayList<CategoriaMenu> categorie;
@@ -59,6 +68,14 @@ public class OrdinaMenuController {
 	Integer indexOfCategoria = 0;
 	boolean backPressed = false, resetPressed = false;
 	
+	
+	public void backToMenu() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/MenuScene.fxml"));
+		stage = (Stage) (errorLabel.getScene().getWindow());
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 	
 	private boolean existAlreadyAnMenu(List<Piatto> menu) {
 		for (Piatto piatto : menu) {

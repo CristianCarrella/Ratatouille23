@@ -103,7 +103,7 @@ public class MenuDriver {
 		}
 	}
 	
-	public ArrayList<CategoriaMenu> getCategorieRistoranteLoggedUserWihoutChangeUI() throws Exception {
+	public ArrayList<CategoriaMenu> getCategorieRistoranteLoggedUserWihoutChangeUI(){
 		ArrayList<CategoriaMenu> categorie = new ArrayList<CategoriaMenu>();
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
@@ -122,7 +122,7 @@ public class MenuDriver {
 				}
 			}
 			return categorie;
-		}catch (JSONException e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 		}
@@ -384,5 +384,126 @@ public class MenuDriver {
 		return false;
 	}
 
+	public Piatto getPiattoInfoFromServer(Integer idPiatto) {
+		try {
+			return runPiattoInfo(idPiatto);
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
 	
+	private Piatto runPiattoInfo(Integer idPiatto) throws Exception {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet("http://localhost:8080/menu/ristorante/piatto/" + idPiatto.toString());
+			httpget.setHeader("Authorization", loggedUser.getToken());
+		
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			
+			JSONObject jsonObject = new JSONObject(json);
+			String nomeSecondaLingua = "";
+			String descrizioneSecondaLingua = "";
+			
+			if(!jsonObject.isNull("descrizioneSecondaLingua"))
+				descrizioneSecondaLingua = jsonObject.getString("descrizioneSecondaLingua");
+			
+			if(!jsonObject.isNull("nomeSecondaLingua"))
+				nomeSecondaLingua = jsonObject.getString("nomeSecondaLingua");
+				
+			if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
+				return new Piatto(jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua, jsonObject.getInt("posizione"));
+			}
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return null;
+	}
+
+	public boolean modificaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta, Integer idPiatto) {
+		try {
+			return runUpdatePiatto(loggedUser.getIdRistorante(), nomePiatto, descrizione, costo, allergeni, nomeSecondaLingua, descrizioneSecondaLingua, categoriaScelta, idPiatto);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean creaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta) {
+		try {
+			return runCreaPiatto(loggedUser.getIdRistorante(), nomePiatto, descrizione, costo, allergeni, nomeSecondaLingua, descrizioneSecondaLingua, categoriaScelta);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	private boolean runCreaPiatto(Integer idRistorante, String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta) throws Exception {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newPlate");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("idRistorante", idRistorante.toString()));
+			params.add(new BasicNameValuePair("categoria", categoriaScelta));
+			params.add(new BasicNameValuePair("nome", nomePiatto));
+			params.add(new BasicNameValuePair("prezzo", costo));
+			params.add(new BasicNameValuePair("descrizione", descrizione));
+			params.add(new BasicNameValuePair("allergeni", allergeni));
+			params.add(new BasicNameValuePair("nomeSecondaLingua", nomeSecondaLingua));
+			params.add(new BasicNameValuePair("descrizioneSecondaLingua", descrizioneSecondaLingua));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.println(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return false;
+	}
+	
+	private boolean runUpdatePiatto(Integer idRistorante, String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta, Integer idPiatto) throws Exception {
+		try {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/menu/updatePlate/" + idPiatto.toString());
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("idRistorante", idRistorante.toString()));
+			params.add(new BasicNameValuePair("categoria", categoriaScelta));
+			params.add(new BasicNameValuePair("nome", nomePiatto));
+			params.add(new BasicNameValuePair("prezzo", costo));
+			params.add(new BasicNameValuePair("descrizione", descrizione));
+			params.add(new BasicNameValuePair("allergeni", allergeni));
+			params.add(new BasicNameValuePair("nomeSecondaLingua", nomeSecondaLingua));
+			params.add(new BasicNameValuePair("descrizioneSecondaLingua", descrizioneSecondaLingua));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.println(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		}
+		return false;
+	}
+
 }

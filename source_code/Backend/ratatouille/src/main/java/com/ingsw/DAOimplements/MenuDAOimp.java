@@ -113,16 +113,14 @@ public class MenuDAOimp implements MenuDAOint {
 	}
 
 	
-	public int getIdFromCategoryName(String categoria) {
-		String query = "SELECT id_categoria FROM categorie_menu WHERE nome LIKE '%" + categoria + "%'";;
-		int idCategoria = 0;
+	public int getCategoryIdOfResturantFromCategoryName(Integer idRistorante, String categoria) {
+		String query = "SELECT id_categoria FROM categorie_menu WHERE nome = '" + categoria + "' AND id_ristorante = " + idRistorante;
 
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next())
-				idCategoria = rs.getInt("id_categoria");
-			return idCategoria;
+				return rs.getInt("id_categoria");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -131,19 +129,19 @@ public class MenuDAOimp implements MenuDAOint {
 	}
 	
 	
-	public Menu createPlate(Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni) {
+	public boolean createPlate(Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
 		String query = null;
 		int idCategoria = 0;
 		
-		idCategoria = this.getIdFromCategoryName(categoria);
-						
-		query = "INSERT INTO elementi_menu (id_elemento, id_ristorante,	id_categoria, nome, prezzo, descrizione, allergeni, nome_seconda_lingua, descrizione_seconda_lingua) VALUES (default, " + idRistorante + ", " + idCategoria + ", " + prezzo + ", '" + descrizione + "', '" + allergeni + "', " + "NULL, NULL";
+		idCategoria = getCategoryIdOfResturantFromCategoryName(idRistorante, categoria);
+		query = "INSERT INTO elementi_menu (id_elemento, id_ristorante,	id_categoria, nome, prezzo, descrizione, allergeni, nome_seconda_lingua, descrizione_seconda_lingua, posizione_elemento ) VALUES (default, " + idRistorante + ", " + idCategoria + ",'" + nome + "', " + prezzo + ", '" + descrizione + "', '" + allergeni + "', '" + nomeSecondaLingua + "', '" + descrizioneSecondaLingua + "', NULL)";
 		try {
 			db.getStatement().executeUpdate(query);
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 
 	
@@ -184,6 +182,35 @@ public class MenuDAOimp implements MenuDAOint {
 	@Override
 	public boolean deleteSortingMenu(Integer idRistorante) {
 		String query = "UPDATE elementi_menu SET posizione_elemento = NULL WHERE id_ristorante = " + idRistorante;
+		try {
+			db.getStatement().executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public Menu getPiattoById(Integer idPiatto) {
+		String query = "SELECT * FROM elementi_menu WHERE id_elemento = " + idPiatto;
+		ResultSet rs;
+
+		try {
+			rs = db.getStatement().executeQuery(query);
+			while(rs.next())
+				return  new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	@Override
+	public boolean updatePlate(Integer idPiatto, Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
+		Integer idCategoria = getCategoryIdOfResturantFromCategoryName(idRistorante, categoria);
+		String query = "UPDATE elementi_menu SET id_categoria = " + idCategoria + ", nome = '" + nome + "', prezzo = " + prezzo + ", descrizione = '" + descrizione + "', allergeni = '" + allergeni + "', nome_seconda_lingua = '" + nomeSecondaLingua + "', descrizione_seconda_lingua = '" + descrizioneSecondaLingua + "'  WHERE id_elemento = " + idPiatto;
 		try {
 			db.getStatement().executeUpdate(query);
 			return true;

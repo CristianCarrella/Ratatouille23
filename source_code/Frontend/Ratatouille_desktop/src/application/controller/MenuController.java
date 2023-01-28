@@ -33,7 +33,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -75,7 +78,7 @@ public class MenuController implements Observer{
 	ArrayList<Label> removedTop = new ArrayList<Label>();
 	ArrayList<Label> removedCenter = new ArrayList<Label>();
 	ArrayList<Pane> removedLeft = new ArrayList<Pane>();
-	ArrayList<VBox> removedRight = new ArrayList<VBox>();
+	ArrayList<BorderPane> removedRight = new ArrayList<BorderPane>();
 	ArrayList<BorderPane> removedPane = new ArrayList<BorderPane>();
 	
 	private Stage stage;
@@ -134,7 +137,7 @@ public class MenuController implements Observer{
 							//pane.setVisible(false);
 							removedCenter.add((Label)pane.getCenter());
 							removedTop.add((Label)pane.getTop());
-							removedRight.add((VBox)pane.getRight());
+							removedRight.add((BorderPane)pane.getRight());
 							removedLeft.add((Pane)pane.getLeft());
 							removedPane.add(pane);
 							pane.setCenter(null);
@@ -166,8 +169,11 @@ public class MenuController implements Observer{
 	
 	
 	public void goToAggiungiPiatto(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AggiungiModificaPiattoScene.fxml"));
-		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxmls/AggiungiModificaPiattoScene.fxml"));
+		ModificaCreaPiattoController modificaCreaPiattoController = new ModificaCreaPiattoController();
+		loader.setController(modificaCreaPiattoController);
+		Parent root = loader.load();
+		stage = (Stage) (accountBtn.getScene().getWindow());
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -285,7 +291,7 @@ public class MenuController implements Observer{
 			generateHeaderNotice(piatto, containerPiatto);
 			generateBodyNotice(piatto, containerPiatto);
 			ImageView imageView = generateLeftGarbageButtonNotice(containerPiatto, piatto.getIdElemento());
-			generateRightPositionButtons(containerPiatto);
+			generateRightPositionButtons(piatto, containerPiatto);
 			VBox vBox = findVBox(piatto.getIdCategoria());
 			vBox.getChildren().add(1, containerPiatto);
 		}else if (o instanceof CategoriaMenu) {
@@ -341,30 +347,29 @@ public class MenuController implements Observer{
 		}
 	}
 
-	private void generateRightPositionButtons(BorderPane containerPiatto) {
-		VBox vBox = new VBox();
+	private void generateRightPositionButtons(Piatto piatto, BorderPane containerPiatto) {
 		BorderPane pane1 = new BorderPane();
-		pane1.setStyle("-fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
-		String path = "src/application/img/sort_arrow_up.png";
-		ImageView imageView = setImageView(path, 30.0, 30.0, 2.0, 10.0);
-		imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			
+		pane1.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
+		String path = "src/application/img/editing.png";
+		ImageView imageView = setImageView(path, 20.0, 20.0, 0.0, 0.0);
+		
+		pane1.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
+			try {
+				goToModificaPiattoScene(piatto.getIdElemento());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 		pane1.setCenter(imageView);
-		
-		BorderPane pane2 = new BorderPane();
-		pane2.setStyle("-fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
-		String path2 = "src/application/img/sort_arrow_down.png";
-		ImageView imageView2 = setImageView(path2, 30.0, 30.0, 2.0, 10.0);
-		imageView2.setTranslateY(5);
-		imageView2.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
-			
+		pane1.addEventFilter(MouseEvent.MOUSE_ENTERED, MouseEvent -> {
+			pane1.setStyle("-fx-background-color: #EFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
 		});
-		pane2.setCenter(imageView2);
-		vBox.getChildren().add(pane1);
-		vBox.getChildren().add(pane2);
-		containerPiatto.setRight(vBox);
-		BorderPane.setAlignment(vBox, Pos.CENTER);
+		pane1.addEventFilter(MouseEvent.MOUSE_EXITED, MouseEvent -> {
+			pane1.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
+		});
+		BorderPane.setAlignment(pane1, Pos.CENTER);
+		pane1.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
+		containerPiatto.setRight(pane1);
 	}
 
 	private ImageView setImageView(String path, Double width, Double height, Double x, Double y) {
@@ -392,9 +397,9 @@ public class MenuController implements Observer{
 	
 	private ImageView generateLeftGarbageButtonNotice(BorderPane containerNotice, Integer idAvviso) {
 		Pane pane = new Pane();
-		pane.setStyle("-fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
+		pane.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
 		String path = "src/application/img/garbage.png";
-        ImageView imageView = setImageView(path, 34.0, 60.0, 3.0, 23.0);
+        ImageView imageView = setImageView(path, 30.0, 60.0, 10.0, 23.0);
 		imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
 			if(menuDriver.requestDeletePiatto(MenuController.this, idAvviso)) {
 				containerNotice.getChildren().clear();
@@ -408,6 +413,14 @@ public class MenuController implements Observer{
 			}
         });
 		pane.getChildren().add(imageView);
+		pane.addEventFilter(MouseEvent.MOUSE_ENTERED, MouseEvent -> {
+			pane.setStyle("-fx-background-color: #EFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
+		});
+		
+		pane.addEventFilter(MouseEvent.MOUSE_EXITED, MouseEvent -> {
+			pane.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
+		});
+		pane.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
 		containerNotice.setLeft(pane);
 		BorderPane.setAlignment(imageView, Pos.CENTER);
 		return imageView;
@@ -415,20 +428,37 @@ public class MenuController implements Observer{
 
 	private void generateBodyNotice(Piatto piatto, BorderPane containerNotice) {
 		Label body = new Label(piatto.getDescrizione());
+		body.setWrapText(true);
 		body.setAlignment(Pos.TOP_LEFT);
 		body.setStyle("-fx-border-color: #003F91; -fx-border-style: solid solid none solid; -fx-border-width: 2; -fx-background-color: #FFF; -fx-background-radius: 20;");
 		body.setPrefHeight(87.0);
 		body.setPrefWidth(453.0);
 		body.setMaxWidth(Double.MAX_VALUE);
+		body.setPadding(new Insets(0.0, 0.0, 2.0, 2.0));
 		containerNotice.setCenter(body);
 	}
 
 	private void generateHeaderNotice(Piatto piatto, BorderPane containerNotice) {
 		Label header = new Label(piatto.getNome() + " " + piatto.getPrezzo() + "€");
+		header.setBackground(new Background(new BackgroundFill(Color.rgb(0, 63, 145), new CornerRadii(20.0, 20.0, 0.0, 0.0, false), Insets.EMPTY)));
+		header.setTextFill(Color.WHITE);
 		header.setPrefHeight(17.0);
 		header.setPrefWidth(453.0);
 		header.setMaxWidth(Double.MAX_VALUE);
 		header.setPadding(new Insets(0, 0, 0 , 10));
 		containerNotice.setTop(header);
 	}
+	
+	private void goToModificaPiattoScene(Integer idPiatto) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxmls/AggiungiModificaPiattoScene.fxml"));
+		ModificaCreaPiattoController modificaCreaPiattoController = new ModificaCreaPiattoController(idPiatto);
+		loader.setController(modificaCreaPiattoController);
+		Parent root = loader.load();
+		stage = (Stage) (accountBtn.getScene().getWindow());
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
 }
