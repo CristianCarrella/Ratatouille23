@@ -11,6 +11,7 @@ import com.example.ratatouille_android.views.AvvisiNascostiActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.MainActivity;
+import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +69,46 @@ public class HomeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getNumberOfNoticesToRead() {
+        try {
+            runGetNumberOfNoticesToRead(loggedUser.getIdUtente(), loggedUser.getIdRistorante(), loggedUser.getToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void runGetNumberOfNoticesToRead(Integer idUtente, Integer idRistorante, String token) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url + "avviso/numero-di-avvisi-da-leggere?id_utente=" + idUtente.toString() + "&&id_ristorante=" + idRistorante.toString())
+                .header("Authorization", token)
+                .build();
+
+        serverRequestNumberOfNoticesToRead(client, request);
+    }
+
+    private void serverRequestNumberOfNoticesToRead(OkHttpClient client, Request request) {
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String myResponse = response.body().string();
+                Log.v("Prova myRes", myResponse);
+                homeActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BadgeDrawable badgeDrawable = homeActivity.getBadgeDrawable();
+                        badgeDrawable.setNumber(Integer.parseInt(myResponse));
+                    }
+                });
+            }
+        });
     }
 
     void run(Integer id_utente, String token) throws IOException {

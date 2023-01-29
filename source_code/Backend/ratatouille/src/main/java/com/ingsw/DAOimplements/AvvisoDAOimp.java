@@ -92,9 +92,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 
 	
 	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
-		ResultSet rs;
 		try {
 			String query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
 			db.getStatement().executeUpdate(query);
@@ -137,6 +135,28 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public Integer getNumberOfAvvisiToRead(Integer idUtente, Integer idRistorante) {
+		String query1 = "SELECT COUNT(*) AS num_messaggi_letti FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
+		String query2 = "SELECT COUNT(*) AS num_messaggi_ristorante FROM avviso WHERE id_ristorante = " + idRistorante;
+		ResultSet rs;
+		System.out.println("\n" + query1 +"\n " + query2 + "\n");
+		Integer num_messaggi_letti = 0, num_messaggi_ristorante = 0;
+		try {
+			rs = db.getStatement().executeQuery(query1);
+			while(rs.next())
+				num_messaggi_letti = rs.getInt("num_messaggi_letti");
+			rs = db.getStatement().executeQuery(query2);
+			while(rs.next())
+				num_messaggi_ristorante = rs.getInt("num_messaggi_ristorante");
+			System.out.println(num_messaggi_ristorante - num_messaggi_letti);
+			return  num_messaggi_ristorante - num_messaggi_letti;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	public AvvisoNascostoVisto getAvvisoNascosto(Integer id_avviso) {

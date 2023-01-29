@@ -30,7 +30,7 @@ import com.ingsw.DAOinterface.UserDAOint;
 
 @RestController
 public class Controller {
-	DatabaseConnection db = new DatabaseConnection();
+	DatabaseConnection db = DatabaseConnection.getInstance();;
 	UserDAOint userDao = new UserDAOimp(db);
 	LoggedUser loggedUser = null;
 	AvvisoDAOint avvisoDao = new AvvisoDAOimp(db);
@@ -147,6 +147,11 @@ public class Controller {
 	@PostMapping("/avviso/segna-come-non-nascosto/{id_avviso}")
 	public AvvisoNascostoVisto setAvvisoNotHidden(@PathVariable Integer id_avviso) {
 		return avvisoDao.setAvvisoNotHidden(id_avviso, loggedUser);
+	}
+
+	@GetMapping("/avviso/numero-di-avvisi-da-leggere")
+	public Integer getNumberOfAvvisiToRead(@RequestParam Integer id_utente, Integer id_ristorante) {
+		return avvisoDao.getNumberOfAvvisiToRead(id_utente, id_ristorante);
 	}
 	
 	@PostMapping("/avviso/crea")

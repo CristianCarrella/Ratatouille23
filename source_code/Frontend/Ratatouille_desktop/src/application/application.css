@@ -1,3 +1,11 @@
+
+.menuCategoria{
+	-fx-font-family: "Lucida Calligraphy";
+	-fx-font-size: 12px;
+	-fx-text-fill: #003F91;
+	-fx-font-weight: bold;
+}
+
 .button{
 	-fx-background-color: #003F91;
 	-fx-background-radius: 20px;

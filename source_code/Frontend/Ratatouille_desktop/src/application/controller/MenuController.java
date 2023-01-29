@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
+import application.Main;
 import application.driver.MenuDriver;
 import application.model.Avviso;
 import application.model.CategoriaMenu;
@@ -41,6 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
@@ -93,7 +95,6 @@ public class MenuController implements Observer{
 	@FXML
 	public void initialize() {
 		menuDriver.requestMenuFromServer(this);
-		
 		inputField.setOnKeyPressed(event -> {
 			
 			if(event.getCode() == KeyCode.BACK_SPACE) {
@@ -303,11 +304,12 @@ public class MenuController implements Observer{
 			categorie.add(v);
 			v.setId(String.valueOf(categoriaMenu.getIdCategoria()));
 			vBoxLayout.getChildren().add(v);
-			Label nomeCategoriaLabel = new Label(categoriaMenu.getNome());
+			Label nomeCategoriaLabel = new Label(categoriaMenu.getNome().toUpperCase());
 			nomeCategoriaLabel.setAlignment(Pos.CENTER);
 			nomeCategoriaLabel.setMaxWidth(Double.MAX_VALUE);
 			nomeCategoriaLabel.setTextAlignment(TextAlignment.CENTER);
-			nomeCategoriaLabel.setPrefWidth(200);
+			nomeCategoriaLabel.setPrefWidth(300);
+			nomeCategoriaLabel.getStyleClass().add("menuCategoria");
 			String path = "src/application/img/down_arrow.png";
 			String path2 = "src/application/img/right_arrow.png";
 			InputStream iStream = null;
@@ -362,7 +364,7 @@ public class MenuController implements Observer{
 		});
 		pane1.setCenter(imageView);
 		pane1.addEventFilter(MouseEvent.MOUSE_ENTERED, MouseEvent -> {
-			pane1.setStyle("-fx-background-color: #EFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
+			pane1.setStyle("-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 60% , #287EED, #FFFBF3); -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
 		});
 		pane1.addEventFilter(MouseEvent.MOUSE_EXITED, MouseEvent -> {
 			pane1.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
@@ -414,7 +416,7 @@ public class MenuController implements Observer{
         });
 		pane.getChildren().add(imageView);
 		pane.addEventFilter(MouseEvent.MOUSE_ENTERED, MouseEvent -> {
-			pane.setStyle("-fx-background-color: #EFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
+			pane.setStyle("-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 60% , #287EED, #FFFBF3); -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
 		});
 		
 		pane.addEventFilter(MouseEvent.MOUSE_EXITED, MouseEvent -> {

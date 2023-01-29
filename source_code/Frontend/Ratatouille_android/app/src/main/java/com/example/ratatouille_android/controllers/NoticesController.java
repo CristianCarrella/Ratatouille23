@@ -79,6 +79,7 @@ public class NoticesController {
         }
     }
 
+
     public void markAsReadNotice(Integer id_avviso){
         try {
             runMarkNoticeAsRead(id_avviso, loggedUser.getIdRistorante());

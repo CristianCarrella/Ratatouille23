@@ -226,8 +226,10 @@ public class UtenteDriver {
 			String json = EntityUtils.toString(response.getEntity());
 			JSONObject jsonObject = new JSONObject(json);
 			if(jsonObject.has("nome") && jsonObject.has("token")) {
-				loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
-				return loggedUser;
+				if(jsonObject.getString("ruolo").equals("admin") || jsonObject.getString("ruolo").equals("supervisore")){
+					loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
+					return loggedUser;
+				}
 			}
 		}catch (Exception e) {
 			System.out.print("Errore nella connessione");

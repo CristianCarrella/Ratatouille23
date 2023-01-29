@@ -22,6 +22,7 @@ import com.example.ratatouille_android.views.jfragment.HomeFragment;
 import com.example.ratatouille_android.views.jfragment.NoticesFragment;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.views.jfragment.AccountFragment;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -48,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     AvvisiNascostiActivity hiddenNotices;
     int currentFragment;
     HomeActivity homeActivity = this;
+    BadgeDrawable badgeDrawable;
 
     EditText nomeField, cognomeField, dataNascitaField;
     TextView nomeRistoranteTextView, textNomeCognome;
@@ -58,7 +60,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
         accountFragment = new AccountFragment(this);
@@ -68,8 +69,12 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         logoutController = new LogoutController(this, loggedUser);
 
+        homeController.getNumberOfNoticesToRead();
+        badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
+        badgeDrawable.setVisible(true);
+
         currentFragment = getIntent().getExtras().getInt("frgToLoad");
-        switch (currentFragment){
+        switch (currentFragment){ // Potrebbe essere un if ma in vista di successivi sviluppi è meglio rimanere lo switch
             case R.id.notices:
                 bottomNavigationView.getMenu().findItem(R.id.notices).setChecked(true);
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
@@ -85,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         ImageView immagineProfilo = findViewById(R.id.imageView7);
 
         homeController.getNomeRistorante();
+
 
         textNomeCognome.setText(String.format("%s %s", loggedUser.getNome(), loggedUser.getCognome()));
         textRuolo.setText(loggedUser.getRuolo());
@@ -105,15 +111,14 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         floatingActionButton.setOnClickListener(onClickListener);
 
 
-        //BadgeDrawable badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
-        //badgeDrawable.setVisible(true);
-        //badgeDrawable.setNumber(8);
+
 
         bottomNavigationView.setBackground(null);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                homeController.getNumberOfNoticesToRead();
                 switch (item.getItemId()) {
                     case R.id.notices:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
@@ -200,7 +205,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
             textNomeAttivita.setText(a.getNome());
             if(currentFragment == R.id.home)
                 textNomeAttivitaHome.setText(a.getNome());
-        } else {
+        } else if(o instanceof Avviso){
             Avviso a = (Avviso) o;
             Log.v("Prova", a.getTesto() + " " +  a.isHidden() + " " + a.isRead());
             noticesFragment.generateCard(a);
@@ -216,5 +221,9 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     public HomeController getHomeController() {
         return homeController;
+    }
+
+    public BadgeDrawable getBadgeDrawable() {
+        return badgeDrawable;
     }
 }

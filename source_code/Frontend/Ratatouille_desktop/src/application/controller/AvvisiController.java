@@ -34,7 +34,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -185,7 +188,7 @@ public class AvvisiController implements Observer {
 
 	private ImageView generateLeftGarbageButtonNotice(BorderPane containerNotice, Integer idAvviso) {
 		Pane pane = new Pane();
-		pane.setStyle("-fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
+		pane.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none;");
 		String path = "src/application/img/garbage.png";
 		InputStream iStream = null;
 		try {
@@ -216,9 +219,15 @@ public class AvvisiController implements Observer {
 				errorLabel.setTextFill(Color.RED);
 			}
         });
+		pane.addEventFilter(MouseEvent.MOUSE_ENTERED, MouseEvent -> {
+			pane.setStyle("-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 60% , #287EED, #FFFBF3); -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
+		});
+		pane.addEventFilter(MouseEvent.MOUSE_EXITED, MouseEvent -> {
+			pane.setStyle("-fx-background-color: #FFFBF3; -fx-background-radius: 20; -fx-border-color: #003F91; -fx-border-width: 2; -fx-border-style: solid none none none; ");
+		});
 		pane.getChildren().add(imageView);
 		containerNotice.setLeft(pane);
-		containerNotice.setAlignment(imageView, Pos.CENTER);
+		BorderPane.setAlignment(imageView, Pos.CENTER);
 		return imageView;
 	}
 
@@ -234,6 +243,8 @@ public class AvvisiController implements Observer {
 
 	private void generateHeaderNotice(Avviso avviso, BorderPane containerNotice) {
 		Label header = new Label(avviso.getDataOra() + " " + avviso.getAutore());
+		header.setBackground(new Background(new BackgroundFill(Color.rgb(0, 63, 145), new CornerRadii(20.0, 20.0, 0.0, 0.0, false), Insets.EMPTY)));
+		header.setTextFill(Color.WHITE);
 		header.setPrefHeight(17.0);
 		header.setPrefWidth(453.0);
 		header.setMaxWidth(1.7976931348623157E308);

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="356.0" prefWidth="516.0" style="-fx-background-color: #FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SignUpController">   <children>
+<AnchorPane prefHeight="472.0" prefWidth="665.0" style="-fx-background-color: #FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SignUpController">   <children>
       <BorderPane layoutX="74.0" layoutY="78.0" prefHeight="356.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <FlowPane prefHeight="73.0" prefWidth="516.0" BorderPane.alignment="CENTER">
@@ -63,17 +63,23 @@
                <top>
                   <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="90.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="25.0">                           <VBox.margin>
+                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #003F91;" text="SignUp" textFill="WHITE" textOverrun="CLIP" translateX="9.0">                           <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Franklin Gothic Medium Cond" size="12.0" />
+                              <Font name="Franklin Gothic Medium Cond" size="14.0" />
                            </font>
                         </Button>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="login" style="-fx-text-fill: #003F91;" text="Login" translateX="-10.0" />
-                              <Label prefHeight="17.0" prefWidth="43.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="31.0" underline="true" />
+                              <Label fx:id="login" style="-fx-text-fill: #003F91;" text="Login" translateX="-18.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <Label prefHeight="20.0" prefWidth="50.0" style="-fx-text-fill: #003F91;" text="SignUp" translateX="30.0" underline="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
                            </children>
                         </FlowPane>
                      </children>

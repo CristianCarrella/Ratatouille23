@@ -20,4 +20,5 @@ public interface AvvisoDAOint {
 	public Avviso createNewAvviso(Integer id_ristorante, String testo, User loggedUser);
 	public AvvisoNascostoVisto setAvvisoNotHidden(Integer id_avviso, LoggedUser loggedUser);
 	public boolean deleteAvviso(Integer idAvviso);
+	public Integer getNumberOfAvvisiToRead(Integer idUtente, Integer idRistorante);
 }

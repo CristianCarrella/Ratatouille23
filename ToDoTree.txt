@@ -1,10 +1,4 @@
-To Do list:
-- In android : Notifiche android notizie
-- In android : Prima password visibile 
-- In backend : singleton per dbconnection
-- In database : aggiungere unique constraint nel nome della (categoria, id_ristorante)
-- In desktop : aggiungere affordance sui pulsanti di cancellazione messaggio avviso
-- In desktop : fare creazione nuova categoria
-- In desktop : affordance ORDINA MENU
-- In desktop : autocompletamento
+To Do list 2:
+- Pulire codice
 - Ovunque : controllare gli input
+- Immagine logo di sfondo

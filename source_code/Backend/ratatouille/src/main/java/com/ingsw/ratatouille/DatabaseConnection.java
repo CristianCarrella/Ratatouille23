@@ -10,7 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseConnection {
 	Connection connection;
-	//da fare singleton 
+	private static DatabaseConnection databaseConnection = null;
+
+	public static DatabaseConnection getInstance() {
+		if (databaseConnection == null) {
+			databaseConnection = new DatabaseConnection();
+		}
+		return databaseConnection;
+	}
 	DatabaseConnection(){
 		try {
 			Class.forName("org.postgresql.Driver");

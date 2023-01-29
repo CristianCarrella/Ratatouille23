@@ -15,6 +15,7 @@ import application.model.Piatto;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,7 +34,7 @@ public class OrdinaMenuController {
 	@FXML
 	VBox vBoxLayout2;
 	@FXML
-	Label errorLabel;
+	Label errorLabel, nomeCategoriaAttuale;
 	@FXML
 	Button aggiungBtn;
 	@FXML
@@ -97,9 +98,14 @@ public class OrdinaMenuController {
 		}
 		if(existAlreadyAnMenu(allPiattiOfResturant)) {
 			VBox menuVBox = new VBox();
+			menuVBox.setPrefWidth(250);
+			menuVBox.setMinWidth(180);
+			menuVBox.setMaxWidth(Double.MAX_VALUE);
 			Label spacingLabel = new Label();
 			menuVBox.getChildren().add(spacingLabel);
-			Label oldMenuLabel = new Label("OLD MENU");
+			Label oldMenuLabel = new Label("MENU ATTUALE");
+			oldMenuLabel.setMaxWidth(Double.MAX_VALUE);
+			oldMenuLabel.setAlignment(Pos.CENTER);
 			menuVBox.getChildren().add(oldMenuLabel);
 			Collections.sort(allPiattiOfResturant, (o1, o2) -> o1.getPosizione().compareTo(o2.getPosizione()));
 			for(CategoriaMenu categoriaMenu : categorie) {
@@ -180,6 +186,7 @@ public class OrdinaMenuController {
 			}else {
 				errorLabel.setText("Per andare avanti devi compilare la categoria");
 			}
+			nomeCategoriaAttuale.setText("Categoria " + (indexOfCategoria + 1));
 		});
 		
 		categoriaPrecedenteBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
@@ -204,6 +211,7 @@ public class OrdinaMenuController {
 			}else {
 				errorLabel.setText("Per andare avanti devi compilare la categoria");
 			}
+			nomeCategoriaAttuale.setText("Categoria " + (indexOfCategoria + 1));
 		});
 		
 		resetBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
