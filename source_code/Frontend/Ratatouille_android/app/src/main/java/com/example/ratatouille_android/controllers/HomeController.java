@@ -39,12 +39,6 @@ public class HomeController {
         homeActivity.startActivity(switchActivityIntent);
     }
 
-/*    public void goToNoticesActivity(){
-        Intent switchActivityIntent = new Intent(homeActivity, AvvisiNascostiActivity.class);
-        switchActivityIntent.putExtra("loggedUser", loggedUser);
-        homeActivity.startActivity(switchActivityIntent);
-    }
-*/
 
     public void getNomeRistorante() {
         OkHttpClient client = new OkHttpClient();
@@ -149,12 +143,5 @@ public class HomeController {
             }
         });
     }
-/*
-    public void goToHomeActivity(){
-        Intent switchActivityIntent = new Intent(homeActivity, HomeActivity.class);
-        switchActivityIntent.putExtra("loggedUser", loggedUser);
-        homeActivity.startActivity(switchActivityIntent);
-        homeActivity.finish();
-    }
-*/
+
 }

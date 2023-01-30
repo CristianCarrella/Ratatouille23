@@ -76,7 +76,7 @@
             </AnchorPane>
          </left>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="10.0" styleClass="backgroundImage" BorderPane.alignment="CENTER">
                <children>
                   <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="PERSONALIZZAZIONE ATTIVITA'" />
                   <TextField fx:id="nomeInput" promptText="Nome Attività">
