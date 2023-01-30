@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestisciPersonaleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="883.0" style="-fx-background-color: FFFBF3;" styleClass="backgroundImage" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestisciPersonaleController">
    <children>
-      <BorderPane prefHeight="560.0" prefWidth="849.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="560.0" prefWidth="808.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="0.0">
          <left>
-            <AnchorPane prefHeight="560.0" prefWidth="60.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="560.0" prefWidth="64.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="indietroBtn" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#goToRisorseUmaneScene" prefHeight="28.0" prefWidth="70.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
+                  <Button fx:id="indietroBtn" layoutX="22.0" layoutY="21.0" mnemonicParsing="false" onAction="#goToRisorseUmaneScene" prefHeight="30.0" prefWidth="51.0" styleClass="buttonRounded1" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="21.0">
                      <graphic>
-                        <ImageView fitHeight="34.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/icons8-left-arrow-50.png" />
                            </image>

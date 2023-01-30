@@ -76,7 +76,7 @@
             </AnchorPane>
          </left>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="775.0" spacing="30.0" styleClass="backgroundImage" BorderPane.alignment="CENTER">
                <children>
                   <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="GESTIONE PROFILO" />
                   <Label fx:id="errorLabel" />
@@ -94,7 +94,7 @@
             </VBox>
          </center>
          <bottom>
-            <Button id="salvaInput" onAction="#modificaProfilo"  fx:id="salvaBtn" mnemonicParsing="false" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
+            <Button id="salvaInput" fx:id="salvaBtn" mnemonicParsing="false" onAction="#modificaProfilo" text="Salva" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
                <BorderPane.margin>
                   <Insets bottom="50.0" right="100.0" />
                </BorderPane.margin>

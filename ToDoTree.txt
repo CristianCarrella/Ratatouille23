@@ -1,8 +1,18 @@
-To Do list 2:
+To Do list:
 - Pulire codice
-- Ovunque : controllare gli input
-- Immagine logo di sfondo
+- Ovunque: controllare gli input
+- Immagine logo di sfondo: vari problemini
+- System design
+- Firebase
+- JUnit
+
+
 
 Problemi:
-- In android: con data sbagliata nel primo fragment dice "modifiche apportate con successo" => run della funzione non fa niente
-	      la data non si aggiorna subito
+- In android: con data sbagliata nel primo fragment dice "modifiche apportate con successo" 
+	      => run della funzione non fa niente la data non si aggiorna subito
+
+
+
+In sospeso:
+- SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD

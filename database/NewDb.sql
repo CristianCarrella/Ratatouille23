@@ -4,7 +4,7 @@ CREATE TABLE ristorante(
 	telefono VARCHAR(30),
 	indirizzo VARCHAR(50),
 	logo bytea,
-	nome_immagine VARCHAR(30),
+	nome_immagine VARCHAR(70),
 	id_proprietario INTEGER
 );
 
@@ -75,6 +75,7 @@ CREATE TABLE categorie_menu(
 	id_ristorante INTEGER NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	posizione_categoria INTEGER,
+	UNIQUE(id_categoria, id_ristorante),
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante)
 );
 
@@ -89,7 +90,6 @@ CREATE TABLE elementi_menu(
 	nome_seconda_lingua VARCHAR(100),
 	descrizione_seconda_lingua VARCHAR(1000),
 	posizione_elemento INTEGER,
-	UNIQUE(categoria, id_ristorante),
 	UNIQUE(posizione_elemento, id_categoria),
 	FOREIGN KEY(id_ristorante) REFERENCES ristorante(id_ristorante),
 	FOREIGN KEY(id_categoria) REFERENCES categorie_menu(id_categoria)
