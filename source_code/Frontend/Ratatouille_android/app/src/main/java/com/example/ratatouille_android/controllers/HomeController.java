@@ -2,12 +2,9 @@ package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 
 import com.example.ratatouille_android.models.Attivita;
 import com.example.ratatouille_android.models.User;
-import com.example.ratatouille_android.views.AvvisiNascostiActivity;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.MainActivity;
@@ -27,14 +24,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HomeController {
-    User loggedUser;
-    Attivita attivita;
-    HomeController homeController;
-    HomeActivity homeActivity;
-    String url = MainActivity.address + "/";
-
-    String nome, cognome, dataNascita;
-    EditText nomeField, cognomeField, dataNascitaField;
+    private User loggedUser;
+    private HomeActivity homeActivity;
+    private String url = MainActivity.address + "/";
 
     public HomeController(User loggedUser, HomeActivity homeActivity){
         this.loggedUser = loggedUser;
@@ -47,43 +39,28 @@ public class HomeController {
         homeActivity.startActivity(switchActivityIntent);
     }
 
-    public void goToNoticesActivity(){
+/*    public void goToNoticesActivity(){
         Intent switchActivityIntent = new Intent(homeActivity, AvvisiNascostiActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         homeActivity.startActivity(switchActivityIntent);
     }
-
-    public User setInfoUser(){
-
-        try {
-            run(loggedUser.getIdUtente(), loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+*/
 
     public void getNomeRistorante() {
-        try {
-            runAttivita(loggedUser.getIdRistorante(), loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url + "business/nomeAttivita?id_ristorante=" + loggedUser.getIdRistorante())
+                .header("Authorization", loggedUser.getToken())
+                .build();
+
+        serverRequestAttivita(client, request);
     }
 
     public void getNumberOfNoticesToRead() {
-        try {
-            runGetNumberOfNoticesToRead(loggedUser.getIdUtente(), loggedUser.getIdRistorante(), loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void runGetNumberOfNoticesToRead(Integer idUtente, Integer idRistorante, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "avviso/numero-di-avvisi-da-leggere?id_utente=" + idUtente.toString() + "&&id_ristorante=" + idRistorante.toString())
-                .header("Authorization", token)
+                .url(url + "avviso/numero-di-avvisi-da-leggere?id_utente=" + loggedUser.getIdUtente() + "&&id_ristorante=" + loggedUser.getIdRistorante())
+                .header("Authorization", loggedUser.getToken())
                 .build();
 
         serverRequestNumberOfNoticesToRead(client, request);
@@ -99,7 +76,6 @@ public class HomeController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
-                Log.v("Prova myRes", myResponse);
                 homeActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -111,27 +87,7 @@ public class HomeController {
         });
     }
 
-    void run(Integer id_utente, String token) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url + "user/" + id_utente.toString())
-                .header("Authorization", token)
-                .build();
-
-        serverRequest(client, request);
-    }
-
-    void runAttivita(Integer id_ristorante, String token) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url + "business/nomeAttivita?id_ristorante=" + id_ristorante.toString())
-                .header("Authorization", token)
-                .build();
-
-        serverRequestAttivita(client, request);
-    }
-
-    public void run(String nome, String cognome, String dataNascita) throws IOException {
+    public void setUserInfo(String nome, String cognome, String dataNascita) throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("nome", nome)
@@ -159,7 +115,7 @@ public class HomeController {
                 homeActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.v("prova", myResponse);
+
                     }
                 });
             }
@@ -180,7 +136,6 @@ public class HomeController {
                 homeActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.v("prova", myResponse);
                         JSONObject json = null;
                         try {
                             json = new JSONObject(myResponse);
@@ -194,12 +149,12 @@ public class HomeController {
             }
         });
     }
-
+/*
     public void goToHomeActivity(){
         Intent switchActivityIntent = new Intent(homeActivity, HomeActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
         homeActivity.startActivity(switchActivityIntent);
         homeActivity.finish();
     }
-
+*/
 }

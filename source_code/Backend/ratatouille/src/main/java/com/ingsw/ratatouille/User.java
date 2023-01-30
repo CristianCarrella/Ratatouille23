@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class User {
 	// same order of database columns
 	private int id_utente;
-	private String nome, cognome, data_nascita, email, password, ruolo; 
+	private String nome, cognome, data_nascita, email, password, ruolo;
 	private boolean isFirstAccess;
 	private int aggiunto_da;
 	private String data_aggiunta;

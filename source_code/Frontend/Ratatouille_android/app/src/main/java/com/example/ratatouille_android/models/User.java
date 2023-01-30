@@ -17,7 +17,7 @@ public class User extends Observable implements Serializable {
 
     public User(){}
 
-    public User(LoginActivity loginActivity, int id, String nome, String cognome, String dataNascita, String email, String password, String ruolo, boolean isFirstAccess, int aggiuntoDa, String dataAggiunta, int idRistorante, String token, String tk_expiration_timestamp){
+    public User(int id, String nome, String cognome, String dataNascita, String email, String password, String ruolo, boolean isFirstAccess, int aggiuntoDa, String dataAggiunta, int idRistorante, String token, String tk_expiration_timestamp){
         this.id_utente = id;
         this.cognome = cognome;
         this.nome = nome;
@@ -31,7 +31,6 @@ public class User extends Observable implements Serializable {
         this.id_ristorante = idRistorante;
         this.token = token;
         this.tk_expiration_timestamp = tk_expiration_timestamp;
-        addObserver(loginActivity);
         setChanged();
         notifyObservers();
     }

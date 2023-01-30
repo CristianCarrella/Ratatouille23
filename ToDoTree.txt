@@ -2,3 +2,7 @@ To Do list 2:
 - Pulire codice
 - Ovunque : controllare gli input
 - Immagine logo di sfondo
+
+Problemi:
+- In android: con data sbagliata nel primo fragment dice "modifiche apportate con successo" => run della funzione non fa niente
+	      la data non si aggiorna subito

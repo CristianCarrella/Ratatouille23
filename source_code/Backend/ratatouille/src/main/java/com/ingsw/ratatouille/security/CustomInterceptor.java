@@ -27,53 +27,58 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 public class CustomInterceptor implements HandlerInterceptor {
-	UserDAOimp userDao;
-	ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
-	
+	private UserDAOimp userDao;
+	private ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
+
+	final private String[] unsafeEndpoint = {"/login", "/verify", "/signup-admin"};
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
 		this.userDao = userDao;
 	}
-	
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    	
     	if(request.getHeader("Authorization") == null) {
-    		
-    		if(!(request.getRequestURI().toString().equals("/login") || request.getRequestURI().toString().equals("/verify") || request.getRequestURI().toString().equals("/signup-admin"))) {
-    			System.out.print(request.getRequestURI().toString());
+    		if(!(isEndpointUnsafe(request))){
     			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-    			throw new RestClientException("Token non presente");
+    			throw new RestClientException("Richiesta rifiutata : Token non presente\n");
     		} else {
-    			if(request.getRequestURI().toString().equals("/login")) {
-	    			String token = generateToken();
-	    			ZoneId z = ZoneId.of("Europe/Paris");
-	    			ZonedDateTime zdt = ZonedDateTime.now(z);
-	    			ZonedDateTime later = zdt.plusMinutes(15); 
-	    			String expirationTime = later.toString();
-	    			LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
-	    			u.setToken(token);
-	    			u.setTk_expiration_timestamp(expirationTime);
-	    		    HttpSession session = request.getSession();
-	    		    session.setAttribute("attributeToPass", u);
-	    			loggedUsers.add(u);
-    			}
+    			if(request.getRequestURI().equals("/login")) {
+					setupLoggedUser(request);
+				}
     		}
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
-    			System.out.print("Token valido");    			
-    			if(request.getRequestURI().toString().equals("/logout")) {
+    			System.out.print("Richiesta accettata : Token valido\n");
+    			if(request.getRequestURI().equals("/logout")) {
     				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
     			}
     		} else {
     			response.sendError(HttpServletResponse.SC_FORBIDDEN);
-    			throw new RestClientException("Token non valido");
+    			throw new RestClientException("Richiesta rifiutata : Token non valido\n");
     		}
     	}
         return true;
-        
     }
-    
+
+	private void setupLoggedUser(HttpServletRequest request) {
+		String token = generateToken();
+		String expirationTime = generateExpirationTime();
+		LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
+		u.setToken(token);
+		u.setTk_expiration_timestamp(expirationTime);
+		HttpSession session = request.getSession();
+		session.setAttribute("attributeToPass", u);
+		loggedUsers.add(u);
+	}
+
+	private String generateExpirationTime() {
+		ZoneId z = ZoneId.of("Europe/Paris");
+		ZonedDateTime zdt = ZonedDateTime.now(z);
+		ZonedDateTime later = zdt.plusMinutes(15);
+		return later.toString();
+	}
+
 
 	private boolean isValidToken(String token) {
 		for(LoggedUser u : loggedUsers) {
@@ -101,8 +106,16 @@ public class CustomInterceptor implements HandlerInterceptor {
         // TODO Auto-generated method stub
     }
     
-    
-    public String generateToken() {
+    private boolean isEndpointUnsafe(HttpServletRequest request){
+		for(String endpoint : unsafeEndpoint){
+			if(request.getRequestURI().equals(endpoint)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+    private String generateToken() {
     	SecureRandom secureRandom = new SecureRandom(); //threadsafe
     	Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
         byte[] randomBytes = new byte[24];
@@ -117,7 +130,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     }
     
     
-    public LoggedUser removeLoggedUser(Integer idUtente) {
+    private LoggedUser removeLoggedUser(Integer idUtente) {
     	System.out.println(loggedUsers);
     	for(LoggedUser u : loggedUsers) {
     		if(u.getIdUtente() == idUtente) {

@@ -17,20 +17,24 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-public class LoginActivity extends AppCompatActivity implements Observer {
-    TextView error;
+public class LoginActivity extends AppCompatActivity {
+    TextView error, underLoginButton;
     LoginController loginController;
+    Button btn;
+    EditText emailField, passwordField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        error = findViewById(R.id.error);
 
-        TextView underLoginButton = findViewById(R.id.login_under_button);
-        SpannableString content = new SpannableString("Login");
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        underLoginButton.setText(content);
+        error = findViewById(R.id.error);
+        underLoginButton = findViewById(R.id.login_under_button);
+        btn = findViewById(R.id.login_button);
+        emailField = findViewById(R.id.email_field);
+        passwordField = findViewById(R.id.password_field);
+
+        setUnderlineOnLoginText();
 
         TextView underSignupButton = findViewById(R.id.sign_up_under_button);
         View.OnClickListener onClickListenerSignup = new View.OnClickListener() {
@@ -39,11 +43,8 @@ public class LoginActivity extends AppCompatActivity implements Observer {
                 goToSignUpActivity();
             }
         };
-        underSignupButton.setOnClickListener(onClickListenerSignup);
 
-        Button btn = findViewById(R.id.login_button);
-        EditText emailField = findViewById(R.id.email_field);
-        EditText passwordField = findViewById(R.id.password_field);
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,15 +57,15 @@ public class LoginActivity extends AppCompatActivity implements Observer {
 
             }
         };
+
+        underSignupButton.setOnClickListener(onClickListenerSignup);
         btn.setOnClickListener(onClickListener);
     }
 
-
-    @Override
-    public void update(Observable o, Object arg) {
-        /*if (o instanceof User) {
-
-        }*/
+    private void setUnderlineOnLoginText() {
+        SpannableString content = new SpannableString("Login");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        underLoginButton.setText(content);
     }
 
     public void goToSignUpActivity(){

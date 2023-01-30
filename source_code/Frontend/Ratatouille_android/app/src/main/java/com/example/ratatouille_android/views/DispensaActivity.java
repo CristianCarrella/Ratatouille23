@@ -42,20 +42,20 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
     private ArrayList<Prodotto> dispensa = new ArrayList<>();
     private String selectedFilter = "Nome";
     private TextView filterShower;
-
+    private EditText searchBar;
+    private ImageView filter_icon, back_button, piu_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispensa);
 
-        EditText searchBar = findViewById(R.id.search_field);
-        ImageView filter_icon = findViewById(R.id.filter_icon);
-        ImageView back_button = findViewById(R.id.back_button);
-        ImageView piu_button = findViewById(R.id.piu_button2);
+        searchBar = findViewById(R.id.search_field);
+        filter_icon = findViewById(R.id.filter_icon);
+        back_button = findViewById(R.id.back_button);
+        piu_button = findViewById(R.id.piu_button2);
         filterShower = findViewById(R.id.filter_type);
         tableLayout = findViewById(R.id.table);
-
 
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         dispensaController = new DispensaController(this, loggedUser);
@@ -131,16 +131,11 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
         }
 
     }
-
-
+    
     @NonNull
     private ProgressBar creaProgressBarStatoProdotto(Prodotto o) {
         ProgressBar progressBar = new ProgressBar(this,null, android.R.attr.progressBarStyleHorizontal);
-        Integer value = 0;
-        if(o.getQuantita().intValue() > 100)
-            value = 100;
-        else
-            value = o.getQuantita().intValue();
+        Integer value = Math.min(o.getQuantita().intValue(), 100);
         progressBar.setProgress(value);
         progressBar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -160,7 +155,6 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
         t1.setText(o.getCategoria());
         t1.setMinHeight(200);
         t1.setMaxWidth(150);
-        //t1.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.table_cell, null));
         t1.setPadding(20, 10, 10, 10);
         t1.setGravity(Gravity.CENTER);
         return t1;
@@ -184,7 +178,6 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
         t.setMinHeight(200);
         t.setMaxWidth(150);
         t.setGravity(Gravity.CENTER);
-        //t.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.table_cell, null));
         t.setPadding(20, 10, 10, 10);
         return t;
     }

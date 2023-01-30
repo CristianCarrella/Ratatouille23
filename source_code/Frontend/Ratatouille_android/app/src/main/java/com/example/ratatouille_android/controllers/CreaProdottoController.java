@@ -1,7 +1,8 @@
 package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.CreaProdottoActivity;
@@ -24,11 +25,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CreaProdottoController {
-    CreaProdottoActivity creaProdottoActivity;
-    User loggedUser;
-    Integer resultIndex = 0;
-    String url = "https://it.openfoodfacts.org/cgi/search.pl?search_terms=";
-    String url2 = MainActivity.address + "/dispensa/newProduct";
+    private CreaProdottoActivity creaProdottoActivity;
+    private User loggedUser;
+    private Integer resultIndex = 0;
+    private String urlOpenFood = "https://it.openfoodfacts.org/cgi/search.pl?search_terms=";
+    private String url = MainActivity.address + "/dispensa/newProduct";
 
     public CreaProdottoController(CreaProdottoActivity creaProdottoActivity, User loggedUser) {
         this.creaProdottoActivity = creaProdottoActivity;
@@ -44,9 +45,8 @@ public class CreaProdottoController {
     public void getInfoProdotto(String nomeProdotto) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + nomeProdotto + "&&json=true")
+                .url(urlOpenFood + nomeProdotto + "&&json=true")
                 .build();
-
         openDataRequest(client, request, nomeProdotto);
     }
 
@@ -64,53 +64,17 @@ public class CreaProdottoController {
                     @Override
                     public void run() {
                         try {
-                            String nome = nomeProdotto, categoria = null, descrizione = null, kg_or_lt = "kg";
+                            String nome = nomeProdotto, categoria = "", descrizione = "", kg_or_lt = "kg";
 
                             JSONObject jsonObject1 = new JSONObject(myResponse);
                             JSONArray nestedJsonA = jsonObject1.getJSONArray("products");
                             JSONObject jsonObject = nestedJsonA.getJSONObject(resultIndex);
-
                             categoria = jsonObject.getString("categories");
 
-                            if (jsonObject.has("generic_name_it")) {
-                                nome = jsonObject.getString("generic_name_it");
-                                if (nome.equals(""))
-                                    nome = nomeProdotto;
-                                nome = nome.replace("'", "");
-                            }
-
-                            if(jsonObject.has("quantity") && jsonObject.has("brands") && jsonObject.has("countries") && jsonObject.has("packaging")) {
-                                descrizione = "Quantità: " + jsonObject.getString("quantity") + "\nBrands: " + jsonObject.getString("brands") + "\nPaesi di produzione: " + jsonObject.getString("countries") + "\nConfezionamento: " + jsonObject.getString("packaging");
-                                descrizione = descrizione.replace("'", " ");
-                            }else{
-                                descrizione = "Non trovata";
-                            }
-
-                            if (jsonObject.has("quantity")) {
-                                kg_or_lt = jsonObject.getString("quantity");
-                                if (kg_or_lt.contains("L") || kg_or_lt.contains("l"))
-                                    kg_or_lt = "lt";
-                            }
-
-                            if(categoria.contains("Beverages,") || categoria.contains("Bevande,") || categoria.contains("Acque"))
-                                categoria = "bibite";
-                            else if(categoria.contains("Fruits,"))
-                                categoria = "frutta";
-                            else if(categoria.contains("végétaux") || categoria.contains("vegetables") )
-                                categoria = "verdura";
-                            else if(categoria.contains("Meats,"))
-                                categoria = "carne";
-                            else if(categoria.contains("Pesci,") || categoria.contains("Seafood,"))
-                                categoria = "pesce";
-                            else if(categoria.contains("Egg"))
-                                categoria = "uova";
-                            else if(categoria.contains("Fermented milk products,") || categoria.contains("Cheeses,") || categoria.contains("Mozzarella,") || categoria.contains("Milk") || categoria.contains("latte"))
-                                categoria = "latte_e_derivati";
-                            else if(categoria.contains("Pasta") || categoria.contains("Cereals"))
-                                categoria = "cereali_e_derivati";
-                            else
-                                categoria = "altro";
-
+                            nome = getNomeFromJson(nome, jsonObject, nomeProdotto);
+                            descrizione = getDescrizioneFromJson(jsonObject);
+                            kg_or_lt = getQuantitaFromJson(kg_or_lt, jsonObject);
+                            categoria = getCategoriaFromJson(categoria);
 
                             creaProdottoActivity.setNomeInput(nome);
                             creaProdottoActivity.setCategoriaInput(categoria);
@@ -126,6 +90,61 @@ public class CreaProdottoController {
             }
         });
     }
+
+    @NonNull
+    private String getCategoriaFromJson(String categoria) {
+        if(categoria.contains("Beverages,") || categoria.contains("Bevande,") || categoria.contains("Acque"))
+            categoria = "bibite";
+        else if(categoria.contains("Fruits,"))
+            categoria = "frutta";
+        else if(categoria.contains("végétaux") || categoria.contains("vegetables") )
+            categoria = "verdura";
+        else if(categoria.contains("Meats,"))
+            categoria = "carne";
+        else if(categoria.contains("Pesci,") || categoria.contains("Seafood,"))
+            categoria = "pesce";
+        else if(categoria.contains("Egg"))
+            categoria = "uova";
+        else if(categoria.contains("Fermented milk products,") || categoria.contains("Cheeses,") || categoria.contains("Mozzarella,") || categoria.contains("Milk") || categoria.contains("latte"))
+            categoria = "latte_e_derivati";
+        else if(categoria.contains("Pasta") || categoria.contains("Cereals"))
+            categoria = "cereali_e_derivati";
+        else
+            categoria = "altro";
+        return categoria;
+    }
+
+    private String getQuantitaFromJson(String kg_or_lt, JSONObject jsonObject) throws JSONException {
+        if (jsonObject.has("quantity")) {
+            kg_or_lt = jsonObject.getString("quantity");
+            if (kg_or_lt.contains("L") || kg_or_lt.contains("l"))
+                kg_or_lt = "lt";
+        }
+        return kg_or_lt;
+    }
+
+    @NonNull
+    private String getDescrizioneFromJson(JSONObject jsonObject) throws JSONException {
+        String descrizione;
+        if(jsonObject.has("quantity") && jsonObject.has("brands") && jsonObject.has("countries") && jsonObject.has("packaging")) {
+            descrizione = "Quantità: " + jsonObject.getString("quantity") + "\nBrands: " + jsonObject.getString("brands") + "\nPaesi di produzione: " + jsonObject.getString("countries") + "\nConfezionamento: " + jsonObject.getString("packaging");
+            descrizione = descrizione.replace("'", " ");
+        }else{
+            descrizione = "Non trovata";
+        }
+        return descrizione;
+    }
+
+    private String getNomeFromJson(String nome, JSONObject jsonObject, String nomeProdotto) throws JSONException {
+        if (jsonObject.has("generic_name_it")) {
+            nome = jsonObject.getString("generic_name_it");
+            if (nome.equals(""))
+                nome = nomeProdotto;
+            nome = nome.replace("'", "");
+        }
+        return nome;
+    }
+
     public void setResultIndex(Integer index){
         if(index == 24)
             index = 0;
@@ -152,7 +171,7 @@ public class CreaProdottoController {
                 .add("categoria", categoria)
                 .build();
         Request request = new Request.Builder()
-                .url(url2)
+                .url(url)
                 .post(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
@@ -171,7 +190,6 @@ public class CreaProdottoController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
-                Log.v("Prova", myResponse);
                 if(!myResponse.contains("status")) {
                     creaProdottoActivity.runOnUiThread(new Runnable() {
                         @Override

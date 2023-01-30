@@ -1,8 +1,5 @@
 package com.example.ratatouille_android.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.ModificaProdottoController;
 import com.example.ratatouille_android.models.Prodotto;
@@ -23,12 +22,17 @@ import com.example.ratatouille_android.views.dialogs.DeleteDialog;
 import java.util.ArrayList;
 
 public class ModificaProdottoActivity extends AppCompatActivity {
-    User loggedUser;
+    private User loggedUser;
     private ArrayList<Prodotto> dispensa;
-    String nomeProdotto;
-    ModificaProdottoController modificaProdottoController;
-    String categorie [] = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
-    TextView errorLable;
+    private String nomeProdotto;
+    private ModificaProdottoController modificaProdottoController;
+    private String categorie [] = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
+    private TextView errorLable, nomeProdottoSelezionato;
+    private EditText descrizioneField, costoField, quantitaField;
+    private Spinner categoria;
+    private ToggleButton kgOrlt;
+    private Button applicaButton, piubutton, menobutton, eliminabutton;
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +45,19 @@ public class ModificaProdottoActivity extends AppCompatActivity {
 
         modificaProdottoController = new ModificaProdottoController(this, loggedUser);
 
-        TextView nomeProdottoSelezionato = findViewById(R.id.nome_prodotto_selezionato);
-        EditText descrizioneField = findViewById(R.id.descrizione_input);
-        EditText costoField = findViewById(R.id.costo_input);
-        EditText quantitaField = findViewById(R.id.quantita_input);
-        Spinner categoria = findViewById(R.id.spinner_categoria);
+        nomeProdottoSelezionato = findViewById(R.id.nome_prodotto_selezionato);
+        descrizioneField = findViewById(R.id.descrizione_input);
+        costoField = findViewById(R.id.costo_input);
+        quantitaField = findViewById(R.id.quantita_input);
+        categoria = findViewById(R.id.spinner_categoria);
         errorLable = findViewById(R.id.error_lable);
-        ToggleButton kgOrlt = findViewById(R.id.kg_or_lt);
-        Button applicaButton = findViewById(R.id.ok_button);
-        Button piubutton = findViewById(R.id.piu_button);
-        Button menobutton = findViewById(R.id.meno_button);
-        Button eliminabutton = findViewById(R.id.elimina_button);
+        kgOrlt = findViewById(R.id.kg_or_lt);
+        applicaButton = findViewById(R.id.ok_button);
+        piubutton = findViewById(R.id.piu_button);
+        menobutton = findViewById(R.id.meno_button);
+        eliminabutton = findViewById(R.id.elimina_button);
+        backButton = findViewById(R.id.back_button2);
+        AutocompilazionePagina(nomeProdottoSelezionato, descrizioneField, costoField, quantitaField, categoria);
 
         View.OnClickListener piuOnClickListener = new View.OnClickListener() {
             @Override
@@ -68,10 +74,8 @@ public class ModificaProdottoActivity extends AppCompatActivity {
                 quantitaField.setText(value.toString());
             }
         };
-        menobutton.setOnClickListener(menoOnClickListener);
-        AutocompilazionePagina(nomeProdottoSelezionato, descrizioneField, costoField, quantitaField, categoria);
 
-        ImageView backButton = findViewById(R.id.back_button2);
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +86,6 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         View.OnClickListener applicaListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String descrizione = descrizioneField.getText().toString();
                 String costo = costoField.getText().toString();
                 String quantita = quantitaField.getText().toString();
@@ -105,6 +108,8 @@ public class ModificaProdottoActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "");
             }
         };
+
+        menobutton.setOnClickListener(menoOnClickListener);
         eliminabutton.setOnClickListener(eliminaOnClickListener);
         piubutton.setOnClickListener(piuOnClickListener);
         applicaButton.setOnClickListener(applicaListener);
@@ -170,7 +175,6 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         }
         return 0;
     }
-
 
     public void setErrorLableOnError(){
         errorLable.setText("Errore");

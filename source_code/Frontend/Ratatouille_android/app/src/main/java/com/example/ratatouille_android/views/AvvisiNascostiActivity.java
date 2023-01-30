@@ -31,18 +31,19 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
     LinearLayout layout;
     ArrayList<Avviso> avvisiNascosti, avvisi;
     AvvisiNascostiController avvisiNascostiController;
-
+    ImageView back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avvisi_nascosti);
-        ImageView back_button = findViewById(R.id.back_button2);
+        back_button = findViewById(R.id.back_button2);
         layout = findViewById(R.id.linear_layoutCard2);
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         avvisiNascostiController = new AvvisiNascostiController(this, loggedUser);
         avvisiNascosti = (ArrayList<Avviso>) getIntent().getSerializableExtra("avvisiNascosti");
         avvisi = (ArrayList<Avviso>) getIntent().getSerializableExtra("avvisi");
+
         for(Avviso a : avvisiNascosti) {
             for (Avviso avviso : avvisi) {
                 if (avviso.getIdAvviso() == a.getIdAvviso())
@@ -57,12 +58,6 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
             }
         };
         back_button.setOnClickListener(onClickListener);
-
-        //noticesController = new NoticesController(homeActivity, loggedUser);
-        //noticesController.getReadNoticeFromServer();
-        //noticesController.getHiddenNoticeFromServer();
-        //noticesController.getNoticeFromServer();
-        //noticesController.getHiddenNoticeFromServer();
 
     }
 
@@ -79,8 +74,6 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
         generateHeaderTextCard(factor, constraintLayout, header);
         generateShowMessageCard(factor, constraintLayout, textMessage);
         generateHideButtonSpaceCard(card, factor, constraintLayout, id_avviso);
-
-
 
         ConstraintSet set = new ConstraintSet();
         set.clone(constraintLayout);

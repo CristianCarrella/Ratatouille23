@@ -21,10 +21,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ModificaProdottoController {
-    User loggedUser;
-    ModificaProdottoActivity modificaProdottoActivity;
-    String[] categorie = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
-    String url = MainActivity.address + "/dispensa";
+    private User loggedUser;
+    private ModificaProdottoActivity modificaProdottoActivity;
+    private String[] categorie = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
+    private String url = MainActivity.address + "/dispensa";
 
     public ModificaProdottoController(ModificaProdottoActivity modificaProdottoActivity, User loggedUser) {
         this.loggedUser = loggedUser;

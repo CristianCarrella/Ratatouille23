@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.ratatouille_android.models.User;
-import com.example.ratatouille_android.views.AvvisiNascostiActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.MainActivity;
 
@@ -30,17 +29,9 @@ public class LogoutController {
     }
 
     public void logout(){
-        try {
-            run(loggedUser.getIdUtente(), loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void run(int idUtente, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
-                .add("idUtente", String.valueOf(idUtente))
+                .add("idUtente", String.valueOf(loggedUser.getIdUtente()))
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -50,7 +41,7 @@ public class LogoutController {
         serverRequest(client, request);
     }
 
-    private String serverRequest(OkHttpClient client, Request request) {
+    private void serverRequest(OkHttpClient client, Request request) {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -68,10 +59,7 @@ public class LogoutController {
                 });
             }
         });
-        return null;
     }
-
-
 
     public void goToMainActivity(){
         Intent switchActivityIntent = new Intent(homeActivity, MainActivity.class);

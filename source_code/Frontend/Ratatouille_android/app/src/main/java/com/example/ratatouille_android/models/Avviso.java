@@ -8,9 +8,9 @@ import java.util.Observable;
 
 public class Avviso extends Observable implements Serializable {
 
-    int idAvviso, idUtente, idRistorante;
-    String testo, dataOra, autore;
-    boolean isRead, isHidden;
+    private int idAvviso, idUtente, idRistorante;
+    private String testo, dataOra, autore;
+    private boolean isRead, isHidden;
 
     public Avviso(HomeActivity homeActivity, int idAvviso, int idUtente, int idRistorante, String testo, String dataOra, String autore, boolean isRead, boolean isHidden){
         this.idAvviso = idAvviso;

@@ -1,11 +1,11 @@
 package com.ingsw.ratatouille;
 
 public class Avviso {
-	int id_avviso;
-	int id_utente;
-	int id_ristorante;
-	String testo;
-	String data_ora, autore;
+	private int id_avviso;
+	private int id_utente;
+	private int id_ristorante;
+	private String testo;
+	private String data_ora, autore;
 	
 	public Avviso(int id_avviso, int id_utente, int id_ristorante, String testo, String data_ora) {
 		this.id_avviso = id_avviso;

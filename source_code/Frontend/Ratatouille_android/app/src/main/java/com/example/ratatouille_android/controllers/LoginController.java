@@ -2,17 +2,14 @@ package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
-import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.FirstAccessActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.LoginActivity;
 import com.example.ratatouille_android.views.MainActivity;
-import com.example.ratatouille_android.views.jfragment.HomeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,15 +42,7 @@ public class LoginController {
     }
 
 
-    public void requestToServer(){
-        try {
-            run(email, password);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void run(String email, String password) throws IOException {
+    public void requestToServer() {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("email", email)
@@ -77,7 +66,6 @@ public class LoginController {
                 });
             }
 
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String myResponse = response.body().string();
@@ -89,7 +77,7 @@ public class LoginController {
                         try {
                             Jobject = new JSONObject(myResponse);
                             Boolean isFistAccess = Jobject.getBoolean("firstAccess");
-                            loggedUser = new User(loginActivity, Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"), Jobject.getString("token"), Jobject.getString("tk_expiration_timestamp"));
+                            loggedUser = new User(Jobject.getInt("idUtente"), Jobject.getString("nome"), Jobject.getString("cognome"), Jobject.getString("dataNascita"), Jobject.getString("email"), password, Jobject.getString("ruolo"), Jobject.getBoolean("firstAccess"), Jobject.getInt("aggiuntoDa"), Jobject.getString("dataAggiunta"), Jobject.getInt("idRistorante"), Jobject.getString("token"), Jobject.getString("tk_expiration_timestamp"));
                             error.setText(R.string.successo_login);
                             error.setTextColor(Color.GREEN);
                             if(isFistAccess){

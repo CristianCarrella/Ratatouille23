@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +13,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
-import com.example.ratatouille_android.controllers.HomeController;
-import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
 
 import java.io.IOException;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
-    EditText nomeField, cognomeField, dateField;
-    HomeActivity homeActivity;
-    TextView ruolo, email, aggiuntoDa, aggiutoInData, aggiuntoDaLabel, dataAggiuntaLabel, errore;
+    private EditText nomeField, cognomeField, dateField;
+    private HomeActivity homeActivity;
+    private TextView ruolo, email, aggiuntoDa, aggiutoInData, aggiuntoDaLabel, dataAggiuntaLabel, errore;
 
     public AccountFragment(HomeActivity homeActivity){
         this.homeActivity = homeActivity;
     }
-
 
 
     @Override
@@ -37,17 +33,18 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         Button btn = view.findViewById(R.id.confermaButton);
         btn.setOnClickListener(this);
+
         nomeField = view.findViewById(R.id.nomeField);
         cognomeField = view.findViewById(R.id.cognomeField);
         dateField = view.findViewById(R.id.dataField);
 
-        ruolo = (TextView) view.findViewById(R.id.textViewRuolo);
-        email = (TextView) view.findViewById(R.id.textViewEmail);
-        aggiuntoDa = (TextView) view.findViewById(R.id.textViewAggiuntoDa);
-        aggiutoInData = (TextView) view.findViewById(R.id.textViewAggiutoInData);
-        aggiuntoDaLabel = (TextView) view.findViewById(R.id.aggiuntoDaLabel);
-        dataAggiuntaLabel = (TextView) view.findViewById(R.id.dataAggiuntaDaLabel);
-        errore = (TextView) view.findViewById(R.id.textViewErrore);
+        ruolo = view.findViewById(R.id.textViewRuolo);
+        email = view.findViewById(R.id.textViewEmail);
+        aggiuntoDa = view.findViewById(R.id.textViewAggiuntoDa);
+        aggiutoInData =  view.findViewById(R.id.textViewAggiutoInData);
+        aggiuntoDaLabel = view.findViewById(R.id.aggiuntoDaLabel);
+        dataAggiuntaLabel = view.findViewById(R.id.dataAggiuntaDaLabel);
+        errore = view.findViewById(R.id.textViewErrore);
 
         nomeField.setHint(homeActivity.getUserName());
         cognomeField.setHint(homeActivity.getUserCognome());
@@ -78,7 +75,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 dateField.setText(dateField.getHint().toString());
             }
             this.setErrorLableOnSuccess();
-            homeActivity.getHomeController().run(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+            homeActivity.getHomeController().setUserInfo(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
             homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
             nomeField.setHint(nomeField.getText().toString());
             cognomeField.setHint(cognomeField.getText().toString());
@@ -93,9 +90,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void run(String nome){
-
-    }
 
     public void setErrorLableOnError(){
         errore.setText("Errore");
@@ -106,7 +100,5 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         errore.setText("Modifiche apportate con successo");
         errore.setTextColor(Color.parseColor("#008000"));
     }
-
-
 
 }

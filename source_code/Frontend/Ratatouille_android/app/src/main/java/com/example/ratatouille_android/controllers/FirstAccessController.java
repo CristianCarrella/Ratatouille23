@@ -1,7 +1,6 @@
 package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 
 import com.example.ratatouille_android.R;

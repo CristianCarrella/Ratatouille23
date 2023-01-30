@@ -35,24 +35,21 @@ import java.util.Observer;
 
 public class HomeActivity extends AppCompatActivity implements Observer {
 
-    BottomNavigationView bottomNavigationView;
-
-    HomeFragment homeFragment;
-    AccountFragment accountFragment;
-    NoticesFragment noticesFragment;
-    FunctionFragment functionFragment;
-    User loggedUser;
-    LogoutController logoutController;
-    HomeController homeController;
-    Attivita attivita;
-    String nomeRistorante = "";
-    AvvisiNascostiActivity hiddenNotices;
-    int currentFragment;
-    HomeActivity homeActivity = this;
-    BadgeDrawable badgeDrawable;
-
-    EditText nomeField, cognomeField, dataNascitaField;
-    TextView nomeRistoranteTextView, textNomeCognome;
+    private BottomNavigationView bottomNavigationView;
+    private HomeFragment homeFragment;
+    private AccountFragment accountFragment;
+    private NoticesFragment noticesFragment;
+    private FunctionFragment functionFragment;
+    private User loggedUser;
+    private LogoutController logoutController;
+    private HomeController homeController;
+    private String nomeRistorante = "";
+    private int currentFragment;
+    private BadgeDrawable badgeDrawable;
+    private ImageView immagineProfilo;
+    private TextView textNomeAttivita,textRuolo, textNomeCognome;
+    private BottomAppBar bottomAppBar;
+    private FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -66,54 +63,42 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         noticesFragment = new NoticesFragment(this, loggedUser);
         functionFragment = new FunctionFragment(this, loggedUser);
         homeFragment = new HomeFragment(this);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         logoutController = new LogoutController(this, loggedUser);
 
-        homeController.getNumberOfNoticesToRead();
-        badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
-        badgeDrawable.setVisible(true);
+        textNomeCognome = findViewById(R.id.textNomeCognome);
+        textNomeAttivita = findViewById(R.id.textnomeAttività);
+        textRuolo = findViewById(R.id.textRuolo);
+        immagineProfilo = findViewById(R.id.imageView7);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomAppBar = findViewById(R.id.bottomAppBar);
+        floatingActionButton = findViewById(R.id.home);
 
         currentFragment = getIntent().getExtras().getInt("frgToLoad");
-        switch (currentFragment){ // Potrebbe essere un if ma in vista di successivi sviluppi è meglio rimanere lo switch
+        switch (currentFragment){
             case R.id.notices:
                 bottomNavigationView.getMenu().findItem(R.id.notices).setChecked(true);
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
+                break;
+            case R.id.functions:
+                bottomNavigationView.getMenu().findItem(R.id.functions).setChecked(true);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, functionFragment).commit();
                 break;
             default:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
                 break;
         }
 
-        textNomeCognome = findViewById(R.id.textNomeCognome);
-        TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
-        TextView textRuolo = findViewById(R.id.textRuolo);
-        ImageView immagineProfilo = findViewById(R.id.imageView7);
+        setNumberOfNoticeToRead();
+        setTopActivityInfo();
+        disableNothingButton();
 
-        homeController.getNomeRistorante();
-
-
-        textNomeCognome.setText(String.format("%s %s", loggedUser.getNome(), loggedUser.getCognome()));
-        textRuolo.setText(loggedUser.getRuolo());
-
-        FloatingActionButton floatingActionButton = findViewById(R.id.home);
-        bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
-        bottomNavigationView.getMenu().findItem(R.id.nothing).setEnabled(false);
-
-
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        View.OnClickListener onHomeButtonClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
             }
         };
-
-        floatingActionButton.setOnClickListener(onClickListener);
-
-
-
-
-        bottomNavigationView.setBackground(null);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -141,8 +126,29 @@ public class HomeActivity extends AppCompatActivity implements Observer {
             }
         });
 
-        BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
+        makesRoundedBottomNavBar(bottomAppBar);
+        bottomNavigationView.setBackground(null);
+        floatingActionButton.setOnClickListener(onHomeButtonClickListener);
+    }
 
+    private void setNumberOfNoticeToRead() {
+        homeController.getNumberOfNoticesToRead();
+        badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notices);
+        badgeDrawable.setVisible(true);
+    }
+
+    private void disableNothingButton() {
+        bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
+        bottomNavigationView.getMenu().findItem(R.id.nothing).setEnabled(false);
+    }
+
+    private void setTopActivityInfo() {
+        homeController.getNomeRistorante();
+        textNomeCognome.setText(String.format("%s %s", loggedUser.getNome(), loggedUser.getCognome()));
+        textRuolo.setText(loggedUser.getRuolo());
+    }
+
+    private void makesRoundedBottomNavBar(BottomAppBar bottomAppBar) {
         MaterialShapeDrawable bottomBarBackground = (MaterialShapeDrawable) bottomAppBar.getBackground();
         bottomBarBackground.setShapeAppearanceModel(
                 bottomBarBackground.getShapeAppearanceModel()
@@ -152,7 +158,38 @@ public class HomeActivity extends AppCompatActivity implements Observer {
                         .setBottomRightCorner(CornerFamily.ROUNDED, 40)
                         .setBottomLeftCorner(CornerFamily.ROUNDED, 40)
                         .build());
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if(o instanceof Attivita){
+            Attivita a = (Attivita) o;
+            nomeRistorante = a.getNome();
+            TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
+            TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
+            textNomeAttivita.setText(a.getNome());
+            if(currentFragment == R.id.home)
+                textNomeAttivitaHome.setText(a.getNome());
+        } else if(o instanceof Avviso){
+            Avviso a = (Avviso) o;
+            Log.v("Prova", a.getTesto() + " " +  a.isHidden() + " " + a.isRead());
+            noticesFragment.generateCard(a);
+        }
+    }
+
+    public void goToHomeActivity(){
+        Intent switchActivityIntent = new Intent(this, HomeActivity.class);
+        switchActivityIntent.putExtra("loggedUser", loggedUser);
+        this.startActivity(switchActivityIntent);
+        this.finish();
+    }
+
+    public HomeController getHomeController() {
+        return homeController;
+    }
+
+    public BadgeDrawable getBadgeDrawable() {
+        return badgeDrawable;
     }
 
     public String getUserEmail(){
@@ -175,10 +212,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         return loggedUser.getRuolo();
     }
 
-    public int getAggiuntoDa() {
-        return loggedUser.getAggiunto_da();
-    }
-
     public String getUserDataAggiunta() {
         return loggedUser.getData_aggiunta();
     }
@@ -193,37 +226,5 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     public String getNomeRistorante() {
         return nomeRistorante;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if(o instanceof Attivita){
-            Attivita a = (Attivita) o;
-            nomeRistorante = a.getNome();
-            TextView textNomeAttivita = findViewById(R.id.textnomeAttività);
-            TextView textNomeAttivitaHome = findViewById(R.id.nomeAttivitaHome);
-            textNomeAttivita.setText(a.getNome());
-            if(currentFragment == R.id.home)
-                textNomeAttivitaHome.setText(a.getNome());
-        } else if(o instanceof Avviso){
-            Avviso a = (Avviso) o;
-            Log.v("Prova", a.getTesto() + " " +  a.isHidden() + " " + a.isRead());
-            noticesFragment.generateCard(a);
-        }
-    }
-
-    public void goToHomeActivity(){
-        Intent switchActivityIntent = new Intent(homeActivity, HomeActivity.class);
-        switchActivityIntent.putExtra("loggedUser", loggedUser);
-        homeActivity.startActivity(switchActivityIntent);
-        homeActivity.finish();
-    }
-
-    public HomeController getHomeController() {
-        return homeController;
-    }
-
-    public BadgeDrawable getBadgeDrawable() {
-        return badgeDrawable;
     }
 }

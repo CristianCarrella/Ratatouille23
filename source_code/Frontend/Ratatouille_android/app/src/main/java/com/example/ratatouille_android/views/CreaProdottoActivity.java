@@ -19,16 +19,17 @@ import com.example.ratatouille_android.controllers.CreaProdottoController;
 import com.example.ratatouille_android.models.User;
 
 public class CreaProdottoActivity extends AppCompatActivity {
-    String categorie [] = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
-    CreaProdottoController creaProdottoController;
-    User loggedUser;
-    TextView errorLableAutoCompilation, errorLable;
-    EditText descrizioneInput, nomeInput2, quantitaInput, costoInput, nomeInput;
-    ToggleButton kg_or_lt;
-    Spinner categoriaSpinner;
-    Button auto_button;
-    String categoria;
-    ProgressBar caricamento;
+    private String categorie [] = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
+    private CreaProdottoController creaProdottoController;
+    private User loggedUser;
+    private TextView errorLableAutoCompilation, errorLable;
+    private EditText descrizioneInput, nomeInput2, quantitaInput, costoInput, nomeInput;
+    private ToggleButton kg_or_lt;
+    private Spinner categoriaSpinner;
+    private Button auto_button, ok_button;
+    private String categoria;
+    private ProgressBar caricamento;
+    private ImageView back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,8 @@ public class CreaProdottoActivity extends AppCompatActivity {
         categoriaSpinner = findViewById(R.id.spinner_categoria);
         caricamento = findViewById(R.id.caricamento);
 
-        ImageView back_button = findViewById(R.id.back_button2);
-        Button ok_button = findViewById(R.id.ok_button);
+        back_button = findViewById(R.id.back_button2);
+        ok_button = findViewById(R.id.ok_button);
         errorLable = findViewById(R.id.error_lable);
         errorLableAutoCompilation = findViewById(R.id.error_lable2);
         auto_button = findViewById(R.id.automaticamente_button);
@@ -131,10 +132,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
     }
 
     public void setKg_or_ltInput(String KgOrLt){
-        if(KgOrLt.equals("lt"))
-            kg_or_lt.setChecked(true);
-        else
-            kg_or_lt.setChecked(false);
+        kg_or_lt.setChecked(KgOrLt.equals("lt"));
     }
 
     public void setCategoriaInput(String categoria) {

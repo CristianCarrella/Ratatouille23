@@ -9,7 +9,7 @@ import java.util.Properties;
 import org.springframework.stereotype.Component;
 @Component
 public class DatabaseConnection {
-	Connection connection;
+	private Connection connection;
 	private static DatabaseConnection databaseConnection = null;
 
 	public static DatabaseConnection getInstance() {

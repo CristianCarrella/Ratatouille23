@@ -15,9 +15,9 @@ import com.example.ratatouille_android.views.HomeActivity;
 
 public class HomeFragment extends Fragment {
 
-    TextView nomeAttivita;
-    HomeController homeController;
-    HomeActivity homeActivity;
+    private TextView nomeAttivita;
+    private HomeController homeController;
+    private HomeActivity homeActivity;
 
     public HomeFragment(HomeActivity homeActivity){
         this.homeActivity = homeActivity;

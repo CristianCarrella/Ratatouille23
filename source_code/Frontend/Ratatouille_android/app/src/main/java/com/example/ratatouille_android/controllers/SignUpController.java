@@ -1,8 +1,5 @@
 package com.example.ratatouille_android.controllers;
 
-import android.graphics.Color;
-
-import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.views.MainActivity;
 import com.example.ratatouille_android.views.SignUpActivity;
 
@@ -20,8 +17,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SignUpController {
-    SignUpActivity signUpActivity;
-    String url = MainActivity.address + "/verify";
+    private SignUpActivity signUpActivity;
+    private String url = MainActivity.address + "/verify";
 
     public SignUpController(SignUpActivity signUpActivity){
         this.signUpActivity = signUpActivity;

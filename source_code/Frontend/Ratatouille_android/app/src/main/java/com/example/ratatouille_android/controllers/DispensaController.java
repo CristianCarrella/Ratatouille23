@@ -1,8 +1,7 @@
 package com.example.ratatouille_android.controllers;
 import android.content.Intent;
-import android.widget.TableLayout;
 
-import com.example.ratatouille_android.models.Attivita;
+import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.CreaProdottoActivity;
@@ -17,22 +16,19 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DispensaController {
-    DispensaActivity dispensaActivity;
-    User loggedUser;
-    String url = MainActivity.address + "/dispensa";
-    ArrayList<Prodotto> dispensa = new ArrayList<Prodotto>();
-
-    HomeActivity homeActivity;
+    private DispensaActivity dispensaActivity;
+    private User loggedUser;
+    private String url = MainActivity.address + "/dispensa";
+    private ArrayList<Prodotto> dispensa = new ArrayList<Prodotto>();
 
     public DispensaController(){ }
 
@@ -42,59 +38,33 @@ public class DispensaController {
     }
 
     public void getProductFromServer(){
-        try {
-            run(loggedUser.getIdRistorante(), loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getProductByNameFromServer(String productName){
-        try {
-            run2(loggedUser.getIdRistorante(), productName , loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void  getProductByCategoriaFromServer(String category){
-        try {
-            run3(loggedUser.getIdRistorante(), category , loggedUser.getToken());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    void run(Integer id_ristorante, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "?id_ristorante=" + id_ristorante.toString())
-                .header("Authorization", token)
+                .url(url + "?id_ristorante=" + loggedUser.getIdRistorante())
+                .header("Authorization", loggedUser.getToken())
                 .build();
-
         serverRequestWithSavingOfStatus(client, request);
     }
 
-    void run2(Integer id_ristorante, String productName, String token) throws IOException {
+    public void getProductByNameFromServer(String productName){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "/prodotto?id_ristorante=" + id_ristorante.toString() + "&&nomeProdotto="+productName)
-                .header("Authorization", token)
+                .url(url + "/prodotto?id_ristorante=" + loggedUser.getIdRistorante() + "&&nomeProdotto="+productName)
+                .header("Authorization", loggedUser.getToken())
                 .build();
 
         serverRequest(client, request);
     }
 
-    void run3(Integer id_ristorante, String category, String token) throws IOException {
+    public void  getProductByCategoriaFromServer(String category){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url + "/categoria?id_ristorante=" + id_ristorante.toString() + "&&categoria="+category)
-                .header("Authorization", token)
+                .url(url + "/categoria?id_ristorante=" + loggedUser.getIdRistorante() + "&&categoria="+category)
+                .header("Authorization", loggedUser.getToken())
                 .build();
-
         serverRequest(client, request);
     }
+
 
     private void serverRequest(OkHttpClient client, Request request) {
         client.newCall(request).enqueue(new Callback() {
@@ -116,7 +86,6 @@ public class DispensaController {
                                 JSONObject json = jsonA.getJSONObject(i);
                                 Prodotto p = new Prodotto(dispensaActivity, json.getInt("idProdotto"), json.getInt("idRistorante"), json.getString("nome"), json.getInt("stato"), json.getString("descrizione"), json.getDouble("prezzo"), json.getDouble("quantita"), json.getString("unitaMisura"),  json.getString("categoria"));
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -162,6 +131,7 @@ public class DispensaController {
     public void goToMenuActivity(){
         Intent switchActivityIntent = new Intent(dispensaActivity, HomeActivity.class);
         switchActivityIntent.putExtra("loggedUser", loggedUser);
+        switchActivityIntent.putExtra("frgToLoad", R.id.functions);
         dispensaActivity.startActivity(switchActivityIntent);
         dispensaActivity.finish();
     }
@@ -181,4 +151,5 @@ public class DispensaController {
         dispensaActivity.startActivity(switchActivityIntent);
         dispensaActivity.finish();
     }
+
 }

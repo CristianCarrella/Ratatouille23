@@ -16,20 +16,24 @@ import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.SignUpController;
 
 public class SignUpActivity extends AppCompatActivity {
-    SignUpController signUpController;
-    TextView error;
+    private SignUpController signUpController;
+    private TextView error, underSignUpButton, underLoginButton;
+    private EditText emailInput, ristoranteInput;
+    private Button verificaButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         signUpController = new SignUpController(this);
-        TextView underSignUpButton = findViewById(R.id.sign_up_under_button2);
-        TextView underLoginButton = findViewById(R.id.login_under_button2);
-        EditText emailInput = findViewById(R.id.email_field3);
-        EditText ristoranteInput = findViewById(R.id.ristorante_field);
-        Button verificaButton = findViewById(R.id.verifica_button);
+
+        underSignUpButton = findViewById(R.id.sign_up_under_button2);
+        underLoginButton = findViewById(R.id.login_under_button2);
+        emailInput = findViewById(R.id.email_field3);
+        ristoranteInput = findViewById(R.id.ristorante_field);
+        verificaButton = findViewById(R.id.verifica_button);
         error = findViewById(R.id.errorVerifica);
+        setUnderlineOnSignupText();
 
         View.OnClickListener onClickListenerVerifica = new View.OnClickListener() {
             @Override
@@ -40,11 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
 
-
-        SpannableString content = new SpannableString("Account");
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        underSignUpButton.setText(content);
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +53,12 @@ public class SignUpActivity extends AppCompatActivity {
 
         verificaButton.setOnClickListener(onClickListenerVerifica);
         underLoginButton.setOnClickListener(onClickListener);
+    }
+
+    private void setUnderlineOnSignupText() {
+        SpannableString content = new SpannableString("Account");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        underSignUpButton.setText(content);
     }
 
     public void goToLoginActivity(){

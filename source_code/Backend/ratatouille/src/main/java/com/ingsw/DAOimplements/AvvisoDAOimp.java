@@ -142,7 +142,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		String query1 = "SELECT COUNT(*) AS num_messaggi_letti FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
 		String query2 = "SELECT COUNT(*) AS num_messaggi_ristorante FROM avviso WHERE id_ristorante = " + idRistorante;
 		ResultSet rs;
-		System.out.println("\n" + query1 +"\n " + query2 + "\n");
 		Integer num_messaggi_letti = 0, num_messaggi_ristorante = 0;
 		try {
 			rs = db.getStatement().executeQuery(query1);
@@ -151,7 +150,6 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			rs = db.getStatement().executeQuery(query2);
 			while(rs.next())
 				num_messaggi_ristorante = rs.getInt("num_messaggi_ristorante");
-			System.out.println(num_messaggi_ristorante - num_messaggi_letti);
 			return  num_messaggi_ristorante - num_messaggi_letti;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -182,6 +180,17 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		try {
 			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
 			db.getStatement().executeUpdate(query);
+			query = "SELECT * FROM cronologia_lettura_avviso WHERE id_avviso = " + id_avviso;
+			rs = db.getStatement().executeQuery(query);
+			boolean isRead = false;
+			while (rs.next()){
+				if(rs.isBeforeFirst()){
+					isRead = true;
+				}
+			}
+			if(!isRead){
+				setAvvisoViewed(id_avviso, loggedUser);
+			}
 			return getAvvisoNascosto(id_avviso);
 		}catch(SQLException e) {
 			e.printStackTrace();

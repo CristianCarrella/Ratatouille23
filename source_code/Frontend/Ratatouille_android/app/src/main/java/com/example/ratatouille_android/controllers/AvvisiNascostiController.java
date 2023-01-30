@@ -19,9 +19,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AvvisiNascostiController {
-    AvvisiNascostiActivity avvisiNascostiActivity;
-    User loggedUser;
-    String url = MainActivity.address;
+    private AvvisiNascostiActivity avvisiNascostiActivity;
+    private User loggedUser;
+    private String url = MainActivity.address;
 
     public AvvisiNascostiController(AvvisiNascostiActivity avvisiNascostiActivity, User loggedUser){
         this.avvisiNascostiActivity = avvisiNascostiActivity;
@@ -36,14 +36,6 @@ public class AvvisiNascostiController {
     }
 
     public void markAsNotHideNotice(Integer id_avviso){
-        try {
-            runMarkNoticeAsNotHide(id_avviso);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void runMarkNoticeAsNotHide(Integer id_avviso) {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("id_avviso", String.valueOf(id_avviso))

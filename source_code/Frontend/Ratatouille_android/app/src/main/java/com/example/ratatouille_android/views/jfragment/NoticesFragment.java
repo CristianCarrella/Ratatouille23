@@ -28,13 +28,13 @@ import java.util.ArrayList;
 
 
 public class NoticesFragment extends Fragment {
-    HomeActivity homeActivity;
-    NoticesController noticesController;
-    View view;
-    User loggedUser;
-    LinearLayout layout;
-    ArrayList<Avviso> avviso = new ArrayList<Avviso>();
-    float factor;
+    private HomeActivity homeActivity;
+    private NoticesController noticesController;
+    private View view;
+    private User loggedUser;
+    private LinearLayout layout;
+    private ArrayList<Avviso> avviso = new ArrayList<Avviso>();
+    private Button messaggiNascostiButton;
 
     public NoticesFragment(HomeActivity homeActivity, User loggedUser){
         this.homeActivity = homeActivity;
@@ -46,7 +46,7 @@ public class NoticesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_notices, container, false);
         layout = view.findViewById(R.id.linear_layoutCard);
-        Button messaggiNascostiButton = view.findViewById(R.id.messaggi_nascosti_button);
+        messaggiNascostiButton = view.findViewById(R.id.messaggi_nascosti_button);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -54,11 +54,9 @@ public class NoticesFragment extends Fragment {
                 noticesController.goToHideMessageActivity();
             }
         };
+
         messaggiNascostiButton.setOnClickListener(onClickListener);
-
-        factor = homeActivity.getResources().getDisplayMetrics().density;
         noticesController = new NoticesController(homeActivity, loggedUser);
-
 
         return view;
     }
@@ -126,7 +124,6 @@ public class NoticesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 noticesController.markAsHideNotice(id_avviso);
-                //card.setVisibility(View.INVISIBLE);
                 LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) card.getLayoutParams();
                 layoutParams.height = 0;
                 card.setLayoutParams(layoutParams);
@@ -136,11 +133,7 @@ public class NoticesFragment extends Fragment {
 
         CheckBox read_or_not = new CheckBox(homeActivity);
         read_or_not.setId(R.id.read_or_not);
-        if(isRead){
-            read_or_not.setChecked(true);
-        } else {
-            read_or_not.setChecked(false);
-        }
+        read_or_not.setChecked(isRead);
 
         read_or_not.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
