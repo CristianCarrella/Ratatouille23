@@ -67,7 +67,7 @@
          <top>
             <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label prefHeight="17.0" prefWidth="92.0" style="-fx-font-weight: bold;" text="ORDINA MENU" textFill="#003f91" />
+                  <Label prefHeight="19.0" prefWidth="96.0" style="-fx-font-weight: bold;" text="ORDINA MENU" textFill="#003f91" />
                   <Label fx:id="nomeCategoriaAttuale" text="Categoria 1" />
                </children>
             </VBox>
