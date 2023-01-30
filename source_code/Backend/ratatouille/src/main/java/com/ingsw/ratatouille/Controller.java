@@ -1,10 +1,8 @@
 package com.ingsw.ratatouille;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -313,7 +311,7 @@ public class Controller {
 	}
 
 	@GetMapping("/business/getImage")
-	public Image getBusinessImage(){
+	public String getBusinessImage(){
 		return businessDao.getBusinessImage(loggedUser);
 	}
 	

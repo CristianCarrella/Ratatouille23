@@ -1,12 +1,15 @@
 package application.driver;
 
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -43,6 +46,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
 
+
 public class BusinessDriver {
 	public static Business business;
 
@@ -64,6 +68,15 @@ private Utente loggedUser = LoginController.loggedUser;
 	public Business requestModifyBusinessToServer(String nome, String indirizzo, String numeroTelefono){
 		try {
 			return runModifyBusiness(loggedUser.getIdRistorante(), nome, indirizzo, numeroTelefono);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Image requestGetLogoToServer() {
+		try {
+			return runGetLogo();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,7 +108,8 @@ private Utente loggedUser = LoginController.loggedUser;
 		return null;
 	}
 	
-	
+
+	@SuppressWarnings("deprecation")
 	public Business runSetLogo(File image, String fileName) throws Exception{
 		HttpClient httpclient = new DefaultHttpClient();
 	    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -131,6 +145,35 @@ private Utente loggedUser = LoginController.loggedUser;
             JSONObject jsonObject = new JSONObject(json);
             business = new Business(jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getString("numeroTelefono"), jsonObject.getString("indirizzo"), jsonObject.getString("nomeImmagine"), jsonObject.getInt("idProprietario"));
             return business;
+        }catch (JSONException e) {
+            e.printStackTrace();
+            System.out.print("Errore nel parsing del JSON");
+        }
+        return null;
+    }
+	
+	public Image runGetLogo() throws Exception {
+        try {
+            HttpClient httpclient = HttpClients.createDefault();
+            HttpGet httpget = new HttpGet("http://localhost:8080/business/getImage");
+            httpget.setHeader("Authorization", loggedUser.getToken());
+
+            HttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+            String json = EntityUtils.toString(response.getEntity());
+            System.out.println("jsonerrormannagg" + json);
+            JSONObject jsonObject = new JSONObject(json);
+            
+            String encodedImage = jsonObject.getString("image");
+            byte[] imageBytes = Base64.getDecoder().decode(encodedImage);
+            Image image = new Image(new ByteArrayInputStream(imageBytes));
+            System.out.println(image);
+            return image;
+            
+            
+//			Image myImage = Toolkit.getDefaultToolkit().createImage();
+//			Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+
         }catch (JSONException e) {
             e.printStackTrace();
             System.out.print("Errore nel parsing del JSON");

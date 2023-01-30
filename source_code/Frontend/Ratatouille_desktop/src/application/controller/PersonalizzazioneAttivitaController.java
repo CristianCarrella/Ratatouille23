@@ -60,6 +60,13 @@ public class PersonalizzazioneAttivitaController {
 	@FXML
 	public void initialize() {
 		mostraDatiRistorante();
+		try {
+			Image image = businessDriver.runGetLogo();
+			logoInputView.setImage(image);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void mostraDatiRistorante() {
@@ -88,6 +95,7 @@ public class PersonalizzazioneAttivitaController {
 	        logoInputView.setImage(image);
 	        
 			try {
+				System.out.println("logo caricato");
 				businessDriver.runSetLogo(file, fileName);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

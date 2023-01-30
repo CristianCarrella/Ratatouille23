@@ -30,7 +30,7 @@ public class CustomInterceptor implements HandlerInterceptor {
 	private UserDAOimp userDao;
 	private ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
 
-	final private String[] unsafeEndpoint = {"/login", "/verify", "/signup-admin"};
+	final private String[] unsafeEndpoint = new String[] {"/login", "/verify", "/signup-admin"};
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
 		this.userDao = userDao;

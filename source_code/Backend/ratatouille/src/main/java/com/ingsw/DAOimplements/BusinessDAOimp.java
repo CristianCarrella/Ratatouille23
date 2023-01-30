@@ -1,7 +1,5 @@
 package com.ingsw.DAOimplements;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,17 +8,19 @@ import java.nio.file.StandardCopyOption;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ingsw.DAOinterface.BusinessDAOint;
 import com.ingsw.ratatouille.Business;
 import com.ingsw.ratatouille.DatabaseConnection;
-import com.ingsw.ratatouille.LoggedUser;
 import com.ingsw.ratatouille.User;
 
 import javax.imageio.ImageIO;
+
 
 public class BusinessDAOimp implements BusinessDAOint {
 	DatabaseConnection db;
@@ -64,8 +64,6 @@ public class BusinessDAOimp implements BusinessDAOint {
 		Path uploadPath = Paths.get(repository);
 		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
-		} else {
-			FileUtils.deleteDirectory(new File("C:\\logos\\" + loggedUser.getIdUtente()));
 		}
 		try (InputStream inputStream = image.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
@@ -87,9 +85,10 @@ public class BusinessDAOimp implements BusinessDAOint {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		FileUtils.deleteDirectory(new File("C:\\logos\\" + loggedUser.getIdUtente()));
 	}
 
-	public Image getBusinessImage(User loggedUser) {
+	public String getBusinessImage(User loggedUser) {
 		String query = "SELECT nome_immagine FROM ristorante WHERE id_ristorante = " + loggedUser.getIdRistorante();
 		ResultSet rs = null;
 		String fileName = "";
@@ -102,29 +101,47 @@ public class BusinessDAOimp implements BusinessDAOint {
 			e.printStackTrace();
 		}
 
-		File file = new File("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+//		File file = new File("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+//		try {
+//			FileInputStream fis = new FileInputStream(file);
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
 		try {
-			FileInputStream fis = new FileInputStream(file);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			PreparedStatement ps = db.getConnection().prepareStatement("SELECT logo, nome_immagine FROM ristorante WHERE id_ristorante = " + loggedUser.getIdRistorante());
+			PreparedStatement ps = db.getConnection().prepareStatement("SELECT logo FROM ristorante WHERE id_ristorante = " + loggedUser.getIdRistorante());
 			ResultSet resultSet = ps.executeQuery();
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+			String repository = "C:\\logos\\" + loggedUser.getIdUtente();
+			Path uploadPath = Paths.get(repository);
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+
+			FileOutputStream fos = new FileOutputStream("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+
 			while (resultSet.next()) {
 				byte[] buffer = new byte[1];
-				InputStream is = resultSet.getBinaryStream(3);
+				InputStream is = resultSet.getBinaryStream(1);
 				while (is.read(buffer) > 0) {
-					output.write(buffer);
+					fos.write(buffer);
 				}
-				output.close();
+				fos.close();
 			}
 			ps.close();
-			Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
-			return myImage;
+
+
+
+			File file = new File("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+			byte[] bytes = Files.readAllBytes(file.toPath());
+
+			String encodedImage = Base64.getEncoder().encodeToString(bytes);
+			JSONObject json = new JSONObject();
+			json.put("image", encodedImage);
+			return json.toString();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
