@@ -7,6 +7,8 @@ To Do list:
 - JUnit
 
 
+- Riempire completezza funzionale
+
 
 Problemi:
 - In android: con data sbagliata nel primo fragment dice "modifiche apportate con successo" 
@@ -16,3 +18,4 @@ Problemi:
 
 In sospeso:
 - SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD
+- Far vedere i cambiamenti prima e dopo del test di usabilità
