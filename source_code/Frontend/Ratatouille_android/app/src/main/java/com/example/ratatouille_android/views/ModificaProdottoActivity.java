@@ -57,7 +57,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         menobutton = findViewById(R.id.meno_button);
         eliminabutton = findViewById(R.id.elimina_button);
         backButton = findViewById(R.id.back_button2);
-        AutocompilazionePagina(nomeProdottoSelezionato, descrizioneField, costoField, quantitaField, categoria);
+        autocompilazionePagina(nomeProdottoSelezionato, descrizioneField, costoField, quantitaField, categoria);
 
         View.OnClickListener piuOnClickListener = new View.OnClickListener() {
             @Override
@@ -76,7 +76,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         };
 
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        View.OnClickListener dispensaOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 modificaProdottoController.goToDispensaActivity();
@@ -113,10 +113,10 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         eliminabutton.setOnClickListener(eliminaOnClickListener);
         piubutton.setOnClickListener(piuOnClickListener);
         applicaButton.setOnClickListener(applicaListener);
-        backButton.setOnClickListener(onClickListener);
+        backButton.setOnClickListener(dispensaOnClickListener);
     }
 
-    private void AutocompilazionePagina(TextView nomeProdottoSelezionato, EditText descrizioneField, EditText costoField, EditText quantitaField, Spinner categoria) {
+    private void autocompilazionePagina(TextView nomeProdottoSelezionato, EditText descrizioneField, EditText costoField, EditText quantitaField, Spinner categoria) {
         nomeProdottoSelezionato.setText(nomeProdotto);
         Integer i = findIndexProductInDispensa();
 

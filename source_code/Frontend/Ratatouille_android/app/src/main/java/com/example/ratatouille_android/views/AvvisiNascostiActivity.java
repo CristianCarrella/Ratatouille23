@@ -27,11 +27,11 @@ import java.util.Iterator;
 
 public class AvvisiNascostiActivity extends AppCompatActivity {
 
-    User loggedUser;
-    LinearLayout layout;
-    ArrayList<Avviso> avvisiNascosti, avvisi;
-    AvvisiNascostiController avvisiNascostiController;
-    ImageView back_button;
+    private User loggedUser;
+    private LinearLayout layout;
+    private ArrayList<Avviso> avvisiNascosti, avvisi;
+    private AvvisiNascostiController avvisiNascostiController;
+    private ImageView back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +51,13 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
             }
         }
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        View.OnClickListener onClickBackToNoticeListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 avvisiNascostiController.goToNoticesFragment();
             }
         };
-        back_button.setOnClickListener(onClickListener);
+        back_button.setOnClickListener(onClickBackToNoticeListener);
 
     }
 

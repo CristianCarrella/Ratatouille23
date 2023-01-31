@@ -23,7 +23,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
     private CreaProdottoController creaProdottoController;
     private User loggedUser;
     private TextView errorLableAutoCompilation, errorLable;
-    private EditText descrizioneInput, nomeInput2, quantitaInput, costoInput, nomeInput;
+        private EditText descrizioneInput, nomeInput2, quantitaInput, costoInput, nomeInput;
     private ToggleButton kg_or_lt;
     private Spinner categoriaSpinner;
     private Button auto_button, ok_button;
@@ -127,7 +127,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
         nomeInput2.setText(nome);
     }
 
-    public void setDescrizioneInputInput(String descrizione){
+    public void setDescrizioneInput(String descrizione){
         descrizioneInput.setText(descrizione);
     }
 

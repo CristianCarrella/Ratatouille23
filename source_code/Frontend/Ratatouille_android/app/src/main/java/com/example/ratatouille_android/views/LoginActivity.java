@@ -18,10 +18,10 @@ import java.util.Observer;
 
 
 public class LoginActivity extends AppCompatActivity {
-    TextView error, underLoginButton;
-    LoginController loginController;
-    Button btn;
-    EditText emailField, passwordField;
+    private TextView error, underLoginButton;
+    private LoginController loginController;
+    private Button btn;
+    private EditText emailField, passwordField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

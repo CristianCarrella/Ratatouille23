@@ -16,7 +16,6 @@ import com.example.ratatouille_android.views.HomeActivity;
 public class HomeFragment extends Fragment {
 
     private TextView nomeAttivita;
-    private HomeController homeController;
     private HomeActivity homeActivity;
 
     public HomeFragment(HomeActivity homeActivity){
@@ -26,7 +25,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        nomeAttivita = (TextView) view.findViewById(R.id.nomeAttivitaHome);
+        nomeAttivita = view.findViewById(R.id.nomeAttivitaHome);
         nomeAttivita.setText(homeActivity.getNomeRistorante());
 
         return view;

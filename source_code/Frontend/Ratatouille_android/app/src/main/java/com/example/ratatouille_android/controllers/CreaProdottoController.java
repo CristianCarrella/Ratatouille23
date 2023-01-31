@@ -78,7 +78,7 @@ public class CreaProdottoController {
 
                             creaProdottoActivity.setNomeInput(nome);
                             creaProdottoActivity.setCategoriaInput(categoria);
-                            creaProdottoActivity.setDescrizioneInputInput(descrizione);
+                            creaProdottoActivity.setDescrizioneInput(descrizione);
                             creaProdottoActivity.setKg_or_ltInput(kg_or_lt);
                             creaProdottoActivity.setErrorLableAutoCompilationOnSuccess();
                             creaProdottoActivity.setCaricamentoOnEnd();
