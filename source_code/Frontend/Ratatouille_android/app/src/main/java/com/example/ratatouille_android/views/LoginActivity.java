@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     public void goToSignUpActivity(){
         Intent switchActivityIntent = new Intent(this, SignUpActivity.class);
         startActivity(switchActivityIntent);
+        this.finish();
     }
 
 }

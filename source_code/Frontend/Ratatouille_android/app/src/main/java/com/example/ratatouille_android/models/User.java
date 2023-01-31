@@ -1,7 +1,5 @@
 package com.example.ratatouille_android.models;
 
-import com.example.ratatouille_android.views.LoginActivity;
-
 import java.io.Serializable;
 import java.util.Observable;
 
@@ -49,18 +47,30 @@ public class User extends Observable implements Serializable {
 
     public String getCognome() { return cognome; }
 
-    public String getData_nascita() { return data_nascita; }
+    public String getDataNascita() { return data_nascita; }
 
     public String getRuolo() { return ruolo; }
 
     public String getEmail() { return email; }
 
-    public String getData_aggiunta() { return data_aggiunta; }
+    public String getDataAggiunta() { return data_aggiunta; }
 
     public int getAggiunto_da() { return aggiunto_da; }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDataNascita(String data_nascita) {
+        this.data_nascita = data_nascita;
     }
 }
 

@@ -8,6 +8,7 @@ import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 import com.example.ratatouille_android.views.MainActivity;
+import com.example.ratatouille_android.views.jfragment.AccountFragment;
 import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONException;
@@ -81,7 +82,7 @@ public class HomeController {
         });
     }
 
-    public void setUserInfo(String nome, String cognome, String dataNascita) throws IOException {
+    public void setUserInfo(AccountFragment accountFragment, String nome, String cognome, String dataNascita) throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("nome", nome)
@@ -93,10 +94,10 @@ public class HomeController {
                 .post(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
-        serverRequest(client, request);
+        serverRequest(accountFragment, client, request);
     }
 
-    private String serverRequest(OkHttpClient client, Request request) {
+    private String serverRequest(AccountFragment accountFragment, OkHttpClient client, Request request) {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -106,10 +107,23 @@ public class HomeController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
+                Log.v("prova", myResponse);
                 homeActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        if(myResponse.length() < 10){
+                            accountFragment.setErrorLableOnErrorDate();
+                        }else{
+                            try {
+                                JSONObject jsonObject = new JSONObject(myResponse);
+                                loggedUser.setDataNascita(jsonObject.getString("dataNascita"));
+                                loggedUser.setNome(jsonObject.getString("nome"));
+                                loggedUser.setCognome(jsonObject.getString("cognome"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            accountFragment.setErrorLableOnSuccessGeneric();
+                        }
                     }
                 });
             }

@@ -31,7 +31,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 			}
 			return prodotto;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -49,7 +49,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 			}
 			return prodotto;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -68,7 +68,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 			}
 			return prodotto;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -88,7 +88,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 			}
 			return prodotto;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -108,7 +108,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 			}
 			return prodotto;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -126,7 +126,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 				return new Prodotto(rs.getInt("id_prodotto"), idRistorante, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 				
 		return null;
@@ -145,7 +145,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 				return new Prodotto(rs.getInt("id_prodotto"), idProdotto, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 				
 		return null;
@@ -158,7 +158,7 @@ public class ProdottoDAOimp implements ProdottoDAOint {
 		try {
 			db.getStatement().executeUpdate(query);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}

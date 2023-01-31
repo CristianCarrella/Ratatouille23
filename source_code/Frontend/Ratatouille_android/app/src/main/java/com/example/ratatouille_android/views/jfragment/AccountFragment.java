@@ -13,17 +13,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ratatouille_android.R;
+import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
 
 import java.io.IOException;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
-
+    private User loggedUser;
     private EditText nomeField, cognomeField, dateField;
     private HomeActivity homeActivity;
     private TextView ruolo, email, aggiuntoDa, aggiutoInData, aggiuntoDaLabel, dataAggiuntaLabel, errore;
-
-    public AccountFragment(HomeActivity homeActivity){
+    private final int LUNGHEZZA_NOME_DB = 30, LUNGHEZZA_COGNOME_DB = 30;
+    public AccountFragment(HomeActivity homeActivity,User loggedUser){
+        this.loggedUser = loggedUser;
         this.homeActivity = homeActivity;
     }
 
@@ -46,12 +48,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         dataAggiuntaLabel = view.findViewById(R.id.dataAggiuntaDaLabel);
         errore = view.findViewById(R.id.textViewErrore);
 
-        nomeField.setHint(homeActivity.getUserName());
-        cognomeField.setHint(homeActivity.getUserCognome());
-        dateField.setHint(homeActivity.getUserDataNascita());
-        ruolo.setText(homeActivity.getUserRuolo());
-        email.setText(homeActivity.getUserEmail());
-        aggiutoInData.setText(homeActivity.getUserDataAggiunta());
+        nomeField.setHint(loggedUser.getNome());
+        cognomeField.setHint(loggedUser.getCognome());
+        dateField.setHint(loggedUser.getDataNascita());
+        ruolo.setText(loggedUser.getRuolo());
+        email.setText(loggedUser.getEmail());
+        aggiutoInData.setText(loggedUser.getDataAggiunta());
 
         if(aggiuntoDa.getText().toString().equals("")){
             aggiuntoDa.setText("");
@@ -74,29 +76,41 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             if(dateField.getText().toString().equals("")) {
                 dateField.setText(dateField.getHint().toString());
             }
-            this.setErrorLableOnSuccess();
-            homeActivity.getHomeController().setUserInfo(nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
-            homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
-            nomeField.setHint(nomeField.getText().toString());
-            cognomeField.setHint(cognomeField.getText().toString());
-            dateField.setHint(dateField.getText().toString());
-            nomeField.setText("");
-            cognomeField.setText("");
-            dateField.setText("");
+            if(nomeField.getText().length() < LUNGHEZZA_NOME_DB && cognomeField.getText().length() < LUNGHEZZA_COGNOME_DB){
+                homeActivity.getHomeController().setUserInfo(this, nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+                homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
+                nomeField.setHint(nomeField.getText().toString());
+                cognomeField.setHint(cognomeField.getText().toString());
+                dateField.setHint(dateField.getText().toString());
+                nomeField.setText("");
+                cognomeField.setText("");
+                dateField.setText("");
+            }else{
+                setErrorLableOnErrorNameOrSurname();
+            }
 
         } catch (IOException e) {
-            this.setErrorLableOnError();
+            this.setErrorLableOnErrorGeneric();
             e.printStackTrace();
         }
     }
 
-
-    public void setErrorLableOnError(){
+    public void setErrorLableOnErrorGeneric() {
         errore.setText("Errore");
         errore.setTextColor(Color.RED);
     }
 
-    public void setErrorLableOnSuccess(){
+    public void setErrorLableOnErrorNameOrSurname() {
+        errore.setText("Nome o cognome troppo lungo");
+        errore.setTextColor(Color.RED);
+    }
+
+    public void setErrorLableOnErrorDate(){
+        errore.setText("Errore il formato della data è yyyy-mm-dd");
+        errore.setTextColor(Color.RED);
+    }
+
+    public void setErrorLableOnSuccessGeneric(){
         errore.setText("Modifiche apportate con successo");
         errore.setTextColor(Color.parseColor("#008000"));
     }
