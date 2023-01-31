@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="lRteQGzEq0Yd2QYjDLD7" name="Page-1">
-        <mxGraphModel dx="5093" dy="2177" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="3384" dy="553" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1041,7 +1041,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="438" value="NoticesController" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-                    <mxGeometry x="1720" y="2535" width="650" height="346" as="geometry"/>
+                    <mxGeometry x="1720" y="2535" width="650" height="398" as="geometry"/>
                 </mxCell>
                 <mxCell id="439" value="- url: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="438" vertex="1">
                     <mxGeometry y="26" width="650" height="26" as="geometry"/>
@@ -1076,11 +1076,17 @@
                 <mxCell id="468" value="+ markAsRead(idAvviso: integer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="438" vertex="1">
                     <mxGeometry y="268" width="650" height="26" as="geometry"/>
                 </mxCell>
-                <mxCell id="470" value="+ markAsRead(idAvviso: integer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="438" vertex="1">
+                <mxCell id="470" value="+ markAsHidden(idAvviso: integer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="438" vertex="1">
                     <mxGeometry y="294" width="650" height="26" as="geometry"/>
                 </mxCell>
-                <mxCell id="471" value="+ markAsRead(idAvviso: integer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="438" vertex="1">
+                <mxCell id="471" value="+ markAsNotRead(idAvviso: integer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="438" vertex="1">
                     <mxGeometry y="320" width="650" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="472" value="+ markAsNotHidden(idAvviso: integer): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="438">
+                    <mxGeometry y="346" width="650" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="473" value="+ goToHideMessageActivity(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="438">
+                    <mxGeometry y="372" width="650" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="451" value="LoginActivity" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-1810" y="1510" width="380" height="212" as="geometry"/>
@@ -1123,6 +1129,30 @@
                         <mxPoint x="-1220" y="1905.8611111111109" as="sourcePoint"/>
                         <mxPoint x="-1290" y="1887.3888888888887" as="targetPoint"/>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="474" value="HomeFragment" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-80" y="3300" width="210" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="475" value="- homeActivity: HomeActivity" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#ffffff;" vertex="1" parent="474">
+                    <mxGeometry y="26" width="210" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="478" value="- noticesController: NoticesController" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#ffffff;" vertex="1" parent="474">
+                    <mxGeometry y="52" width="210" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="481" value="- loggedUser: User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#ffffff;" vertex="1" parent="474">
+                    <mxGeometry y="78" width="210" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="482" value="- avviso: ArrayList&lt;Avviso&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#ffffff;" vertex="1" parent="474">
+                    <mxGeometry y="104" width="210" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="483" value="- messaggiNascostiButton: Button" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#ffffff;" vertex="1" parent="474">
+                    <mxGeometry y="130" width="210" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="476" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="474">
+                    <mxGeometry y="156" width="210" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="477" value="# onCreateView(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="474">
+                    <mxGeometry y="164" width="210" height="26" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

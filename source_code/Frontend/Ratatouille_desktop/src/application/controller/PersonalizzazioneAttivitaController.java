@@ -99,6 +99,7 @@ public class PersonalizzazioneAttivitaController {
 					businessDriver.runSetLogo(file, fileName);
 				} else {
 					errorLabel.setText("File di dimensioni troppo grandi, impossibile salvarlo\nScegliere un altro file");
+					errorLabel.setTextFill(Color.RED);
 				}
 				
 			} catch (Exception e) {
