@@ -13,8 +13,8 @@ import com.example.ratatouille_android.controllers.FirstAccessController;
 import com.example.ratatouille_android.models.User;
 
 public class FirstAccessActivity extends AppCompatActivity {
-    FirstAccessController firstAccessController;
-    User loggedUser;
+    private FirstAccessController firstAccessController;
+    private User loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class FirstAccessActivity extends AppCompatActivity {
         Button confermaPasswordButton = findViewById(R.id.confermaPasswordButton);
         EditText nuovaPasswordInput =  findViewById(R.id.newPasswordField);
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        View.OnClickListener firstAccessOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView errorLable = findViewById(R.id.errorLable);
@@ -42,7 +42,7 @@ public class FirstAccessActivity extends AppCompatActivity {
             }
         };
 
-        confermaPasswordButton.setOnClickListener(onClickListener);
+        confermaPasswordButton.setOnClickListener(firstAccessOnClickListener);
 
     }
 }

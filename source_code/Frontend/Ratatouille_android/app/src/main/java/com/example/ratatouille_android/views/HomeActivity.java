@@ -171,7 +171,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
                 textNomeAttivitaHome.setText(a.getNome());
         } else if(o instanceof Avviso){
             Avviso a = (Avviso) o;
-            Log.v("Prova", a.getTesto() + " " +  a.isHidden() + " " + a.isRead());
             noticesFragment.generateCard(a);
         }
     }

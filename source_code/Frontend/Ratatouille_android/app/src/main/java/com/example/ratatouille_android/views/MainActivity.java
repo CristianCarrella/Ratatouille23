@@ -14,6 +14,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
     public static String address = "http://192.168.1.47:8080";
+    private Button btn;
     public static FirebaseAnalytics analytics;
 
     @Override
@@ -21,17 +22,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         analytics = FirebaseAnalytics.getInstance(this);
         setContentView(R.layout.activity_main);
-        Button btn = findViewById(R.id.entra_in_app);
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        btn = findViewById(R.id.entra_in_app);
+        View.OnClickListener onClickEntraInAppListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("login", "logged");
+                bundle.putString("login", "logged");    
                 analytics.logEvent("login", bundle);
                 changeActivity();
             }
         };
-        btn.setOnClickListener(onClickListener);
+        btn.setOnClickListener(onClickEntraInAppListener);
 
     }
 
