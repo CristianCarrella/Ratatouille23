@@ -95,8 +95,12 @@ public class PersonalizzazioneAttivitaController {
 	        logoInputView.setImage(image);
 	        
 			try {
-				System.out.println("logo caricato");
-				businessDriver.runSetLogo(file, fileName);
+				if(file.length() < 1048576 ) {
+					businessDriver.runSetLogo(file, fileName);
+				} else {
+					errorLabel.setText("File di dimensioni troppo grandi, impossibile salvarlo\nScegliere un altro file");
+				}
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
