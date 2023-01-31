@@ -28,7 +28,7 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 			}
 			return categoria;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -47,7 +47,7 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 			}
 			return categoria;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -62,7 +62,7 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 				return new CategoriaMenu(rs.getInt("id_categoria"), rs.getInt("id_ristorante"), rs.getString("nome"), rs.getInt("posizione_categoria"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -74,7 +74,7 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -86,7 +86,7 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -99,7 +99,7 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}

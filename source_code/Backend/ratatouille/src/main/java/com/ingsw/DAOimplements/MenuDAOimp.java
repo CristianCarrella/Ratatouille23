@@ -31,7 +31,7 @@ public class MenuDAOimp implements MenuDAOint {
 			}
 			return menu;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -49,7 +49,7 @@ public class MenuDAOimp implements MenuDAOint {
 			}
 			return menu;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -68,7 +68,7 @@ public class MenuDAOimp implements MenuDAOint {
 			}
 			return menu;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -87,7 +87,7 @@ public class MenuDAOimp implements MenuDAOint {
 			}
 			return menu;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -106,7 +106,7 @@ public class MenuDAOimp implements MenuDAOint {
 			}
 			return menu;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return null;
@@ -123,7 +123,7 @@ public class MenuDAOimp implements MenuDAOint {
 			while(rs.next())
 				return rs.getInt("id_categoria");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		
 		return 0;
@@ -136,7 +136,7 @@ public class MenuDAOimp implements MenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -156,7 +156,7 @@ public class MenuDAOimp implements MenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -167,7 +167,7 @@ public class MenuDAOimp implements MenuDAOint {
 		try {
 			db.getStatement().executeUpdate(query);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -179,7 +179,7 @@ public class MenuDAOimp implements MenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -191,7 +191,7 @@ public class MenuDAOimp implements MenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -203,7 +203,7 @@ public class MenuDAOimp implements MenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -218,7 +218,7 @@ public class MenuDAOimp implements MenuDAOint {
 			while(rs.next())
 				return  new Menu(rs.getInt("id_elemento"), rs.getInt("id_ristorante"), rs.getInt("id_categoria"), rs.getString("nome"), rs.getFloat("prezzo"), rs.getString("descrizione"), rs.getString("allergeni"), rs.getString("nome_seconda_lingua"), rs.getString("descrizione_seconda_lingua"), rs.getInt("posizione_elemento"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 
 		return null;
@@ -232,7 +232,7 @@ public class MenuDAOimp implements MenuDAOint {
 			db.getStatement().executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}

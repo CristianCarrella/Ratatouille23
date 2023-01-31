@@ -64,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void goToLoginActivity(){
         Intent switchActivityIntent = new Intent(this, LoginActivity.class);
         startActivity(switchActivityIntent);
+        this.finish();
     }
 
     public void setErrorVerificaOnError(){

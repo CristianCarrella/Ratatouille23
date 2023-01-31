@@ -1,7 +1,6 @@
 To Do list:
 - Pulire codice
 - Ovunque: controllare gli input
-- Immagine logo di sfondo: vari problemini
 - System design
 - Firebase
 - JUnit
@@ -13,4 +12,4 @@ To Do list:
 In sospeso:
 - SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD
 - Far vedere i cambiamenti prima e dopo del test di usabilità
-- Provare ad aumentare la dimensione massima del logo da inserire
+- Verificare richiesta con token sbagliato

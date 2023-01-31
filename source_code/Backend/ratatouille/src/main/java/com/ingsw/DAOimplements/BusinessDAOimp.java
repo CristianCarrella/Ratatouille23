@@ -40,7 +40,7 @@ public class BusinessDAOimp implements BusinessDAOint {
 				return b;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 
 		return null;
@@ -53,7 +53,7 @@ public class BusinessDAOimp implements BusinessDAOint {
 			db.getStatement().executeUpdate(query);
 			return getBusinessFromBusinessId(idRistorante);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 
 		return null;

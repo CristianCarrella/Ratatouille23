@@ -34,7 +34,7 @@ public class UserDAOimp implements UserDAOint {
 			}
 			return users;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -74,7 +74,7 @@ public class UserDAOimp implements UserDAOint {
 			}
 			return getUserById(idUtente);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 			return null;
 		}
 	}
@@ -102,7 +102,7 @@ public class UserDAOimp implements UserDAOint {
 				idUtenteCreato = rs.getInt("id_utente");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 			return null;
 		}		
 		
@@ -123,7 +123,7 @@ public class UserDAOimp implements UserDAOint {
 			}
 			return users;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -139,7 +139,7 @@ public class UserDAOimp implements UserDAOint {
 			}
 			return u;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -156,7 +156,7 @@ public class UserDAOimp implements UserDAOint {
 			}
 			return u;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Login fallito possibi motivi : [email o password errate / token scaduto \n");
 		}
 		return null;
 	}
@@ -174,7 +174,7 @@ public class UserDAOimp implements UserDAOint {
 			}
 			return getUserById(idUser);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -188,7 +188,7 @@ public class UserDAOimp implements UserDAOint {
 			db.getStatement().executeUpdate(query);
 			return getUserById(idUtente);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -200,7 +200,7 @@ public class UserDAOimp implements UserDAOint {
 			db.getStatement().executeUpdate(query);
 			return getUserById(idUtente);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -213,7 +213,7 @@ public class UserDAOimp implements UserDAOint {
 			db.getStatement().executeUpdate(query);
 			return getUserById(id_utente);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -231,7 +231,7 @@ public class UserDAOimp implements UserDAOint {
 			db.getStatement().executeUpdate(query);
 			return getUserById(idUtente);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -249,7 +249,7 @@ public class UserDAOimp implements UserDAOint {
 			db.getStatement().executeUpdate(query);
 			return getUserById(idUtente);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -280,7 +280,7 @@ public class UserDAOimp implements UserDAOint {
 			db.getStatement().executeUpdate(query2);
 			db.getStatement().executeUpdate(query3);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " o " + query2 + " o " + query3 + " fallita \n");
 		}
 	}
 	

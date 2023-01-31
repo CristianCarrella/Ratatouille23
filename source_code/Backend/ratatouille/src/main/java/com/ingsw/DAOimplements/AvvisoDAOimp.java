@@ -34,7 +34,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			return avvisi;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -51,7 +51,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			return avvisi;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -68,7 +68,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			return avvisi;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -85,7 +85,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			return avvisi;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -93,11 +93,11 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	
 	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser) {
 		LocalDateTime now = LocalDateTime.now();
+		String query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
 		try {
-			String query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
 			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -109,7 +109,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		try {
 			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -120,7 +120,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		try {
 			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -132,7 +132,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			db.getStatement().executeUpdate(query);
 			return true;
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return false;
 	}
@@ -152,7 +152,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 				num_messaggi_ristorante = rs.getInt("num_messaggi_ristorante");
 			return  num_messaggi_ristorante - num_messaggi_letti;
 		}catch(SQLException e){
-			e.printStackTrace();
+			System.out.println("Query " + query1 + " o " + query2 + " fallita \n");
 		}
 		return 0;
 	}
@@ -167,7 +167,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 				return a;
 			}
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -193,7 +193,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			return getAvvisoNascosto(id_avviso);
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}
@@ -231,7 +231,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}

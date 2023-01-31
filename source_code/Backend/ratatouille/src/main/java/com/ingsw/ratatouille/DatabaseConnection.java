@@ -34,12 +34,10 @@ public class DatabaseConnection {
 		
 		try {
 			connection = DriverManager.getConnection(url, props);
-			System.out.print("connected");
+			System.out.print("[v] Connected\n");
 		}catch(SQLException e){
-			System.out.print("not connected");
-		}	
-		
-    
+			System.out.print("Not connected");
+		}
 	}
 	
     public Connection getConnection() {

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
         homeController = new HomeController(loggedUser, this);
-        accountFragment = new AccountFragment(this);
+        accountFragment = new AccountFragment(this, loggedUser);
         noticesFragment = new NoticesFragment(this, loggedUser);
         functionFragment = new FunctionFragment(this, loggedUser);
         homeFragment = new HomeFragment(this);
@@ -190,30 +189,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
 
     public BadgeDrawable getBadgeDrawable() {
         return badgeDrawable;
-    }
-
-    public String getUserEmail(){
-        return loggedUser.getEmail();
-    }
-
-    public String getUserName() {
-        return loggedUser.getNome();
-    }
-
-    public String getUserCognome() {
-        return loggedUser.getCognome();
-    }
-
-    public String getUserDataNascita() {
-        return loggedUser.getData_nascita();
-    }
-
-    public String getUserRuolo() {
-        return loggedUser.getRuolo();
-    }
-
-    public String getUserDataAggiunta() {
-        return loggedUser.getData_aggiunta();
     }
 
     public void onClickDispensaListener(View v) {
