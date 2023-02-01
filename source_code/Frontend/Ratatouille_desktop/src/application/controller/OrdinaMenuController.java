@@ -55,19 +55,19 @@ public class OrdinaMenuController {
 	private Scene scene;
 	private Parent parent;
 	
-	MenuDriver menuDriver = new MenuDriver();
-	ArrayList<CategoriaMenu> categorieForUI;
-	ArrayList<CategoriaMenu> categorie;
-	Integer categoriaCounter = 1;
-	ArrayList<Piatto> piatti = null;
-	ArrayList<Piatto> allPiattiOfResturant = new ArrayList<Piatto>();
-	ArrayList<VBox> categorieVBoxs = new ArrayList<>();
-	Stack<VBox> savedStateLeft = new Stack<VBox>();
-	Stack<VBox> savedStateRight = new Stack<VBox>();
-	Integer pagesDiscovered = 1, numOfCategorie = 0;
-	ArrayList<CategoriaMenu> queueCategoria = new ArrayList<CategoriaMenu>();
-	Integer indexOfCategoria = 0;
-	boolean backPressed = false, resetPressed = false;
+	private MenuDriver menuDriver = new MenuDriver();
+	private ArrayList<CategoriaMenu> categorieForUI;
+	private ArrayList<CategoriaMenu> categorie;
+	private Integer categoriaCounter = 1;
+	private ArrayList<Piatto> piatti = null;
+	private ArrayList<Piatto> allPiattiOfResturant = new ArrayList<Piatto>();
+	private ArrayList<VBox> categorieVBoxs = new ArrayList<>();
+	private Stack<VBox> savedStateLeft = new Stack<VBox>();
+	private Stack<VBox> savedStateRight = new Stack<VBox>();
+	private Integer pagesDiscovered = 1, numOfCategorie = 0;
+	private ArrayList<CategoriaMenu> queueCategoria = new ArrayList<CategoriaMenu>();
+	private Integer indexOfCategoria = 0;
+	private boolean backPressed = false, resetPressed = false;
 	
 	
 	public void backToMenu() throws IOException {

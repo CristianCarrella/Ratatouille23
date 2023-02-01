@@ -40,17 +40,12 @@ public class ModificaCreaPiattoController {
 	Button btnSalvaCambiamenti, autocompletamentoBtn;
 	
 	private Integer resultIndex = 0;
-	
-	Integer idPiatto = null;
-	ArrayList<CategoriaMenu> categorie = new ArrayList<CategoriaMenu>();
-	
-	
+	private Integer idPiatto = null;
+	private ArrayList<CategoriaMenu> categorie = new ArrayList<CategoriaMenu>();
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
-	String nomeCategoriaNuova;
-	
-	
+	private String nomeCategoriaNuova;
 	private MenuDriver menuDriver = new MenuDriver();
 	
 	public ModificaCreaPiattoController() {	

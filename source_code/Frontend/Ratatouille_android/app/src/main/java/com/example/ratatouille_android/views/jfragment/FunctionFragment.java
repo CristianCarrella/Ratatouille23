@@ -1,5 +1,6 @@
 package com.example.ratatouille_android.views.jfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,11 +13,12 @@ import android.widget.Button;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.HomeController;
 import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
 
 public class FunctionFragment extends Fragment {
-    User loggedUser;
-    HomeActivity homeActivity;
+    private User loggedUser;
+    private HomeActivity homeActivity;
 
     public FunctionFragment(HomeActivity homeActivity, User loggedUser){
         this.loggedUser = loggedUser;
@@ -31,6 +33,17 @@ public class FunctionFragment extends Fragment {
             buttonInventarioDispensa.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_outline_lock_24, 0);
             buttonInventarioDispensa.setClickable(false);
         }
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent switchActivityIntent = new Intent(homeActivity, DispensaActivity.class);
+                switchActivityIntent.putExtra("loggedUser", loggedUser);
+                homeActivity.startActivity(switchActivityIntent);
+            }
+        };
+
+        buttonInventarioDispensa.setOnClickListener(onClickListener);
         return view;
     }
 

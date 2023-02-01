@@ -1,8 +1,6 @@
 package application.driver;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -23,7 +21,6 @@ import org.json.JSONObject;
 import application.controller.AvvisiController;
 import application.controller.LoginController;
 import application.model.Avviso;
-import application.model.Piatto;
 import application.model.Utente;
 
 public class AvvisiDriver {

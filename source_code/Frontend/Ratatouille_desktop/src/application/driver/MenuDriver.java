@@ -1,5 +1,7 @@
 package application.driver;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -23,7 +27,6 @@ import application.controller.MenuController;
 import application.model.CategoriaMenu;
 import application.model.Piatto;
 import application.model.Utente;
-import javafx.scene.control.TextField;
 
 public class MenuDriver {
 	private Utente loggedUser = LoginController.loggedUser;
@@ -33,9 +36,9 @@ public class MenuDriver {
 	
 	public void requestMenuFromServer(MenuController menuController) {
 		try {
-			runGetCategorie(loggedUser.getIdRistorante(), menuController);
+			getCategorieFromServer(loggedUser.getIdRistorante(), menuController);
 			for(CategoriaMenu categoriaMenu : categorieRistorante)
-				runGetPiattiFromCategorie(loggedUser.getIdRistorante(), menuController, categoriaMenu.getNome());
+				getPiattiFromCategorie(loggedUser.getIdRistorante(), menuController, categoriaMenu.getNome());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,13 +47,13 @@ public class MenuDriver {
 	
 	public void requestGetPiattiFromServer(MenuController menuController, String categoria) {
 		try {
-			runGetPiattiFromCategorie(loggedUser.getIdRistorante(), menuController, categoria);
+			getPiattiFromCategorie(loggedUser.getIdRistorante(), menuController, categoria);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void runGetPiattiFromCategorie(Integer idRistorante, MenuController menuController, String categoria) throws Exception {
+	public void getPiattiFromCategorie(Integer idRistorante, MenuController menuController, String categoria) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + idRistorante + "&&categoria=" + URLEncoder.encode(categoria,"UTF-8"));
@@ -82,7 +85,7 @@ public class MenuDriver {
 		}
 	}
 
-	private void runGetCategorie(Integer idRistorante, MenuController menuController) throws Exception {
+	private void getCategorieFromServer(Integer idRistorante, MenuController menuController) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria?id_ristorante=" + idRistorante);
@@ -203,15 +206,6 @@ public class MenuDriver {
 	
 	public boolean requestDeletePiatto(MenuController menuController, Integer idPiatto) {
 		try {
-			return runDeletePiatto(menuController, idPiatto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	private boolean runDeletePiatto(MenuController menuController, Integer idPiatto) throws Exception {
-		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/menu/deletePlate");
 			httppost.setHeader("Authorization", loggedUser.getToken());
@@ -231,19 +225,16 @@ public class MenuDriver {
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
-			return false;
+		} catch (ClientProtocolException e) {
+			System.out.print("Errore nel client");
+		} catch (IOException e) {
+			System.out.print("Errore IO Exception");
 		}
+		return false;
 	}
+
 	
 	public ArrayList<Piatto> requestSearchPiatto(String nomePiatto) {
-		try {
-			return runCercaPiatto(nomePiatto);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	private ArrayList<Piatto> runCercaPiatto(String nomePiatto) throws Exception{
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			String restUrl = "http://localhost:8080/menu/ristorante/piatto?id_ristorante="+String.valueOf(loggedUser.getIdRistorante())+"&&nomePiatto="+ URLEncoder.encode(nomePiatto, "UTF-8");
@@ -276,21 +267,18 @@ public class MenuDriver {
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
-			
+		} catch (UnsupportedEncodingException e) {
+			System.out.print("Encoding non supportato");
+		} catch (ParseException e) {
+			System.out.print("Errore nel parsing del JSON");
+		} catch (IOException e) {
+			System.out.print("Errore IO Exception");
 		}
 		return null;
 	}
+	
 
 	public boolean requestUpdatePositionCategoria(Integer idCategoria, Integer posizione) {
-		try {
-			return runUpdatePositionCategoria(idCategoria, posizione);
-		} catch (Exception e) {
-			return false;
-		}
-		
-	}
-
-	private boolean runUpdatePositionCategoria(Integer idCategoria, Integer posizione) throws Exception{
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/categoria-update-posizione");
@@ -312,20 +300,16 @@ public class MenuDriver {
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
-
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return false;
+		
 	}
 
 	public boolean requestUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) {
-		try {
-			return runUpdatePositionInMenuPiatto(idPiatto, posizione);
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	private boolean runUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) throws Exception{
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/menu/piatto-update-posizione");
@@ -348,26 +332,25 @@ public class MenuDriver {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
-	
-	public boolean requestDeleteMenuSorting() {
-		try {
-			return runDeleteMenuSorting(loggedUser.getIdRistorante());
-		} catch (Exception e) {
-			return false;
-		}
-	}
 
-	private boolean runDeleteMenuSorting(Integer idRistorante) throws Exception{
+
+	public boolean requestDeleteMenuSorting() {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/menu/delete-ordine-menu-precedente");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_ristorante", idRistorante.toString()));
+			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(loggedUser.getIdRistorante())));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 			
 			HttpResponse response = httpclient.execute(httppost);
@@ -382,20 +365,18 @@ public class MenuDriver {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
 
+
 	public Piatto getPiattoInfoFromServer(Integer idPiatto) {
-		try {
-			return runPiattoInfo(idPiatto);
-		} catch (Exception e) {
-			return null;
-		}
-		
-	}
-	
-	private Piatto runPiattoInfo(Integer idPiatto) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpget = new HttpGet("http://localhost:8080/menu/ristorante/piatto/" + idPiatto.toString());
@@ -421,68 +402,23 @@ public class MenuDriver {
 		}catch (JSONException e) {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
-
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
+	
 
 	public boolean modificaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta, Integer idPiatto) {
-		try {
-			return runUpdatePiatto(loggedUser.getIdRistorante(), nomePiatto, descrizione, costo, allergeni, nomeSecondaLingua, descrizioneSecondaLingua, categoriaScelta, idPiatto);
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean creaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta) {
-		try {
-			return runCreaPiatto(loggedUser.getIdRistorante(), nomePiatto, descrizione, costo, allergeni, nomeSecondaLingua, descrizioneSecondaLingua, categoriaScelta);
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	private boolean runCreaPiatto(Integer idRistorante, String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta) throws Exception {
-		try {
-			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newPlate");
-			httppost.setHeader("Authorization", loggedUser.getToken());
-			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idRistorante", idRistorante.toString()));
-			params.add(new BasicNameValuePair("categoria", categoriaScelta));
-			params.add(new BasicNameValuePair("nome", nomePiatto));
-			params.add(new BasicNameValuePair("prezzo", costo));
-			params.add(new BasicNameValuePair("descrizione", descrizione));
-			params.add(new BasicNameValuePair("allergeni", allergeni));
-			params.add(new BasicNameValuePair("nomeSecondaLingua", nomeSecondaLingua));
-			params.add(new BasicNameValuePair("descrizioneSecondaLingua", descrizioneSecondaLingua));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			String json = EntityUtils.toString(response.getEntity());
-			System.out.println(json);
-			if(json.equals("true"))
-				return true;
-			else
-				return false;
-		}catch (JSONException e) {
-			e.printStackTrace();
-			System.out.print("Errore nel parsing del JSON");
-
-		}
-		return false;
-	}
-	
-	private boolean runUpdatePiatto(Integer idRistorante, String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta, Integer idPiatto) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/menu/updatePlate/" + idPiatto.toString());
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idRistorante", idRistorante.toString()));
+			params.add(new BasicNameValuePair("idRistorante", String.valueOf(loggedUser.getIdRistorante())));
 			params.add(new BasicNameValuePair("categoria", categoriaScelta));
 			params.add(new BasicNameValuePair("nome", nomePiatto));
 			params.add(new BasicNameValuePair("prezzo", costo));
@@ -504,19 +440,57 @@ public class MenuDriver {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public boolean creaCategoria(String nomeCategoriaNuova) {
+	public boolean creaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta) {		
 		try {
-			return runcreaCategoria(nomeCategoriaNuova, loggedUser.getIdRistorante());
-		} catch (Exception e) {
-			return false;
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newPlate");
+			httppost.setHeader("Authorization", loggedUser.getToken());
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("idRistorante", String.valueOf(loggedUser.getIdRistorante())));
+			params.add(new BasicNameValuePair("categoria", categoriaScelta));
+			params.add(new BasicNameValuePair("nome", nomePiatto));
+			params.add(new BasicNameValuePair("prezzo", costo));
+			params.add(new BasicNameValuePair("descrizione", descrizione));
+			params.add(new BasicNameValuePair("allergeni", allergeni));
+			params.add(new BasicNameValuePair("nomeSecondaLingua", nomeSecondaLingua));
+			params.add(new BasicNameValuePair("descrizioneSecondaLingua", descrizioneSecondaLingua));
+			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			System.out.println(json);
+			if(json.equals("true"))
+				return true;
+			else
+				return false;
+		}catch (JSONException e) {
+			e.printStackTrace();
+			System.out.print("Errore nel parsing del JSON");
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 	
-	private boolean runcreaCategoria(String nomeCategoriaNuova, Integer idRistorante) throws Exception{
+
+	public boolean creaCategoria(String nomeCategoriaNuova) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newCategoria");
@@ -524,7 +498,7 @@ public class MenuDriver {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("nomeNuovaCategoria", nomeCategoriaNuova));
-			params.add(new BasicNameValuePair("idRistorante", idRistorante.toString()));
+			params.add(new BasicNameValuePair("idRistorante", String.valueOf(loggedUser.getIdRistorante())));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 			
 			HttpResponse response = httpclient.execute(httppost);
@@ -539,9 +513,16 @@ public class MenuDriver {
 			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
 
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
+	
 
 	public JSONObject autocompletamentoProdotto(String nomeProdotto, Integer resultIndex) {
 		String nome = nomeProdotto, categoria = null, descrizione = null, allergeni = null;

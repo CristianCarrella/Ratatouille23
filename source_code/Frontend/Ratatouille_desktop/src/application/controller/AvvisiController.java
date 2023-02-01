@@ -48,17 +48,7 @@ public class AvvisiController implements Observer {
 	
 	boolean isInvisible = true;
 	@FXML
-	Button accountBtn;
-	@FXML
-	Button homeBtn;
-	@FXML
-	Button noticeBtn;
-	@FXML
-	Button menuBtn;
-	@FXML
-	Button personaleBtn;
-	@FXML
-	Button personalizzaBtn;
+	Button accountBtn, homeBtn, noticeBtn, menuBtn, personaleBtn, personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
 	@FXML
@@ -76,9 +66,7 @@ public class AvvisiController implements Observer {
 	private Parent parent;
 	private AvvisiDriver avvisiDriver = new AvvisiDriver();
 	
-	public AvvisiController() {
-		
-	}
+	public AvvisiController() {	}
 	
 	@FXML
 	public void initialize() {
