@@ -23,9 +23,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class FirstAccessController {
-    FirstAccessActivity firstAccessActivity;
-    User loggedUser;
-    String url = MainActivity.address + "/user/first-access";
+    private FirstAccessActivity firstAccessActivity;
+    private User loggedUser;
+    private  String url = MainActivity.address + "/user/first-access";
 
     public FirstAccessController(FirstAccessActivity firstAccessActivity, User loggedUser){
         this.firstAccessActivity = firstAccessActivity;

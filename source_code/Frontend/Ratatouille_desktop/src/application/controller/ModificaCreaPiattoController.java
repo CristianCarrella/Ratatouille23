@@ -31,7 +31,7 @@ public class ModificaCreaPiattoController {
 	@FXML
 	TextArea descrizioneInput, descrizioneSecondaLinguaInput;
 	@FXML
-	TextField nomePiattoInput, nomePiattoAuto, costoInput, allergeniInput, secondaLinguaInput, nomeSecondaLinguaInput, allergeniSecondaLinguaInput;
+	TextField nomePiattoInput, nomePiattoAuto, costoInput, allergeniInput, secondaLinguaInput, nomeSecondaLinguaInput;
 	@FXML
 	ComboBox<String> categoriaInput;
 	@FXML
@@ -54,7 +54,6 @@ public class ModificaCreaPiattoController {
 	
 	public ModificaCreaPiattoController(Integer idPiatto) {
 		this.idPiatto = idPiatto;
-		System.out.print("ID PIATTO: " + idPiatto);
 	}
 
 	@FXML

@@ -84,7 +84,7 @@ public class AvvisiController implements Observer {
 			errorLabel.setTextFill(Color.GREEN);
 			testoAvviso.setText("");
 		}else {
-			errorLabel.setText("Il testo non puÃ² essere vuoto");
+			errorLabel.setText("Il testo non può essere vuoto");
 		}
 	}
 	

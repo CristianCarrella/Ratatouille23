@@ -19,9 +19,9 @@ import okhttp3.Response;
 
 public class LogoutController {
 
-    HomeActivity homeActivity;
-    User loggedUser;
-    String url = MainActivity.address + "/logout";
+    private HomeActivity homeActivity;
+    private User loggedUser;
+    private String url = MainActivity.address + "/logout";
 
     public LogoutController(HomeActivity homeActivity, User loggedUser) {
         this.loggedUser = loggedUser;

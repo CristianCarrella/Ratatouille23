@@ -25,11 +25,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginController {
-    public String url = MainActivity.address + "/login";
-    public String email, password;
-    TextView error;
-    User loggedUser;
-    LoginActivity loginActivity;
+    private String url = MainActivity.address + "/login";
+    private String email, password;
+    private TextView error;
+    private User loggedUser;
+    private LoginActivity loginActivity;
 
 
     public LoginController(){ }

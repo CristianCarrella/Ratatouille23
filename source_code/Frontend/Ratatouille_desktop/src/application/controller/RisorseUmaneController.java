@@ -48,7 +48,7 @@ public class RisorseUmaneController {
 	private Stage stage;
 	private Scene scene;
 	private Parent parent;
-	UtenteDriver utenteDriver = new UtenteDriver();
+	private UtenteDriver utenteDriver = new UtenteDriver();
 
 	public RisorseUmaneController() {}
 	

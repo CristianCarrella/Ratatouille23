@@ -68,7 +68,7 @@ public class LoginController {
         });
 	}
 	
-	public void goToSignUpScene() throws IOException {
+	private void goToSignUpScene() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/SignUp.fxml"));
 		stage = (Stage) (signUp.getScene().getWindow());
 		Scene scene = new Scene(root);

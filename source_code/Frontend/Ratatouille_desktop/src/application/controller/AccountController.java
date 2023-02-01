@@ -53,7 +53,7 @@ public class AccountController {
 		mostraDatiAccount();
 	}
 	
-	public void mostraDatiAccount() {
+	private void mostraDatiAccount() {
 		nomeInput.setText(loggedUser.getNome());
 		cognomeInput.setText(loggedUser.getCognome());
 		mailInput.setText(loggedUser.getEmail());		

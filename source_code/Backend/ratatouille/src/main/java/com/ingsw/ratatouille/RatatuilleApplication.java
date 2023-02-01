@@ -9,10 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @ComponentScan("com.*")
 public class RatatuilleApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(RatatuilleApplication.class, args);
 	}
-
-	
 }

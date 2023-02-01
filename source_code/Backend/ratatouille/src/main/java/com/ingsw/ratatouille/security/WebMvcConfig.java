@@ -11,7 +11,7 @@ import com.ingsw.ratatouille.User;
 
 @EnableWebMvc
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class 	WebMvcConfig implements WebMvcConfigurer {
 	UserDAOimp userDao;
 	
 	@Autowired

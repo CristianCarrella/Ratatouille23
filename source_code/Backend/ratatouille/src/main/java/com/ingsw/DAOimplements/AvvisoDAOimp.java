@@ -16,11 +16,10 @@ import com.ingsw.ratatouille.User;
 
 public class AvvisoDAOimp implements AvvisoDAOint{
 	DatabaseConnection db;
-	
+
 	public AvvisoDAOimp(DatabaseConnection db) {
 		this.db = db;
 	}
-
 
 	public ArrayList<Avviso> getAvvisi() {
 		ArrayList<Avviso> avvisi = new ArrayList<Avviso>();

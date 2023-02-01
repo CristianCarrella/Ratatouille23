@@ -63,15 +63,13 @@ public class MenuController implements Observer{
 	VBox vBoxLayout;
 
 	@FXML
-	ArrayList<VBox> categorie = new ArrayList<VBox>();
-	ArrayList<Piatto> piatti = new ArrayList<Piatto>();
-	
-	@FXML
-	ArrayList<Label> removedTop = new ArrayList<Label>();
-	ArrayList<Label> removedCenter = new ArrayList<Label>();
-	ArrayList<Pane> removedLeft = new ArrayList<Pane>();
-	ArrayList<BorderPane> removedRight = new ArrayList<BorderPane>();
-	ArrayList<BorderPane> removedPane = new ArrayList<BorderPane>();
+	private ArrayList<VBox> categorie = new ArrayList<VBox>();
+	private ArrayList<Piatto> piatti = new ArrayList<Piatto>();
+	private ArrayList<Label> removedTop = new ArrayList<Label>();
+	private ArrayList<Label> removedCenter = new ArrayList<Label>();
+	private ArrayList<Pane> removedLeft = new ArrayList<Pane>();
+	private ArrayList<BorderPane> removedRight = new ArrayList<BorderPane>();
+	private ArrayList<BorderPane> removedPane = new ArrayList<BorderPane>();
 	
 	private Stage stage;
 	private Scene scene;
@@ -112,7 +110,7 @@ public class MenuController implements Observer{
         });
 	}
 	
-	public void searchPiatto() {
+	private void searchPiatto() {
 		String input = inputField.getText().toString();
 		if(!input.isBlank()) {
 			ArrayList<Piatto> result = menuDriver.requestSearchPiatto(input);

@@ -69,7 +69,7 @@ public class PersonalizzazioneAttivitaController {
 		}
 	}
 	
-	public void mostraDatiRistorante() {
+	private void mostraDatiRistorante() {
 		try {
 			business = businessDriver.requestBusinessToServer();
 		} catch (Exception e) {

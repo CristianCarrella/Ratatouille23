@@ -30,7 +30,7 @@ public class GestisciPersonaleController {
 	@FXML
 	ComboBox<String> utentiComboBox;
 
-	String ruoloUI = "";
+	private String ruoloUI = "";
 	public GestisciPersonaleController() {}
 	
 	@FXML
