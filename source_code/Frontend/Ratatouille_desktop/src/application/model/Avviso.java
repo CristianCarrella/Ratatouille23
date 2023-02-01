@@ -7,12 +7,12 @@ import application.controller.AvvisiController;
 @SuppressWarnings("deprecation")
 
 public class Avviso extends Observable{
-	int id_avviso;
-	int id_utente;
-	int id_ristorante;
-	String testo;
-	String data_ora, autore;
-	AvvisiController avvisiController;
+	private int id_avviso;
+	private int id_utente;
+	private int id_ristorante;
+	private String testo;
+	private String data_ora, autore;
+	private AvvisiController avvisiController;
 	
 	public Avviso(AvvisiController avvisiController, int id_avviso, int id_utente, int id_ristorante, String testo, String data_ora, String autore) {
 		this.id_avviso = id_avviso;
