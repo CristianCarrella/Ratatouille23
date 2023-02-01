@@ -61,7 +61,7 @@ public class PersonalizzazioneAttivitaController {
 	public void initialize() {
 		mostraDatiRistorante();
 		try {
-			Image image = businessDriver.runGetLogo();
+			Image image = businessDriver.requestGetLogoToServer();
 			logoInputView.setImage(image);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -96,7 +96,7 @@ public class PersonalizzazioneAttivitaController {
 	        
 			try {
 				if(file.length() < 1048576 ) {
-					businessDriver.runSetLogo(file, fileName);
+					businessDriver.setLogoInDatabase(file, fileName);
 				} else {
 					errorLabel.setText("File di dimensioni troppo grandi, impossibile salvarlo\nScegliere un altro file");
 					errorLabel.setTextFill(Color.RED);

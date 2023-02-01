@@ -10,9 +10,6 @@ public class Prodotto extends Observable implements Serializable {
     private String nome, descrizione, unitaMisura, categoria;
     private Double prezzo, quantita;
 
-    public enum categoriaProdotto {Frutta, Verdura, Carne, Pesce, Uova, LatteDerivati, CerealiDerivati, Legumi, Altro};
-    public enum unitaMisura {Kg, Litri};
-
     public Prodotto(DispensaActivity dispensaActivity, int idProdotto, int idRistorante, String nome, int stato, String descrizione, Double prezzo, Double quantita, String unitaMisura, String categoria) {
         this.idProdotto = idProdotto;
         this.idRistorante = idRistorante;

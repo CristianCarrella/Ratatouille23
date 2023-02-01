@@ -18,6 +18,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -57,40 +58,34 @@ private Utente loggedUser = LoginController.loggedUser;
 	}
 	
 	public Business requestBusinessToServer(){
+		HttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpget = new HttpGet("http://localhost:8080/business/nomeAttivita?id_ristorante=" + loggedUser.getIdRistorante());
+        httpget.setHeader("Authorization", loggedUser.getToken());
 		try {
-			return runBusiness(loggedUser.getIdRistorante());
-		} catch (Exception e) {
-			e.printStackTrace();
+			HttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+            String json = EntityUtils.toString(response.getEntity());
+            JSONObject jsonObject = new JSONObject(json);
+            business = new Business(jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getString("numeroTelefono"), jsonObject.getString("indirizzo"), jsonObject.getString("nomeImmagine"), jsonObject.getInt("idProprietario"));
+            return business;
+        }catch (JSONException e) {
+            System.out.print("Errore nel parsing del JSON");
+        } catch (ClientProtocolException e) {
+        	System.out.print("Errore nell'esecuzione del protocollo del JSON");
+		} catch (IOException e) {
+			System.out.print("Errore nel parsing del JSON");
 		}
-		return null;
+        return null;
 	}
 	
 	public Business requestModifyBusinessToServer(String nome, String indirizzo, String numeroTelefono){
-		try {
-			return runModifyBusiness(loggedUser.getIdRistorante(), nome, indirizzo, numeroTelefono);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public Image requestGetLogoToServer() {
-		try {
-			return runGetLogo();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public Business runModifyBusiness(int idRistorante, String nome, String indirizzo, String numeroTelefono) throws IOException {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost("http://localhost:8080/business");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(idRistorante)));
+			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(loggedUser.getIdRistorante())));
 			params.add(new BasicNameValuePair("nome", nome));
 			params.add(new BasicNameValuePair("indirizzo", indirizzo));
 			params.add(new BasicNameValuePair("numeroTelefono", numeroTelefono));
@@ -108,12 +103,41 @@ private Utente loggedUser = LoginController.loggedUser;
 		return null;
 	}
 	
+	public Image requestGetLogoToServer() {
+		try {
+            HttpClient httpclient = HttpClients.createDefault();
+            HttpGet httpget = new HttpGet("http://localhost:8080/business/getImage");
+            httpget.setHeader("Authorization", loggedUser.getToken());
+
+            HttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+            String json = EntityUtils.toString(response.getEntity());
+            System.out.println("jsonerrormannagg" + json);
+            JSONObject jsonObject = new JSONObject(json);
+            
+            String encodedImage = jsonObject.getString("image");
+            byte[] imageBytes = Base64.getDecoder().decode(encodedImage);
+            Image image = new Image(new ByteArrayInputStream(imageBytes));
+            System.out.println(image);
+            return image;
+
+		}catch (JSONException e) {
+            System.out.print("Errore nel parsing del JSON");
+        } catch (ClientProtocolException e) {
+        	System.out.print("Errore nell'esecuzione del protocollo del JSON");
+		} catch (IOException e) {
+			System.out.print("Errore nel parsing del JSON");
+        } catch (ParseException e) {
+        	System.out.print("Errore nel parsing del JSON");
+        }
+        return null;
+	}
+	
 
 	@SuppressWarnings("deprecation")
-	public Business runSetLogo(File image, String fileName) throws Exception{
+	public Business setLogoInDatabase(File image, String fileName) throws Exception{
 		HttpClient httpclient = new DefaultHttpClient();
 	    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-//	    System.out.println("nomeImmaginePassata " + fileName);
 
 	    HttpPost httppost = new HttpPost("http://localhost:8080/business/image");
 	    httppost.setHeader("Authorization", loggedUser.getToken());
@@ -132,52 +156,4 @@ private Utente loggedUser = LoginController.loggedUser;
 	    
 	    return null;
 	}
-	
-	private Business runBusiness(int idRistorante) throws Exception {
-        try {
-            HttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet("http://localhost:8080/business/nomeAttivita?id_ristorante=" + idRistorante);
-            httpget.setHeader("Authorization", loggedUser.getToken());
-
-            HttpResponse response = httpclient.execute(httpget);
-            HttpEntity entity = response.getEntity();
-            String json = EntityUtils.toString(response.getEntity());
-            JSONObject jsonObject = new JSONObject(json);
-            business = new Business(jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getString("numeroTelefono"), jsonObject.getString("indirizzo"), jsonObject.getString("nomeImmagine"), jsonObject.getInt("idProprietario"));
-            return business;
-        }catch (JSONException e) {
-            e.printStackTrace();
-            System.out.print("Errore nel parsing del JSON");
-        }
-        return null;
-    }
-	
-	public Image runGetLogo() throws Exception {
-        try {
-            HttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet("http://localhost:8080/business/getImage");
-            httpget.setHeader("Authorization", loggedUser.getToken());
-
-            HttpResponse response = httpclient.execute(httpget);
-            HttpEntity entity = response.getEntity();
-            String json = EntityUtils.toString(response.getEntity());
-            System.out.println("jsonerrormannagg" + json);
-            JSONObject jsonObject = new JSONObject(json);
-            
-            String encodedImage = jsonObject.getString("image");
-            byte[] imageBytes = Base64.getDecoder().decode(encodedImage);
-            Image image = new Image(new ByteArrayInputStream(imageBytes));
-            System.out.println(image);
-            return image;
-            
-            
-//			Image myImage = Toolkit.getDefaultToolkit().createImage();
-//			Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
-
-        }catch (JSONException e) {
-            e.printStackTrace();
-            System.out.print("Errore nel parsing del JSON");
-        }
-        return null;
-    }
-}
+}	

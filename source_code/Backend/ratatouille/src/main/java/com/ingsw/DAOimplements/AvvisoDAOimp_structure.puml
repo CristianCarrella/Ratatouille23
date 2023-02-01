@@ -1,0 +1,217 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.ingsw.DAOimplements.AvvisoDAOimp",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_100349382 { 
+   	label=ingsw
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_108337586 { 
+   	label=ratatouille
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Controller948584069[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Controller</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   avvisoDao: AvvisoDAOint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   businessDao: BusinessDAOint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   categoriaMenuDao: CategoriaMenuDAOint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   db: DatabaseConnection [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   loggedUser: LoggedUser [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   menuDao: MenuDAOint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   prodottoDao: ProdottoDAOint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userDao: UserDAOint [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addSecondLanguage(idRistorante: Integer, idProdotto: int, nomeSecondaLingua: String, descrizoineSecondaLingua: String): Menu</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkLogin(request: HttpServletRequest, email: String, password: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createAdmin(nome: String, cognome: String, email: String, password: String, dataNascita: String, nomeAttivita: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createCategoria(nomeNuovaCategoria: String, idRistorante: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createNewAvviso(id_ristorante: Integer, testo: String): Avviso</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlate(idRistorante: Integer, categoria: String, nome: String, prezzo: float, descrizione: String, allergeni: String, nomeSecondaLingua: String, descrizioneSecondaLingua: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createProduct(idRistorante: Integer, nome: String, stato: Integer, descrizione: String, prezzo: Double, quantita: Double, unitaMisura: String, categoria: String): Prodotto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createUser(nome: String, cognome: String, passwordTemporanea: String, email: String, dataNascita: String, ruolo: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteAvviso(id_avviso: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deletePlate(idPiatto: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteProduct(idProdotto: Integer): Prodotto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteSortingMenu(id_ristorante: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ downgradeUserRole(idUtente: int, ruolo: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fireUser(idUtente: int, ruolo: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ firstAccess(id_utente: Integer, newPassword: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvaiableDispensaProduct(id_ristorante: Integer): ArrayList&lt;Prodotto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisi(id_ristorante: Integer): ArrayList&lt;Avviso&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisiHidden(id_user: Integer): ArrayList&lt;AvvisoNascostoVisto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisiViewed(id_user: Integer): ArrayList&lt;AvvisoNascostoVisto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBusinessFromBusinessId(id_ristorante: Integer): Business</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDispensa(id_ristorante: Integer): ArrayList&lt;Prodotto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDispensaProductByName(id_ristorante: Integer, nomeProdotto: String): ArrayList&lt;Prodotto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDispensaProductsByCategory(id_ristorante: Integer, categoria: String): ArrayList&lt;Prodotto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenu(id_ristorante: Integer): ArrayList&lt;Menu&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuCategories(id_ristorante: Integer): ArrayList&lt;CategoriaMenu&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuPlateByCategory(id_ristorante: Integer, categoria: String): ArrayList&lt;Menu&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuPlateByName(nomePiatto: String): ArrayList&lt;Menu&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuPlateFromRestaurant(id_ristorante: Integer, nomePiatto: String): ArrayList&lt;Menu&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getNumberOfAvvisiToRead(id_utente: Integer, id_ristorante: Integer): Integer</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getPlateById(id_piatto: Integer): Menu</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUser(id_ristorante: Integer): ArrayList&lt;User&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserById(id: Integer): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ logout(idUtente: Integer): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ modifyBusinessInfo(id_ristorante: Integer, nome: String, numeroTelefono: String, indirizzo: String): Business</TD></TR>
+<TR><TD ALIGN="LEFT" >+ modifyProduct(idProdotto: Integer, nome: String, stato: Integer, descrizione: String, prezzo: Double, quantita: Double, unitaMisura: String, categoria: String): Prodotto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ modifyUserAccount(nome: String, cognome: String, dataNascita: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ modifyUserAccountDesktop(nome: String, cognome: String, email: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveBusinessImage(image: MultipartFile, fileName: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoHidden(id_avviso: Integer): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoNotHidden(id_avviso: Integer): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoNotViewed(id_avviso: Integer): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoViewed(id_avviso: Integer): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updatePlate(id_piatto: Integer, idRistorante: Integer, categoria: String, nome: String, prezzo: float, descrizione: String, allergeni: String, nomeSecondaLingua: String, descrizioneSecondaLingua: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updatePosizioneCategoria(id_categoria: Integer, posizione: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updatePosizionePiatto(id_piatto: Integer, posizione: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ upgradeUserRole(idUtente: int, ruolo: String): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ verifyUser(email: String, nomeRistorante: String): User</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DatabaseConnection948584069[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DatabaseConnection</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   connection: Connection [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_3479162 { 
+   	label=DAOimplements
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   AvvisoDAOimp26497677[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AvvisoDAOimp</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   db: DatabaseConnection [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createNewAvviso(id_ristorante: Integer, testo: String, loggedUser: User): Avviso</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteAvviso(idAvviso: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisiHiddenOf(id_user: Integer): ArrayList&lt;AvvisoNascostoVisto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisiOfResturant(id_ristorante: Integer): ArrayList&lt;Avviso&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisiViewedOf(id_user: Integer): ArrayList&lt;AvvisoNascostoVisto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAvvisoNascosto(id_avviso: Integer): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getNumberOfAvvisiToRead(idUtente: Integer, idRistorante: Integer): Integer</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoHidden(id_avviso: Integer, loggedUser: User): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoNotHidden(id_avviso: Integer, loggedUser: LoggedUser): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoNotViewed(id_avviso: Integer, loggedUser: User): AvvisoNascostoVisto</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setAvvisoViewed(id_avviso: Integer, loggedUser: User): AvvisoNascostoVisto</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+AvvisoDAOimp26497677 -> DatabaseConnection948584069[label="db
+[0..1]"];
+Controller948584069 -> AvvisoDAOimp26497677[label="avvisoDao
+[0..1]", arrowhead=none];
+    
+}
+@enduml
