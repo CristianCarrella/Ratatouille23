@@ -68,7 +68,6 @@
         android:background="@drawable/roundedbutton4"
         android:drawableRight="@drawable/ic_outline_inventory_2_24"
         android:gravity="left"
-        android:onClick="onClickDispensaListener"
         android:padding="12dp"
         android:shadowColor="#FF1E1E"
         android:text="Inventario\ndella\ndispensa"

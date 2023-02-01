@@ -50,17 +50,7 @@ public class MenuController implements Observer{
 	
 	boolean isInvisible = true;
 	@FXML
-	Button accountBtn;
-	@FXML
-	Button homeBtn;
-	@FXML
-	Button noticeBtn;
-	@FXML
-	Button menuBtn;
-	@FXML
-	Button personaleBtn;
-	@FXML
-	Button personalizzaBtn;
+	Button accountBtn, homeBtn, noticeBtn, menuBtn, personaleBtn, personalizzaBtn;
 	@FXML
 	ImageView sidebarBtn;
 	@FXML

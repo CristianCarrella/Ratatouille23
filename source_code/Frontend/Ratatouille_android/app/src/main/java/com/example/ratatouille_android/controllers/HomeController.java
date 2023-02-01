@@ -34,11 +34,6 @@ public class HomeController {
         this.homeActivity = homeActivity;
     }
 
-    public void goToDispensaActivity(){
-        Intent switchActivityIntent = new Intent(homeActivity, DispensaActivity.class);
-        switchActivityIntent.putExtra("loggedUser", loggedUser);
-        homeActivity.startActivity(switchActivityIntent);
-    }
 
 
     public void getNomeRistorante() {

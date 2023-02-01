@@ -190,10 +190,6 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         return badgeDrawable;
     }
 
-    public void onClickDispensaListener(View v) {
-        homeController.goToDispensaActivity();
-    }
-
     public void setTextNomeCognome(String nomeCognome) {
         textNomeCognome.setText(nomeCognome);
     }

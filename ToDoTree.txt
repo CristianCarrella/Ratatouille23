@@ -4,7 +4,7 @@ To Do list:
 - System design
 - Firebase
 - JUnit
-
+- Glossario
 
 - Riempire completezza funzionale
 
@@ -13,3 +13,7 @@ In sospeso:
 - SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD
 - Far vedere i cambiamenti prima e dopo del test di usabilità
 - Verificare richiesta con token sbagliato
+
+
+
+[https://stackoverflow.com/questions/31975109/android-class-diagram-uml]
