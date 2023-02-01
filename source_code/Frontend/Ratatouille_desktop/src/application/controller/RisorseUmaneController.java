@@ -49,6 +49,7 @@ public class RisorseUmaneController {
 	private Scene scene;
 	private Parent parent;
 	private UtenteDriver utenteDriver = new UtenteDriver();
+	private SideBarController sideBar = new SideBarController();
 
 	public RisorseUmaneController() {}
 	
@@ -107,44 +108,27 @@ public class RisorseUmaneController {
 	
 	
 	public void goToHome(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
-		changeScene(actionEvent, root);
-	}
-
-	private void changeScene(ActionEvent actionEvent, Parent root) {
-		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root);
-		double prevWidth = stage.getWidth();
-		double prevHeight = stage.getHeight();
-		stage.setScene(scene);
-		stage.setWidth(prevWidth);
-		stage.setHeight(prevHeight);
-		stage.show();
+		sideBar.goToHome(actionEvent);
 	}
 	
 	public void goToNotice(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AvvisiScene.fxml"));
-		changeScene(actionEvent, root);
+		sideBar.goToNotice(actionEvent);
 	}
 	
 	public void goToMenu(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/MenuScene.fxml"));
-		changeScene(actionEvent, root);
+		sideBar.goToMenu(actionEvent);
 	}
 	
 	public void goToGestisciPersonale(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/RisorseUmaneScene.fxml"));
-		changeScene(actionEvent, root);
+		sideBar.goToGestisciPersonale(actionEvent);
 	}
 	
 	public void goToPersonalizzaAttivita(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/PersonalizzazioneAttivitaScene.fxml"));
-		changeScene(actionEvent, root);
+		sideBar.goToPersonalizzaAttivita(actionEvent);
 	}
 	
 	public void goToAccount(ActionEvent actionEvent) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/AccountScene.fxml"));
-		changeScene(actionEvent, root);
+		sideBar.goToAccount(actionEvent);
 	}
 	
 	
