@@ -55,6 +55,8 @@ public class UtenteDriver {
 			params.add(new BasicNameValuePair("email", email));
 			params.add(new BasicNameValuePair("dataNascita", dataNascita));
 			params.add(new BasicNameValuePair("ruolo", ruolo));
+			params.add(new BasicNameValuePair("idUtente", String.valueOf(loggedUser.getIdUtente())));
+			params.add(new BasicNameValuePair("idRistorante", String.valueOf(loggedUser.getIdRistorante())));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpResponse response = httpclient.execute(httppost);
@@ -106,6 +108,7 @@ public class UtenteDriver {
 			params.add(new BasicNameValuePair("nome", nome));
 			params.add(new BasicNameValuePair("cognome", cognome));
 			params.add(new BasicNameValuePair("email", email));
+			params.add(new BasicNameValuePair("idUtente", String.valueOf(loggedUser.getIdUtente())));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpResponse response = httpclient.execute(httppost);
@@ -190,6 +193,7 @@ public class UtenteDriver {
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("idUtente", idUtente));
 			params.add(new BasicNameValuePair("ruolo", ruolo));
+			params.add(new BasicNameValuePair("ruoloLogged", loggedUser.getRuolo()));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpResponse response = httpclient.execute(httppost);
@@ -216,6 +220,7 @@ public class UtenteDriver {
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("idUtente", idUtente));
 			params.add(new BasicNameValuePair("ruolo", ruolo));
+			params.add(new BasicNameValuePair("ruoloLogged", loggedUser.getRuolo()));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpResponse response = httpclient.execute(httppost);
