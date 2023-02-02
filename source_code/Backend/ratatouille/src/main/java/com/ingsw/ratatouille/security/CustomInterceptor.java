@@ -49,7 +49,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     		}
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
-    			System.out.print("Richiesta accettata : Token valido\n" + request.getHeader("Authorization"));
+    			System.out.print("Richiesta accettata : Token valido" + request.getHeader("Authorization") + "\n");
     			if(request.getRequestURI().equals("/logout")) {
     				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
     			}

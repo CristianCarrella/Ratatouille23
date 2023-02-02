@@ -61,7 +61,7 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
 
     }
 
-    private void generateCard(float factor, CardView card, String header, String textMessage, Integer id_avviso) {
+    private void generateCard(float factor, CardView card, String header, String textMessage, Avviso avviso) {
         card.setLayoutParams(new LinearLayout.LayoutParams((int)(322 * factor), (int)(112 * factor)));
         card.setBackgroundColor(Color.parseColor("#FFFBF3"));
         card.setElevation(0);
@@ -73,7 +73,7 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
 
         generateHeaderTextCard(factor, constraintLayout, header);
         generateShowMessageCard(factor, constraintLayout, textMessage);
-        generateHideButtonSpaceCard(card, factor, constraintLayout, id_avviso);
+        generateHideButtonSpaceCard(card, factor, constraintLayout, avviso);
 
         ConstraintSet set = new ConstraintSet();
         set.clone(constraintLayout);
@@ -100,7 +100,7 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
         set.applyTo(constraintLayout);
     }
 
-    private void generateHideButtonSpaceCard(CardView card, float factor, ConstraintLayout constraintLayout, Integer id_avviso) {
+    private void generateHideButtonSpaceCard(CardView card, float factor, ConstraintLayout constraintLayout, Avviso avviso) {
         TextView spacing = new TextView(this);
         spacing.setId(R.id.spacing);
         spacing.setBackgroundResource(R.drawable.square_bottom_rounded2);
@@ -113,9 +113,10 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                avvisiNascostiController.markAsNotHideNotice(id_avviso);
+                avvisiNascostiController.markAsNotHideNotice(avviso.getIdAvviso());
                 LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) card.getLayoutParams();
                 layoutParams.height = 0;
+                avvisiNascosti.remove(avviso);
                 card.setLayoutParams(layoutParams);
             }
         };
@@ -155,7 +156,7 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
     public void generateCard(Avviso avviso) {
         float factor = this.getResources().getDisplayMetrics().density;
         CardView card = new CardView(this);
-        generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso.getIdAvviso());
+        generateCard(factor, card, avviso.getAutore() + " " + avviso.getDataOra(), avviso.getTesto(), avviso);
         layout.addView(card);
     }
 
