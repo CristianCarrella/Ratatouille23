@@ -38,7 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import application.Main;
 import application.controller.LoginController;
 import application.model.Business;
 import application.model.Utente;
@@ -50,8 +50,8 @@ import javafx.scene.image.WritableImage;
 
 public class BusinessDriver {
 	public static Business business;
-
-private Utente loggedUser = LoginController.loggedUser;
+	private String url = Main.address;
+	private Utente loggedUser = LoginController.loggedUser;
 	
 	public BusinessDriver() {
 		
@@ -59,7 +59,7 @@ private Utente loggedUser = LoginController.loggedUser;
 	
 	public Business requestBusinessToServer(){
 		HttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://localhost:8080/business/nomeAttivita?id_ristorante=" + loggedUser.getIdRistorante());
+        HttpGet httpget = new HttpGet(url + "/business/nomeAttivita?id_ristorante=" + loggedUser.getIdRistorante());
         httpget.setHeader("Authorization", loggedUser.getToken());
 		try {
 			HttpResponse response = httpclient.execute(httpget);
@@ -81,7 +81,7 @@ private Utente loggedUser = LoginController.loggedUser;
 	public Business requestModifyBusinessToServer(String nome, String indirizzo, String numeroTelefono){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/business");
+			HttpPost httppost = new HttpPost(url + "/business");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -106,7 +106,7 @@ private Utente loggedUser = LoginController.loggedUser;
 	public Image requestGetLogoToServer() {
 		try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet("http://localhost:8080/business/getImage");
+            HttpGet httpget = new HttpGet(url + "/business/getImage");
             httpget.setHeader("Authorization", loggedUser.getToken());
 
             HttpResponse response = httpclient.execute(httpget);
@@ -139,7 +139,7 @@ private Utente loggedUser = LoginController.loggedUser;
 		HttpClient httpclient = new DefaultHttpClient();
 	    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-	    HttpPost httppost = new HttpPost("http://localhost:8080/business/image");
+	    HttpPost httppost = new HttpPost(url + "/business/image");
 	    httppost.setHeader("Authorization", loggedUser.getToken());
 
 	    MultipartEntity mpEntity = new MultipartEntity();

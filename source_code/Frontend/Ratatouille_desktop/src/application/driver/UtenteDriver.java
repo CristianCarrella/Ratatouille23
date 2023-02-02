@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import application.Main;
 import application.controller.LoginController;
 import application.model.Utente;
 
@@ -26,7 +27,7 @@ public class UtenteDriver {
 	
 	private Utente loggedUser = LoginController.loggedUser;
 	private ArrayList<Utente> utenti  = new ArrayList<Utente>();
-	
+	private String url = Main.address;
 	public UtenteDriver() {
 		
 	}
@@ -45,7 +46,7 @@ public class UtenteDriver {
 	public Utente addNewEmployee(String nome, String cognome, String email, String password, String dataNascita, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/signup/newEmployee");
+			HttpPost httppost = new HttpPost("http://37.100.241.91:5000/signup/newEmployee");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -73,7 +74,7 @@ public class UtenteDriver {
 	public ArrayList<Utente> showEmplyees(){
         try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet("http://localhost:8080/user?id_ristorante=" + loggedUser.getIdRistorante());
+            HttpGet httpget = new HttpGet(url + "/user?id_ristorante=" + loggedUser.getIdRistorante());
             httpget.setHeader("Authorization", loggedUser.getToken());
 
             HttpResponse response = httpclient.execute(httpget);
@@ -99,7 +100,7 @@ public class UtenteDriver {
 	public boolean requestModifyAccountToServer(String nome, String email, String cognome) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/user/accountDesktop");
+			HttpPost httppost = new HttpPost(url + "/user/accountDesktop");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -128,7 +129,7 @@ public class UtenteDriver {
 	public boolean requestSignUpToServer(String nome, String email, String password, String cognome, String dataNascita, String nomeAttivita){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/signup-admin");
+			HttpPost httppost = new HttpPost(url + "/signup-admin");
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("nome", nome));
@@ -158,7 +159,7 @@ public class UtenteDriver {
 	public Utente requestUpgradeRoleToServer(String idUtente, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/user/upgradeRole");
+			HttpPost httppost = new HttpPost(url + "/user/upgradeRole");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -184,7 +185,7 @@ public class UtenteDriver {
 	public Utente requestDowngradeRoleToServer(String idUtente, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/user/downgradeRole");
+			HttpPost httppost = new HttpPost(url + "/user/downgradeRole");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -210,7 +211,7 @@ public class UtenteDriver {
 	public boolean requestFireUserToServer(String idUtente, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/user/fire");
+			HttpPost httppost = new HttpPost(url + "/user/fire");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -236,7 +237,7 @@ public class UtenteDriver {
 	public Utente runLogin(String email, String password) throws IOException {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/login");
+			HttpPost httppost = new HttpPost(url + "/login");
 		
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("email", email));

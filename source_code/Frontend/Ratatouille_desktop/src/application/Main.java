@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 
 
 public class Main extends Application {
+	public static String address = "http://37.100.241.91:5000";
 	@Override
 	public void start(Stage primaryStage) {
 		try {

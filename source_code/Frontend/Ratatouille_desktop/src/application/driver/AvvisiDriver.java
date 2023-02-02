@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import application.Main;
 import application.controller.AvvisiController;
 import application.controller.LoginController;
 import application.model.Avviso;
@@ -26,12 +27,13 @@ import application.model.Utente;
 
 public class AvvisiDriver {
 	private Utente loggedUser = LoginController.loggedUser;
+	private String url = Main.address;
 	public AvvisiDriver() { }
 	
 	public void requestAvvisiFromServer(AvvisiController avvisiController) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/avvisi?id_ristorante=" + loggedUser.getIdRistorante());
+			HttpGet httpget = new HttpGet(url + "/avvisi?id_ristorante=" + loggedUser.getIdRistorante());
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -57,7 +59,7 @@ public class AvvisiDriver {
 	public void requestScriviAvvisiFromServer(AvvisiController avvisiController, String testo) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/avviso/crea");
+			HttpPost httppost = new HttpPost(url + "/avviso/crea");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -84,7 +86,7 @@ public class AvvisiDriver {
 	public boolean requestDeleteAvviso(Integer idAvviso) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/avviso/cancella");
+			HttpPost httppost = new HttpPost(url + "/avviso/cancella");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);

@@ -9,6 +9,9 @@ To Do list:
 
 - Riempire completezza funzionale
 
+Idee:
+- Nel test di usabilità aggiungere tipo : "L'utente 1 suggerisce..."
+- Architettura a strati : slide 79 appunti
 
 In sospeso:
 - SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD

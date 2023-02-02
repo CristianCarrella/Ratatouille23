@@ -13,7 +13,7 @@ import com.example.ratatouille_android.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
-    public static String address = "http://192.168.1.47:8080";
+    public static String address = "http://37.100.241.91:5000";
     private Button btn;
     public static FirebaseAnalytics analytics;
 

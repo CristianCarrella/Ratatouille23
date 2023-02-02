@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import application.Main;
 import application.controller.LoginController;
 import application.controller.MenuController;
 import application.model.CategoriaMenu;
@@ -31,6 +32,7 @@ import application.model.Utente;
 public class MenuDriver {
 	private Utente loggedUser = LoginController.loggedUser;
 	private ArrayList<CategoriaMenu> categorieRistorante = new ArrayList<CategoriaMenu>();
+	private String url = Main.address;
 	public MenuDriver() { }
 	
 	
@@ -56,7 +58,7 @@ public class MenuDriver {
 	public void getPiattiFromCategorie(Integer idRistorante, MenuController menuController, String categoria) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + idRistorante + "&&categoria=" + URLEncoder.encode(categoria,"UTF-8"));
+			HttpGet httpget = new HttpGet(url + "/menu/categoria/piatti?id_ristorante=" + idRistorante + "&&categoria=" + URLEncoder.encode(categoria,"UTF-8"));
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -88,7 +90,7 @@ public class MenuDriver {
 	private void getCategorieFromServer(Integer idRistorante, MenuController menuController) throws Exception {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria?id_ristorante=" + idRistorante);
+			HttpGet httpget = new HttpGet(url + "/menu/categoria?id_ristorante=" + idRistorante);
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -112,7 +114,7 @@ public class MenuDriver {
 		ArrayList<CategoriaMenu> categorie = new ArrayList<CategoriaMenu>();
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria?id_ristorante=" + loggedUser.getIdRistorante());
+			HttpGet httpget = new HttpGet(url + "/menu/categoria?id_ristorante=" + loggedUser.getIdRistorante());
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -138,7 +140,7 @@ public class MenuDriver {
 		ArrayList<Piatto> piatti = new ArrayList<Piatto>();
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/categoria/piatti?id_ristorante=" + loggedUser.getIdRistorante() + "&&categoria=" + URLEncoder.encode(categoria, "UTF-8"));
+			HttpGet httpget = new HttpGet(url + "/menu/categoria/piatti?id_ristorante=" + loggedUser.getIdRistorante() + "&&categoria=" + URLEncoder.encode(categoria, "UTF-8"));
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -173,7 +175,7 @@ public class MenuDriver {
 		ArrayList<Piatto> piatti = new ArrayList<>();
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu?id_ristorante=" + loggedUser.getIdRistorante());
+			HttpGet httpget = new HttpGet(url + "/menu?id_ristorante=" + loggedUser.getIdRistorante());
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
 			HttpResponse response = httpclient.execute(httpget);
@@ -207,7 +209,7 @@ public class MenuDriver {
 	public boolean requestDeletePiatto(MenuController menuController, Integer idPiatto) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/deletePlate");
+			HttpPost httppost = new HttpPost(url + "/menu/deletePlate");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -237,7 +239,7 @@ public class MenuDriver {
 	public ArrayList<Piatto> requestSearchPiatto(String nomePiatto) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			String restUrl = "http://localhost:8080/menu/ristorante/piatto?id_ristorante="+String.valueOf(loggedUser.getIdRistorante())+"&&nomePiatto="+ URLEncoder.encode(nomePiatto, "UTF-8");
+			String restUrl = url + "/menu/ristorante/piatto?id_ristorante="+String.valueOf(loggedUser.getIdRistorante())+"&&nomePiatto="+ URLEncoder.encode(nomePiatto, "UTF-8");
 			HttpGet httpget = new HttpGet(restUrl);
 			httpget.setHeader("Authorization", loggedUser.getToken());
 			
@@ -281,7 +283,7 @@ public class MenuDriver {
 	public boolean requestUpdatePositionCategoria(Integer idCategoria, Integer posizione) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/categoria-update-posizione");
+			HttpPost httppost = new HttpPost(url + "/categoria-update-posizione");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -312,7 +314,7 @@ public class MenuDriver {
 	public boolean requestUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/piatto-update-posizione");
+			HttpPost httppost = new HttpPost(url + "/menu/piatto-update-posizione");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -346,7 +348,7 @@ public class MenuDriver {
 	public boolean requestDeleteMenuSorting() {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/delete-ordine-menu-precedente");
+			HttpPost httppost = new HttpPost(url + "/menu/delete-ordine-menu-precedente");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -379,7 +381,7 @@ public class MenuDriver {
 	public Piatto getPiattoInfoFromServer(Integer idPiatto) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("http://localhost:8080/menu/ristorante/piatto/" + idPiatto.toString());
+			HttpGet httpget = new HttpGet(url + "/menu/ristorante/piatto/" + idPiatto.toString());
 			httpget.setHeader("Authorization", loggedUser.getToken());
 		
 			HttpResponse response = httpclient.execute(httpget);
@@ -414,7 +416,7 @@ public class MenuDriver {
 	public boolean modificaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta, Integer idPiatto) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/updatePlate/" + idPiatto.toString());
+			HttpPost httppost = new HttpPost(url + "/menu/updatePlate/" + idPiatto.toString());
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -453,7 +455,7 @@ public class MenuDriver {
 	public boolean creaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta) {		
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newPlate");
+			HttpPost httppost = new HttpPost(url + "/menu/newPlate");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -493,7 +495,7 @@ public class MenuDriver {
 	public boolean creaCategoria(String nomeCategoriaNuova) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://localhost:8080/menu/newCategoria");
+			HttpPost httppost = new HttpPost(url + "/menu/newCategoria");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
