@@ -49,7 +49,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     		}
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
-    			System.out.print("Richiesta accettata : Token valido\n");
+    			System.out.print("Richiesta accettata : Token valido\n" + request.getHeader("Authorization"));
     			if(request.getRequestURI().equals("/logout")) {
     				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
     			}
@@ -58,6 +58,11 @@ public class CustomInterceptor implements HandlerInterceptor {
     			throw new RestClientException("Richiesta rifiutata : Token non valido\n");
     		}
     	}
+		System.out.println("Utenti attualmente loggati : \n");
+		for (LoggedUser u : loggedUsers) {
+			System.out.println(u.getEmail() + " token : " + u.getToken());
+		}
+		System.out.println("\n");
         return true;
     }
 

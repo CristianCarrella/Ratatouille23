@@ -34,8 +34,7 @@ public class UtenteDriver {
 	
 	public Utente requestLoginToServer(String email, String password){
 		try {
-			//run(email, password);
-			return runLogin("teka.freitas@example.com", "meister");
+			return runLogin(email, password);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
