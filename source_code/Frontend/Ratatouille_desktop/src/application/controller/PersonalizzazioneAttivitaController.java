@@ -64,7 +64,9 @@ public class PersonalizzazioneAttivitaController {
 		mostraDatiRistorante();
 		try {
 			Image image = businessDriver.requestGetLogoToServer();
-			logoInputView.setImage(image);
+			if (image != null) {
+				logoInputView.setImage(image);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
