@@ -39,6 +39,7 @@ public class AvvisiNascostiController {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("id_avviso", String.valueOf(id_avviso))
+                .add("idUtente", String.valueOf(loggedUser.getIdUtente()))
                 .build();
         Request request = new Request.Builder()
                 .url(url + "/avviso/segna-come-non-nascosto/" + id_avviso)

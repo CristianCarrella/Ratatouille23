@@ -110,7 +110,7 @@ public class NoticesController {
                 .add("id_avviso", String.valueOf(id_avviso))
                 .build();
         Request request = new Request.Builder()
-                .url(url + "/avviso/segna-come-nascosto/" + id_avviso)
+                .url(url + "/avviso/segna-come-nascosto/" + id_avviso + "?idUtente=" + loggedUser.getIdUtente())
                 .post(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
@@ -123,7 +123,7 @@ public class NoticesController {
                 .add("id_avviso", String.valueOf(id_avviso))
                 .build();
         Request request = new Request.Builder()
-                .url(url + "/avviso/segna-come-non-letto/" + id_avviso)
+                .url(url + "/avviso/segna-come-non-letto/" + id_avviso + "?idUtente=" + loggedUser.getIdUtente())
                 .post(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
@@ -137,7 +137,7 @@ public class NoticesController {
                 .add("id_ristorante", String.valueOf(id_ristorante))
                 .build();
         Request request = new Request.Builder()
-                .url(url + "/avviso/segna-come-letto/" + id_avviso)
+                .url(url + "/avviso/segna-come-letto/" + id_avviso + "?idUtente=" + loggedUser.getIdUtente())
                 .post(formBody)
                 .header("Authorization",  loggedUser.getToken())
                 .build();
