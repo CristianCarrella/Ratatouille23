@@ -106,7 +106,7 @@ public class BusinessDriver {
 	public Image requestGetLogoToServer() {
 		try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet(url + "/business/getImage?idUtente = " + loggedUser.getIdUtente() + "&idRistorante = " + loggedUser.getIdRistorante());
+            HttpGet httpget = new HttpGet(url + "/business/getImage?idUtente=" + loggedUser.getIdUtente() + "&idRistorante=" + loggedUser.getIdRistorante());
             httpget.setHeader("Authorization", loggedUser.getToken());
 
             HttpResponse response = httpclient.execute(httpget);

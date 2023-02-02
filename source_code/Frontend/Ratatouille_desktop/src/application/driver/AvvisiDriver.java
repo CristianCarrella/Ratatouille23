@@ -65,6 +65,7 @@ public class AvvisiDriver {
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(loggedUser.getIdRistorante())));
 			params.add(new BasicNameValuePair("testo", testo));
+			params.add(new BasicNameValuePair("idUtente", String.valueOf(loggedUser.getIdUtente())));
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 			
 			HttpResponse response = httpclient.execute(httppost);
