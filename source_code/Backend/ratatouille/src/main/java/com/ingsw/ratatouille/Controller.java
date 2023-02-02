@@ -125,23 +125,23 @@ public class Controller {
 	}
 	
 	@PostMapping("/avviso/segna-come-letto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso) {
-		return avvisoDao.setAvvisoViewed(id_avviso, loggedUser);
+	public AvvisoNascostoVisto setAvvisoViewed(@PathVariable Integer id_avviso, Integer idUtente) {
+		return avvisoDao.setAvvisoViewed(id_avviso, idUtente);
 	}
 	
 	@PostMapping("/avviso/segna-come-non-letto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoNotViewed(@PathVariable Integer id_avviso) {
-		return avvisoDao.setAvvisoNotViewed(id_avviso, loggedUser);
+	public AvvisoNascostoVisto setAvvisoNotViewed(@PathVariable Integer id_avviso, Integer idUtente) {
+		return avvisoDao.setAvvisoNotViewed(id_avviso, idUtente);
 	}
 	
 	@PostMapping("/avviso/segna-come-nascosto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoHidden(@PathVariable Integer id_avviso) {
-		return avvisoDao.setAvvisoHidden(id_avviso, loggedUser);
+	public AvvisoNascostoVisto setAvvisoHidden(@PathVariable Integer id_avviso, Integer idUtente) {
+		return avvisoDao.setAvvisoHidden(id_avviso, idUtente);
 	}
 	
 	@PostMapping("/avviso/segna-come-non-nascosto/{id_avviso}")
-	public AvvisoNascostoVisto setAvvisoNotHidden(@PathVariable Integer id_avviso) {
-		return avvisoDao.setAvvisoNotHidden(id_avviso, loggedUser);
+	public AvvisoNascostoVisto setAvvisoNotHidden(@PathVariable Integer id_avviso, Integer idUtente) {
+		return avvisoDao.setAvvisoNotHidden(id_avviso, idUtente);
 	}
 
 	@GetMapping("/avviso/numero-di-avvisi-da-leggere")
@@ -150,8 +150,8 @@ public class Controller {
 	}
 	
 	@PostMapping("/avviso/crea")
-	public Avviso createNewAvviso(@RequestParam(required = true) Integer id_ristorante, String testo) {
-		return avvisoDao.createNewAvviso(id_ristorante, testo, loggedUser);
+	public Avviso createNewAvviso(@RequestParam(required = true) Integer id_ristorante, String testo, Integer idUtente) {
+		return avvisoDao.createNewAvviso(id_ristorante, testo, idUtente);
 	}
 
 	@PostMapping("/avviso/cancella")
@@ -298,18 +298,17 @@ public class Controller {
 	}
 	
 	@PostMapping("/business/image")
-	public void saveBusinessImage(@RequestParam(required = true) MultipartFile image, String fileName){
+	public void saveBusinessImage(@RequestParam(required = true) Integer idUtente, Integer idRistorante, MultipartFile image, String fileName){
 		try {
-			businessDao.saveBusinessImage(loggedUser, image, fileName);
+			businessDao.saveBusinessImage(idUtente, idRistorante, image, fileName);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@GetMapping("/business/getImage")
-	public String getBusinessImage(){
-		return businessDao.getBusinessImage(loggedUser);
+	public String getBusinessImage(@RequestParam(required = true) Integer idUtente, Integer idRistorante){
+		return businessDao.getBusinessImage(idUtente, idRistorante);
 	}
 	
 }
