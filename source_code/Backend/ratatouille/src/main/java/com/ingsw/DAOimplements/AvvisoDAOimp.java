@@ -126,8 +126,12 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 
 	@Override
 	public boolean deleteAvviso(Integer idAvviso) {
+		String query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_avviso = " + idAvviso;
+		String query3 = "DELETE FROM cronologia_nascosti_avviso WHERE id_avviso = " + idAvviso;		
 		String query = "DELETE FROM avviso WHERE id_avviso = " + idAvviso;
 		try {
+			db.getStatement().executeUpdate(query2);
+			db.getStatement().executeUpdate(query3);
 			db.getStatement().executeUpdate(query);
 			return true;
 		}catch(SQLException e) {

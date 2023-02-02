@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -93,21 +94,22 @@ public class PersonalizzazioneAttivitaController {
 		if (selectedFile != null) {
 			fileName = selectedFile.getName();
 			System.out.println("cosedavedere" + selectedFile.toURI().toString());
-	        File file = new File(selectedFile.toURI().toString().replace("file:/", ""));
-	        Image image = new Image(selectedFile.toURI().toString());
-	        logoInputView.setImage(image);
-	        
+	        File file = new File(selectedFile.toURI().toString().replace("file:/", ""));	        
 			try {
 				if(file.length() < 1048576 ) {
 					businessDriver.setLogoInDatabase(file, fileName);
+					Image image = new Image(selectedFile.toURI().toString());
+			        logoInputView.setImage(image);
 				} else {
 					errorLabel.setText("File di dimensioni troppo grandi, impossibile salvarlo\nScegliere un altro file");
 					errorLabel.setTextFill(Color.RED);
 				}
-				
+			} catch (FileNotFoundException e) {
+				errorLabel.setText("Impossibile accedere al percorso specificato");
+				errorLabel.setTextFill(Color.RED);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorLabel.setText("Errore nel caricamento dell'immagine");
+				errorLabel.setTextFill(Color.RED);
 			}			
 	    }
 	}

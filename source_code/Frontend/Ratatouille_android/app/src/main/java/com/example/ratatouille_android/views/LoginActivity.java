@@ -48,10 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String email = String.valueOf(emailField.getText());
-                //String password = String.valueOf(passwordField.getText());
-                String email = "teka.freitas@example.com";
-                String password = "meister";
+                String email = String.valueOf(emailField.getText());
+                String password = String.valueOf(passwordField.getText());
                 loginController = new LoginController(LoginActivity.this, email, password, error);
                 loginController.requestToServer();
 
