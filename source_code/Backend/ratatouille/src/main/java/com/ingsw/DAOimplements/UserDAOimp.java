@@ -79,19 +79,15 @@ public class UserDAOimp implements UserDAOint {
 		}
 	}
 	
-	public User createEmployee(String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, User loggedUser) {
+	public User createEmployee(String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, Integer idUtente, Integer idRistorante) {
 				
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		int idUtenteCreato = 0;
 		String query = "";
-		
-		if (loggedUser==null) {
-			return null;
-		}
-		
+
 		try {
-			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "true, " + loggedUser.getIdUtente() + ", '" + now + "', " + loggedUser.getIdRistorante() + ");";
+			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "true, " + idUtente + ", '" + now + "', " + idRistorante + ");";
 			db.getStatement().executeUpdate(query);
 			
 			query = "SELECT id_utente FROM utente WHERE email = '" + email + "';";
@@ -106,7 +102,7 @@ public class UserDAOimp implements UserDAOint {
 			return null;
 		}		
 		
-		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, loggedUser.getIdUtente(), now.toString(), loggedUser.getIdRistorante());
+		User newUser = new User(idUtenteCreato, nome, cognome, dataNascita, email, passwordTemporanea, ruolo, false, idUtente, now.toString(), idRistorante);
 		return newUser;
 	}
 
@@ -181,8 +177,7 @@ public class UserDAOimp implements UserDAOint {
 
 
 	@Override
-	public User modifyUserNameSurnameDate(User loggedUser, String nome, String cognome, String dataNascita) {
-		int idUtente = loggedUser.getIdUtente();
+	public User modifyUserNameSurnameDate(Integer idUtente, String nome, String cognome, String dataNascita) {
 		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
 		try {
 			db.getStatement().executeUpdate(query);
@@ -193,8 +188,7 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 	
-	public User modifyUserNameSurnameEmail(User loggedUser, String nome, String cognome, String email) {
-		int idUtente = loggedUser.getIdUtente();
+	public User modifyUserNameSurnameEmail(Integer idUtente, String nome, String cognome, String email) {
 		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', email = '" + email + "' WHERE id_utente = " + idUtente;
 		try {
 			db.getStatement().executeUpdate(query);
@@ -218,9 +212,9 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 	
-	public User downgradeUserRole(LoggedUser loggedUser, int idUtente, String ruoloInput) {
+	public User downgradeUserRole(String ruoloLogged, int idUtente, String ruoloInput) {
 		String query = "";
-		if(loggedUser.getRuolo().equals("admin") && ruoloInput.equals("supervisore")) {
+		if(ruoloLogged.equals("admin") && ruoloInput.equals("supervisore")) {
 			query = "UPDATE utente SET ruolo = 'addetto_cucina' WHERE id_utente = " + idUtente;
 		}
 		if(ruoloInput.contains("cucina")) {
@@ -254,12 +248,12 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 	
-	public void fireUser(LoggedUser loggedUser, int idUtente, String ruoloInput) {
+	public void fireUser(String ruoloLogged, int idUtente, String ruoloInput) {
 		String query = "";
 		String query2 = "";
 		String query3 = "";
 		
-		if(loggedUser.getRuolo().equals("admin") && ruoloInput.equals("supervisore")) {
+		if(ruoloLogged.equals("admin") && ruoloInput.equals("supervisore")) {
 			query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente;
 			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
 			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;

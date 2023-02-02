@@ -30,7 +30,6 @@ import com.ingsw.DAOinterface.UserDAOint;
 public class Controller {
 	DatabaseConnection db = DatabaseConnection.getInstance();;
 	UserDAOint userDao = new UserDAOimp(db);
-	LoggedUser loggedUser = null;
 	AvvisoDAOint avvisoDao = new AvvisoDAOimp(db);
 	MenuDAOint menuDao = new MenuDAOimp(db);
 	CategoriaMenuDAOint categoriaMenuDao = new CategoriaMenuDAOimp(db);
@@ -48,28 +47,28 @@ public class Controller {
 	}
 	
 	@PostMapping("/user/account")
-	public User modifyUserAccount(@RequestParam(required = true) String nome, String cognome, String dataNascita){
-		return userDao.modifyUserNameSurnameDate(loggedUser, nome, cognome, dataNascita);		
+	public User modifyUserAccount(@RequestParam(required = true) String nome, String cognome, String dataNascita, Integer idUtente){
+		return userDao.modifyUserNameSurnameDate(idUtente, nome, cognome, dataNascita);
 	}
 	
 	@PostMapping("/user/accountDesktop")
-	public User modifyUserAccountDesktop(@RequestParam(required = true) String nome, String cognome, String email){
-		return userDao.modifyUserNameSurnameEmail(loggedUser, nome, cognome, email);		
+	public User modifyUserAccountDesktop(@RequestParam(required = true) String nome, String cognome, String email, Integer idUtente){
+		return userDao.modifyUserNameSurnameEmail(idUtente, nome, cognome, email);
 	}
 	
 	@PostMapping("/user/upgradeRole")
-	public User upgradeUserRole(@RequestParam(required = true) int idUtente, String ruolo){
+	public User upgradeUserRole(@RequestParam(required = true) Integer idUtente, String ruolo){
 		return userDao.upgradeUserRole(idUtente, ruolo);		
 	}
 	
 	@PostMapping("/user/downgradeRole")
-	public User downgradeUserRole(@RequestParam(required = true) int idUtente, String ruolo){
-		return userDao.downgradeUserRole(loggedUser, idUtente, ruolo);		
+	public User downgradeUserRole(@RequestParam(required = true) Integer idUtente, String ruolo, String ruoloLogged){
+		return userDao.downgradeUserRole(ruoloLogged, idUtente, ruolo);
 	}
 	
 	@PostMapping("/user/fire")
-	public void fireUser(@RequestParam(required = true) int idUtente, String ruolo){
-		userDao.fireUser(loggedUser, idUtente, ruolo);		
+	public void fireUser(@RequestParam(required = true) int idUtente, String ruolo, String ruoloLogged){
+		userDao.fireUser(ruoloLogged, idUtente, ruolo);
 	}
 
 	@PostMapping("/signup-admin")
@@ -78,8 +77,8 @@ public class Controller {
 	}
 	
 	@PostMapping("/signup/newEmployee")
-    public User createUser(@RequestParam (required = true) String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo) {
-		return userDao.createEmployee(nome, cognome, passwordTemporanea, email, dataNascita, ruolo, loggedUser);
+    public User createUser(@RequestParam (required = true) String nome, String cognome, String passwordTemporanea, String email, String dataNascita, String ruolo, Integer idUtente, Integer idRistorante) {
+		return userDao.createEmployee(nome, cognome, passwordTemporanea, email, dataNascita, ruolo, idUtente, idRistorante);
 	}
 	
 	@PostMapping("/verify")
@@ -101,9 +100,7 @@ public class Controller {
 	
 	@PostMapping("/login")
 	public User checkLogin(HttpServletRequest request, @RequestParam(required = true) String email, String password){
-		loggedUser = (LoggedUser)request.getSession().getAttribute("attributeToPass");
-		System.out.print(loggedUser.getNome());
-		return loggedUser;
+		return (LoggedUser)request.getSession().getAttribute("attributeToPass");
 	}
 	
 	
