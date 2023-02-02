@@ -83,6 +83,7 @@ public class HomeController {
                 .add("nome", nome)
                 .add("cognome", cognome)
                 .add("dataNascita", dataNascita)
+                .add("idUtente", String.valueOf(loggedUser.getIdUtente()))
                 .build();
         Request request = new Request.Builder()
                 .url(url + "user/account")
