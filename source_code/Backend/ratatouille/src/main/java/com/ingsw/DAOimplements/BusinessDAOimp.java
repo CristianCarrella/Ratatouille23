@@ -59,8 +59,8 @@ public class BusinessDAOimp implements BusinessDAOint {
 		return null;
 	}
 
-	public void saveBusinessImage(User loggedUser, MultipartFile image, String fileName) throws IOException {
-		String repository = "C:\\logos\\" + loggedUser.getIdUtente();
+	public void saveBusinessImage(Integer idUtente, Integer idRistorante, MultipartFile image, String fileName) throws IOException {
+		String repository = "C:\\logos\\" + idUtente;
 		Path uploadPath = Paths.get(repository);
 		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
@@ -72,24 +72,24 @@ public class BusinessDAOimp implements BusinessDAOint {
 			throw new IOException("Could not save image file: " + fileName, ioe);
 		}
 
-		File file = new File("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+		File file = new File("C:\\logos\\" + idUtente + "\\" + fileName);
 		FileInputStream fis = new FileInputStream(file);
 		try {
 			PreparedStatement ps = db.getConnection().prepareStatement("UPDATE ristorante SET logo = ?, nome_immagine = ? WHERE id_ristorante = ?");
 			ps.setBinaryStream(1, fis, (int)file.length());
 			ps.setString(2, fileName);
-			ps.setInt(3, loggedUser.getIdRistorante());
+			ps.setInt(3, idRistorante);
 			ps.executeUpdate();
 			ps.close();
 			fis.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		FileUtils.deleteDirectory(new File("C:\\logos\\" + loggedUser.getIdUtente()));
+		FileUtils.deleteDirectory(new File("C:\\logos\\" + idUtente));
 	}
 
-	public String getBusinessImage(User loggedUser) {
-		String query = "SELECT nome_immagine FROM ristorante WHERE id_ristorante = " + loggedUser.getIdRistorante();
+	public String getBusinessImage(Integer idUtente, Integer idRistorante) {
+		String query = "SELECT nome_immagine FROM ristorante WHERE id_ristorante = " + idRistorante;
 		ResultSet rs = null;
 		String fileName = "";
 		try {
@@ -101,26 +101,18 @@ public class BusinessDAOimp implements BusinessDAOint {
 			e.printStackTrace();
 		}
 
-//		File file = new File("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
-//		try {
-//			FileInputStream fis = new FileInputStream(file);
-//		} catch (FileNotFoundException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-
 		try {
-			PreparedStatement ps = db.getConnection().prepareStatement("SELECT logo FROM ristorante WHERE id_ristorante = " + loggedUser.getIdRistorante());
+			PreparedStatement ps = db.getConnection().prepareStatement("SELECT logo FROM ristorante WHERE id_ristorante = " + idRistorante);
 			ResultSet resultSet = ps.executeQuery();
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-			String repository = "C:\\logos\\" + loggedUser.getIdUtente();
+			String repository = "C:\\logos\\" + idUtente;
 			Path uploadPath = Paths.get(repository);
 			if (!Files.exists(uploadPath)) {
 				Files.createDirectories(uploadPath);
 			}
 
-			FileOutputStream fos = new FileOutputStream("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+			FileOutputStream fos = new FileOutputStream("C:\\logos\\" + idUtente + "\\" + fileName);
 
 			while (resultSet.next()) {
 				byte[] buffer = new byte[1];
@@ -134,7 +126,7 @@ public class BusinessDAOimp implements BusinessDAOint {
 
 
 
-			File file = new File("C:\\logos\\" + loggedUser.getIdUtente() + "\\" + fileName);
+			File file = new File("C:\\logos\\" + idUtente + "\\" + fileName);
 			byte[] bytes = Files.readAllBytes(file.toPath());
 
 			String encodedImage = Base64.getEncoder().encodeToString(bytes);

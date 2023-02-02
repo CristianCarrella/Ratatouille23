@@ -106,7 +106,7 @@ public class BusinessDriver {
 	public Image requestGetLogoToServer() {
 		try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet(url + "/business/getImage");
+            HttpGet httpget = new HttpGet(url + "/business/getImage?idUtente = " + loggedUser.getIdUtente() + "&idRistorante = " + loggedUser.getIdRistorante());
             httpget.setHeader("Authorization", loggedUser.getToken());
 
             HttpResponse response = httpclient.execute(httpget);
@@ -147,6 +147,8 @@ public class BusinessDriver {
 	    mpEntity.addPart("image", cbFile);
 	    
 	    mpEntity.addPart("fileName",new StringBody(fileName, Charset.forName("utf-8")));
+	    mpEntity.addPart("idUtente",new StringBody(String.valueOf(loggedUser.getIdUtente()), Charset.forName("utf-8")));
+	    mpEntity.addPart("idRistorante",new StringBody(String.valueOf(loggedUser.getIdRistorante()), Charset.forName("utf-8")));
 
 
 	    httppost.setEntity(mpEntity);

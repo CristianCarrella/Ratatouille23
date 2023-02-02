@@ -90,9 +90,9 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 	
-	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, User loggedUser) {
+	public AvvisoNascostoVisto setAvvisoViewed(Integer id_avviso, Integer idUtente) {
 		LocalDateTime now = LocalDateTime.now();
-		String query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
+		String query = "INSERT INTO cronologia_lettura_avviso (id_utente, id_avviso, data_lettura) VALUES (" + idUtente + ", " + id_avviso + ", '" + now + "')";
 		try {
 			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
@@ -102,9 +102,9 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 	
 	@Override
-	public AvvisoNascostoVisto setAvvisoNotViewed(Integer id_avviso, User loggedUser) {
+	public AvvisoNascostoVisto setAvvisoNotViewed(Integer id_avviso, Integer idUtente) {
 		ResultSet rs;
-		String query = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_avviso = " + id_avviso;
+		String query = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente + " AND id_avviso = " + id_avviso;
 		try {
 			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
@@ -114,8 +114,8 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 	
 	@Override
-	public AvvisoNascostoVisto setAvvisoNotHidden(Integer id_avviso, LoggedUser loggedUser) {
-		String query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_avviso = " + id_avviso;
+	public AvvisoNascostoVisto setAvvisoNotHidden(Integer id_avviso, Integer idUtente) {
+		String query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente + " AND id_avviso = " + id_avviso;
 		try {
 			db.getStatement().executeUpdate(query);
 		}catch(SQLException e) {
@@ -175,13 +175,13 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		return null;
 	}
 
-	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, User loggedUser) {
+	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, Integer idUtente) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
 		String query = null;		
 		try {
-			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + loggedUser.getIdUtente() + ", " + id_avviso + ", '" + now + "')";
+			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + idUtente + ", " + id_avviso + ", '" + now + "')";
 			db.getStatement().executeUpdate(query);
 			query = "SELECT * FROM cronologia_lettura_avviso WHERE id_avviso = " + id_avviso;
 			rs = db.getStatement().executeQuery(query);
@@ -192,7 +192,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 				}
 			}
 			if(!isRead){
-				setAvvisoViewed(id_avviso, loggedUser);
+				setAvvisoViewed(id_avviso, idUtente);
 			}
 			return getAvvisoNascosto(id_avviso);
 		}catch(SQLException e) {
@@ -202,7 +202,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 
-	public Avviso createNewAvviso(Integer id_ristorante, String testo, User loggedUser) {
+	public Avviso createNewAvviso(Integer id_ristorante, String testo, Integer idUtente) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
@@ -211,7 +211,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		boolean isSupervisoreOrAdmin = false;
 		
 		try {
-			query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante;
+			query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante;
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
 				String ruolo = rs.getString("ruolo");
@@ -223,13 +223,13 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 			}
 			
 			if(isSupervisoreOrAdmin) {
-				query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + loggedUser.getIdUtente() + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
+				query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + idUtente + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
 				db.getStatement().executeUpdate(query);
 				
-				query = "SELECT id_avviso FROM avviso WHERE id_utente = " + loggedUser.getIdUtente() + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
+				query = "SELECT id_avviso FROM avviso WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
 				rs = db.getStatement().executeQuery(query);
 				while(rs.next()) {
-					return new Avviso(rs.getInt("id_avviso"), loggedUser.getIdUtente(), id_ristorante, testo, now.toString(), autore);
+					return new Avviso(rs.getInt("id_avviso"), idUtente, id_ristorante, testo, now.toString(), autore);
 				}
 			}
 			

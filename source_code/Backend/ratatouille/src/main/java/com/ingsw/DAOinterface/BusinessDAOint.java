@@ -11,6 +11,6 @@ public interface BusinessDAOint {
 	
 	public  Business getBusinessFromBusinessId(Integer idRistorante);
 	public Business modifyBusinessInfo(Integer id_ristorante, String nome, String indirizzo, String telefono);
-	public void saveBusinessImage(User loggedUser, MultipartFile image, String fileName) throws IOException;
-	public String getBusinessImage(User loggedUser);
+	public void saveBusinessImage(Integer idUtente, Integer idRistorante, MultipartFile image, String fileName) throws IOException;
+	public String getBusinessImage(Integer idUtente, Integer idRistorante);
 }
