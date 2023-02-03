@@ -8,6 +8,9 @@ To Do list:
 - Rifare lo screen MVC da class diagram
 
 - Riempire completezza funzionale
+- Da scrivere nel software design : https://www.quora.com/Is-Amazon-EC2-IaaS-or-PaaS
+- Far eseguire il codice backend dal container
+- Controllare lista utenti token che scadono
 
 Idee:
 - Nel test di usabilità aggiungere tipo : "L'utente 1 suggerisce..."

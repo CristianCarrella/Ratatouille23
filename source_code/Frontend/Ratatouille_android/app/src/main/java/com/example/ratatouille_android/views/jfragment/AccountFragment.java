@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
+import com.example.ratatouille_android.views.MainActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.IOException;
 
@@ -24,6 +26,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private HomeActivity homeActivity;
     private TextView ruolo, email, aggiuntoDa, aggiutoInData, aggiuntoDaLabel, dataAggiuntaLabel, errore;
     private final int LUNGHEZZA_NOME_DB = 30, LUNGHEZZA_COGNOME_DB = 30;
+    private FirebaseAnalytics analytics = MainActivity.analytics;
+
     public AccountFragment(HomeActivity homeActivity,User loggedUser){
         this.loggedUser = loggedUser;
         this.homeActivity = homeActivity;
@@ -35,6 +39,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         Button btn = view.findViewById(R.id.confermaButton);
         btn.setOnClickListener(this);
+
+        firebaseLog();
 
         nomeField = view.findViewById(R.id.nomeField);
         cognomeField = view.findViewById(R.id.cognomeField);
@@ -62,6 +68,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         }
 
         return view;
+    }
+
+    private void firebaseLog() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "account");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "account_clicked");
+        analytics.logEvent("InAccountFragment", bundle);
     }
 
     @Override

@@ -28,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -49,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
     private TextView textNomeAttivita,textRuolo, textNomeCognome;
     private BottomAppBar bottomAppBar;
     private FloatingActionButton floatingActionButton;
+    private FirebaseAnalytics analytics = MainActivity.analytics;
 
 
     @Override
@@ -103,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 homeController.getNumberOfNoticesToRead();
+
                 switch (item.getItemId()) {
                     case R.id.notices:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, noticesFragment).commit();
