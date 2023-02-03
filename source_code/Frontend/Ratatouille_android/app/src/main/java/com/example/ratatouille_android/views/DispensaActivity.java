@@ -1,5 +1,7 @@
 package com.example.ratatouille_android.views;
 
+import static com.example.ratatouille_android.views.MainActivity.analytics;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -30,6 +32,7 @@ import com.example.ratatouille_android.controllers.DispensaController;
 import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.dialogs.FilterTableDialog;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -47,6 +50,8 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        fireBaseLog();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispensa);
 
@@ -96,6 +101,7 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
         View.OnClickListener piuOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fireBaseLogCreaProdotto();
                 dispensaController.goToCreaProdottoActivity();
             }
         };
@@ -180,6 +186,20 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
         t.setGravity(Gravity.CENTER);
         t.setPadding(20, 10, 10, 10);
         return t;
+    }
+
+    private void fireBaseLog(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "dispensa");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "dispensa_clicked");
+        analytics.logEvent("InDispensa", bundle);
+    }
+
+    private void fireBaseLogCreaProdotto(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "creaProdotto");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "creaProdotto_clicked");
+        analytics.logEvent("ProdottoCreato", bundle);
     }
 
     public void setSelectedFilter(String selectedFilter) {

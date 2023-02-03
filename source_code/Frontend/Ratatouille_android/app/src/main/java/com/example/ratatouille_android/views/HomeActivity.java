@@ -1,5 +1,7 @@
 package com.example.ratatouille_android.views;
 
+import static com.example.ratatouille_android.views.MainActivity.analytics;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;

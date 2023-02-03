@@ -1,5 +1,7 @@
 package com.example.ratatouille_android.views.jfragment;
 
+import static com.example.ratatouille_android.views.MainActivity.analytics;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +17,7 @@ import com.example.ratatouille_android.controllers.HomeController;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.DispensaActivity;
 import com.example.ratatouille_android.views.HomeActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class FunctionFragment extends Fragment {
     private User loggedUser;
@@ -27,6 +30,8 @@ public class FunctionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        fireBaseLog();
+
         View view = inflater.inflate(R.layout.fragment_function, container, false);
         Button buttonInventarioDispensa = view.findViewById(R.id.dispensaButton);
         if(loggedUser.getRuolo().equals("addetto_sala")){
@@ -37,6 +42,9 @@ public class FunctionFragment extends Fragment {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("dispensa", "dispensa_clicked");
+                analytics.logEvent("InDispensa", bundle);
                 Intent switchActivityIntent = new Intent(homeActivity, DispensaActivity.class);
                 switchActivityIntent.putExtra("loggedUser", loggedUser);
                 homeActivity.startActivity(switchActivityIntent);
@@ -45,6 +53,13 @@ public class FunctionFragment extends Fragment {
 
         buttonInventarioDispensa.setOnClickListener(onClickListener);
         return view;
+    }
+
+    private void fireBaseLog(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "funzionalità");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "funzionalità_clicked");
+        analytics.logEvent("InFunzionalità", bundle);
     }
 
 }

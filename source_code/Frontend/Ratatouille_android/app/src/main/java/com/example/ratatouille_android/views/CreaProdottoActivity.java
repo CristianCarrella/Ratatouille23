@@ -1,5 +1,7 @@
 package com.example.ratatouille_android.views;
 
+import static com.example.ratatouille_android.views.MainActivity.analytics;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -17,6 +19,7 @@ import android.widget.ToggleButton;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.CreaProdottoController;
 import com.example.ratatouille_android.models.User;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class CreaProdottoActivity extends AppCompatActivity {
     private String categorie [] = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
