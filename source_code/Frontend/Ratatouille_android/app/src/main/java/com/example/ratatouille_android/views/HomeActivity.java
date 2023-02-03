@@ -96,6 +96,7 @@ public class HomeActivity extends AppCompatActivity implements Observer {
         View.OnClickListener onHomeButtonClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                homeController.getNumberOfNoticesToRead();
                 bottomNavigationView.getMenu().findItem(R.id.nothing).setChecked(true);
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
             }
