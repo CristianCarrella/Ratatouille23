@@ -219,7 +219,6 @@ public class MenuDriver {
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
-			System.out.print(json);
 			if(json.equals("true"))
 				return true;
 			else
@@ -294,21 +293,16 @@ public class MenuDriver {
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
-			System.out.print(json);
+			
 			if(json.equals("true"))
 				return true;
-			else
-				return false;
+			
 		}catch (JSONException e) {
-			e.printStackTrace();
 			System.out.print("Errore nel parsing del JSON");
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.print("Errore");
 		}
 		return false;
-		
 	}
 
 	public boolean requestUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) {

@@ -2,11 +2,10 @@ To Do list:
 - Pulire codice
 - Ovunque: controllare gli input
 - System design
-- Firebase
 - JUnit
 - Glossario
 - Rifare lo screen MVC da class diagram
-
+- Studio usabilità
 - Riempire completezza funzionale
 - Da scrivere nel software design : https://www.quora.com/Is-Amazon-EC2-IaaS-or-PaaS
 - Far eseguire il codice backend dal container

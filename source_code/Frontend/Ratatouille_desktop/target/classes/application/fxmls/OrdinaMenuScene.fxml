@@ -48,7 +48,7 @@
                      <children>
                         <Label fx:id="errorLabel" />
                         <ComboBox fx:id="comboboxInput" prefWidth="150.0" promptText="Categoria 1" />
-                        <Button fx:id="aggiungBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Ok" />
+                        <Button fx:id="aggiungiBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Ok" />
                         <BorderPane fx:id="panelLayout" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
