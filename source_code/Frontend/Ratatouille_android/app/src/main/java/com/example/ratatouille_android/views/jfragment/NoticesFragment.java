@@ -23,6 +23,8 @@ import com.example.ratatouille_android.controllers.NoticesController;
 import com.example.ratatouille_android.models.Avviso;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.HomeActivity;
+import com.example.ratatouille_android.views.MainActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ public class NoticesFragment extends Fragment {
     private LinearLayout layout;
     private ArrayList<Avviso> avviso = new ArrayList<Avviso>();
     private Button messaggiNascostiButton;
+    private FirebaseAnalytics analytics = MainActivity.analytics;
 
     public NoticesFragment(HomeActivity homeActivity, User loggedUser){
         this.homeActivity = homeActivity;
@@ -48,6 +51,8 @@ public class NoticesFragment extends Fragment {
         layout = view.findViewById(R.id.linear_layoutCard);
         messaggiNascostiButton = view.findViewById(R.id.messaggi_nascosti_button);
 
+        firebaseLog();
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +64,13 @@ public class NoticesFragment extends Fragment {
         noticesController = new NoticesController(homeActivity, loggedUser);
 
         return view;
+    }
+
+    private void firebaseLog() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "avvisiFragment");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "avvisi_clicked");
+        analytics.logEvent("InAvvisiFragment", bundle);
     }
 
     private void generateCard(float factor, CardView card, String header, String textMessage, boolean isRead, Integer id_avviso) {

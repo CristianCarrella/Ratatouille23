@@ -18,6 +18,7 @@ import com.example.ratatouille_android.controllers.ModificaProdottoController;
 import com.example.ratatouille_android.models.Prodotto;
 import com.example.ratatouille_android.models.User;
 import com.example.ratatouille_android.views.dialogs.DeleteDialog;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
     private ToggleButton kgOrlt;
     private Button applicaButton, piubutton, menobutton, eliminabutton;
     private ImageView backButton;
+    private FirebaseAnalytics analytics = MainActivity.analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         View.OnClickListener applicaListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseLog();
                 String descrizione = descrizioneField.getText().toString();
                 String costo = costoField.getText().toString();
                 String quantita = quantitaField.getText().toString();
@@ -114,6 +117,13 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         piubutton.setOnClickListener(piuOnClickListener);
         applicaButton.setOnClickListener(applicaListener);
         backButton.setOnClickListener(dispensaOnClickListener);
+    }
+
+    private void firebaseLog() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "prodotto_modificato");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "modified")  ;
+        analytics.logEvent("ProdottoModificato", bundle);
     }
 
     private void autocompilazionePagina(TextView nomeProdottoSelezionato, EditText descrizioneField, EditText costoField, EditText quantitaField, Spinner categoria) {

@@ -37,21 +37,17 @@ public class FunctionFragment extends Fragment {
         if(loggedUser.getRuolo().equals("addetto_sala")){
             buttonInventarioDispensa.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_outline_lock_24, 0);
             buttonInventarioDispensa.setClickable(false);
+        }else{
+            View.OnClickListener onClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent switchActivityIntent = new Intent(homeActivity, DispensaActivity.class);
+                    switchActivityIntent.putExtra("loggedUser", loggedUser);
+                    homeActivity.startActivity(switchActivityIntent);
+                }
+            };
+            buttonInventarioDispensa.setOnClickListener(onClickListener);
         }
-
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("dispensa", "dispensa_clicked");
-                analytics.logEvent("InDispensa", bundle);
-                Intent switchActivityIntent = new Intent(homeActivity, DispensaActivity.class);
-                switchActivityIntent.putExtra("loggedUser", loggedUser);
-                homeActivity.startActivity(switchActivityIntent);
-            }
-        };
-
-        buttonInventarioDispensa.setOnClickListener(onClickListener);
         return view;
     }
 

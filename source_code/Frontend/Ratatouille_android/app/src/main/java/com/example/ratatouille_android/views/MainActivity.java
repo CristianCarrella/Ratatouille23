@@ -26,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener onClickEntraInAppListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("login", "logged");    
-                analytics.logEvent("login", bundle);
                 changeActivity();
             }
         };

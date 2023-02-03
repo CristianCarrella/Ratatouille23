@@ -12,5 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+
 rootProject.name = "Ratatouille_android"
 include ':app'

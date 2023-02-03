@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.LoginController;
 import com.example.ratatouille_android.views.jfragment.HomeFragment;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -22,11 +23,14 @@ public class LoginActivity extends AppCompatActivity {
     private LoginController loginController;
     private Button btn;
     private EditText emailField, passwordField;
+    private FirebaseAnalytics analytics = MainActivity.analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        firebaseLog();
 
         error = findViewById(R.id.error);
         underLoginButton = findViewById(R.id.login_under_button);
@@ -58,6 +62,13 @@ public class LoginActivity extends AppCompatActivity {
 
         underSignupButton.setOnClickListener(onClickListenerSignup);
         btn.setOnClickListener(onClickListener);
+    }
+
+    private void firebaseLog() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "login");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "logged")  ;
+        analytics.logEvent("login", bundle);
     }
 
     private void setUnderlineOnLoginText() {

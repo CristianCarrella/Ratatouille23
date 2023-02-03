@@ -7,6 +7,7 @@ import com.example.ratatouille_android.R;
 import com.example.ratatouille_android.controllers.AvvisiNascostiController;
 import com.example.ratatouille_android.models.Avviso;
 import com.example.ratatouille_android.models.User;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,11 +33,15 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
     private ArrayList<Avviso> avvisiNascosti, avvisi;
     private AvvisiNascostiController avvisiNascostiController;
     private ImageView back_button;
+    private FirebaseAnalytics analytics = MainActivity.analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avvisi_nascosti);
+
+        firebaseLog();
+
         back_button = findViewById(R.id.back_button2);
         layout = findViewById(R.id.linear_layoutCard2);
         loggedUser = (User) getIntent().getSerializableExtra("loggedUser");
@@ -59,6 +64,13 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
         };
         back_button.setOnClickListener(onClickBackToNoticeListener);
 
+    }
+
+    private void firebaseLog() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "avvisiNascosti");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "avvisiNascosti_clicked");
+        analytics.logEvent("InPaginaAvvisiNascosti", bundle);
     }
 
     private void generateCard(float factor, CardView card, String header, String textMessage, Avviso avviso) {
