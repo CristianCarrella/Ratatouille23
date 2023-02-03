@@ -68,7 +68,6 @@ public class PersonalizzazioneAttivitaController {
                 logoInputView.setImage(image);
             }
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
