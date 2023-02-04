@@ -192,8 +192,8 @@ public class MenuDAOimp implements MenuDAOint {
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Query " + query + " fallita \n");
+			return false;
 		}
-		return false;
 	}
 
 	@Override

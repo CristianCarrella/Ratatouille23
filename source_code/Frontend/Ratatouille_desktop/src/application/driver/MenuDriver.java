@@ -297,8 +297,6 @@ public class MenuDriver {
 			if(json.equals("true"))
 				return true;
 			
-		}catch (JSONException e) {
-			System.out.print("Errore nel parsing del JSON");
 		} catch (Exception e) {
 			System.out.print("Errore");
 		}

@@ -1,7 +1,5 @@
 To Do list:
-- Pulire codice
 - Ovunque: controllare gli input
-- System design
 - JUnit
 - Glossario
 - Studio usabilità
