@@ -8,6 +8,9 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -29,14 +32,32 @@ import jakarta.servlet.http.HttpSession;
 public class CustomInterceptor implements HandlerInterceptor {
 	private UserDAOimp userDao;
 	private ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
-
+	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	final private String[] unsafeEndpoint = new String[] {"/login", "/verify", "/signup-admin"};
+	final private int TOKEN_EXPIRATION_DELAY = 10;
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
+		Runnable periodicTask = new Runnable() {
+			public void run() {
+				clearExpiredToken();
+				logActualLoggedUser();
+			}
+		};
+		executor.scheduleAtFixedRate(periodicTask, 0, 60, TimeUnit.SECONDS);
 		this.userDao = userDao;
 	}
 
-    @Override
+	private void clearExpiredToken() {
+		System.out.println("Clearing expired token...");
+		for(LoggedUser loggedUser : loggedUsers){
+			if(!isValidToken(loggedUser.getToken())){
+				System.out.println("Utente scaduto: " + loggedUser.getEmail() + " " + loggedUser.getToken());
+				loggedUsers.remove(loggedUser);
+			}
+		}
+	}
+
+	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	if(request.getHeader("Authorization") == null) {
     		if(!(isEndpointUnsafe(request))){
@@ -49,7 +70,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     		}
     	} else {
     		if(isValidToken(request.getHeader("Authorization"))) {
-    			System.out.print("Richiesta accettata : Token valido" + request.getHeader("Authorization") + "\n");
+    			System.out.print("Richiesta accettata : Token valido " + request.getHeader("Authorization") + "\n");
     			if(request.getRequestURI().equals("/logout")) {
     				LoggedUser u = removeLoggedUser(Integer.valueOf(request.getParameter("idUtente")));
     			}
@@ -58,18 +79,23 @@ public class CustomInterceptor implements HandlerInterceptor {
     			throw new RestClientException("Richiesta rifiutata : Token non valido\n");
     		}
     	}
-		System.out.println("Utenti attualmente loggati : \n");
-		for (LoggedUser u : loggedUsers) {
-			System.out.println(u.getEmail() + " token : " + u.getToken());
-		}
-		System.out.println("\n");
-        return true;
+		return true;
     }
 
+	private void logActualLoggedUser() {
+		System.out.println("Utenti attualmente loggati : ");
+		for (LoggedUser u : loggedUsers) {
+			System.out.println(u.getEmail() + " - " + u.getToken() + " - " + u.getTk_expiration_timestamp());
+		}
+		System.out.println("\n");
+	}
+
 	private void setupLoggedUser(HttpServletRequest request) {
+		String email = request.getParameter("email");
+		removeIfTokenIsNotExpiredAndUserIsTryingToLogin(email);
 		String token = generateToken();
 		String expirationTime = generateExpirationTime();
-		LoggedUser u = userDao.login(request.getParameter("email"), request.getParameter("password"), token, expirationTime);
+		LoggedUser u = userDao.login(email, request.getParameter("password"), token, expirationTime);
 		u.setToken(token);
 		u.setTk_expiration_timestamp(expirationTime);
 		HttpSession session = request.getSession();
@@ -80,7 +106,7 @@ public class CustomInterceptor implements HandlerInterceptor {
 	private String generateExpirationTime() {
 		ZoneId z = ZoneId.of("Europe/Paris");
 		ZonedDateTime zdt = ZonedDateTime.now(z);
-		ZonedDateTime later = zdt.plusMinutes(15);
+		ZonedDateTime later = zdt.plusMinutes(TOKEN_EXPIRATION_DELAY);
 		return later.toString();
 	}
 
@@ -92,7 +118,7 @@ public class CustomInterceptor implements HandlerInterceptor {
     			ZonedDateTime zdt = ZonedDateTime.now(z);
     			ZonedDateTime tk_timestamp = ZonedDateTime.parse(u.getTk_expiration_timestamp());
     			if(tk_timestamp.compareTo(zdt) > 0){
-	    			ZonedDateTime later = zdt.plusMinutes(15); 
+	    			ZonedDateTime later = zdt.plusMinutes(TOKEN_EXPIRATION_DELAY);
 	    			u.setTk_expiration_timestamp(later.toString());
 					return true;
     			}
@@ -145,6 +171,9 @@ public class CustomInterceptor implements HandlerInterceptor {
     	}
     	return null;
     }
-    
+
+	private void removeIfTokenIsNotExpiredAndUserIsTryingToLogin(String email){
+		loggedUsers.removeIf(loggedUser -> loggedUser.getEmail().equals(email));
+	}
 
 } 
