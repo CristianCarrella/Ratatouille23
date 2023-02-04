@@ -18,10 +18,3 @@ In sospeso:
 
 
 [https://stackoverflow.com/questions/31975109/android-class-diagram-uml]
-
-- FATTO
-- Rifare lo screen MVC da class diagram
-- Gestione del token
-- Da scrivere nel software design : https://www.quora.com/Is-Amazon-EC2-IaaS-or-PaaS [DA FAR VEDERE AD ALFREDO]
-- Aggiustato finestra avvisi
-- Architettura a strati : slide 79 appunti
