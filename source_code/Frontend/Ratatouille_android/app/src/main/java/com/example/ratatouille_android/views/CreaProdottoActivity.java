@@ -72,7 +72,8 @@ public class CreaProdottoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 errorLable.setText("");
                 String nomeProdotto = nomeInput.getText().toString();
-                autoCompilazione(nomeProdotto, 100);
+                boolean result = auto_button.getText().toString().equals("Non è quello che cercavo");
+                autoCompilazione(nomeProdotto, 100, result);
             }
         };
 
@@ -98,8 +99,8 @@ public class CreaProdottoActivity extends AppCompatActivity {
 
     }
 
-    private void autoCompilazione(String nomeProdotto, Integer maxResultIndex) {
-        if(auto_button.getText().toString().equals("Non è quello che cercavo")){
+    private void autoCompilazione(String nomeProdotto, Integer maxResultIndex, boolean isPossibleGenerate) {
+        if(isPossibleGenerate){
             if(creaProdottoController.getResultIndex() < maxResultIndex) {
                 creaProdottoController.setResultIndex(creaProdottoController.getResultIndex() + 1);
             } else {
