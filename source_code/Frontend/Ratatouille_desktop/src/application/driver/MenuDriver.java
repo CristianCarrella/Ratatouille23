@@ -279,26 +279,23 @@ public class MenuDriver {
 	}
 	
 
-	public boolean requestUpdatePositionCategoria(Integer idCategoria, Integer posizione) {
-		try {
-			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/categoria-update-posizione");
-			httppost.setHeader("Authorization", loggedUser.getToken());
-			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_categoria", idCategoria.toString()));
-			params.add(new BasicNameValuePair("posizione", posizione.toString()));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			String json = EntityUtils.toString(response.getEntity());
-			
-			if(json.equals("true"))
-				return true;
-			
-		} catch (Exception e) {
-			System.out.print("Errore");
+
+	public boolean requestUpdatePositionCategoria(Integer idCategoria, Integer posizione) throws Exception {
+		HttpClient httpclient = HttpClients.createDefault();
+		HttpPost httppost = new HttpPost(url + "/categoria-update-posizione");
+		httppost.setHeader("Authorization", loggedUser.getToken());
+		
+		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+		params.add(new BasicNameValuePair("id_categoria", idCategoria.toString()));
+		params.add(new BasicNameValuePair("posizione", posizione.toString()));
+		httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+		
+		HttpResponse response = httpclient.execute(httppost);
+		HttpEntity entity = response.getEntity();
+		String json = EntityUtils.toString(response.getEntity());
+		
+		if(json.equals("true")) {
+			return true;
 		}
 		return false;
 	}

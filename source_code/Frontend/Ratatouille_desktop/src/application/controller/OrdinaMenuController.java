@@ -248,7 +248,12 @@ public class OrdinaMenuController {
 				if(!vBox.getChildren().isEmpty()) {
 					Label nomeCategoria = (Label) vBox.getChildren().get(0);
 					Integer idCategoria = getCategoriaIdFromNome(nomeCategoria.getText());
-					menuDriver.requestUpdatePositionCategoria(idCategoria, posizioneCategoria);
+					try {
+						menuDriver.requestUpdatePositionCategoria(idCategoria, posizioneCategoria);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					for(int i = 1; i < vBox.getChildren().size(); i++) {
 						Label nomePiatto = (Label) vBox.getChildren().get(i);
 						Integer idPiatto = getPiattoIdFromNome(nomePiatto.getText());
