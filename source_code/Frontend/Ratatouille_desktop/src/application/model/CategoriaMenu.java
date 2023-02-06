@@ -30,6 +30,10 @@ public class CategoriaMenu extends Observable{
 		this.posizione = posizione;
 	}
 	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public int getIdCategoria() {
 		return idCategoria;
 	}
