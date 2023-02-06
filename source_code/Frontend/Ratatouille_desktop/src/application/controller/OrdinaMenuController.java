@@ -375,7 +375,7 @@ public class OrdinaMenuController {
 		}
 	}
 	
-	private CategoriaMenu removeFromListCategoria(String categoriaScelta, List<CategoriaMenu> categorie) {
+	public CategoriaMenu removeFromListCategoria(String categoriaScelta, List<CategoriaMenu> categorie) {
 		for (Iterator iterator = categorie.iterator(); iterator.hasNext();) {
 			CategoriaMenu categoria = (CategoriaMenu) iterator.next();
 			if(categoria.getNome().equals(categoriaScelta)) {
