@@ -39,61 +39,54 @@ public class OrdinaMenuControllerTest {
     }
     
     private void riempiLista1(CategoriaMenu primi, CategoriaMenu secondi, CategoriaMenu contorni, CategoriaMenu bevande) {
-    	listaSenzaDuplicati.add(primi);
-		listaSenzaDuplicati.add(secondi);
-		listaSenzaDuplicati.add(contorni);
-		listaSenzaDuplicati.add(bevande);
+    	listaSenzaDuplicati.add(0, primi);
+    	listaSenzaDuplicati.add(1, secondi);
+    	listaSenzaDuplicati.add(2, contorni);
+    	listaSenzaDuplicati.add(3, bevande);
     }
     
     private void riempiLista3(CategoriaMenu primi, CategoriaMenu secondi, CategoriaMenu bevande) {
-    	listaConDuplicati.add(primi);
-    	listaConDuplicati.add(secondi);
-    	listaConDuplicati.add(primi);
-    	listaConDuplicati.add(bevande);
+    	listaConDuplicati.add(0, primi);
+    	listaConDuplicati.add(1, secondi);
+    	listaConDuplicati.add(2, primi);
+    	listaConDuplicati.add(3, bevande);
     }
     
     private void riempiLista4(CategoriaMenu primi, CategoriaMenu contorni, CategoriaMenu bevande) {
-    	listaConNull.add(primi);
-    	listaConNull.add(null);
-    	listaConNull.add(primi);
-    	listaConNull.add(bevande);
+    	listaConNull.add(0, primi);
+    	listaConNull.add(1, null);
+    	listaConNull.add(2, primi);
+    	listaConNull.add(3, bevande);
     }
 
-    
     @Test
     public void parolaPresenteInListaCategoriaSenzaDuplicati() {
-        CategoriaMenu categoriaMenu = controller.removeFromListCategoria("Primi", listaSenzaDuplicati);
-        assertEquals("Primi", categoriaMenu.getNome());
+    	assertEquals("Primi", controller.removeFromListCategoria("Primi", listaSenzaDuplicati).getNome());
     }
     
     @Test
     public void parolaNullInListaCategoriaSenzaDuplicati() {
-        CategoriaMenu categoriaMenu = controller.removeFromListCategoria(null, listaSenzaDuplicati);
-        assertNull(categoriaMenu);
+        assertNull(controller.removeFromListCategoria(null, listaSenzaDuplicati));
     }
     
     @Test
     public void parolaNonPresenteInListaCategoriaSenzaDuplicati() {
-        CategoriaMenu categoriaMenu = controller.removeFromListCategoria("Dessert", listaSenzaDuplicati);
-        assertNull(categoriaMenu);
+        assertNull(controller.removeFromListCategoria("Dessert", listaSenzaDuplicati));
     }
     
     @Test
     public void parolaNullInListaCategoriaVuota() {
-        CategoriaMenu categoriaMenu = controller.removeFromListCategoria(null, listaVuota);
-        // assertNull(categoriaMenu);
+        assertNull(controller.removeFromListCategoria(null, listaVuota));
     }
     
     @Test
     public void parolaPresenteInListaCategoriaConDuplicati() {
-        CategoriaMenu categoriaMenu = controller.removeFromListCategoria("Primi", listaConDuplicati);
-        assertEquals("Primi", categoriaMenu.getNome());
+        assertEquals("Primi", controller.removeFromListCategoria("Primi", listaConDuplicati).getNome());
     }
     
     @Test
     public void parolaNonPresenteInListaCategoriaConNull() {
-        CategoriaMenu categoriaMenu = controller.removeFromListCategoria("Dessert", listaConNull);
-        assertEquals(null, categoriaMenu.getNome());
+        assertNull(controller.removeFromListCategoria("Dessert", listaConNull));
     }
 
 
