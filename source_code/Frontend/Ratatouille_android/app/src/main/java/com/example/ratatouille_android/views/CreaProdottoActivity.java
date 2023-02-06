@@ -26,7 +26,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
     private CreaProdottoController creaProdottoController;
     private User loggedUser;
     private TextView errorLableAutoCompilation, errorLable;
-        private EditText descrizioneInput, nomeInput2, quantitaInput, costoInput, nomeInput;
+    private EditText descrizioneInput, nomeInput2, quantitaInput, costoInput, nomeInput;
     private ToggleButton kg_or_lt;
     private Spinner categoriaSpinner;
     private Button auto_button, ok_button;
@@ -72,16 +72,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 errorLable.setText("");
                 String nomeProdotto = nomeInput.getText().toString();
-                if(auto_button.getText().toString().equals("Non è quello che cercavo"))
-                    creaProdottoController.setResultIndex(creaProdottoController.getResultIndex() + 1);
-
-                if(!nomeProdotto.equals("")) {
-                    caricamento.setVisibility(View.VISIBLE);
-                    creaProdottoController.getInfoProdotto(nomeProdotto);
-                }
-                else {
-                    setErrorLableAutoCompilationOnErrorEmpty();
-                }
+                autoCompilazione(nomeProdotto, 100);
             }
         };
 
@@ -94,7 +85,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
                 String costo = costoInput.getText().toString();
                 String quantita = quantitaInput.getText().toString();
                 String kgOrLt = kg_or_lt.getText().toString();
-                if(nomeProdotto.equals("") || descrizione.equals("") ||costo.equals("") || quantita.equals(""))
+                if(nomeProdotto.equals("") || descrizione.equals("") || costo.equals("") || quantita.equals(""))
                     setErrorLableOnErrorFieldNotAllCompiled();
                 else
                     creaProdottoController.salvaProdotto(nomeProdotto, descrizione, costo, quantita, CreaProdottoActivity.this.categoria, kgOrLt);
@@ -105,6 +96,30 @@ public class CreaProdottoActivity extends AppCompatActivity {
         auto_button.setOnClickListener(autoCompilazioneOnClickListener);
         back_button.setOnClickListener(backOnClickListener);
 
+    }
+
+    private void autoCompilazione(String nomeProdotto, Integer maxResultIndex) {
+        if(auto_button.getText().toString().equals("Non è quello che cercavo")){
+            if(creaProdottoController.getResultIndex() < maxResultIndex) {
+                creaProdottoController.setResultIndex(creaProdottoController.getResultIndex() + 1);
+            } else {
+                setErrorLabelAutoCompilationOnMaxError();
+            }
+        }
+
+        if(creaProdottoController.getResultIndex() < maxResultIndex) {
+            if (!nomeProdotto.equals("")) {
+                caricamento.setVisibility(View.VISIBLE);
+                creaProdottoController.getInfoProdotto(nomeProdotto);
+            } else {
+                setErrorLableAutoCompilationOnErrorEmpty();
+            }
+        }
+    }
+
+    private void setErrorLabelAutoCompilationOnMaxError() {
+        errorLableAutoCompilation.setTextColor(Color.RED);
+        errorLableAutoCompilation.setText("Hai raggiunto il massimo delle possibili generazioni");
     }
 
     private void setUpSpinner(Spinner categoriaSpinner) {

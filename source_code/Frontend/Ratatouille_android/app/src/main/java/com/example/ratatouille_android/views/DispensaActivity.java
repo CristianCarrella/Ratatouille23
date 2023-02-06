@@ -174,7 +174,6 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                System.out.print("Cliccato");
                 dispensaController.goToModificaProdottoActivity(o.getNome());
             }
         };

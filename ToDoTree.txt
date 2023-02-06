@@ -4,7 +4,6 @@ To Do list:
 - Glossario
 - Studio usabilità
 - Riempire completezza funzionale
-- Far eseguire il codice backend dal container
 
 Idee:
 - Nel test di usabilità aggiungere tipo : "L'utente 1 suggerisce..."
@@ -14,5 +13,8 @@ In sospeso:
 - Far vedere i cambiamenti prima e dopo del test di usabilità
 - bug in ordina menu
 
+DA FARE DOMANI:
+Test Junit
+Mettere online backend
+Diffondere app
 
-[https://stackoverflow.com/questions/31975109/android-class-diagram-uml]
