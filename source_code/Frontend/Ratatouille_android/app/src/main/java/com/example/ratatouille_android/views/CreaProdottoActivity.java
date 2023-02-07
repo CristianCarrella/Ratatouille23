@@ -99,7 +99,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
 
     }
 
-    private void autoCompilazione(String nomeProdotto, Integer maxResultIndex, boolean isPossibleGenerate) {
+    public boolean autoCompilazione(String nomeProdotto, Integer maxResultIndex, boolean isPossibleGenerate) {
         if(isPossibleGenerate){
             if(creaProdottoController.getResultIndex() < maxResultIndex) {
                 creaProdottoController.setResultIndex(creaProdottoController.getResultIndex() + 1);
@@ -112,13 +112,15 @@ public class CreaProdottoActivity extends AppCompatActivity {
             if (!nomeProdotto.equals("")) {
                 caricamento.setVisibility(View.VISIBLE);
                 creaProdottoController.getInfoProdotto(nomeProdotto);
+                return true;
             } else {
                 setErrorLableAutoCompilationOnErrorEmpty();
             }
         }
+        return false;
     }
 
-    private void setErrorLabelAutoCompilationOnMaxError() {
+    public void setErrorLabelAutoCompilationOnMaxError() {
         errorLableAutoCompilation.setTextColor(Color.RED);
         errorLableAutoCompilation.setText("Hai raggiunto il massimo delle possibili generazioni");
     }
@@ -130,7 +132,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
         categoriaSpinner.setAdapter(adapter);
     }
 
-    private void setErrorLableAutoCompilationOnErrorEmpty(){
+    public void setErrorLableAutoCompilationOnErrorEmpty(){
         errorLableAutoCompilation.setText("Campo nome non compilato");
         errorLableAutoCompilation.setTextColor(Color.RED);
     }

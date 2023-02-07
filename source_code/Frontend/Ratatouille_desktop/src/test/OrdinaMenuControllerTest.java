@@ -15,7 +15,7 @@ public class OrdinaMenuControllerTest {
 
     List<CategoriaMenu> listaSenzaDuplicati = new ArrayList<CategoriaMenu>();
     List<CategoriaMenu> listaNull = null;
-    List<CategoriaMenu> listaVuota = new ArrayList<CategoriaMenu>();;
+    List<CategoriaMenu> listaVuota = new ArrayList<CategoriaMenu>();
     List<CategoriaMenu> listaConDuplicati = new ArrayList<CategoriaMenu>();
     List<CategoriaMenu> listaConNull = new ArrayList<CategoriaMenu>();
     OrdinaMenuController controller;
@@ -76,7 +76,7 @@ public class OrdinaMenuControllerTest {
     }
     
     @Test
-    public void parolaNullInListaCategoriaVuota() {
+    public void parolaNullInListaCategoriaNull() {
         assertNull(controller.removeFromListCategoria(null, listaNull));
     }
     
@@ -90,13 +90,11 @@ public class OrdinaMenuControllerTest {
         assertNull(controller.removeFromListCategoria("Dessert", listaConNull));
     }
     
-    /* OPPURE QUESTA SOLUZIONE MA CHE NON HA SENSO PER LE ASSUNZIONI CHE ABBIAMO FATTO (L'eccezione la lancia l'array che noi assumiamo essere non null ma che 
-     * nella documentazione diciamo avere altre possibilità
-    @Test(expected = NullPointerException.class)
-    public void parolaNonPresenteInListaCategoriaConNull() {
-        controller.removeFromListCategoria("Dessert", listaConNull);
+    @Test
+    public void parolaInListaCategoriaVuota() {
+        assertNull(controller.removeFromListCategoria("Dessert", listaVuota));
     }
-     */
+    
    
 
 
