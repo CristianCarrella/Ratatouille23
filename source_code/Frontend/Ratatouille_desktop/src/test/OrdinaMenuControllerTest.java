@@ -14,7 +14,8 @@ import application.model.CategoriaMenu;
 public class OrdinaMenuControllerTest {
 
     List<CategoriaMenu> listaSenzaDuplicati = new ArrayList<CategoriaMenu>();
-    List<CategoriaMenu> listaVuota = null;
+    List<CategoriaMenu> listaNull = null;
+    List<CategoriaMenu> listaVuota = new ArrayList<CategoriaMenu>();;
     List<CategoriaMenu> listaConDuplicati = new ArrayList<CategoriaMenu>();
     List<CategoriaMenu> listaConNull = new ArrayList<CategoriaMenu>();
     OrdinaMenuController controller;
@@ -76,7 +77,7 @@ public class OrdinaMenuControllerTest {
     
     @Test
     public void parolaNullInListaCategoriaVuota() {
-        assertNull(controller.removeFromListCategoria(null, listaVuota));
+        assertNull(controller.removeFromListCategoria(null, listaNull));
     }
     
     @Test
