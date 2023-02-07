@@ -45,7 +45,7 @@ public class UtenteDriver {
 	public Utente addNewEmployee(String nome, String cognome, String email, String password, String dataNascita, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://37.100.241.91:5000/signup/newEmployee");
+			HttpPost httppost = new HttpPost(url + "/signup/newEmployee");
 			httppost.setHeader("Authorization", loggedUser.getToken());
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -63,11 +63,10 @@ public class UtenteDriver {
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			JSONObject jsonObject = new JSONObject(json);
-			loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
-			return loggedUser;
+			return new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("email"), jsonObject.getString("ruolo"));
 						
 		}catch (Exception e) {
-			System.out.print("Errore nella connessione");
+			e.printStackTrace();
 		}
 		return null;
 	}

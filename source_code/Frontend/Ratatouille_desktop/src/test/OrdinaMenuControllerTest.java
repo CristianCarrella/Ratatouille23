@@ -88,6 +88,15 @@ public class OrdinaMenuControllerTest {
     public void parolaNonPresenteInListaCategoriaConNull() {
         assertNull(controller.removeFromListCategoria("Dessert", listaConNull));
     }
+    
+    /* OPPURE QUESTA SOLUZIONE MA CHE NON HA SENSO PER LE ASSUNZIONI CHE ABBIAMO FATTO (L'eccezione la lancia l'array che noi assumiamo essere non null ma che 
+     * nella documentazione diciamo avere altre possibilità
+    @Test(expected = NullPointerException.class)
+    public void parolaNonPresenteInListaCategoriaConNull() {
+        controller.removeFromListCategoria("Dessert", listaConNull);
+    }
+     */
+   
 
 
 }

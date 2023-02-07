@@ -18,6 +18,12 @@ public class Business {
 		
 	}
 
+	public Business(int idRistorante, String nome, int idProprietario) {
+		this.idRistorante = idRistorante;
+		this.nome = nome;
+		this.idProprietario = idProprietario;
+	}
+
 	public int getIdRistorante() {
 		return idRistorante;
 	}

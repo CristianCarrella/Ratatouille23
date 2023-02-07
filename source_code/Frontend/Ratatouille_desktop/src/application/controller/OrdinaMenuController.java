@@ -376,12 +376,16 @@ public class OrdinaMenuController {
 	}
 	
 	public CategoriaMenu removeFromListCategoria(String categoriaScelta, List<CategoriaMenu> categorie) {
-		for (Iterator iterator = categorie.iterator(); iterator.hasNext();) {
-			CategoriaMenu categoria = (CategoriaMenu) iterator.next();
-			if(categoria.getNome().equals(categoriaScelta)) {
-				queueCategoria.add(indexOfCategoria, categoria);
-				iterator.remove();
-				return categoria;
+		if(categorie != null) {
+			for (Iterator iterator = categorie.iterator(); iterator.hasNext();) {
+				CategoriaMenu categoria = (CategoriaMenu) iterator.next();
+				if(categoria != null) {
+					if(categoria.getNome().equals(categoriaScelta)) {
+						queueCategoria.add(indexOfCategoria, categoria);
+						iterator.remove();
+						return categoria;
+					}
+				}
 			}
 		}
 		return null;

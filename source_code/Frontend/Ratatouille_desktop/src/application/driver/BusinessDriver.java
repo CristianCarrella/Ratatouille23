@@ -66,7 +66,8 @@ public class BusinessDriver {
             HttpEntity entity = response.getEntity();
             String json = EntityUtils.toString(response.getEntity());
             JSONObject jsonObject = new JSONObject(json);
-            business = new Business(jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.getString("numeroTelefono"), jsonObject.getString("indirizzo"), jsonObject.getString("nomeImmagine"), jsonObject.getInt("idProprietario"));
+            System.out.println(json);
+            business = new Business(jsonObject.getInt("idRistorante"), jsonObject.getString("nome"), jsonObject.optString("numeroTelefono"), jsonObject.optString("indirizzo"), jsonObject.optString("nomeImmagine"), jsonObject.getInt("idProprietario"));
             return business;
         }catch (JSONException e) {
             System.out.print("Errore nel parsing del JSON");
@@ -112,7 +113,6 @@ public class BusinessDriver {
             HttpResponse response = httpclient.execute(httpget);
             HttpEntity entity = response.getEntity();
             String json = EntityUtils.toString(response.getEntity());
-            System.out.println("jsonerrormannagg" + json);
             JSONObject jsonObject = new JSONObject(json);
             
             String encodedImage = jsonObject.getString("image");
