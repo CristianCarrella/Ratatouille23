@@ -18,6 +18,8 @@ public class OrdinaMenuControllerTest {
     List<CategoriaMenu> listaVuota = new ArrayList<CategoriaMenu>();;
     List<CategoriaMenu> listaConDuplicati = new ArrayList<CategoriaMenu>();
     List<CategoriaMenu> listaConNull = new ArrayList<CategoriaMenu>();
+    List<CategoriaMenu> listaConSoloNull = new ArrayList<CategoriaMenu>();
+    List<CategoriaMenu> listaConNullEPrimi = new ArrayList<CategoriaMenu>();
     OrdinaMenuController controller;
 
     @Before
@@ -56,48 +58,82 @@ public class OrdinaMenuControllerTest {
     private void riempiLista4(CategoriaMenu primi, CategoriaMenu contorni, CategoriaMenu bevande) {
     	listaConNull.add(0, primi);
     	listaConNull.add(1, null);
-    	listaConNull.add(2, primi);
+    	listaConNull.add(2, contorni);
     	listaConNull.add(3, bevande);
     }
+    
+    private void riempiLista5() {
+    	listaConSoloNull.add(0, null);
+    	listaConSoloNull.add(1, null);
+    }
+    
+    private void riempiLista6(CategoriaMenu primi) {
+    	listaConNullEPrimi.add(0, null);
+    	listaConNullEPrimi.add(1, primi);
+    	
+    }
 
+    //BlackBox
     @Test
-    public void parolaPresenteInListaCategoriaSenzaDuplicati() {
+    public void parolaPresenteInListaSenzaDuplicati() {
     	assertEquals("Primi", controller.removeFromListCategoria("Primi", listaSenzaDuplicati).getNome());
     }
     
     @Test
-    public void parolaNullInListaCategoriaSenzaDuplicati() {
+    public void parolaNullInListaSenzaDuplicati() {
         assertNull(controller.removeFromListCategoria(null, listaSenzaDuplicati));
     }
     
     @Test
-    public void parolaNonPresenteInListaCategoriaSenzaDuplicati() {
+    public void parolaNonPresenteInListaSenzaDuplicati() {
         assertNull(controller.removeFromListCategoria("Dessert", listaSenzaDuplicati));
     }
     
     @Test
-    public void parolaNullInListaCategoriaVuota() {
+    public void parolaNullInListaNull() {
         assertNull(controller.removeFromListCategoria(null, listaNull));
     }
     
     @Test
-    public void parolaPresenteInListaCategoriaConDuplicati() {
+    public void parolaPresenteInListaConDuplicati() {
         assertEquals("Primi", controller.removeFromListCategoria("Primi", listaConDuplicati).getNome());
     }
     
     @Test
-    public void parolaNonPresenteInListaCategoriaConNull() {
+    public void parolaNonPresenteInListaConNull() {
         assertNull(controller.removeFromListCategoria("Dessert", listaConNull));
     }
     
-    /* OPPURE QUESTA SOLUZIONE MA CHE NON HA SENSO PER LE ASSUNZIONI CHE ABBIAMO FATTO (L'eccezione la lancia l'array che noi assumiamo essere non null ma che 
-     * nella documentazione diciamo avere altre possibilità
-    @Test(expected = NullPointerException.class)
-    public void parolaNonPresenteInListaCategoriaConNull() {
-        controller.removeFromListCategoria("Dessert", listaConNull);
+    @Test
+    public void parolaInListaVuota() {
+        assertNull(controller.removeFromListCategoria("Dessert", listaVuota));
     }
-     */
-   
-
+    
+    //Node Coverage
+    @Test
+    public void parolaInListaNull() {
+    	assertNull(controller.removeFromListCategoria("Parola", listaNull));
+    }
+    
+    //BranchCoverage
+    @Test
+	public void parolaInSecondaPosizioneInListaSenzaDuplicati() {
+		assertEquals("Secondi", controller.removeFromListCategoria("Secondi", listaSenzaDuplicati).getNome());
+    }
+    
+    @Test
+	public void parolaDopoUnNullInListaConNull() {
+		assertEquals("Contorni", controller.removeFromListCategoria("Contorni", listaConNull).getNome());
+    }
+    
+    @Test
+	public void parolaDopoUnNullInListaConNullEPrimi() {
+		assertNull(controller.removeFromListCategoria("Primi", listaConNullEPrimi));
+    }
+    
+    @Test
+	public void parolaInListaConSoloNull() {
+		assertNull(controller.removeFromListCategoria("Primi", listaConSoloNull));
+    }
 
 }

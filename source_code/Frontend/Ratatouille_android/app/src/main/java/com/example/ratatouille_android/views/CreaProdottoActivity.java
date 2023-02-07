@@ -99,7 +99,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
 
     }
 
-    private void autoCompilazione(String nomeProdotto, Integer maxResultIndex, boolean isPossibleGenerate) {
+    public boolean autoCompilazione(String nomeProdotto, Integer maxResultIndex, boolean isPossibleGenerate) {
         if(isPossibleGenerate){
             if(creaProdottoController.getResultIndex() < maxResultIndex) {
                 creaProdottoController.setResultIndex(creaProdottoController.getResultIndex() + 1);
@@ -112,10 +112,12 @@ public class CreaProdottoActivity extends AppCompatActivity {
             if (!nomeProdotto.equals("")) {
                 caricamento.setVisibility(View.VISIBLE);
                 creaProdottoController.getInfoProdotto(nomeProdotto);
+                return true;
             } else {
                 setErrorLableAutoCompilationOnErrorEmpty();
             }
         }
+        return false;
     }
 
     private void setErrorLabelAutoCompilationOnMaxError() {
