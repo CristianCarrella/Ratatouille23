@@ -39,6 +39,8 @@ public class OrdinaMenuControllerTest {
     	riempiLista1(primi, secondi, contorni, bevande);
     	riempiLista3(primi, secondi, bevande);
     	riempiLista4(primi, contorni, bevande);
+    	riempiLista5();
+    	riempiLista6(primi);
     }
     
     private void riempiLista1(CategoriaMenu primi, CategoriaMenu secondi, CategoriaMenu contorni, CategoriaMenu bevande) {
@@ -70,7 +72,6 @@ public class OrdinaMenuControllerTest {
     private void riempiLista6(CategoriaMenu primi) {
     	listaConNullEPrimi.add(0, null);
     	listaConNullEPrimi.add(1, primi);
-    	
     }
 
     //BlackBox
@@ -128,7 +129,7 @@ public class OrdinaMenuControllerTest {
     
     @Test
 	public void parolaDopoUnNullInListaConNullEPrimi() {
-		assertNull(controller.removeFromListCategoria("Primi", listaConNullEPrimi));
+		assertEquals("Primi", controller.removeFromListCategoria("Primi", listaConNullEPrimi).getNome());
     }
     
     @Test

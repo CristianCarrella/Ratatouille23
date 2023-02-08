@@ -94,7 +94,6 @@ public class CategoriaMenuDAOimp implements CategoriaMenuDAOint {
 	@Override
 	public boolean createCategoria(Integer idRistorante, String nomeNuovaCategoria) {
 		String query = "INSERT INTO categorie_menu(id_categoria, id_ristorante, nome, posizione_categoria) VALUES (default, " + idRistorante + ", '" + nomeNuovaCategoria + "', NULL)";
-		System.out.println(query);
 		try {
 			db.getStatement().executeUpdate(query);
 			return true;

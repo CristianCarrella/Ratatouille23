@@ -9,7 +9,6 @@ module ratatouille_desktop {
 	requires org.apache.httpcomponents.httpclient;
 	requires org.apache.httpcomponents.httpcore;
 	requires org.apache.httpcomponents.httpmime;
-	requires junit;
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controller to javafx.fxml;
 }

@@ -16,7 +16,7 @@ CREATE TABLE utente(
 	cognome VARCHAR(30) NOT NULL,
 	data_nascita DATE NOT NULL,
 	email VARCHAR(50) NOT NULL UNIQUE,
-	password VARCHAR(30) NOT NULL,
+	password VARCHAR(100) NOT NULL,
 	ruolo ROLE NOT NULL,
 	isFirstAccess BOOLEAN NOT NULL,
 	aggiunto_da Integer,

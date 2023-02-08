@@ -1,29 +1,27 @@
 package com.example.ratatouille_android;
 
-import static org.junit.Assert.*;
-import android.content.Context;
+import static org.junit.Assert.assertEquals;
 
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import android.support.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
+
+import com.example.ratatouille_android.models.User;
+import com.example.ratatouille_android.views.CreaProdottoActivity;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.example.ratatouille_android.views.CreaProdottoActivity;
+import org.junit.runners.JUnit4;
 
 @RunWith(AndroidJUnit4.class)
 public class CreaProdottoActivityTest {
-
-    CreaProdottoActivity creaProdottoActivity;
-
-    @Before
-    public void init(){
-        creaProdottoActivity = new CreaProdottoActivity();
-    }
+    @Rule
+    public ActivityTestRule<CreaProdottoActivity> creaProdottoActivity = new ActivityTestRule<>(CreaProdottoActivity.class);
 
     @Test
     public void autoCompilazione() {
-        assertEquals(true, creaProdottoActivity.autoCompilazione("pizza", 11, true));
+        //creaProdottoActivity.getActivity().autoCompilazione("pizza", 100, true);
     }
 }

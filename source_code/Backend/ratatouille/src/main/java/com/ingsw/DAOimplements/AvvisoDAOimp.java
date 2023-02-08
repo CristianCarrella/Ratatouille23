@@ -166,8 +166,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				AvvisoNascostoVisto a = new AvvisoNascostoVisto(rs.getInt("id_avviso"), rs.getInt("id_utente") , rs.getInt("id_ristorante"),rs.getString("testo") , rs.getString("data_ora"), rs.getString("data_nascosto"));
-				return a;
+				return new AvvisoNascostoVisto(rs.getInt("id_avviso"), rs.getInt("id_utente") , rs.getInt("id_ristorante"),rs.getString("testo") , rs.getString("data_ora"), rs.getString("data_nascosto"));
 			}
 		}catch(SQLException e) {
 			System.out.println("Query " + query + " fallita \n");
@@ -176,65 +175,68 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 
 	public AvvisoNascostoVisto setAvvisoHidden(Integer id_avviso, Integer idUtente) {
+		try {
+			return setNoticeHidden(id_avviso, idUtente);
+		}catch(SQLException e) {
+			System.out.println("Query fallita \n");
+		}
+		return null;
+	}
+	
+	private AvvisoNascostoVisto setNoticeHidden(Integer id_avviso, Integer idUtente) throws SQLException {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
-		String query = null;		
-		try {
-			query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + idUtente + ", " + id_avviso + ", '" + now + "')";
-			db.getStatement().executeUpdate(query);
-			query = "SELECT * FROM cronologia_lettura_avviso WHERE id_avviso = " + id_avviso;
-			rs = db.getStatement().executeQuery(query);
-			boolean isRead = false;
-			while (rs.next()){
-				if(rs.isBeforeFirst()){
-					isRead = true;
-				}
-			}
-			if(!isRead){
-				setAvvisoViewed(id_avviso, idUtente);
-			}
-			return getAvvisoNascosto(id_avviso);
-		}catch(SQLException e) {
-			System.out.println("Query " + query + " fallita \n");
+		boolean isRead = false;
+		String query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + idUtente + ", " + id_avviso + ", '" + now + "')";
+		db.getStatement().executeUpdate(query);
+		query = "SELECT * FROM cronologia_lettura_avviso WHERE id_avviso = " + id_avviso + " and id_utente = " + idUtente;
+		rs = db.getStatement().executeQuery(query);
+		if(rs.isBeforeFirst()){
+			isRead = true;
 		}
-		return null;
+		if(!isRead){
+			setAvvisoViewed(id_avviso, idUtente);
+		}
+		return getAvvisoNascosto(id_avviso);
 	}
 
 
 	public Avviso createNewAvviso(Integer id_ristorante, String testo, Integer idUtente) {
+		try {
+			return createAvviso(id_ristorante, testo, idUtente);
+		}catch(SQLException e) {
+			System.out.println("Query fallita \n");
+		}
+		return null;
+	}
+	
+	private Avviso createAvviso(Integer id_ristorante, String testo, Integer idUtente) throws SQLException {
+		boolean isSupervisoreOrAdmin = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
-		String query = null;
-		String autore = "";
-		boolean isSupervisoreOrAdmin = false;
+		String query, autore = "";
+		query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante;
+		rs = db.getStatement().executeQuery(query);
+		while(rs.next()) {
+			String ruolo = rs.getString("ruolo");
+			if(ruolo.equals("admin") || ruolo.equals("supervisore")) {
+				isSupervisoreOrAdmin = true;
+				autore = rs.getString("nome");
+			}
+
+		}
 		
-		try {
-			query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante;
+		if(isSupervisoreOrAdmin) {
+			query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + idUtente + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
+			db.getStatement().executeUpdate(query);
+			
+			query = "SELECT id_avviso FROM avviso WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				String ruolo = rs.getString("ruolo");
-				if(ruolo.equals("admin") || ruolo.equals("supervisore")) {
-					isSupervisoreOrAdmin = true;
-					autore = rs.getString("nome");
-				}
-
+				return new Avviso(rs.getInt("id_avviso"), idUtente, id_ristorante, testo, now.toString(), autore);
 			}
-			
-			if(isSupervisoreOrAdmin) {
-				query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + idUtente + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
-				db.getStatement().executeUpdate(query);
-				
-				query = "SELECT id_avviso FROM avviso WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
-				rs = db.getStatement().executeQuery(query);
-				while(rs.next()) {
-					return new Avviso(rs.getInt("id_avviso"), idUtente, id_ristorante, testo, now.toString(), autore);
-				}
-			}
-			
-		}catch(SQLException e) {
-			System.out.println("Query " + query + " fallita \n");
 		}
 		return null;
 	}

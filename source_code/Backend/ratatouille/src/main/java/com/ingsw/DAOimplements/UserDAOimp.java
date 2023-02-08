@@ -1,12 +1,17 @@
 package com.ingsw.DAOimplements;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Component;
 
 import com.ingsw.DAOinterface.UserDAOint;
@@ -43,7 +48,7 @@ public class UserDAOimp implements UserDAOint {
 	public User createAdmin(String nome, String cognome, String email, String password, String dataNascita, String nomeRistorante) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
-
+		password = convertInSha256(password);
 		String query = "INSERT INTO ristorante(id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (default, '" + nomeRistorante + "', NULL, NULL, NULL, NULL, NULL)";
 		Integer idUtente = 0, idRistorante = 0;
 		try {
@@ -85,7 +90,7 @@ public class UserDAOimp implements UserDAOint {
 		LocalDateTime now = LocalDateTime.now();
 		int idUtenteCreato = 0;
 		String query = "";
-
+		passwordTemporanea = convertInSha256(passwordTemporanea);
 		try {
 			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "true, " + idUtente + ", '" + now + "', " + idRistorante + ");";
 			db.getStatement().executeUpdate(query);
@@ -140,9 +145,11 @@ public class UserDAOimp implements UserDAOint {
 		return null;
 	}
 	
-
+	
 	public LoggedUser login(String email, String password, String token, String expirationTime) {
 		LoggedUser u = null;
+		password = convertInSha256(password);
+		System.out.println(password);
 		String query = "SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + password + "'";
 		ResultSet rs;
 		try {
@@ -155,6 +162,19 @@ public class UserDAOimp implements UserDAOint {
 			System.out.println("Login fallito possibi motivi : [email o password errate / token scaduto \n");
 		}
 		return null;
+	}
+
+
+	private String convertInSha256(String password) {
+		MessageDigest digest = null;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+		}
+		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+		password = Base64.getEncoder().encodeToString(hash);
+		return password;
 	}
 
 
@@ -202,6 +222,7 @@ public class UserDAOimp implements UserDAOint {
 
 	@Override
 	public User firstAccess(Integer id_utente, String newPassword) {
+		newPassword = convertInSha256(newPassword);
 		String query = "UPDATE utente SET password = '" + newPassword + "', isfirstaccess = false WHERE id_utente = " + id_utente;
 		try {
 			db.getStatement().executeUpdate(query);

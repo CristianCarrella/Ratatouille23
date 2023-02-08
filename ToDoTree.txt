@@ -4,6 +4,7 @@ To Do list:
 - Glossario
 - Studio usabilità
 - Riempire completezza funzionale
+- Crittografare password
 
 Idee:
 - Nel test di usabilità aggiungere tipo : "L'utente 1 suggerisce..."
@@ -13,8 +14,6 @@ In sospeso:
 - Far vedere i cambiamenti prima e dopo del test di usabilità
 - bug in ordina menu
 
-DA FARE DOMANI:
-Test Junit
-Mettere online backend
-Diffondere app
 
+COSE FATTE E NON TESTATE
+- Ho modificato setAvvisoHidden senza testarlo

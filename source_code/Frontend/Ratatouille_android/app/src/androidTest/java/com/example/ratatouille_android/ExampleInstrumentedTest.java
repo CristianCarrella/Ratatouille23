@@ -1,21 +1,8 @@
 package com.example.ratatouille_android;
 
-import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
 
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
-
-import com.example.ratatouille_android.controllers.CreaProdottoController;
-import com.example.ratatouille_android.models.User;
-import com.example.ratatouille_android.views.CreaProdottoActivity;
-
-import java.util.Optional;
 
 /**
  * Instrumented test, which will execute on an Android device.
