@@ -4,7 +4,6 @@ To Do list:
 - Glossario
 - Studio usabilità
 - Riempire completezza funzionale
-- Crittografare password
 
 Idee:
 - Nel test di usabilità aggiungere tipo : "L'utente 1 suggerisce..."
