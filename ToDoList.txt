@@ -3,7 +3,7 @@ To Do list:
 - JUnit
 - Glossario
 - Studio usabilità
-
+- White Box ratatouille desktop rinominare metodi con path
 
 In sospeso:
 - SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD
