@@ -26,7 +26,7 @@ public class AvvisoDAOimpTest {
 	
 	private Integer getMaxIdAvvisoInDb() {
 		ResultSet rs;
-		String query = "SELECT MAX(id_avviso) as id FROM avviso";
+		String query = "SELECT last_value as id FROM avviso_id_avviso_seq;";
 		try {
 		rs = databaseConnection.getStatement().executeQuery(query);
 			while(rs.next()) {
@@ -64,37 +64,31 @@ public class AvvisoDAOimpTest {
 		Avviso avviso = avvisoDAOimp.createNewAvviso(9, "testo", 2);
 		/* SOLUZIONE II */
 //		Avviso oracolo = checkAddedToDb();
-
-		assertEquals(oracolo.getIdUtente(), avviso.getIdUtente());
-		assertEquals(oracolo.getIdRistorante(), avviso.getIdRistorante());
-		assertEquals(oracolo.getTesto(), avviso.getTesto());
-		assertEquals(oracolo.getAutore(), avviso.getAutore());
-		assertEquals(oracolo.getDataOra(), avviso.getDataOra());
-		assertEquals(oracolo.getIdAvviso(), avviso.getIdAvviso());
+		assertEquals(avviso, oracolo);
 	}
 		
 	@Test
-	public void idRistoranteValidoEidUtenteNonPresenteNelDb() {
+	public void idRistoranteUtente2EidUtenteNonPresenteNelDb() {
 		assertNull(avvisoDAOimp.createNewAvviso(9, "testo", ID_UTENTE_NON_PRESENTE_NEL_DB));
 	}
 	
 	@Test
-	public void idRistoranteValidoEidUtenteNonValido() {
+	public void idRistoranteUtente2EidUtenteNonValido() {
 		assertNull(avvisoDAOimp.createNewAvviso(9, "testo", -10));
 	}
 	
 	@Test
-	public void idRistoranteValidoTestoNullEidUtenteValido() {
+	public void idRistoranteUtente2ETestoNullEidUtenteValido() {
 		assertNull(avvisoDAOimp.createNewAvviso(9, null, 2));
 	}
 	
 	@Test
-	public void idRistoranteValidoTestoNullEidUtenteNonPresenteNelDb() {
+	public void idRistoranteUtente2ETestoNullEidUtenteNonPresenteNelDb() {
 		assertNull(avvisoDAOimp.createNewAvviso(9, null, ID_UTENTE_NON_PRESENTE_NEL_DB));
 	}
 	
 	@Test
-	public void idRistoranteValidoTestoNullEIdUtenteNonValido() {
+	public void idRistoranteUtente2ETestoNullEIdUtenteNonValido() {
 		assertNull(avvisoDAOimp.createNewAvviso(9, null, -10));
 	}
 	
@@ -158,6 +152,58 @@ public class AvvisoDAOimpTest {
 	}
 	
 	//white box
+	@Test
+	public void testNuovoAvvisoPath_2to13_9_18_19_30() {
+		assertNull(avvisoDAOimp.createNewAvviso(9, null, 2));
+	}
+	
+	@Test
+	public void testNuovoAvvisoPath_2to13_9_18to26() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		String now = LocalDateTime.now().format(dtf);
+		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Teka");		
+		Avviso avviso = avvisoDAOimp.createNewAvviso(9, "testo", 2);
+		assertEquals(avviso, oracolo);
+	}
+	
+	@Test
+	public void testNuovoAvvisoPath_2to9_18to30() {
+		assertNull(avvisoDAOimp.createNewAvviso(2, null, ID_UTENTE_NON_PRESENTE_NEL_DB));
+	}
+	
+	@Test
+	public void testNuovoAvvisoPath_2to11_9_18_30() {
+		assertNull(avvisoDAOimp.createNewAvviso(7, "testo", 10));
+	}
+	
+	//MODIFIED CONDITION
+	@Test
+	public void testCondizioneSupervisorePath_2to13_9_18_19_30() {
+		assertNull(avvisoDAOimp.createNewAvviso(2, null, 7));
+	}
+	
+	@Test
+	public void testCondizioneAdminPath_2to13_9_18_19_30() {
+		assertNull(avvisoDAOimp.createNewAvviso(9, null, 2));
+	}
+	
+	@Test
+	public void testCondizioneSupervisorePath_2to13_9_18to26() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		String now = LocalDateTime.now().format(dtf);
+		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Ece");		
+		Avviso avviso = avvisoDAOimp.createNewAvviso(2, "testo", 7);
+		assertEquals(avviso, oracolo);
+	}
+	
+	@Test
+	public void testCondizioneAdminPath_2to13_9_18to26() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		String now = LocalDateTime.now().format(dtf);
+		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Teka");		
+		Avviso avviso = avvisoDAOimp.createNewAvviso(9, "testo", 2);
+		assertEquals(avviso, oracolo);
+	}
 	
 	
 	
