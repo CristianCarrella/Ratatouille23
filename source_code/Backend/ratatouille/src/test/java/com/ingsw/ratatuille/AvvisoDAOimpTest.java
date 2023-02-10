@@ -26,7 +26,7 @@ public class AvvisoDAOimpTest {
 	
 	private Integer getMaxIdAvvisoInDb() {
 		ResultSet rs;
-		String query = "SELECT MAX(id_avviso) as id FROM avviso";
+		String query = "SELECT last_value as id FROM avviso_id_avviso_seq";
 		try {
 		rs = databaseConnection.getStatement().executeQuery(query);
 			while(rs.next()) {
