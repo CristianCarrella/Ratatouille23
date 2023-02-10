@@ -9,8 +9,8 @@ import javafx.scene.Scene;
 
 
 public class Main extends Application {
-	//public static String address = "http://ec2-13-36-37-181.eu-west-3.compute.amazonaws.com:5000";
-	public static String address = "http://37.100.241.91:5000";
+	public static String address = "http://ec2-13-36-37-181.eu-west-3.compute.amazonaws.com:5000";
+	//public static String address = "http://37.100.241.91:5000";
 	@Override
 	public void start(Stage primaryStage) {
 		try {
