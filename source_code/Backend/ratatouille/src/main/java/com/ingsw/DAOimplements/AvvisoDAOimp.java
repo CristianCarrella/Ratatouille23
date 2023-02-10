@@ -184,8 +184,8 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	}
 	
 	private AvvisoNascostoVisto setNoticeHidden(Integer id_avviso, Integer idUtente) throws SQLException {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		String now = LocalDateTime.now().format(dtf);
 		ResultSet rs;
 		boolean isRead = false;
 		String query = "INSERT INTO cronologia_nascosti_avviso (id_utente, id_avviso, data_nascosto) VALUES (" + idUtente + ", " + id_avviso + ", '" + now + "')";
@@ -213,8 +213,8 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	
 	private Avviso createAvviso(Integer id_ristorante, String testo, Integer idUtente) throws SQLException {
 		boolean isSupervisoreOrAdmin = false;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		String now = LocalDateTime.now().format(dtf);
 		ResultSet rs;
 		String query, autore = "";
 		query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante;
@@ -229,13 +229,15 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 		}
 		
 		if(isSupervisoreOrAdmin) {
-			query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + idUtente + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
-			db.getStatement().executeUpdate(query);
-			
-			query = "SELECT id_avviso FROM avviso WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
-			rs = db.getStatement().executeQuery(query);
-			while(rs.next()) {
-				return new Avviso(rs.getInt("id_avviso"), idUtente, id_ristorante, testo, now.toString(), autore);
+			if(testo != null) {
+				query = "INSERT INTO avviso (id_avviso, id_utente, id_ristorante, testo, data_ora) VALUES (default, " + idUtente + ", " + id_ristorante + ", '" + testo + "', '" + now + "') ";
+				db.getStatement().executeUpdate(query);
+				
+				query = "SELECT id_avviso FROM avviso WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante + " AND testo = '" + testo + "' AND  data_ora = '" + now + "'";
+				rs = db.getStatement().executeQuery(query);
+				while(rs.next()) {
+					return new Avviso(rs.getInt("id_avviso"), idUtente, id_ristorante, testo, now.toString(), autore);
+				}
 			}
 		}
 		return null;

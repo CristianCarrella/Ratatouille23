@@ -2,6 +2,7 @@ package application.controller;
 
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import application.driver.UtenteDriver;
 import javafx.event.ActionEvent;
@@ -54,6 +55,19 @@ public class SignUpController {
         });
     }
     
+    public boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+                              
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+    
     public void signUp(ActionEvent actionEvent) throws IOException{
     	String nome = nomeField.getText().toString();
     	String email = emailField.getText().toString();
@@ -65,13 +79,18 @@ public class SignUpController {
     	String nomeAttivita = nomeAttivitaField.getText().toString();
     	
     	if(!(nome.isBlank() || cognome.isBlank() || email.isBlank() || password.isBlank() || dataNascita.isBlank() || nomeAttivita.isBlank())) {
-			if(!utenteDriver.requestSignUpToServer(nome, email, password, cognome, dataNascita, nomeAttivita)) {
-		    	errorLabel.setText("Errore");
-		    	errorLabel.setTextFill(Color.RED);
-			}else {
-		    	errorLabel.setText("Registrazione avvenuta con successo");
-		    	errorLabel.setTextFill(Color.GREEN);
-				goToLoginScene();
+    		if(isValid(email)) {
+    			if(!utenteDriver.requestSignUpToServer(nome, email, password, cognome, dataNascita, nomeAttivita)) {
+    		    	errorLabel.setText("Errore");
+    		    	errorLabel.setTextFill(Color.RED);
+    			}else {
+    		    	errorLabel.setText("Registrazione avvenuta con successo");
+    		    	errorLabel.setTextFill(Color.GREEN);
+    				goToLoginScene();
+    			}
+    		}else {
+    	    	errorLabel.setText("L'email deve avere il formato example@dominio.com");
+    	    	errorLabel.setTextFill(Color.RED);
 			}
 		}else {
 	    	errorLabel.setText("Compilare tutti i campi");

@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+
 import org.springframework.stereotype.Component;
 @Component
-public class DatabaseConnection {
+public class DatabaseConnection{
 	private Connection connection;
 	private static DatabaseConnection databaseConnection = null;
 
@@ -18,7 +19,8 @@ public class DatabaseConnection {
 		}
 		return databaseConnection;
 	}
-	DatabaseConnection(){
+	
+	public DatabaseConnection(){
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {

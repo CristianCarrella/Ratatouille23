@@ -28,7 +28,7 @@ import com.ingsw.DAOinterface.UserDAOint;
 
 @RestController
 public class Controller {
-	DatabaseConnection db = DatabaseConnection.getInstance();;
+	DatabaseConnection db = DatabaseConnection.getInstance();
 	UserDAOint userDao = new UserDAOimp(db);
 	AvvisoDAOint avvisoDao = new AvvisoDAOimp(db);
 	MenuDAOint menuDao = new MenuDAOimp(db);
