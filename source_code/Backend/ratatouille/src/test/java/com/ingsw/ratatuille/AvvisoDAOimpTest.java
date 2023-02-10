@@ -65,7 +65,7 @@ public class AvvisoDAOimpTest {
 		/* SOLUZIONE II */
 //		Avviso oracolo = checkAddedToDb();
 		assertEquals(avviso, oracolo);
-	}
+	}//
 		
 	@Test
 	public void idRistoranteUtente2EidUtenteNonPresenteNelDb() {
@@ -164,7 +164,7 @@ public class AvvisoDAOimpTest {
 		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Teka");		
 		Avviso avviso = avvisoDAOimp.createNewAvviso(9, "testo", 2);
 		assertEquals(avviso, oracolo);
-	}
+	}//
 	
 	@Test
 	public void testNuovoAvvisoPath_2to9_18to30() {
@@ -194,7 +194,7 @@ public class AvvisoDAOimpTest {
 		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Ece");		
 		Avviso avviso = avvisoDAOimp.createNewAvviso(2, "testo", 7);
 		assertEquals(avviso, oracolo);
-	}
+	}//
 	
 	@Test
 	public void testCondizioneAdminPath_2to13_9_18to26() {

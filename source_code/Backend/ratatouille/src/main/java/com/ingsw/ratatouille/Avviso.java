@@ -68,18 +68,18 @@ public class Avviso {
 		this.data_ora = data_ora;
 	}
 	
-	 @Override
-	 public boolean equals(Object obj) {
-		 if(obj instanceof Avviso) {
-			 Avviso avviso = (Avviso) obj;
-		     if(avviso.getIdAvviso() == getIdAvviso() && avviso.getIdRistorante() == getIdRistorante() && avviso.getTesto().equals(getTesto()) && avviso.getAutore().equals(avviso.getAutore())) {
-		    	 System.out.println(avviso.getAutore() + " " + getAutore());
-		    	 return true;
-		     }
-		 }
-	     return;
-
-	 }
+//	 @Override
+//	 public boolean equals(Object obj) {
+//		 if(obj instanceof Avviso) {
+//			 Avviso avviso = (Avviso) obj;
+//		     if(avviso.getIdAvviso() == getIdAvviso() && avviso.getIdRistorante() == getIdRistorante() && avviso.getTesto().equals(getTesto()) && avviso.getAutore().equals(avviso.getAutore())) {
+//		    	 System.out.println(avviso.getAutore() + " " + getAutore());
+//		    	 return true;
+//		     }
+//		 }
+//	     return false;
+//
+//	 }
 	
 	
 }

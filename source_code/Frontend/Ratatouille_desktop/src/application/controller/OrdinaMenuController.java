@@ -264,9 +264,6 @@ public class OrdinaMenuController {
 				posizioneCategoria++;
 			}
 		});
-		
-		
-		
 	}
 
 	private Integer getCategoriaIdFromNome(String nomeInput) {
