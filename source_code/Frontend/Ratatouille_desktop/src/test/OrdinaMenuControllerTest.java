@@ -112,28 +112,28 @@ public class OrdinaMenuControllerTest {
     
     //Node Coverage
     @Test
-    public void parolaInListaNull() {
+    public void parolaInListaNullPath_2_14() {
     	assertNull(controller.removeFromListCategoria("Parola", listaNull));
     }
     
     //BranchCoverage
     @Test
-	public void parolaInSecondaPosizioneInListaSenzaDuplicati() {
+	public void parolaInSecondaPosizioneInListaSenzaDuplicatiPath_2to6_3to9() {
 		assertEquals("Secondi", controller.removeFromListCategoria("Secondi", listaSenzaDuplicati).getNome());
     }
     
     @Test
-	public void parolaDopoUnNullInListaConNull() {
+	public void parolaDopoUnNullInListaConNullPath_2to6_3to5_3to9() {
 		assertEquals("Contorni", controller.removeFromListCategoria("Contorni", listaConNull).getNome());
     }
     
     @Test
-	public void parolaDopoUnNullInListaConNullEPrimi() {
+	public void parolaDopoUnNullInListaConNullEPrimiPath_2to5_3to9() {
 		assertEquals("Primi", controller.removeFromListCategoria("Primi", listaConNullEPrimi).getNome());
     }
     
     @Test
-	public void parolaInListaConSoloNull() {
+	public void parolaInListaConSoloNullPath_2to5_3_14() {
 		assertNull(controller.removeFromListCategoria("Primi", listaConSoloNull));
     }
 
