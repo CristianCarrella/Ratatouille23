@@ -67,7 +67,7 @@ public class UserDAOimp implements UserDAOint {
 				}
 			}
 			
-			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + dataNascita + "', '" + email + "', '" + password + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");"; 
+			query = "INSERT INTO utente(id_utente, nome, cognome, data_nascita, email, password, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome.replace("'", "''") + "', '" + dataNascita + "', '" + email + "', '" + password + "' ,'admin' ," + "false, -1, '" + now + "', " + idRistorante  + ");";
 			db.getStatement().executeUpdate(query);
 			query = "SELECT id_utente FROM utente WHERE email = '" + email + "'";
 
@@ -92,7 +92,7 @@ public class UserDAOimp implements UserDAOint {
 		String query = "";
 		passwordTemporanea = convertInSha256(passwordTemporanea);
 		try {
-			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email + "' ,'" + ruolo + "' ," + "true, " + idUtente + ", '" + now + "', " + idRistorante + ");";
+			query = "INSERT INTO utente(id_utente, nome, cognome, password, data_nascita, email, ruolo, isFirstAccess, aggiunto_da, data_aggiunta, id_ristorante) VALUES (default, '" + nome + "', '" + cognome.replace("'", "''") + "', '" + passwordTemporanea + "', '" + dataNascita + "', '" + email.toLowerCase() + "' ,'" + ruolo + "' ," + "true, " + idUtente + ", '" + now + "', " + idRistorante + ");";
 			db.getStatement().executeUpdate(query);
 			
 			query = "SELECT id_utente FROM utente WHERE email = '" + email + "';";
@@ -198,7 +198,7 @@ public class UserDAOimp implements UserDAOint {
 
 	@Override
 	public User modifyUserNameSurnameDate(Integer idUtente, String nome, String cognome, String dataNascita) {
-		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
+		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome.replace("'", "''") + "', data_nascita = '" + dataNascita + "' WHERE id_utente = " + idUtente;
 		try {
 			db.getStatement().executeUpdate(query);
 			return getUserById(idUtente);
@@ -209,7 +209,7 @@ public class UserDAOimp implements UserDAOint {
 	}
 	
 	public User modifyUserNameSurnameEmail(Integer idUtente, String nome, String cognome, String email) {
-		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome + "', email = '" + email + "' WHERE id_utente = " + idUtente;
+		String query = "UPDATE utente SET nome = '" + nome + "', cognome = '" + cognome.replace("'", "''") + "', email = '" + email + "' WHERE id_utente = " + idUtente;
 		try {
 			db.getStatement().executeUpdate(query);
 			return getUserById(idUtente);

@@ -149,7 +149,7 @@
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:hint=" Data di Nascita (YYYY-MM-DD)"
-        android:inputType="date"
+        android:inputType="text"
         android:minHeight="48dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

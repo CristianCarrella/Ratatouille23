@@ -3,6 +3,9 @@ package application.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -53,48 +56,62 @@ public class RisorseUmaneController {
 
 	public RisorseUmaneController() {}
 	
+    private boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+                              
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+    
 	public void creaNuovoImpiegato() {
-		if(!nomeInput.getText().toString().isBlank() && !cognomeInput.getText().toString().isBlank() && !emailInput.getText().toString().isBlank() && !passwordInput.getText().toString().isBlank() && !dataNascitaInput.getValue().toString().isBlank()) {			
-			if(supervisoreRBtn.isSelected()) {
-				errorLabel.setText("Dipendente inserito nel sistema");
-		    	errorLabel.setTextFill(Color.GREEN);
-				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "supervisore");
-				nomeInput.setText("");
-				cognomeInput.setText("");
-				emailInput.setText("");
-				passwordInput.setText("");
-				dataNascitaInput.setValue(null);
-			}
-			if(addettoSalaRBtn.isSelected()) {
-				errorLabel.setText("Dipendente inserito nel sistema");
-		    	errorLabel.setTextFill(Color.GREEN);
-				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "addetto_sala");
-				nomeInput.setText("");
-				cognomeInput.setText("");
-				emailInput.setText("");
-				passwordInput.setText("");
-				dataNascitaInput.setValue(null);
-			}
-			if(addettoCucinaRBtn.isSelected()) {
-				errorLabel.setText("Dipendente inserito nel sistema");
-		    	errorLabel.setTextFill(Color.GREEN);
-				utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascitaInput.getValue().toString(), "addetto_cucina");
-				nomeInput.setText("");
-				cognomeInput.setText("");
-				emailInput.setText("");
-				passwordInput.setText("");
-				dataNascitaInput.setValue(null);
-			}
-			if(!(supervisoreRBtn.isSelected() || addettoSalaRBtn.isSelected() || addettoCucinaRBtn.isSelected())) {
-				errorLabel.setText("Selezionare un ruolo per il dipendente");
+		try {
+		    String dataNascita = dataNascitaInput.getConverter().fromString(dataNascitaInput.getEditor().getText()).toString();
+			if(!nomeInput.getText().toString().isBlank() && !cognomeInput.getText().toString().isBlank() && !emailInput.getText().toString().isBlank() && !passwordInput.getText().toString().isBlank()) {			
+				if(isValid(emailInput.getText())) {
+					if(supervisoreRBtn.isSelected()) {
+						errorLabel.setText("Dipendente inserito nel sistema");
+				    	errorLabel.setTextFill(Color.GREEN);
+						utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascita, "supervisore");
+					}
+					if(addettoSalaRBtn.isSelected()) {
+						errorLabel.setText("Dipendente inserito nel sistema");
+				    	errorLabel.setTextFill(Color.GREEN);
+						utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascita, "addetto_sala");
+					}
+					if(addettoCucinaRBtn.isSelected()) {
+						errorLabel.setText("Dipendente inserito nel sistema");
+				    	errorLabel.setTextFill(Color.GREEN);
+						utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascita, "addetto_cucina");
+					}
+					if(!(supervisoreRBtn.isSelected() || addettoSalaRBtn.isSelected() || addettoCucinaRBtn.isSelected())) {
+						errorLabel.setText("Selezionare un ruolo per il dipendente");
+				    	errorLabel.setTextFill(Color.RED);
+					}
+					nomeInput.setText("");
+					cognomeInput.setText("");
+					emailInput.setText("");
+					passwordInput.setText("");
+					dataNascitaInput.setValue(null);
+					addettoCucinaRBtn.setSelected(false);
+					addettoSalaRBtn.setSelected(false);
+					supervisoreRBtn.setSelected(false);
+				}else {
+					errorLabel.setText("Formato email non valido");
+			    	errorLabel.setTextFill(Color.RED);
+				}
+			} else {
+				errorLabel.setText("Compilare tutti i campi");
 		    	errorLabel.setTextFill(Color.RED);
 			}
-			addettoCucinaRBtn.setSelected(false);
-			addettoSalaRBtn.setSelected(false);
-			supervisoreRBtn.setSelected(false);
-		} else {
-			errorLabel.setText("Compilare tutti i campi");
-	    	errorLabel.setTextFill(Color.RED);
+		} catch (DateTimeParseException e) {
+			errorLabel.setText("Data di nascita non valida");
+			errorLabel.setTextFill(Color.RED);
 		}
 	}
 	
