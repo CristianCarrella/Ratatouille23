@@ -151,7 +151,7 @@ public class AvvisoDAOimpTest {
 		assertNull(avvisoDAOimp.createNewAvviso(-10, null, -10));
 	}
 	
-	//white box
+	//WHITE BOX
 	@Test
 	public void testNuovoAvvisoPath_2to13_9_18_19_30() {
 		assertNull(avvisoDAOimp.createNewAvviso(9, null, 2));
@@ -191,7 +191,7 @@ public class AvvisoDAOimpTest {
 	public void testCondizioneSupervisorePath_2to13_9_18to26() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
 		String now = LocalDateTime.now().format(dtf);
-		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Ece");		
+		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 7, 2, "testo", now, "Ece");		
 		Avviso avviso = avvisoDAOimp.createNewAvviso(2, "testo", 7);
 		assertEquals(avviso, oracolo);
 	}
@@ -205,8 +205,5 @@ public class AvvisoDAOimpTest {
 		assertEquals(avviso, oracolo);
 	}
 	
-	
-	
-
 	
 }

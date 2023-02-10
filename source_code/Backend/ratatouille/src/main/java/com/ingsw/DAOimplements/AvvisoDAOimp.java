@@ -213,8 +213,7 @@ public class AvvisoDAOimp implements AvvisoDAOint{
 	
 	private Avviso createAvviso(Integer id_ristorante, String testo, Integer idUtente) throws SQLException {
 		boolean isSupervisoreOrAdmin = false;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
-		String now = LocalDateTime.now().format(dtf);
+		LocalDateTime now = LocalDateTime.now();
 		ResultSet rs;
 		String query, autore = "";
 		query = "SELECT ruolo, nome FROM utente WHERE id_utente = " + idUtente + " AND id_ristorante = " + id_ristorante;
