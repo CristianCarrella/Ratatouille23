@@ -24,7 +24,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
@@ -82,17 +84,19 @@ public class BusinessDriver {
 	public Business requestModifyBusinessToServer(String nome, String indirizzo, String numeroTelefono){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/business");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpPut httpput = new HttpPut(url + "/business");
+			httpput.setHeader("Authorization", loggedUser.getToken());
+			httpput.setHeader("Content-type", "application/json");
 		
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(loggedUser.getIdRistorante())));
-			params.add(new BasicNameValuePair("nome", nome));
-			params.add(new BasicNameValuePair("indirizzo", indirizzo));
-			params.add(new BasicNameValuePair("numeroTelefono", numeroTelefono));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			JSONObject requestparams = new JSONObject();
+			requestparams.put("idRistorante", String.valueOf(loggedUser.getIdRistorante()));
+			requestparams.put("nome", nome);
+			requestparams.put("indirizzo", indirizzo);
+			requestparams.put("numeroTelefono", numeroTelefono);
+			httpput.setEntity(new StringEntity(requestparams.toString()));
 
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			JSONObject jsonObject = new JSONObject(json);

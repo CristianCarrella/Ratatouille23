@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,11 @@ import com.example.ratatouille_android.views.MainActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
     private User loggedUser;
@@ -77,6 +83,18 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         analytics.logEvent("InAccountFragment", bundle);
     }
 
+
+    public boolean validate(String dateStr) {
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(dateStr);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onClick(View v) {
         try {
@@ -89,18 +107,23 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             if(dateField.getText().toString().equals("")) {
                 dateField.setText(dateField.getHint().toString());
             }
-            if(nomeField.getText().length() < LUNGHEZZA_NOME_DB && cognomeField.getText().length() < LUNGHEZZA_COGNOME_DB){
-                homeActivity.getHomeController().setUserInfo(this, nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
-                homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
-                nomeField.setHint(nomeField.getText().toString());
-                cognomeField.setHint(cognomeField.getText().toString());
-                dateField.setHint(dateField.getText().toString());
-                nomeField.setText("");
-                cognomeField.setText("");
-                dateField.setText("");
+            if(validate(dateField.getText().toString())){
+                if(nomeField.getText().length() < LUNGHEZZA_NOME_DB && cognomeField.getText().length() < LUNGHEZZA_COGNOME_DB){
+                    homeActivity.getHomeController().setUserInfo(this, nomeField.getText().toString(), cognomeField.getText().toString(), dateField.getText().toString());
+                    homeActivity.setTextNomeCognome(nomeField.getText().toString() + " " + cognomeField.getText().toString());
+                    nomeField.setHint(nomeField.getText().toString());
+                    cognomeField.setHint(cognomeField.getText().toString());
+                    dateField.setHint(dateField.getText().toString());
+                    nomeField.setText("");
+                    cognomeField.setText("");
+                    dateField.setText("");
+                }else{
+                    setErrorLableOnErrorNameOrSurname();
+                }
             }else{
-                setErrorLableOnErrorNameOrSurname();
+                setErrorLableOnErrorDate();
             }
+
 
         } catch (IOException e) {
             this.setErrorLableOnErrorGeneric();

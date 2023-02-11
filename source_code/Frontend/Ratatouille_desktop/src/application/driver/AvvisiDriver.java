@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
@@ -87,14 +88,10 @@ public class AvvisiDriver {
 	public boolean requestDeleteAvviso(Integer idAvviso) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/avviso/cancella");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpDelete httpdelete = new HttpDelete(url + "/avviso/cancella/" + idAvviso.toString());
+			httpdelete.setHeader("Authorization", loggedUser.getToken());
 			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_avviso", idAvviso.toString()));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpdelete);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			System.out.print(json);

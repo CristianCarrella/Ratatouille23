@@ -19,6 +19,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -78,18 +79,24 @@ public class HomeController {
     }
 
     public void setUserInfo(AccountFragment accountFragment, String nome, String cognome, String dataNascita) throws IOException {
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("nome", nome);
+            jsonBody.put("cognome", cognome);
+            jsonBody.put("dataNascita", dataNascita);
+            jsonBody.put("idUtente", String.valueOf(loggedUser.getIdUtente()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody formBody = RequestBody.create(JSON, jsonBody.toString());
         OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("nome", nome)
-                .add("cognome", cognome)
-                .add("dataNascita", dataNascita)
-                .add("idUtente", String.valueOf(loggedUser.getIdUtente()))
-                .build();
         Request request = new Request.Builder()
                 .url(url + "user/account")
-                .post(formBody)
+                .put(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
+
         serverRequest(accountFragment, client, request);
     }
 
@@ -103,12 +110,11 @@ public class HomeController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
-                Log.v("prova", myResponse);
                 homeActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if(myResponse.length() < 10){
-                            accountFragment.setErrorLableOnErrorDate();
+                            accountFragment.setErrorLableOnErrorGeneric();
                         }else{
                             try {
                                 JSONObject jsonObject = new JSONObject(myResponse);

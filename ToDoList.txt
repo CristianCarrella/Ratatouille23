@@ -1,11 +1,15 @@
 To Do list:
 - Ovunque: controllare gli input
-- Testing => sistemare su documento
 - Glossario
 - Studio usabilità
-- White Box ratatouille desktop rinominare metodi con path
+- Sistemare documento
 
 In sospeso:
 - SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD
 - bug in ordina menu
 
+Errore: Se immagine è vuota
+Errore: Se promuovo su combobox vuota, la promozione non si visualizza subito, label troppo corta quando
+si vuole declassare un addetto alla sala
+Errore: Le query di fireUser sono sbagliate/si possono fare meglio
+Errore in android: la qurery di aggiornamento account può fallire ma si aggiornano le informazioni sopra

@@ -17,6 +17,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -34,13 +35,18 @@ public class FirstAccessController {
 
     public void updatePassword(String password) {
         OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("id_utente", String.valueOf(loggedUser.getIdUtente()))
-                .add("newPassword", password)
-                .build();
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("idUtente", String.valueOf(loggedUser.getIdUtente()));
+            jsonBody.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody formBody = RequestBody.create(JSON, jsonBody.toString());
         Request request = new Request.Builder()
                 .url(url)
-                .post(formBody)
+                .put(formBody)
                 .header("Authorization", loggedUser.getToken().toString())
                 .build();
         serverUpdatePasswordRequest(password, client, request);

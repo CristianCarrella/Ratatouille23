@@ -15,6 +15,7 @@ public class Prodotto {
 	public enum categoriaProdotto {Frutta, Verdura, Carne, Pesce, Uova, LatteDerivati, CerealiDerivati, Legumi, Altro};
 	public enum unitaMisura {Kg, Lt};
 
+	public Prodotto(){}
 	public Prodotto(int idProdotto, int idRistorante, String nome, int stato, String descrizione, Double prezzo2, Double quantita2, String unitaMisura, String categoria) {
 		this.idProdotto = idProdotto;
 		this.idRistorante = idRistorante;

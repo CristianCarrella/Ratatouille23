@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="472.0" prefWidth="665.0" style="-fx-background-color: #FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SignUpController">   <children>
+<AnchorPane prefHeight="472.0" prefWidth="665.0" style="-fx-background-color: #FFFBF3;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.controller.SignUpController">   <children>
       <BorderPane layoutX="74.0" layoutY="78.0" prefHeight="356.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <FlowPane prefHeight="73.0" prefWidth="516.0" BorderPane.alignment="CENTER">

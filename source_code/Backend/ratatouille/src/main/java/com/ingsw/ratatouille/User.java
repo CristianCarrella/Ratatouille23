@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class User {
 	// same order of database columns
-	private int id_utente;
-	private String nome, cognome, data_nascita, email, password, ruolo;
+	private int idUtente;
+	private String nome, cognome, dataNascita, email, password, ruolo;
 	private boolean isFirstAccess;
 	private int aggiunto_da;
 	private String data_aggiunta;
@@ -15,10 +15,10 @@ public class User {
 	public User(){}
 	
 	public User(int id, String nome, String cognome, String dataNascita, String email, String password, String ruolo, boolean isFirstAccess, int aggiuntoDa, String dataAggiunta, int idRistorante){
-		this.id_utente = id;
+		this.idUtente = id;
 		this.cognome = cognome;
 		this.nome = nome;
-		this.data_nascita = dataNascita;
+		this.dataNascita = dataNascita;
 		this.email = email;
 		this.password = password;
 		this.ruolo = ruolo;
@@ -30,10 +30,13 @@ public class User {
 
 
 	public int getIdUtente() {
-		return id_utente;
+		return idUtente;
 	}
-	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -45,7 +48,7 @@ public class User {
 
 
 	public String getDataNascita() {
-		return data_nascita;
+		return dataNascita;
 	}
 
 	

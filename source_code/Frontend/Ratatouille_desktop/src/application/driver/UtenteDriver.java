@@ -12,6 +12,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -100,20 +102,21 @@ public class UtenteDriver {
 	public boolean requestModifyAccountToServer(String nome, String email, String cognome) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/user/accountDesktop");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpPut httpput = new HttpPut(url + "/user/accountDesktop");
+			httpput.setHeader("Authorization", loggedUser.getToken());
+			httpput.setHeader("Content-type", "application/json");
 		
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("nome", nome));
-			params.add(new BasicNameValuePair("cognome", cognome));
-			params.add(new BasicNameValuePair("email", email));
-			params.add(new BasicNameValuePair("idUtente", String.valueOf(loggedUser.getIdUtente())));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-			HttpResponse response = httpclient.execute(httppost);
+			
+			JSONObject requestparams = new JSONObject();
+			requestparams.put("nome", nome);
+			requestparams.put("cognome", cognome);
+			requestparams.put("email", email);
+			requestparams.put("idUtente", String.valueOf(loggedUser.getIdUtente()));
+			httpput.setEntity(new StringEntity(requestparams.toString()));
+			
+			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
-			System.out.print(json);
 			JSONObject jsonObject = new JSONObject(json);
 			
 			if(jsonObject.has("nome") && jsonObject.has("email")) {
@@ -160,15 +163,18 @@ public class UtenteDriver {
 	public Utente requestUpgradeRoleToServer(String idUtente, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/user/upgradeRole");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpPut httpput = new HttpPut(url + "/user/upgradeRole");
+			httpput.setHeader("Authorization", loggedUser.getToken());
+			httpput.setHeader("Content-type", "application/json");
 		
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idUtente", idUtente));
-			params.add(new BasicNameValuePair("ruolo", ruolo));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			
+			JSONObject requestparams = new JSONObject();
+			requestparams.put("ruolo", ruolo);
+			requestparams.put("idUtente", idUtente);
+			httpput.setEntity(new StringEntity(requestparams.toString()));
+			
 
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			System.out.print(json);
@@ -186,16 +192,16 @@ public class UtenteDriver {
 	public Utente requestDowngradeRoleToServer(String idUtente, String ruolo){
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/user/downgradeRole");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpPut httpput = new HttpPut(url + "/user/downgradeRole/" + loggedUser.getRuolo());
+			httpput.setHeader("Authorization", loggedUser.getToken());
+			httpput.setHeader("Content-type", "application/json");
 		
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idUtente", idUtente));
-			params.add(new BasicNameValuePair("ruolo", ruolo));
-			params.add(new BasicNameValuePair("ruoloLogged", loggedUser.getRuolo()));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			JSONObject requestparams = new JSONObject();
+			requestparams.put("ruolo", ruolo);
+			requestparams.put("idUtente", idUtente);
+			httpput.setEntity(new StringEntity(requestparams.toString()));
 
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			System.out.print(json);
@@ -253,8 +259,7 @@ public class UtenteDriver {
 			JSONObject jsonObject = new JSONObject(json);
 			if(jsonObject.has("nome") && jsonObject.has("token")) {
 				if(jsonObject.getString("ruolo").equals("admin") || jsonObject.getString("ruolo").equals("supervisore")){
-					loggedUser = new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
-					return loggedUser;
+					return new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("dataNascita"), jsonObject.getString("email"), jsonObject.getString("ruolo"), jsonObject.getBoolean("firstAccess"), jsonObject.getInt("aggiuntoDa"), jsonObject.getString("dataAggiunta"), jsonObject.getInt("idRistorante"), jsonObject.getString("token"), jsonObject.getString("tk_expiration_timestamp"));
 				}
 			}
 		}catch (Exception e) {

@@ -3,11 +3,7 @@ package com.ingsw.ratatouille;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,24 +42,24 @@ public class Controller {
 		}
 	}
 	
-	@PostMapping("/user/account")
-	public User modifyUserAccount(@RequestParam(required = true) String nome, String cognome, String dataNascita, Integer idUtente){
-		return userDao.modifyUserNameSurnameDate(idUtente, nome, cognome, dataNascita);
+	@PutMapping("/user/account")
+	public User modifyUserAccount(@RequestBody(required = true) User user){
+		return userDao.modifyUserNameSurnameDate(user.getIdUtente(), user.getNome(), user.getCognome(), user.getDataNascita());
 	}
 	
-	@PostMapping("/user/accountDesktop")
-	public User modifyUserAccountDesktop(@RequestParam(required = true) String nome, String cognome, String email, Integer idUtente){
-		return userDao.modifyUserNameSurnameEmail(idUtente, nome, cognome, email);
+	@PutMapping("/user/accountDesktop")
+	public User modifyUserAccountDesktop(@RequestBody(required = true) User user){
+		return userDao.modifyUserNameSurnameEmail(user.getIdUtente(), user.getNome(), user.getCognome(), user.getEmail());
 	}
 	
-	@PostMapping("/user/upgradeRole")
-	public User upgradeUserRole(@RequestParam(required = true) Integer idUtente, String ruolo){
-		return userDao.upgradeUserRole(idUtente, ruolo);		
+	@PutMapping("/user/upgradeRole")
+	public User upgradeUserRole(@RequestBody(required = true) User user){
+		return userDao.upgradeUserRole(user.getIdUtente(), user.getRuolo());
 	}
 	
-	@PostMapping("/user/downgradeRole")
-	public User downgradeUserRole(@RequestParam(required = true) Integer idUtente, String ruolo, String ruoloLogged){
-		return userDao.downgradeUserRole(ruoloLogged, idUtente, ruolo);
+	@PutMapping("/user/downgradeRole/{ruoloLogged}")
+	public User downgradeUserRole(@PathVariable String ruoloLogged, @RequestBody(required = true) User user){
+		return userDao.downgradeUserRole(ruoloLogged, user.getIdUtente(), user.getRuolo());
 	}
 	
 	@PostMapping("/user/fire")
@@ -86,9 +82,9 @@ public class Controller {
 		return userDao.verifyEmployee(email, nomeRistorante);
 	}
 	
-	@PostMapping("/user/first-access")
-    public User firstAccess(@RequestParam (required = true) Integer id_utente, String newPassword) {
-		return userDao.firstAccess(id_utente, newPassword);
+	@PutMapping("/user/first-access")
+    public User firstAccess(@RequestBody (required = true) User user) {
+		return userDao.firstAccess(user.getIdUtente(), user.getPassword());
 	}
 
 	
@@ -154,8 +150,8 @@ public class Controller {
 		return avvisoDao.createNewAvviso(id_ristorante, testo, idUtente);
 	}
 
-	@PostMapping("/avviso/cancella")
-	public boolean deleteAvviso(@RequestParam(required = true) Integer id_avviso) {
+	@DeleteMapping("/avviso/cancella/{id_avviso}")
+	public boolean deleteAvviso(@PathVariable(required = true) Integer id_avviso) {
 		return avvisoDao.deleteAvviso(id_avviso);
 	}
 	
@@ -182,19 +178,19 @@ public class Controller {
 		return menuDao.getMenuCategories(id_ristorante, categoria);
 	}
 
-	@PostMapping("/menu/piatto-update-posizione")
-	public boolean updatePosizionePiatto(@RequestParam(required = true) Integer id_piatto, Integer posizione){
-		return menuDao.updatePosizionePiatto(id_piatto, posizione);
+	@PutMapping("/menu/piatto-update-posizione")
+	public boolean updatePosizionePiatto(@RequestBody(required = true) Menu menu){
+		return menuDao.updatePosizionePiatto(menu.getIdElemento(), menu.getPosizione());
 	}
 
-	@PostMapping("/menu/delete-ordine-menu-precedente")
-	public boolean deleteSortingMenu(@RequestParam(required = true) Integer id_ristorante){
+	@DeleteMapping("/menu/delete-ordine-menu-precedente/{id_ristorante}")
+	public boolean deleteSortingMenu(@PathVariable(required = true) Integer id_ristorante){
 		return menuDao.deleteSortingMenu(id_ristorante) && categoriaMenuDao.deleteSortingMenu(id_ristorante);
 	}
 
-	@PostMapping("/categoria-update-posizione")
-	public boolean updatePosizioneCategoria(@RequestParam(required = true) Integer id_categoria, Integer posizione){
-		return categoriaMenuDao.updatePosizioneCategoria(id_categoria, posizione);
+	@PutMapping("/categoria-update-posizione")
+	public boolean updatePosizioneCategoria(@RequestBody(required = true) CategoriaMenu categoriaMenu){
+		return categoriaMenuDao.updatePosizioneCategoria(categoriaMenu.getIdCategoria(), categoriaMenu.getPosizione());
 	}
 	
 	@GetMapping("/menu/ristorante/piatto")
@@ -222,13 +218,13 @@ public class Controller {
 		return menuDao.createPlate(idRistorante, categoria, nome, prezzo, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua);
 	}
 
-	@PostMapping("/menu/updatePlate/{id_piatto}")
-	public boolean updatePlate(@PathVariable Integer id_piatto, @RequestParam (required = true) Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
-		return menuDao.updatePlate(id_piatto, idRistorante, categoria, nome, prezzo, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua);
+	@PutMapping("/menu/updatePlate/{id_piatto}")
+	public boolean updatePlate(@PathVariable Integer id_piatto, @RequestBody (required = true) Menu menu) {
+		return menuDao.updatePlate(id_piatto, menu.getIdRistorante(), menu.getNomeCategoria(), menu.getNome(), menu.getPrezzo(), menu.getDescrizione(), menu.getAllergeni(), menu.getNomeSecondaLingua(), menu.getDescrizioneSecondaLingua());
 	}
 
-	@PostMapping("/menu/deletePlate")
-	public boolean deletePlate(@RequestParam (required = true) Integer idPiatto) {
+	@DeleteMapping("/menu/deletePlate/{idPiatto}")
+	public boolean deletePlate(@PathVariable (required = true) Integer idPiatto) {
 		return menuDao.deletePlate(idPiatto);
 	}
 		
@@ -267,9 +263,9 @@ public class Controller {
 		return prodottoDao.createProduct(idRistorante, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
 	}
 	
-	@PostMapping("/dispensa/modifyProduct")
-    public Prodotto modifyProduct(@RequestParam (required = true) Integer idProdotto, String nome, Integer stato, String descrizione, Double prezzo, Double quantita, String unitaMisura, String categoria) {
-		return prodottoDao.modifyProduct(idProdotto, nome, stato, descrizione, prezzo, quantita, unitaMisura, categoria);
+	@PutMapping("/dispensa/modifyProduct")
+    public Prodotto modifyProduct(@RequestBody (required = true) Prodotto prodotto) {
+		return prodottoDao.modifyProduct(prodotto.getIdProdotto(), prodotto.getNome(), prodotto.getStato(), prodotto.getDescrizione(), prodotto.getPrezzo(), prodotto.getQuantita(), prodotto.getUnitaMisura(), prodotto.getCategoria());
 	}
 	
 	@PostMapping("/dispensa/deleteProduct")
@@ -292,9 +288,9 @@ public class Controller {
 		return businessDao.getBusinessFromBusinessId(id_ristorante);
 	}
 	
-	@PostMapping("/business")
-	public Business modifyBusinessInfo(@RequestParam(required = true) Integer id_ristorante, String nome, String numeroTelefono, String indirizzo){
-		return businessDao.modifyBusinessInfo(id_ristorante, nome, indirizzo, numeroTelefono);
+	@PutMapping("/business")
+	public Business modifyBusinessInfo(@RequestBody(required = true) Business business){
+		return businessDao.modifyBusinessInfo(business.getIdRistorante(), business.getNome(), business.getIndirizzo(), business.getNumeroTelefono());
 	}
 	
 	@PostMapping("/business/image")

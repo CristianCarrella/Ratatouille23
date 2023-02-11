@@ -164,7 +164,7 @@ public class AvvisoDAOimpTest {
 		Avviso oracolo = new Avviso(getMaxIdAvvisoInDb() + 1, 2, 9, "testo", now, "Teka");		
 		Avviso avviso = avvisoDAOimp.createNewAvviso(9, "testo", 2);
 		assertEquals(avviso, oracolo);
-	}//
+	}
 	
 	@Test
 	public void testNuovoAvvisoPath_2to9_18to30() {

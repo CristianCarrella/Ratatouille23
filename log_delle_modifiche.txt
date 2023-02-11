@@ -1,0 +1,25 @@
+/user/accountDesktop e relativa funzione su desktop => conversione in PUT
+/user/upgradeRole e relativa funzione su desktop => conversione in PUT
+/user/downgradeRole/{ruoloLogged} e relativa funzione su desktop => conversione in PUT
+fire è una delete ma prende dei parametri in più quindi essendo che la delete non ha corpo si usa la post
+/business e relativa funzione su desktop => conversione in PUT
+/menu/deletePlate e relativa funzione su desktop => conversione in DELETE
+/avviso/cancella e relativa funzione su desktop => conversione in DELETE
+/menu/delete-ordine-menu-precedente e relativa funzione su desktop => conversione in DELETE
+/menu/piatto-update-posizione e relativa funzione su desktop => conversione in PUT
+/categoria-update-posizione e relativa funzione su desktop => conversione in PUT
+/menu/updatePlate/{id_piatto} e relativa funzione su desktop => conversione in PUT
+
+/first-access e relativa funzione su android => conversione in PUT
+/user/account e relativa funzione su android => conversione in PUT
+
+DA MODIFICARE
+/avviso/segna-come-non-letto/{id_avviso} : DELETE
+/avviso/segna-come-non-nascosto/{id_avviso} : DELETE
+/dispensa/modifyProduct : PUT
+/dispensa/deleteProduct : DELETE 
+
+
+
+
+

@@ -13,8 +13,11 @@ import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -209,14 +212,10 @@ public class MenuDriver {
 	public boolean requestDeletePiatto(MenuController menuController, Integer idPiatto) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/menu/deletePlate");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpDelete httpDelete = new HttpDelete(url + "/menu/deletePlate/" + idPiatto.toString());
+			httpDelete.setHeader("Authorization", loggedUser.getToken());
 			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idPiatto", idPiatto.toString()));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpDelete);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			if(json.equals("true"))
@@ -282,15 +281,18 @@ public class MenuDriver {
 
 	public boolean requestUpdatePositionCategoria(Integer idCategoria, Integer posizione) throws Exception {
 		HttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost(url + "/categoria-update-posizione");
-		httppost.setHeader("Authorization", loggedUser.getToken());
+		HttpPut httpput = new HttpPut(url + "/categoria-update-posizione");
+		httpput.setHeader("Authorization", loggedUser.getToken());
+		httpput.setHeader("Content-type", "application/json");
 		
-		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		params.add(new BasicNameValuePair("id_categoria", idCategoria.toString()));
-		params.add(new BasicNameValuePair("posizione", posizione.toString()));
-		httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 		
-		HttpResponse response = httpclient.execute(httppost);
+		JSONObject requestparams = new JSONObject();
+		requestparams.put("idCategoria", idCategoria.toString());
+		requestparams.put("posizione", posizione.toString());
+		httpput.setEntity(new StringEntity(requestparams.toString()));
+		
+		
+		HttpResponse response = httpclient.execute(httpput);
 		HttpEntity entity = response.getEntity();
 		String json = EntityUtils.toString(response.getEntity());
 		
@@ -303,15 +305,17 @@ public class MenuDriver {
 	public boolean requestUpdatePositionInMenuPiatto(Integer idPiatto, Integer posizione) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/menu/piatto-update-posizione");
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpPut httpput = new HttpPut(url + "/menu/piatto-update-posizione");
+			httpput.setHeader("Authorization", loggedUser.getToken());
+			httpput.setHeader("Content-type", "application/json");
+		
 			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_piatto", idPiatto.toString()));
-			params.add(new BasicNameValuePair("posizione", posizione.toString()));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			JSONObject requestparams = new JSONObject();
+			requestparams.put("idElemento", idPiatto.toString());
+			requestparams.put("posizione", posizione.toString());
+			httpput.setEntity(new StringEntity(requestparams.toString()));
 			
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			System.out.print(json);
@@ -337,14 +341,10 @@ public class MenuDriver {
 	public boolean requestDeleteMenuSorting() {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/menu/delete-ordine-menu-precedente");
-			httppost.setHeader("Authorization", loggedUser.getToken());
-			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id_ristorante", String.valueOf(loggedUser.getIdRistorante())));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
-			HttpResponse response = httpclient.execute(httppost);
+			HttpDelete httpdelete = new HttpDelete(url + "/menu/delete-ordine-menu-precedente/" + String.valueOf(loggedUser.getIdRistorante()));
+			httpdelete.setHeader("Authorization", loggedUser.getToken());
+		
+			HttpResponse response = httpclient.execute(httpdelete);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			System.out.print(json);
@@ -405,21 +405,22 @@ public class MenuDriver {
 	public boolean modificaPiatto(String nomePiatto, String descrizione, String costo, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, String categoriaScelta, Integer idPiatto) {
 		try {
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost(url + "/menu/updatePlate/" + idPiatto.toString());
-			httppost.setHeader("Authorization", loggedUser.getToken());
+			HttpPut httpput = new HttpPut(url + "/menu/updatePlate/" + idPiatto.toString());
+			httpput.setHeader("Authorization", loggedUser.getToken());
+			httpput.setHeader("Content-type", "application/json");
+		
+			JSONObject requestparams = new JSONObject();
+			requestparams.put("idRistorante", String.valueOf(loggedUser.getIdRistorante()));
+			requestparams.put("nomeCategoria", categoriaScelta);
+			requestparams.put("nome", nomePiatto);
+			requestparams.put("prezzo", costo);
+			requestparams.put("descrizione", descrizione);
+			requestparams.put("allergeni", allergeni);
+			requestparams.put("nomeSecondaLingua", nomeSecondaLingua);
+			requestparams.put("descrizioneSecondaLingua", descrizioneSecondaLingua);
+			httpput.setEntity(new StringEntity(requestparams.toString()));
 			
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("idRistorante", String.valueOf(loggedUser.getIdRistorante())));
-			params.add(new BasicNameValuePair("categoria", categoriaScelta));
-			params.add(new BasicNameValuePair("nome", nomePiatto));
-			params.add(new BasicNameValuePair("prezzo", costo));
-			params.add(new BasicNameValuePair("descrizione", descrizione));
-			params.add(new BasicNameValuePair("allergeni", allergeni));
-			params.add(new BasicNameValuePair("nomeSecondaLingua", nomeSecondaLingua));
-			params.add(new BasicNameValuePair("descrizioneSecondaLingua", descrizioneSecondaLingua));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
 			System.out.println(json);

@@ -9,12 +9,16 @@ import com.example.ratatouille_android.views.MainActivity;
 import com.example.ratatouille_android.views.ModificaProdottoActivity;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -41,20 +45,25 @@ public class ModificaProdottoController {
     public void modificaServerPiattoInfo(Integer idProdotto, String nome, String descrizione, String costo, String quantita, String kg_or_lt, String categoria) {
         Float stato = Float.parseFloat(String.valueOf(quantita));
         Integer stato2 = stato.intValue();
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("idProdotto", idProdotto.toString());
+            jsonBody.put("nome", nome);
+            jsonBody.put("stato", stato2.toString());
+            jsonBody.put("descrizione", descrizione);
+            jsonBody.put("prezzo", costo);
+            jsonBody.put("quantita", quantita);
+            jsonBody.put("unitaMisura", kg_or_lt.toLowerCase(Locale.ROOT));
+            jsonBody.put("categoria", changeCategoriaSignature(categoria));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody formBody = RequestBody.create(JSON, jsonBody.toString());
         OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("idProdotto", idProdotto.toString())
-                .add("nome", nome)
-                .add("stato", stato2.toString())
-                .add("descrizione", descrizione)
-                .add("prezzo", costo)
-                .add("quantita", quantita)
-                .add("unitaMisura", kg_or_lt.toLowerCase(Locale.ROOT))
-                .add("categoria", changeCategoriaSignature(categoria))
-                .build();
         Request request = new Request.Builder()
                 .url(url + "/modifyProduct")
-                .post(formBody)
+                .put(formBody)
                 .header("Authorization", loggedUser.getToken())
                 .build();
 

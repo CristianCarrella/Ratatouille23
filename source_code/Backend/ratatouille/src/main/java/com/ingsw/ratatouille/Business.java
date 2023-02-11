@@ -4,7 +4,7 @@ public class Business {
 	
 	private int idRistorante, idProprietario;
 	private String nome, numeroTelefono, indirizzo, nomeImmagine;
-	
+	public Business(){}
 	public Business(int idRistorante, String nome, String numeroTelefono, String indirizzo, String nomeImmagine, int idProprietario) {
 		this.idRistorante = idRistorante;
 		this.nome = nome;

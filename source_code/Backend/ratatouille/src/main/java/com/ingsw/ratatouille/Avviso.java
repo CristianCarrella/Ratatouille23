@@ -73,7 +73,6 @@ public class Avviso {
 		 if(obj instanceof Avviso) {
 			 Avviso avviso = (Avviso) obj;
 		     if(avviso.getIdAvviso() == getIdAvviso() && avviso.getIdRistorante() == getIdRistorante() && avviso.getTesto().equals(getTesto()) && avviso.getAutore().equals(avviso.getAutore())) {
-		    	 System.out.println(avviso.getAutore() + " " + getAutore());
 		    	 return true;
 		     }
 		 }

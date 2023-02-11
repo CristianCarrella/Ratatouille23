@@ -1,0 +1,9 @@
+Slide 1: timeline del progetto con project plan ed esperienza nostra => cosa è andato storto e cosa bene
+https://www.youtube.com/watch?v=InyqaOFRwKw&ab_channel=PowerPointSchool
+Slide 2: analisi tecnica generale del progetto con una specie di albero che mostra studio di usabilità,
+system design [decidere ordine e cosa mettere] ecc...
+Slide 3: approfondimento di studio usabilità - cosa e come abbiamo fatto
+...    : approfondimento di system design - cosa e come abbiamo fatto
+
+
+DOMANDE: NUMERO DI SLIDE? 15?
