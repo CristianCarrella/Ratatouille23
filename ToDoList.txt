@@ -3,13 +3,15 @@ To Do list:
 - Glossario
 - Studio usabilità
 - Sistemare documento
+- Scrivere che abbiamo usato il CRUD
 
 In sospeso:
-- SOSTITUIRE RICHIESTE DI MODIFICA CON PUT E QUELLE DI CANCELLAZIONE CON DELETE => ATTUARE CRUD
 - bug in ordina menu
 
-Errore: Se immagine è vuota
-Errore: Se promuovo su combobox vuota, la promozione non si visualizza subito, label troppo corta quando
+Errore 1: Se immagine è vuota
+Errore 2: Se promuovo su combobox vuota, la promozione non si visualizza subito, label troppo corta quando
 si vuole declassare un addetto alla sala
-Errore: Le query di fireUser sono sbagliate/si possono fare meglio
-Errore in android: la qurery di aggiornamento account può fallire ma si aggiornano le informazioni sopra
+Errore 3: Le query di fireUser sono sbagliate/si possono fare meglio
+Errore 4: in android: la qurery di aggiornamento account può fallire ma si aggiornano le informazioni sopra
+
+Errore 5: cache[???]
