@@ -180,8 +180,7 @@ public class UtenteDriver {
 			System.out.print(json);
 			JSONObject jsonObject = new JSONObject(json);
 			
-			Utente u = new Utente(jsonObject.getInt("id_utente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("email"), jsonObject.getString("ruolo"));
-			return u;
+			return new Utente(jsonObject.getInt("idUtente"), jsonObject.getString("nome"), jsonObject.getString("cognome"), jsonObject.getString("email"), jsonObject.getString("ruolo"));
 			
 		}catch (Exception e) {
 			System.out.print("Errore nella connessione");

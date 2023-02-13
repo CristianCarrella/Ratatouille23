@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import application.driver.UtenteDriver;
 import application.model.Utente;
@@ -35,6 +36,12 @@ public class GestisciPersonaleController {
 	
 	@FXML
 	public void initialize() {
+		fillComboBoxOfUsers(utenti);
+		utentiComboBox.getSelectionModel().select(0);
+		mostraDatiUtente();
+	}
+
+	private void fillComboBoxOfUsers(List<Utente> utenti) {
 		for (Utente utente : utenti) {
 			utentiComboBox.getItems().add("ID: " + utente.getIdUtente() + " ~ " + utente.getNome() + " " + utente.getCognome() + " - " + utente.getRuolo());
 		}
@@ -65,7 +72,6 @@ public class GestisciPersonaleController {
 				String nomeCognome = u.getNome() + " " + u.getCognome();
 				String email = u.getEmail();
 				String ruolo = ruoloUI;
-				System.out.println("aiutodio" + nomeCognome + email + ruolo);
 				mostraInformazioniUtente(nomeCognome, email, ruolo);
 			}
 		}
@@ -113,8 +119,9 @@ public class GestisciPersonaleController {
 					if(ruoloLabel.getText().toString().contains("visore")) {
 						ruolo = "supervisore";
 					}
-					
-					utenteDriver.requestDowngradeRoleToServer(id, ruolo);
+					utentiComboBox.getItems().remove(utentiComboBox.getSelectionModel().getSelectedIndex());
+					Utente updatedUser = utenteDriver.requestDowngradeRoleToServer(id, ruolo);
+					utentiComboBox.getItems().add("ID: " + updatedUser.getIdUtente() + " ~ " + updatedUser.getNome() + " " + updatedUser.getCognome() + " - " + updatedUser.getRuolo());
 					errorLabel.setText("Modifiche apportate con successo");
 			    	errorLabel.setTextFill(Color.GREEN);
 				}
@@ -146,7 +153,9 @@ public class GestisciPersonaleController {
 				if(ruoloLabel.getText().toString().contains("visore")) {
 					ruolo = "supervisore";
 				}
-				utenteDriver.requestUpgradeRoleToServer(id, ruolo);
+				utentiComboBox.getItems().remove(utentiComboBox.getSelectionModel().getSelectedIndex());
+				Utente updatedUser = utenteDriver.requestUpgradeRoleToServer(id, ruolo);
+				utentiComboBox.getItems().add("ID: " + updatedUser.getIdUtente() + " ~ " + updatedUser.getNome() + " " + updatedUser.getCognome() + " - " + updatedUser.getRuolo());
 				errorLabel.setText("Modifiche apportate con successo");
 		    	errorLabel.setTextFill(Color.GREEN);
 			}

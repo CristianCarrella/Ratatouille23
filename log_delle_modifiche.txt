@@ -15,6 +15,13 @@ fire è una delete ma prende dei parametri in più quindi essendo che la delete 
 /dispensa/modifyProduct e relativa funzione su android => conversione in PUT
 
 
+RISOLTO: 
+- Se immagine era vuota dava errore
+- Se si selezionava combobox vuota in gestisci risorse dava errore
+- Label di declassazione addetto alla sala era troppo piccola
+- Combobox gestione risorse ordinata per ruolo
+- Combobox gestione risorse update all'aggiornamento del ruolo
+
 
 
 

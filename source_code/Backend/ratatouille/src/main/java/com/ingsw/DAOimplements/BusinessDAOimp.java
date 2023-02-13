@@ -32,12 +32,10 @@ public class BusinessDAOimp implements BusinessDAOint {
 	public Business getBusinessFromBusinessId(Integer idRistorante) {
 		String query = "SELECT * FROM ristorante WHERE id_ristorante = " + idRistorante;
 		ResultSet rs = null;
-		Business b;
 		try {
 			rs = db.getStatement().executeQuery(query);
 			while(rs.next()) {
-				b = new Business(rs.getInt("id_ristorante"), rs.getString("nome"), rs.getString("telefono"), rs.getString("indirizzo"), rs.getString("nome_immagine"), rs.getInt("id_proprietario"));
-				return b;
+				return new Business(rs.getInt("id_ristorante"), rs.getString("nome"), rs.getString("telefono"), rs.getString("indirizzo"), rs.getString("nome_immagine"), rs.getInt("id_proprietario"));
 			}
 		} catch (SQLException e) {
 			System.out.println("Query " + query + " fallita \n");
@@ -100,46 +98,48 @@ public class BusinessDAOimp implements BusinessDAOint {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if(!fileName.equals("")){
+			try {
+				PreparedStatement ps = db.getConnection().prepareStatement("SELECT logo FROM ristorante WHERE id_ristorante = " + idRistorante);
+				ResultSet resultSet = ps.executeQuery();
+				ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-		try {
-			PreparedStatement ps = db.getConnection().prepareStatement("SELECT logo FROM ristorante WHERE id_ristorante = " + idRistorante);
-			ResultSet resultSet = ps.executeQuery();
-			ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-			String repository = "C:\\logos\\" + idUtente;
-			Path uploadPath = Paths.get(repository);
-			if (!Files.exists(uploadPath)) {
-				Files.createDirectories(uploadPath);
-			}
-
-			FileOutputStream fos = new FileOutputStream("C:\\logos\\" + idUtente + "\\" + fileName);
-
-			while (resultSet.next()) {
-				byte[] buffer = new byte[1];
-				InputStream is = resultSet.getBinaryStream(1);
-				while (is.read(buffer) > 0) {
-					fos.write(buffer);
+				String repository = "C:\\logos\\" + idUtente;
+				Path uploadPath = Paths.get(repository);
+				if (!Files.exists(uploadPath)) {
+					Files.createDirectories(uploadPath);
 				}
-				fos.close();
+
+				FileOutputStream fos = new FileOutputStream("C:\\logos\\" + idUtente + "\\" + fileName);
+
+				while (resultSet.next()) {
+					byte[] buffer = new byte[1];
+					InputStream is = resultSet.getBinaryStream(1);
+					while (is.read(buffer) > 0) {
+						fos.write(buffer);
+					}
+					fos.close();
+				}
+				ps.close();
+
+
+
+				File file = new File("C:\\logos\\" + idUtente + "\\" + fileName);
+				byte[] bytes = Files.readAllBytes(file.toPath());
+
+				String encodedImage = Base64.getEncoder().encodeToString(bytes);
+				JSONObject json = new JSONObject();
+				json.put("image", encodedImage);
+				return json.toString();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			ps.close();
-
-
-
-			File file = new File("C:\\logos\\" + idUtente + "\\" + fileName);
-			byte[] bytes = Files.readAllBytes(file.toPath());
-
-			String encodedImage = Base64.getEncoder().encodeToString(bytes);
-			JSONObject json = new JSONObject();
-			json.put("image", encodedImage);
-			return json.toString();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		System.out.println("dsad");
 		return null;
 	}
 

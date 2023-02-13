@@ -117,14 +117,15 @@ public class BusinessDriver {
             HttpResponse response = httpclient.execute(httpget);
             HttpEntity entity = response.getEntity();
             String json = EntityUtils.toString(response.getEntity());
-            JSONObject jsonObject = new JSONObject(json);
-            
-            String encodedImage = jsonObject.getString("image");
-            byte[] imageBytes = Base64.getDecoder().decode(encodedImage);
-            Image image = new Image(new ByteArrayInputStream(imageBytes));
-            System.out.println(image);
-            return image;
-
+            if(!json.equals("")) {
+            	JSONObject jsonObject = new JSONObject(json);
+            	String encodedImage = jsonObject.optString("image");
+                byte[] imageBytes = Base64.getDecoder().decode(encodedImage);
+                Image image = new Image(new ByteArrayInputStream(imageBytes));
+                return image;
+            }
+            return null;
+         
 		}catch (JSONException e) {
             System.out.print("Errore nel parsing del JSON");
         } catch (ClientProtocolException e) {

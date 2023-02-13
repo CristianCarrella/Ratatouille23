@@ -8,10 +8,8 @@ To Do list:
 In sospeso:
 - bug in ordina menu
 
-Errore 1: Se immagine è vuota
-Errore 2: Se promuovo su combobox vuota, la promozione non si visualizza subito, label troppo corta quando
-si vuole declassare un addetto alla sala
-Errore 3: Le query di fireUser sono sbagliate/si possono fare meglio
-Errore 4: in android: la qurery di aggiornamento account può fallire ma si aggiornano le informazioni sopra
+Errore 1: Le query di fireUser sono sbagliate/si possono fare meglio
+Errore 2: in android: la query di aggiornamento account può fallire ma si aggiornano le 
+informazioni sopra
 
-Errore 5: cache[???]
+Errore 3: cache[???]

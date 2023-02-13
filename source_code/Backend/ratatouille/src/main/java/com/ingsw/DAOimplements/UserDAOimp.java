@@ -49,7 +49,7 @@ public class UserDAOimp implements UserDAOint {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		password = convertInSha256(password);
-		String query = "INSERT INTO ristorante(id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (default, '" + nomeRistorante + "', NULL, NULL, NULL, NULL, NULL)";
+		String query = "INSERT INTO ristorante(id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (default, '" + nomeRistorante + "', NULL, NULL, NULL, '', NULL)";
 		Integer idUtente = 0, idRistorante = 0;
 		try {
 			
@@ -114,7 +114,7 @@ public class UserDAOimp implements UserDAOint {
 	
 	public ArrayList<User> getUserOfResturant(int id_ristorante) {
 		ArrayList<User> users = new ArrayList<User>();
-		String query = "SELECT * FROM utente WHERE id_ristorante = " + id_ristorante;
+		String query = "SELECT * FROM utente WHERE id_ristorante = " + id_ristorante + " ORDER BY ruolo";
 		ResultSet rs;
 		try {
 			rs = db.getStatement().executeQuery(query);
