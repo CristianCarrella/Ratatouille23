@@ -6,10 +6,8 @@ To Do list:
 - Scrivere che abbiamo usato il CRUD
 
 In sospeso:
-- bug in ordina menu
 
+Errori:
 Errore 1: Le query di fireUser sono sbagliate/si possono fare meglio
-Errore 2: in android: la query di aggiornamento account può fallire ma si aggiornano le 
-informazioni sopra
-
-Errore 3: cache[???]
+Errore 3: cache[???] => forse risolto => probabilmente problema di memoria legato a molti oggetti 
+creati in dispensa

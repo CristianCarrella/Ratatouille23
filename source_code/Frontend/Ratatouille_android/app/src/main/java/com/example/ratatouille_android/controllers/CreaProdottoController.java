@@ -1,6 +1,7 @@
 package com.example.ratatouille_android.controllers;
 
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -160,6 +161,7 @@ public class CreaProdottoController {
         Float stato = Float.parseFloat(String.valueOf(quantita));
         Integer stato2 = stato.intValue();
         OkHttpClient client = new OkHttpClient();
+        Log.v("Prova", categoria);
         RequestBody formBody = new FormBody.Builder()
                 .add("idRistorante", String.valueOf(loggedUser.getIdRistorante()))
                 .add("nome", nomeProdotto)

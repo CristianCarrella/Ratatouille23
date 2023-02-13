@@ -21,6 +21,8 @@ RISOLTO:
 - Label di declassazione addetto alla sala era troppo piccola
 - Combobox gestione risorse ordinata per ruolo
 - Combobox gestione risorse update all'aggiornamento del ruolo
+- La query di aggiornamento account può fallire ma si aggiornano le informazioni sopra
+- fix [ancora da testare meglio] bug in ordina menu + update menu a momento
 
 
 

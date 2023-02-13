@@ -67,7 +67,8 @@ public class OrdinaMenuController {
 	private Integer pagesDiscovered = 1, numOfCategorie = 0;
 	private ArrayList<CategoriaMenu> queueCategoria = new ArrayList<CategoriaMenu>();
 	private Integer indexOfCategoria = 0;
-	private boolean backPressed = false, resetPressed = false;
+	private boolean backPressed = false, resetPressed = false, existsMenu = false;
+	private VBox menuVBox;
 	
 	
 	public void backToMenu() throws IOException {
@@ -98,34 +99,9 @@ public class OrdinaMenuController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(existAlreadyAnMenu(allPiattiOfResturant)) {
-			VBox menuVBox = new VBox();
-			menuVBox.setPrefWidth(250);
-			menuVBox.setMinWidth(180);
-			menuVBox.setMaxWidth(Double.MAX_VALUE);
-			Label spacingLabel = new Label();
-			menuVBox.getChildren().add(spacingLabel);
-			Label oldMenuLabel = new Label("MENU ATTUALE");
-			oldMenuLabel.setMaxWidth(Double.MAX_VALUE);
-			oldMenuLabel.setAlignment(Pos.CENTER);
-			menuVBox.getChildren().add(oldMenuLabel);
-			Collections.sort(allPiattiOfResturant, (o1, o2) -> o1.getPosizione().compareTo(o2.getPosizione()));
-			for(CategoriaMenu categoriaMenu : categorie) {
-				if(categoriaMenu.getPosizione() != 0) {
-					Label categoriaLabel = new Label(categoriaMenu.getNome());
-					categoriaLabel.setStyle("-fx-text-fill: #003F91");
-					menuVBox.getChildren().add(categoriaLabel);
-					for(Piatto piatto : allPiattiOfResturant) {
-						if(categoriaMenu.getIdCategoria() == piatto.getIdCategoria()) {
-							if(piatto.getPosizione() != 0) {
-								Label piattoLabel = new Label(piatto.getNome());
-								menuVBox.getChildren().add(piattoLabel);
-							}
-						}
-					}
-				}
-			}
-			hBoxLayout1.getChildren().add(menuVBox);
+		existsMenu = existAlreadyAnMenu(allPiattiOfResturant);
+		if(existsMenu) {
+			visualizzaMenuAttuale();
 		}
 		
 		for (CategoriaMenu categoriaMenu : categorieForUI) {
@@ -226,6 +202,7 @@ public class OrdinaMenuController {
 					if(vBox != null) {
 						vBox.getChildren().clear();
 						vBox = null;
+						categorieVBoxs.remove(vBox);
 						categorieForUI.add(actualCategoria);
 					}
 				}
@@ -241,6 +218,7 @@ public class OrdinaMenuController {
 		});
 		
 		applica.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
+			boolean success = true;
 			menuDriver.requestDeleteMenuSorting();
 			int posizioneCategoria = 1, posizionePiatto = 1;
 			for (VBox vBox : categorieVBoxs) {
@@ -249,21 +227,61 @@ public class OrdinaMenuController {
 					Label nomeCategoria = (Label) vBox.getChildren().get(0);
 					Integer idCategoria = getCategoriaIdFromNome(nomeCategoria.getText());
 					try {
-						menuDriver.requestUpdatePositionCategoria(idCategoria, posizioneCategoria);
+						success = success && menuDriver.requestUpdatePositionCategoria(idCategoria, posizioneCategoria);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					for(int i = 1; i < vBox.getChildren().size(); i++) {
 						Label nomePiatto = (Label) vBox.getChildren().get(i);
 						Integer idPiatto = getPiattoIdFromNome(nomePiatto.getText());
-						menuDriver.requestUpdatePositionInMenuPiatto(idPiatto, posizionePiatto);
+						success = success && menuDriver.requestUpdatePositionInMenuPiatto(idPiatto, posizionePiatto);
 						posizionePiatto++;
 					}
 				}
 				posizioneCategoria++;
 			}
+			if(success && existsMenu) {
+				hBoxLayout1.getChildren().remove(menuVBox);
+				try {
+					categorie = menuDriver.getCategorieRistoranteLoggedUserWihoutChangeUI();
+					allPiattiOfResturant = menuDriver.getAllPiattiOfMenu();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				visualizzaMenuAttuale();
+			}
 		});
+	}
+
+	private void visualizzaMenuAttuale() {
+		menuVBox = new VBox();
+		menuVBox.setPrefWidth(250);
+		menuVBox.setMinWidth(180);
+		menuVBox.setMaxWidth(Double.MAX_VALUE);
+		Label spacingLabel = new Label();
+		menuVBox.getChildren().add(spacingLabel);
+		Label oldMenuLabel = new Label("MENU ATTUALE");
+		oldMenuLabel.setMaxWidth(Double.MAX_VALUE);
+		oldMenuLabel.setAlignment(Pos.CENTER);
+		menuVBox.getChildren().add(oldMenuLabel);
+		Collections.sort(allPiattiOfResturant, (o1, o2) -> o1.getPosizione().compareTo(o2.getPosizione()));
+		
+		for(CategoriaMenu categoriaMenu : categorie) {
+			if(categoriaMenu.getPosizione() != 0) {
+				Label categoriaLabel = new Label(categoriaMenu.getNome());
+				categoriaLabel.setStyle("-fx-text-fill: #003F91");
+				menuVBox.getChildren().add(categoriaLabel);
+				for(Piatto piatto : allPiattiOfResturant) {
+					if(categoriaMenu.getIdCategoria() == piatto.getIdCategoria()) {
+						if(piatto.getPosizione() != 0) {
+							Label piattoLabel = new Label(piatto.getNome());
+							menuVBox.getChildren().add(piattoLabel);
+						}
+					}
+				}
+			}
+		}
+		hBoxLayout1.getChildren().add(menuVBox);
 	}
 
 	private Integer getCategoriaIdFromNome(String nomeInput) {

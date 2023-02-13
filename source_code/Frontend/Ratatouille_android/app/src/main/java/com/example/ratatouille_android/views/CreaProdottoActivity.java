@@ -81,6 +81,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 errorLableAutoCompilation.setText("");
+                String categoria = categoriaSpinner.getSelectedItem().toString();
                 String nomeProdotto = nomeInput2.getText().toString();
                 String descrizione = descrizioneInput.getText().toString();
                 String costo = costoInput.getText().toString();
@@ -89,7 +90,7 @@ public class CreaProdottoActivity extends AppCompatActivity {
                 if(nomeProdotto.equals("") || descrizione.equals("") || costo.equals("") || quantita.equals(""))
                     setErrorLableOnErrorFieldNotAllCompiled();
                 else
-                    creaProdottoController.salvaProdotto(nomeProdotto, descrizione, costo, quantita, CreaProdottoActivity.this.categoria, kgOrLt);
+                    creaProdottoController.salvaProdotto(nomeProdotto, descrizione, costo, quantita, categoria, kgOrLt);
             }
         };
 
