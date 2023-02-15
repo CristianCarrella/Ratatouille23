@@ -11,3 +11,23 @@ Errori:
 Errore 1: Le query di fireUser sono sbagliate/si possono fare meglio
 Errore 3: cache[???] => forse risolto => probabilmente problema di memoria legato a molti oggetti 
 creati in dispensa
+
+Glossario:
+TC = Test Case
+CE = Classe di Equivalenza
+MININT = Minimo valore di "int"
+MAXINT = Massimo valore di "int"
+DB = Database
+Null = Oggetto nullo
+idUtente = Valore identificativo di un utente
+idRistorante = Valore identificativo di un ristorante
+Node Path = Nodi percorsi
+GUI = Interfaccia grafica
+Exp = Esperienza
+Affordance = 
+Label = 
+ComboBox = 
+Shortcut = 
+MockUp = 
+Backend = 
+Frontend = 
