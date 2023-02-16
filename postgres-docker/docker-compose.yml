@@ -9,7 +9,10 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: admin
+      POSTGRES_DB: ratatouille
     volumes:
+      - ./sql/NewDb.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./sql/NewQueries.sql:/docker-entrypoint-initdb.d/fill_tables.sql
       - local_pgdata:/var/lib/postgresql/data
   pgadmin:
     image: dpage/pgadmin4
