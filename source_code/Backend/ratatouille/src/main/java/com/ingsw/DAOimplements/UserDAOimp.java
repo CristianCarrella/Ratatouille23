@@ -49,6 +49,7 @@ public class UserDAOimp implements UserDAOint {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();
 		password = convertInSha256(password);
+		System.out.println(password);
 		String query = "INSERT INTO ristorante(id_ristorante, nome, telefono, indirizzo, logo, nome_immagine, id_proprietario) VALUES (default, '" + nomeRistorante + "', NULL, NULL, NULL, '', NULL)";
 		Integer idUtente = 0, idRistorante = 0;
 		try {
@@ -279,17 +280,13 @@ public class UserDAOimp implements UserDAOint {
 			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
 			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;
 		}
-		if(ruoloInput.equals("addetto_cucina")) {
+
+		if(ruoloInput.equals("addetto_cucina") || ruoloInput.equals("addetto_sala")) {
 			query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente;
 			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
 			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;
 		}
-		if(ruoloInput.equals("addetto_sala")) {
-			query = "DELETE FROM cronologia_nascosti_avviso WHERE id_utente = " + idUtente;
-			query2 = "DELETE FROM cronologia_lettura_avviso WHERE id_utente = " + idUtente;
-			query3 = "DELETE FROM utente WHERE id_utente = " + idUtente;
-		}
-		
+
 		try {
 			db.getStatement().executeUpdate(query);
 			db.getStatement().executeUpdate(query2);

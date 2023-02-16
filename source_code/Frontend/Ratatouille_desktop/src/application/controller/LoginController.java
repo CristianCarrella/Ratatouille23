@@ -40,8 +40,8 @@ public class LoginController {
 	public LoginController() {	}
 
 	public void login(ActionEvent actionEvent) throws IOException {
-//		loggedUser = utenteDriver.requestLoginToServer(email.getText(), password.getText());
-		loggedUser = utenteDriver.requestLoginToServer("joy.bates@example.com", "password");
+		loggedUser = utenteDriver.requestLoginToServer(email.getText(), password.getText());
+//		loggedUser = utenteDriver.requestLoginToServer("joy.bates@example.com", "password");
 		if(loggedUser == null) {
 			errorLabel.setText("Email o password errata");
 			errorLabel.setTextFill(Color.RED);
