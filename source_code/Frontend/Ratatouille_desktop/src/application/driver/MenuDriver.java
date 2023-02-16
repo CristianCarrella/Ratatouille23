@@ -516,57 +516,60 @@ public class MenuDriver {
 	}
 	
 
-	public JSONObject autocompletamentoProdotto(String nomeProdotto, Integer resultIndex) {
-		String nome = nomeProdotto, categoria = null, descrizione = null, allergeni = null;
-		try {
-			HttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet("https://it.openfoodfacts.org/cgi/search.pl?search_terms=" + nomeProdotto + "&&json=true");
-			httpget.setHeader("Authorization", loggedUser.getToken());
-			
-			HttpResponse response = httpclient.execute(httpget);
-			HttpEntity entity = response.getEntity();
-			String json = EntityUtils.toString(response.getEntity());
-			JSONObject jsonObject1 = new JSONObject(json);
-			JSONArray nestedJsonA = jsonObject1.getJSONArray("products");
-			JSONObject jsonObject = nestedJsonA.getJSONObject(resultIndex);
-			JSONObject result = new JSONObject();
-			
+	public JSONObject autocompletamentoProdotto(String nomeProdotto, Integer resultIndex) throws Exception{
+		String nome = nomeProdotto, categoria = "Non trovata", descrizione = "Non trovata", allergeni = "";
+		HttpClient httpclient = HttpClients.createDefault();
+		HttpGet httpget = new HttpGet("https://it.openfoodfacts.org/cgi/search.pl?search_terms=" + nomeProdotto + "&&json=true");
+		httpget.setHeader("Authorization", loggedUser.getToken());
+		
+		HttpResponse response = httpclient.execute(httpget);
+		HttpEntity entity = response.getEntity();
+		String json = EntityUtils.toString(response.getEntity());
+		JSONObject jsonObject1 = new JSONObject(json);
+		JSONArray nestedJsonA = jsonObject1.getJSONArray("products");
+		JSONObject jsonObject = nestedJsonA.getJSONObject(resultIndex);
+		JSONObject result = new JSONObject();
+		
+		if(jsonObject.has("categories")) {
 			categoria = jsonObject.getString("categories");
-			categoria = categoria.substring(0, 28);
-			categoria = categoria.replaceAll("'", "");
-			categoria = categoria.replaceAll("-", "");
-			categoria = categoria.replaceAll(",", "");
-			if (jsonObject.has("generic_name_it")) {
-                nome = jsonObject.getString("generic_name_it");
-                if (nome.equals(""))
-                    nome = nomeProdotto;
-                nome = nome.replaceAll("'", "");
-            }
-			
-			if(jsonObject.has("quantity") && jsonObject.has("brands") && jsonObject.has("countries") && jsonObject.has("packaging")) {
-                descrizione = "Quantità: " + jsonObject.getString("quantity") + "\nBrands: " + jsonObject.getString("brands") + "\nPaesi di produzione: " + jsonObject.getString("countries") + "\nConfezionamento: " + jsonObject.getString("packaging");
-                descrizione = descrizione.replaceAll("'", " ");
-            }else{
-                descrizione = "Non trovata";
-            }
-			
-			if(jsonObject.has("allergens")) {
-				allergeni = jsonObject.getString("allergens");
+			if(categoria.length() >= 28) {
+				categoria = categoria.substring(0, 28);
+				categoria = categoria.replaceAll("'", "");
+				categoria = categoria.replaceAll("-", "");
+				categoria = categoria.replaceAll(",", "");
+//				if(!categoria.matches("[a-zA-Z]+")) {
+//					categoria = "Non trovata";
+//				}
+			}else {
+				categoria = "Non trovata";
 			}
-			
-			result.put("categoria", categoria);
-			result.put("nome", nome);
-			result.put("descrizione", descrizione);
-			result.put("allergeni", allergeni);
-			
-			return result;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.print("Errore nel parsing del JSON");
 
 		}
-		return null;
+		
+
+		if (jsonObject.has("generic_name_it")) {
+            nome = jsonObject.getString("generic_name_it");
+            if (nome.equals(""))
+                nome = nomeProdotto;
+            nome = nome.replaceAll("'", "");
+        }
+		
+		if(jsonObject.has("quantity") && jsonObject.has("brands") && jsonObject.has("countries") && jsonObject.has("packaging")) {
+            descrizione = "Quantità: " + jsonObject.getString("quantity") + "\nBrands: " + jsonObject.getString("brands") + "\nPaesi di produzione: " + jsonObject.getString("countries") + "\nConfezionamento: " + jsonObject.getString("packaging");
+            descrizione = descrizione.replaceAll("'", " ");
+        }
+		
+		if(jsonObject.has("allergens")) {
+			allergeni = jsonObject.getString("allergens");
+		}
+		
+		result.put("categoria", categoria);
+		result.put("nome", nome);
+		result.put("descrizione", descrizione);
+		result.put("allergeni", allergeni);
+		
+		return result;
+
 	}
 
 }

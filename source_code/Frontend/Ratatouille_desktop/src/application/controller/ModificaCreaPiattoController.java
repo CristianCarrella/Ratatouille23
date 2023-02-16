@@ -4,12 +4,16 @@ package application.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
+
+import javafx.scene.control.ProgressIndicator;
 
 import application.driver.MenuDriver;
 import application.model.CategoriaMenu;
 import application.model.Piatto;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +42,8 @@ public class ModificaCreaPiattoController {
 	Label errorLabel;
 	@FXML
 	Button btnSalvaCambiamenti, autocompletamentoBtn;
+	@FXML
+	ProgressIndicator progressBar;
 	
 	private Integer resultIndex = 0;
 	private Integer idPiatto = null;
@@ -106,20 +112,46 @@ public class ModificaCreaPiattoController {
 				
 				categoriaInput.getSelectionModel().select(findCategoriaOfPiatto(piatto.getIdCategoria()).getNome());
 			}
+			
 		} else {
 			autocompletamentoBtn.addEventFilter(ActionEvent.ACTION, MouseEvent -> {
-				JSONObject result = menuDriver.autocompletamentoProdotto(nomePiattoAuto.getText(), resultIndex);
-				if(result != null) {
-					nomePiattoInput.setText(result.getString("nome"));
-					allergeniInput.setText(result.getString("allergeni"));
-					descrizioneInput.setText(result.getString("descrizione"));
-					categoriaInput.getSelectionModel().select(result.getString("categoria"));
-					descrizioneInput.setWrapText(true);
-					autocompletamentoBtn.setText("Non sono soddisfatto del risultato");
-					autocompletamentoBtn.setStyle("-fx-background-color: #ffa500;");
+				if(!nomePiattoAuto.getText().isBlank()) {
+					errorLabel.setText("");
+					progressBar.setVisible(true);
+					Thread t = new Thread() {
+					    public void run() {
+							JSONObject result;
+							try {
+								result = menuDriver.autocompletamentoProdotto(nomePiattoAuto.getText(), resultIndex);
+								if(result != null) {
+									Platform.runLater(()->{
+										nomePiattoInput.setText(result.getString("nome"));
+										allergeniInput.setText(result.getString("allergeni"));
+										descrizioneInput.setText(result.getString("descrizione"));
+										categoriaInput.getItems().add(result.getString("categoria"));
+										categoriaInput.getSelectionModel().selectLast();
+										descrizioneInput.setWrapText(true);
+										autocompletamentoBtn.setText("Non sono soddisfatto del risultato");
+										autocompletamentoBtn.getStyleClass().add("buttonRounded1");
+										progressBar.setVisible(false);
+									});
+								}
+								resultIndex++;
+							} catch (Exception e) {
+								Platform.runLater(()->{errorLabel.setText("Errore");
+								errorLabel.setTextFill(Color.RED);
+								progressBar.setVisible(false);
+								});
+							}
+					    }
+					};
+					t.start();
+				}else {
+					errorLabel.setText("Inserisci un nome");
+					errorLabel.setTextFill(Color.RED);
 				}
-				resultIndex++;
 			});
+			
 			
 			
 		}

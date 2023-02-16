@@ -1,7 +1,4 @@
-To Do list:
 1. Studio usabilità
-2. Modificare tutte le ricorrenze dei metodi modificati dal CRUD
-
-- affordance attesa autocompletamento
-- nome bottone autocompletamento
 - Sistemare documento [aggiungere click ingrandimento foto]
+
+POWER POINT!!!
