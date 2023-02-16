@@ -83,6 +83,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         analytics.logEvent("InAccountFragment", bundle);
     }
 
+    private void firebaseLogAccountModified() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "accountModified");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "modified");
+        analytics.logEvent("accountModified", bundle);
+    }
 
     public boolean validate(String dateStr) {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -117,6 +123,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                     nomeField.setText("");
                     cognomeField.setText("");
                     dateField.setText("");
+                    firebaseLogAccountModified();
                 }else{
                     setErrorLableOnErrorNameOrSurname();
                 }

@@ -1,7 +1,6 @@
 To Do list:
-1. Scrivere che abbiamo usato il CRUD
-2. Studio usabilità
-3. Modificare tutte le ricorrenze dei metodi modificati dal CRUD
+1. Studio usabilità
+2. Modificare tutte le ricorrenze dei metodi modificati dal CRUD
 
 - affordance attesa autocompletamento
 - nome bottone autocompletamento

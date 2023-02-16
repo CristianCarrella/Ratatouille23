@@ -130,6 +130,7 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
                 layoutParams.height = 0;
                 avvisiNascosti.remove(avviso);
                 card.setLayoutParams(layoutParams);
+                firebaseLogNoticeHidden();
             }
         };
         hide_button.setOnClickListener(onClickListener);
@@ -138,6 +139,13 @@ public class AvvisiNascostiActivity extends AppCompatActivity {
         hide_button.setLayoutParams(layout_325);
         constraintLayout.addView(hide_button);
 
+    }
+
+    private void firebaseLogNoticeHidden() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "noticeSettedHidden");
+        bundle.putString(FirebaseAnalytics.Param.VALUE , "noticeHidden");
+        analytics.logEvent("noticeSettedHidden", bundle);
     }
 
     private void generateShowMessageCard(float factor, ConstraintLayout constraintLayout, String textMessage) {
