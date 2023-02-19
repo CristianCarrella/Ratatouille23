@@ -29,6 +29,7 @@ public class CreaProdottoController {
     private CreaProdottoActivity creaProdottoActivity;
     private User loggedUser;
     private Integer resultIndex = 0;
+    private String[] categorie = {"Frutta", "Verdura", "Carne", "Pesce", "Uova", "LatteDerivati", "CerealiDerivati", "Legumi", "Altro"};
     private String urlOpenFood = "https://it.openfoodfacts.org/cgi/search.pl?search_terms=";
     private String url = MainActivity.address + "/dispensa/newProduct";
 
@@ -124,6 +125,27 @@ public class CreaProdottoController {
         return kg_or_lt;
     }
 
+    private String changeCategoriaSignature(String categoria){
+        if(categorie[0].equals(categoria))
+            return "frutta";
+        if(categorie[1].equals(categoria))
+            return "verdura";
+        if(categorie[2].equals(categoria))
+            return "carne";
+        if(categorie[3].equals(categoria))
+            return "pesce";
+        if(categorie[4].equals(categoria))
+            return "uova";
+        if(categorie[5].equals(categoria))
+            return "latte_e_derivati";
+        if(categorie[6].equals(categoria))
+            return "cereali_e_derivati";
+        if(categorie[7].equals(categoria))
+            return "legumi";
+
+        return "altro";
+    }
+
     @NonNull
     private String getDescrizioneFromJson(JSONObject jsonObject) throws JSONException {
         String descrizione;
@@ -170,7 +192,7 @@ public class CreaProdottoController {
                 .add("prezzo", costo)
                 .add("quantita", quantita)
                 .add("unitaMisura", kgOrLt.toLowerCase(Locale.ROOT))
-                .add("categoria", categoria)
+                .add("categoria", changeCategoriaSignature(categoria))
                 .build();
         Request request = new Request.Builder()
                 .url(url)

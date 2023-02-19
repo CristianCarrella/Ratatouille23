@@ -1,5 +1,6 @@
 package application.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class OrdinaMenuController {
@@ -90,6 +92,7 @@ public class OrdinaMenuController {
 	@FXML
 	public void initialize(){
 		try {
+			errorLabel.setTextFill(Color.RED);
 			categoriaPrecedenteBtn.setDisable(true);
 			nomeCategoriaAttuale.setText("Categoria " + indexOfCategoria);
 			allPiattiOfResturant = menuDriver.getAllPiattiOfMenu();
@@ -139,7 +142,6 @@ public class OrdinaMenuController {
             if((savedStateLeft.size() == numOfCategorie - 2)) {
                 categoriaSuccessivaBtn.setDisable(true);
             }
-			categoriaPrecedenteBtn.setDisable(false);
 			resetBtn.setDisable(false);
 			errorLabel.setText("");
 			if(isSelectedSomethingInMainCombobox()) {

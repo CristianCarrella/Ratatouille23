@@ -417,7 +417,7 @@ public class MenuDriver {
 			requestparams.put("allergeni", allergeni);
 			requestparams.put("nomeSecondaLingua", nomeSecondaLingua);
 			requestparams.put("descrizioneSecondaLingua", descrizioneSecondaLingua);
-			httpput.setEntity(new StringEntity(requestparams.toString()));
+			httpput.setEntity(new StringEntity(requestparams.toString(), "UTF-8"));
 			
 			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
