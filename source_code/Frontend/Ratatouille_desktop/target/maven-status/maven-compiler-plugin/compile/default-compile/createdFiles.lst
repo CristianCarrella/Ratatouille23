@@ -2,6 +2,7 @@ application\controller\AvvisiController.class
 application\model\Utente.class
 application\Main.class
 application\controller\ModificaCreaPiattoController.class
+application\controller\ModificaCreaPiattoController$1.class
 application\controller\LoginController.class
 application\controller\RisorseUmaneController.class
 application\driver\AvvisiDriver.class

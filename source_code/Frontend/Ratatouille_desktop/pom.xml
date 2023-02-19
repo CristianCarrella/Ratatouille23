@@ -156,7 +156,7 @@
                         <transformers>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                 <manifestEntries>
-                                    <Main-Class>application.Main</Main-Class>
+                                    <Main-Class>application.Starter</Main-Class>
                                 </manifestEntries>
                             </transformer>
                         </transformers>
