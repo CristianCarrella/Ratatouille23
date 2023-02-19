@@ -81,7 +81,7 @@ public class LoginController {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
 		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 		stage.setWidth(954);
-		stage.setHeight(630);
+		stage.setHeight(680);
 		Scene scene = new Scene(root);
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		stage.setScene(scene);

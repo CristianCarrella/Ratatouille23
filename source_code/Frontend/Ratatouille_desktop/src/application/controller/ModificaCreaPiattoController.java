@@ -178,6 +178,7 @@ public class ModificaCreaPiattoController {
 	}
 	
 	private void fillComboBoxWithListCategorie(ComboBox<String> comboBox, List<CategoriaMenu> listCategoria) {
+		comboBox.getItems().add("Categoria");
 		for (CategoriaMenu categoriaMenu : listCategoria) {
 			comboBox.getItems().add(categoriaMenu.getNome());
 		}

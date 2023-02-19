@@ -224,6 +224,7 @@ public class MenuDAOimp implements MenuDAOint {
 	public boolean updatePlate(Integer idPiatto, Integer idRistorante, String categoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua) {
 		Integer idCategoria = getCategoryIdOfResturantFromCategoryName(idRistorante, categoria);
 		String query = "UPDATE elementi_menu SET id_categoria = " + idCategoria + ", nome = '" + nome + "', prezzo = " + prezzo + ", descrizione = '" + descrizione + "', allergeni = '" + allergeni + "', nome_seconda_lingua = '" + nomeSecondaLingua + "', descrizione_seconda_lingua = '" + descrizioneSecondaLingua + "'  WHERE id_elemento = " + idPiatto;
+		System.out.print(query);
 		try {
 			db.getStatement().executeUpdate(query);
 			return true;

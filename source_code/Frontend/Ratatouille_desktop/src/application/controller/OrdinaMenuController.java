@@ -96,8 +96,20 @@ public class OrdinaMenuController {
 			categorieForUI = menuDriver.getCategorieRistoranteLoggedUserWihoutChangeUI();
 			categorie = new ArrayList<>(categorieForUI);
 			numOfCategorie = categorieForUI.size();
+			if(numOfCategorie == 1){
+				categoriaSuccessivaBtn.setDisable(true);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if(allPiattiOfResturant.size() == 0) {
+			errorLabel.setText("Non puoi ordinare un menù vuoto");
+			comboboxInput.setDisable(true);
+			aggiungiBtn.setDisable(true);
+			categoriaPrecedenteBtn.setDisable(true);
+			categoriaSuccessivaBtn.setDisable(true);
+			applica.setDisable(true);
+			resetBtn.setDisable(true);
 		}
 		existsMenu = existAlreadyAnMenu(allPiattiOfResturant);
 		if(existsMenu) {
@@ -124,7 +136,7 @@ public class OrdinaMenuController {
 		categoriaSuccessivaBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
 			categoriaSuccessivaBtn.setDisable(false);
             categoriaPrecedenteBtn.setDisable(false);
-            if(savedStateLeft.size() == numOfCategorie - 2) {
+            if((savedStateLeft.size() == numOfCategorie - 2)) {
                 categoriaSuccessivaBtn.setDisable(true);
             }
 			categoriaPrecedenteBtn.setDisable(false);

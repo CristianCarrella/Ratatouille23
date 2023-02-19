@@ -3,8 +3,9 @@ package com.ingsw.ratatouille;
 public class Menu {
 	
 	private String nome, descrizione, allergeni, nomeSecondaLingua, descrizioneSecondaLingua, nomeCategoria;
-	private int idElemento, idRistorante, idCategoria, posizione;
-	private float prezzo;
+	private Integer idRistorante;
+	private int idElemento, idCategoria, posizione;
+	private Float prezzo;
 
 	public Menu(){}
 	public Menu(int idElemento, int idRistorante, int idCategoria, String nome, float prezzo, String descrizione, String allergeni, String nomeSecondaLingua, String descrizioneSecondaLingua, Integer posizione) {

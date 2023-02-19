@@ -81,7 +81,6 @@ public class MenuDriver {
 					
 				if(jsonObject.has("idElemento") && jsonObject.has("idRistorante")) {
 					Piatto a = new Piatto(menuController, jsonObject.getInt("idElemento"), jsonObject.getInt("idRistorante"), jsonObject.getInt("idCategoria"), jsonObject.getString("nome"), jsonObject.getFloat("prezzo"), jsonObject.getString("descrizione"), jsonObject.getString("allergeni"), nomeSecondaLingua, descrizioneSecondaLingua, jsonObject.getInt("posizione"));
-					System.out.print(a.getIdElemento());
 				}
 			}
 		}catch (JSONException e) {
@@ -407,7 +406,7 @@ public class MenuDriver {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPut httpput = new HttpPut(url + "/menu/updatePlate/" + idPiatto.toString());
 			httpput.setHeader("Authorization", loggedUser.getToken());
-			httpput.setHeader("Content-type", "application/json");
+			httpput.setHeader("Content-type", "application/json;charset=UTF-8");
 		
 			JSONObject requestparams = new JSONObject();
 			requestparams.put("idRistorante", String.valueOf(loggedUser.getIdRistorante()));

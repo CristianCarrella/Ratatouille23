@@ -230,7 +230,6 @@ public class UtenteDriver {
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
-			System.out.print(json);
 			JSONObject jsonObject = new JSONObject(json);
 			
 			return true;
