@@ -13,6 +13,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,6 +64,18 @@ public class PersonalizzazioneAttivitaController {
 	@FXML
 	public void initialize() {
 		mostraDatiRistorante();
+		telefonoInput.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		        if (!newValue.matches("\\d*")) {
+	        		telefonoInput.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		        if(newValue.length() > 12) {
+		        	telefonoInput.setText(newValue.substring(0, 12));
+		        }
+		    }
+		});
+		
 		try {
 			Image image = businessDriver.requestGetLogoToServer();
 			if (image != null) {
