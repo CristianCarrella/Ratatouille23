@@ -80,6 +80,8 @@ public class LoginController {
 	private void goToHomeScene(ActionEvent actionEvent) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/fxmls/Home.fxml"));
 		stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		stage.setWidth(954);
+		stage.setHeight(630);
 		Scene scene = new Scene(root);
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		stage.setScene(scene);
