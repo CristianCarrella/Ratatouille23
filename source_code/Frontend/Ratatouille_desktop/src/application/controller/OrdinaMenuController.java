@@ -127,7 +127,6 @@ public class OrdinaMenuController {
             if(savedStateLeft.size() == numOfCategorie - 2) {
                 categoriaSuccessivaBtn.setDisable(true);
             }
-			categoriaPrecedenteBtn.setDisable(false);
 			resetBtn.setDisable(false);
 			errorLabel.setText("");
 			if(isSelectedSomethingInMainCombobox()) {

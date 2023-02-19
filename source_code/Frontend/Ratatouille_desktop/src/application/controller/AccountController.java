@@ -3,6 +3,7 @@ package application.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import application.driver.UtenteDriver;
 import application.model.Utente;
@@ -58,23 +59,40 @@ public class AccountController {
 		nomeInput.setText(loggedUser.getNome());
 		cognomeInput.setText(loggedUser.getCognome());
 		mailInput.setText(loggedUser.getEmail());		
-	} 
+	}
+	
+	public boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+                              
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 	
 	public void modificaProfilo(ActionEvent actionEvent) {
 		String nome = nomeInput.getText().toString();
     	String email = mailInput.getText().toString();
     	String cognome = cognomeInput.getText().toString();
     	if(!(nome.isBlank() || cognome.isBlank() || email.isBlank())) {
-			if(!utenteDriver.requestModifyAccountToServer(nome, email, cognome)) {
-		    	errorLabel.setText("Errore");
-		    	errorLabel.setTextFill(Color.RED);
-			}else {
-				loggedUser.setNome(nome);
-				loggedUser.setCognome(cognome);
-				loggedUser.setEmail(email);
-		    	errorLabel.setText("Modifiche apportate con successo");
-		    	errorLabel.setTextFill(Color.GREEN);
-			}
+    		if(isValid(email)) {
+				if(!utenteDriver.requestModifyAccountToServer(nome, email, cognome)) {
+			    	errorLabel.setText("Errore");
+			    	errorLabel.setTextFill(Color.RED);
+				}else {
+					loggedUser.setNome(nome);
+					loggedUser.setCognome(cognome);
+					loggedUser.setEmail(email);
+			    	errorLabel.setText("Modifiche apportate con successo");
+			    	errorLabel.setTextFill(Color.GREEN);
+				}
+    		} else {
+    			errorLabel.setText("Errore nel formato della mail");
+    		}
 		}else {
 	    	errorLabel.setText("Compilare tutti i campi");
 	    	errorLabel.setTextFill(Color.RED);

@@ -407,7 +407,7 @@ public class MenuDriver {
 			HttpClient httpclient = HttpClients.createDefault();
 			HttpPut httpput = new HttpPut(url + "/menu/updatePlate/" + idPiatto.toString());
 			httpput.setHeader("Authorization", loggedUser.getToken());
-			httpput.setHeader("Content-type", "application/json");
+			httpput.setHeader("Content-type", "application/json;charset=UTF-8");
 		
 			JSONObject requestparams = new JSONObject();
 			requestparams.put("idRistorante", String.valueOf(loggedUser.getIdRistorante()));
@@ -418,7 +418,7 @@ public class MenuDriver {
 			requestparams.put("allergeni", allergeni);
 			requestparams.put("nomeSecondaLingua", nomeSecondaLingua);
 			requestparams.put("descrizioneSecondaLingua", descrizioneSecondaLingua);
-			httpput.setEntity(new StringEntity(requestparams.toString()));
+			httpput.setEntity(new StringEntity(requestparams.toString(), "UTF-8"));
 			
 			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();

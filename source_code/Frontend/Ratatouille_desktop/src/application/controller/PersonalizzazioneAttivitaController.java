@@ -91,6 +91,7 @@ public class PersonalizzazioneAttivitaController {
 		File selectedFile = fileChooser.showOpenDialog(stage);
 		
 		if (selectedFile != null) {
+			errorLabel.setText("");
 			fileName = selectedFile.getName();
 			System.out.println("cosedavedere" + selectedFile.toURI().toString());
 	        File file = new File(selectedFile.toURI().toString().replace("file:/", ""));	        
