@@ -46,6 +46,7 @@ public class SignUpController {
 	
     @FXML
     public void initialize() {
+    	dataNascitaField.setEditable(false);
     	login.addEventHandler(MouseEvent.MOUSE_CLICKED, MouseEvent -> {
         	try {
 				goToLoginScene();

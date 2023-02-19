@@ -55,7 +55,11 @@ public class RisorseUmaneController {
 	private SideBarController sideBar = new SideBarController();
 
 	public RisorseUmaneController() {}
-	
+    @FXML
+    public void initialize() {
+    	dataNascitaInput.setEditable(false);
+    }
+    
     private boolean isValid(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
