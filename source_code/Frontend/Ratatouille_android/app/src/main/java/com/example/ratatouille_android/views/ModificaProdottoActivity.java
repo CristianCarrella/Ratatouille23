@@ -59,7 +59,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         menobutton = findViewById(R.id.meno_button);
         eliminabutton = findViewById(R.id.elimina_button);
         backButton = findViewById(R.id.back_button2);
-        autocompilazionePagina(nomeProdottoSelezionato, descrizioneField, costoField, quantitaField, categoria);
+        autocompilazionePagina(nomeProdottoSelezionato, descrizioneField, costoField, quantitaField, categoria, kgOrlt);
 
         View.OnClickListener piuOnClickListener = new View.OnClickListener() {
             @Override
@@ -126,7 +126,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         analytics.logEvent("ProdottoModificato", bundle);
     }
 
-    private void autocompilazionePagina(TextView nomeProdottoSelezionato, EditText descrizioneField, EditText costoField, EditText quantitaField, Spinner categoria) {
+    private void autocompilazionePagina(TextView nomeProdottoSelezionato, EditText descrizioneField, EditText costoField, EditText quantitaField, Spinner categoria, ToggleButton kgOrlt) {
         nomeProdottoSelezionato.setText(nomeProdotto);
         Integer i = findIndexProductInDispensa();
 
@@ -135,6 +135,7 @@ public class ModificaProdottoActivity extends AppCompatActivity {
         descrizioneField.setText(getDispensa().get(i).getDescrizione());
         costoField.setText(getDispensa().get(i).getPrezzo().toString());
         quantitaField.setText(getDispensa().get(i).getQuantita().toString());
+        kgOrlt.setText(getDispensa().get(i).getUnitaMisura().toString());
         switch (getDispensa().get(i).getCategoria()){
             case "frutta":
                 categoria.setSelection(0);
