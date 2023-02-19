@@ -92,6 +92,7 @@ public class AccountController {
 				}
     		} else {
     			errorLabel.setText("Errore nel formato della mail");
+    			errorLabel.setTextFill(Color.RED);
     		}
 		}else {
 	    	errorLabel.setText("Compilare tutti i campi");
