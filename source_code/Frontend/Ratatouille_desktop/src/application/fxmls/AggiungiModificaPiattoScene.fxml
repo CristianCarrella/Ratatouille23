@@ -31,7 +31,7 @@
             </AnchorPane>
          </left>
          <center>
-            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="447.0" BorderPane.alignment="CENTER">
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="447.0" BorderPane.alignment="CENTER">
                <left>
                   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="118.0" prefWidth="209.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
@@ -64,7 +64,7 @@
                   </VBox>
                </right>
                <top>
-                  <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="451.0" spacing="5.0" BorderPane.alignment="CENTER">
+                  <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="448.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
                         <Label maxWidth="1.7976931348623157E308" style="-fx-alignment: center; -fx-text-fill: #003F91; -fx-font-weight: bold;" text="AGGIUNGI O MODIFICA PIATTO">
                            <VBox.margin>
@@ -77,7 +77,7 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <ProgressIndicator fx:id="progressBar" visible="false" />
+                        <ProgressIndicator fx:id="progressBar" prefHeight="173.0" prefWidth="110.0" visible="false" />
                      </children>
                      <BorderPane.margin>
                         <Insets bottom="100.0" />
@@ -85,14 +85,14 @@
                   </VBox>
                </top>
                <bottom>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" translateY="40.0" BorderPane.alignment="CENTER">
+                  <VBox prefHeight="71.0" prefWidth="447.0" spacing="5.0" translateY="40.0" BorderPane.alignment="CENTER">
                      <children>
                         <Label text="SECONDA LINGUA">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <BorderPane>
+                        <BorderPane prefHeight="57.0" prefWidth="447.0">
                            <left>
                               <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                  <children>
