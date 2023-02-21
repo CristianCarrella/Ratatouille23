@@ -30,7 +30,7 @@ public class DatabaseConnection{
 		String username = "user";
 		String password = "admin";
 		
-		String url = "jdbc:postgresql://ec2-35-180-116-122.eu-west-3.compute.amazonaws.com:54320/" + dbName;
+		String url = "jdbc:postgresql://35.180.61.81:54320/" + dbName;
 //		String url = "jdbc:postgresql://host.docker.internal:54320/" + dbName;
 		
 		Properties props = new Properties();
