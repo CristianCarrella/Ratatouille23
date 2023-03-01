@@ -132,6 +132,9 @@ public class RisorseUmaneController {
 		} catch (DateTimeParseException e) {
 			errorLabel.setText("Data di nascita non valida");
 			errorLabel.setTextFill(Color.RED);
+		} catch (NullPointerException e) {
+			errorLabel.setText("Data vuota");
+			errorLabel.setTextFill(Color.RED);
 		}
 	}
 	
