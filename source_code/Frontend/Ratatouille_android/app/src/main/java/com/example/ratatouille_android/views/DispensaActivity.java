@@ -135,7 +135,6 @@ public class DispensaActivity extends AppCompatActivity implements Observer {
             tr.addView(progressBar);
             tableLayout.addView(tr);
         }
-
     }
     
     @NonNull
