@@ -36,7 +36,7 @@ public class CustomInterceptor implements HandlerInterceptor {
 	private ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
 	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	final private String[] unsafeEndpoint = new String[] {"/login", "/verify", "/signup-admin"};
-	final private int TOKEN_EXPIRATION_DELAY = 2;
+	final private int TOKEN_EXPIRATION_DELAY = 10;
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
 		Runnable periodicTask = new Runnable() {
