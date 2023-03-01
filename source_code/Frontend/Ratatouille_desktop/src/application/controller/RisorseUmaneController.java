@@ -82,29 +82,45 @@ public class RisorseUmaneController {
 						errorLabel.setText("Dipendente inserito nel sistema");
 				    	errorLabel.setTextFill(Color.GREEN);
 						utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascita, "supervisore");
+						nomeInput.setText("");
+						cognomeInput.setText("");
+						emailInput.setText("");
+						passwordInput.setText("");
+						dataNascitaInput.setValue(null);
+						addettoCucinaRBtn.setSelected(false);
+						addettoSalaRBtn.setSelected(false);
+						supervisoreRBtn.setSelected(false);
 					}
 					if(addettoSalaRBtn.isSelected()) {
 						errorLabel.setText("Dipendente inserito nel sistema");
 				    	errorLabel.setTextFill(Color.GREEN);
 						utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascita, "addetto_sala");
+						nomeInput.setText("");
+						cognomeInput.setText("");
+						emailInput.setText("");
+						passwordInput.setText("");
+						dataNascitaInput.setValue(null);
+						addettoCucinaRBtn.setSelected(false);
+						addettoSalaRBtn.setSelected(false);
+						supervisoreRBtn.setSelected(false);
 					}
 					if(addettoCucinaRBtn.isSelected()) {
 						errorLabel.setText("Dipendente inserito nel sistema");
 				    	errorLabel.setTextFill(Color.GREEN);
 						utenteDriver.addNewEmployee(nomeInput.getText().toString(), cognomeInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), dataNascita, "addetto_cucina");
+						nomeInput.setText("");
+						cognomeInput.setText("");
+						emailInput.setText("");
+						passwordInput.setText("");
+						dataNascitaInput.setValue(null);
+						addettoCucinaRBtn.setSelected(false);
+						addettoSalaRBtn.setSelected(false);
+						supervisoreRBtn.setSelected(false);
 					}
 					if(!(supervisoreRBtn.isSelected() || addettoSalaRBtn.isSelected() || addettoCucinaRBtn.isSelected())) {
 						errorLabel.setText("Selezionare un ruolo per il dipendente");
 				    	errorLabel.setTextFill(Color.RED);
 					}
-					nomeInput.setText("");
-					cognomeInput.setText("");
-					emailInput.setText("");
-					passwordInput.setText("");
-					dataNascitaInput.setValue(null);
-					addettoCucinaRBtn.setSelected(false);
-					addettoSalaRBtn.setSelected(false);
-					supervisoreRBtn.setSelected(false);
 				}else {
 					errorLabel.setText("Formato email non valido");
 			    	errorLabel.setTextFill(Color.RED);
