@@ -34,7 +34,7 @@ public class CustomInterceptor implements HandlerInterceptor {
 	private ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
 	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	final private String[] unsafeEndpoint = new String[] {"/login", "/verify", "/signup-admin"};
-	final private int TOKEN_EXPIRATION_DELAY = 10;
+	final private int TOKEN_EXPIRATION_DELAY = 5;
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
 		Runnable periodicTask = new Runnable() {
@@ -50,11 +50,25 @@ public class CustomInterceptor implements HandlerInterceptor {
 	private void clearExpiredToken() {
 		System.out.println("Clearing expired token...");
 		for(LoggedUser loggedUser : loggedUsers){
-			if(!isValidToken(loggedUser.getToken())){
+			if(!isValidTokenWithoutExtendExpiration(loggedUser.getToken())){
 				System.out.println("Utente scaduto: " + loggedUser.getEmail() + " " + loggedUser.getToken());
 				loggedUsers.remove(loggedUser);
 			}
 		}
+	}
+
+	private boolean isValidTokenWithoutExtendExpiration(String token) {
+		for(LoggedUser u : loggedUsers) {
+			if(u.getToken().equals(token)) {
+				ZoneId z = ZoneId.of("Europe/Paris");
+				ZonedDateTime zdt = ZonedDateTime.now(z);
+				ZonedDateTime tk_timestamp = ZonedDateTime.parse(u.getTk_expiration_timestamp());
+				if(tk_timestamp.compareTo(zdt) > 0){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
