@@ -8,10 +8,12 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.juli.logging.Log;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -34,7 +36,7 @@ public class CustomInterceptor implements HandlerInterceptor {
 	private ArrayList<LoggedUser> loggedUsers = new ArrayList<LoggedUser>();
 	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	final private String[] unsafeEndpoint = new String[] {"/login", "/verify", "/signup-admin"};
-	final private int TOKEN_EXPIRATION_DELAY = 5;
+	final private int TOKEN_EXPIRATION_DELAY = 2;
 	@Autowired
 	CustomInterceptor(UserDAOimp userDao){
 		Runnable periodicTask = new Runnable() {
@@ -49,12 +51,15 @@ public class CustomInterceptor implements HandlerInterceptor {
 
 	private void clearExpiredToken() {
 		System.out.println("Clearing expired token...");
-		for(LoggedUser loggedUser : loggedUsers){
+		Iterator it = loggedUsers.iterator();
+		while(it.hasNext()){
+			LoggedUser loggedUser = (LoggedUser) it.next();
 			if(!isValidTokenWithoutExtendExpiration(loggedUser.getToken())){
 				System.out.println("Utente scaduto: " + loggedUser.getEmail() + " " + loggedUser.getToken());
-				loggedUsers.remove(loggedUser);
+				it.remove();
 			}
 		}
+
 	}
 
 	private boolean isValidTokenWithoutExtendExpiration(String token) {
