@@ -1,3 +1,0 @@
-user_engagement :quando un utente interagisce con l'app per una durata minima default -> 10 secondi
-screen view : numero di cambi di schermate
-
